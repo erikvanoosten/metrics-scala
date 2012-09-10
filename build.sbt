@@ -4,7 +4,7 @@ description <<= (scalaVersion) { v => "metrics-scala for " + v }
 
 organization := "nl.grons"
 
-version := "2.1.2"
+version := "2.1.3"
 
 scalaVersion := "2.9.2"
 

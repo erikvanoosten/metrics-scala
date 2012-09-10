@@ -13,9 +13,16 @@ Tests are stripped because they depend on a library that is for scala 2.9.1 only
 
 ## Available versions
 
+This version of Metrics-scala is build against scala `2.9.1`, `2.9.1-1` and `2.9.2`.
+It will be build for `2.10` as it becomes available.
+
+It has been compiled against Metrics core `2.1.2` and `2.1.3`.
+
+## Get it
+
 SBT:
 ```
-libraryDependencies += "nl.grons" %% "metrics-scala" % "2.1.2"
+libraryDependencies += "nl.grons" %% "metrics-scala" % "2.1.3"
 ```
 
 Maven:
@@ -26,12 +33,9 @@ Maven:
 <dependency>
     <groupId>nl.grons</groupId>
     <artifactId>metrics-scala_${scala.version}</artifactId>
-    <version>2.1.2</version>
+    <version>2.1.3</version>
 </dependency>
 ```
-
-This version of Metrics-scala is build for scala 2.9.1, 2.9.1-1 and 2.9.2.
-It will be build for 2.10 as it becomes available.
 
 
 License
