@@ -4,7 +4,7 @@ description <<= (scalaVersion) { v => "metrics-scala for " + v }
 
 organization := "nl.grons"
 
-version := "2.1.3"
+version := "2.1.4"
 
 scalaVersion := "2.9.2"
 
@@ -52,9 +52,23 @@ pomExtra := (
       <timezone>-8</timezone>
     </developer>
     <developer>
-      <id>erikvanoosten</id>
       <name>Erik van Oosten</name>
       <url>http://day-to-day-stuff.blogspot.com/</url>
     </developer>
   </developers>
 )
+
+osgiSettings
+
+OsgiKeys.importPackage := Seq(
+  """com.yammer.metrics;version="[2.1,3)"""",
+  """com.yammer.metrics.core;version="[2.1,3)"""",
+  """com.yammer.metrics.stats;version="[2.1,3)"""",
+  "scala",
+  "scala.reflect")
+
+OsgiKeys.exportPackage := Seq("com.yammer.metrics.scala")
+
+OsgiKeys.privatePackage := Seq()
+
+OsgiKeys.additionalHeaders := Map("-removeheaders" -> "Include-Resource")
