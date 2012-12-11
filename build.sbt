@@ -4,7 +4,7 @@ description <<= (scalaVersion) { v => "metrics-scala for " + v }
 
 organization := "nl.grons"
 
-version := "2.1.5"
+version := "2.2.0"
 
 scalaVersion := "2.9.2"
 
@@ -58,17 +58,17 @@ pomExtra := (
   </developers>
 )
 
-osgiSettings
-
-OsgiKeys.importPackage := Seq(
-  """com.yammer.metrics;version="[2.1,3)"""",
-  """com.yammer.metrics.core;version="[2.1,3)"""",
-  """com.yammer.metrics.stats;version="[2.1,3)"""",
-  "scala",
-  "scala.reflect")
-
-OsgiKeys.exportPackage := Seq("com.yammer.metrics.scala")
-
-OsgiKeys.privatePackage := Seq()
-
-OsgiKeys.additionalHeaders := Map("-removeheaders" -> "Include-Resource")
+// osgiSettings
+//
+// OsgiKeys.importPackage := Seq(
+//   """com.yammer.metrics;version="[2.1,3)"""",
+//   """com.yammer.metrics.core;version="[2.1,3)"""",
+//   """com.yammer.metrics.stats;version="[2.1,3)"""",
+//   "scala",
+//   "scala.reflect")
+//
+// OsgiKeys.exportPackage := Seq("com.yammer.metrics.scala")
+//
+// OsgiKeys.privatePackage := Seq()
+//
+// OsgiKeys.additionalHeaders := Map("-removeheaders" -> "Include-Resource")

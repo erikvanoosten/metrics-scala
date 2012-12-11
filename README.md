@@ -16,15 +16,15 @@ Tests are stripped because they depend on a library that is for scala 2.9.1 only
 This version of Metrics-scala is build against scala `2.9.1`, `2.9.1-1` and `2.9.2`.
 It will be build for `2.10` as it becomes available.
 
-It has been compiled against Metrics core `2.1.2`, `2.1.3` and `2.1.4`.
+Metrics-scala has been compiled against Metrics core `2.1.2`, `2.1.3`, `2.1.4`, `2.1.5` and `2.2.0`.
 
-Notice that version 2.1.4 is the only version that supports OSGI.
+Only versions 2.1.4 and 2.1.5 support OSGI.
 
 ## Get it
 
 SBT:
 ```
-libraryDependencies += "nl.grons" %% "metrics-scala" % "2.1.4"
+libraryDependencies += "nl.grons" %% "metrics-scala" % "2.2.0"
 ```
 
 Maven:
@@ -35,9 +35,12 @@ Maven:
 <dependency>
     <groupId>nl.grons</groupId>
     <artifactId>metrics-scala_${scala.version}</artifactId>
-    <version>2.1.4</version>
+    <version>2.2.0</version>
 </dependency>
 ```
+
+Note: If you depend on JMX: 2.2.0 has a small [bug](https://github.com/codahale/metrics/issues/318) that makes
+it inconvenient to use JMX.
 
 
 License
