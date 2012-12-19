@@ -13,12 +13,65 @@ Tests are stripped because they depend on a library that is for scala 2.9.1 only
 
 ## Available versions
 
-This version of Metrics-scala is build against scala `2.9.1`, `2.9.1-1` and `2.9.2`.
-It will be build for `2.10` as it becomes available.
+Please consult the table below to see which versions of metrics-scala are available for
+which scala versions.
 
-Metrics-scala has been compiled against Metrics core `2.1.2`, `2.1.3`, `2.1.4`, `2.1.5` and `2.2.0`.
+Not that only the versions 2.1.4 and 2.1.5 support OSGI.
 
-Only versions 2.1.4 and 2.1.5 support OSGI.
+<table border="0" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td colspan="4" rowspan="1" valign="top">Scala version</td>
+    </tr>
+    <tr>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">2.9.1</td>
+      <td valign="top">2.9.1-1</td>
+      <td valign="top">2.9.2</td>
+      <td valign="top">2.10.0-RC1</td>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="5" valign="top">Metrics<br>version</td>
+      <td valign="top">2.1.2</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+    </tr>
+    <tr>
+      <td valign="top">2.1.3</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+    </tr>
+    <tr>
+      <td valign="top">2.1.4</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+    </tr>
+    <tr>
+      <td valign="top">2.1.5</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+    </tr>
+    <tr>
+      <td valign="top">2.2.0</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+    </tr>
+  </tbody>
+</table>
+
 
 ## Get it
 

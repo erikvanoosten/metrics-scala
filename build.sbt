@@ -6,9 +6,9 @@ organization := "nl.grons"
 
 version := "2.2.0"
 
-scalaVersion := "2.9.2"
+scalaVersion := "2.10.0-RC1"
 
-crossScalaVersions := Seq("2.9.1", "2.9.1-1", "2.9.2" /*, "2.10.0" */)
+// crossScalaVersions := Seq("2.9.1", "2.9.1-1", "2.9.2" /*, "2.10.0" */)
 
 resolvers ++= Seq(
   "Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository",
