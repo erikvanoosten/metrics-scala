@@ -72,6 +72,9 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
   </tbody>
 </table>
 
+If you need another version mix please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), or
+sent an email to the [metrics mailing list](http://groups.google.com/group/metrics-user).
+
 
 ## Get it
 
