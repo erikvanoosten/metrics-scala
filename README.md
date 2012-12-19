@@ -16,7 +16,7 @@ Tests are stripped because they depend on a library that is for scala 2.9.1 only
 Please consult the table below to see which versions of metrics-scala are available for
 which scala versions.
 
-Not that only the versions 2.1.4 and 2.1.5 support OSGI.
+Note that only the versions 2.1.4 and 2.1.5 support OSGI.
 
 <table border="0" cellpadding="2" cellspacing="2">
   <tbody>
