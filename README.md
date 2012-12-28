@@ -23,7 +23,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
     <tr>
       <td valign="top"></td>
       <td valign="top"></td>
-      <td colspan="4" rowspan="1" valign="top">Scala version</td>
+      <td colspan="5" rowspan="1" valign="top">Scala version</td>
     </tr>
     <tr>
       <td valign="top"></td>
@@ -32,6 +32,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">2.9.1-1</td>
       <td valign="top">2.9.2</td>
       <td valign="top">2.10.0-RC1</td>
+      <td valign="top">2.10.0</td>
     </tr>
     <tr>
       <td colspan="1" rowspan="5" valign="top">Metrics<br>version</td>
@@ -40,12 +41,14 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top">2.1.3</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
     </tr>
     <tr>
@@ -54,6 +57,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top">2.1.5</td>
@@ -61,9 +65,11 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
+      <td valign="top">✓</td>
     </tr>
     <tr>
       <td valign="top">2.2.0</td>
+      <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -86,7 +92,7 @@ libraryDependencies += "nl.grons" %% "metrics-scala" % "2.2.0"
 Maven:
 ```
 <properties>
-    <scala.version>2.9.2</scala.version>
+    <scala.version>2.10.0</scala.version>
 </properties>
 <dependency>
     <groupId>nl.grons</groupId>
