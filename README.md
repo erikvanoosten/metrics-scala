@@ -32,7 +32,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">2.9.1-1</td>
       <td valign="top">2.9.2</td>
       <td valign="top">2.10.0-RC1</td>
-      <td valign="top">2.10.0</td>
+      <td valign="top">2.10.x</td>
     </tr>
     <tr>
       <td colspan="1" rowspan="5" valign="top">Metrics<br>version</td>
@@ -93,13 +93,16 @@ Maven:
 ```
 <properties>
     <scala.version>2.10.0</scala.version>
+    <scala.dep.version>2.10</scala.dep.version>
 </properties>
 <dependency>
     <groupId>nl.grons</groupId>
-    <artifactId>metrics-scala_${scala.version}</artifactId>
+    <artifactId>metrics-scala_${scala.dep.version}</artifactId>
     <version>2.2.0</version>
 </dependency>
 ```
+
+Note: For scala versions before 2.10, you need to use the full scala version; e.g. `metrics-scala_2.9.1-1`.
 
 Note: If you depend on JMX: 2.2.0 has a small [bug](https://github.com/codahale/metrics/issues/318) that makes
 it inconvenient to use JMX.
