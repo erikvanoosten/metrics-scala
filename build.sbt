@@ -1,14 +1,14 @@
 name := "metrics-scala"
 
-description <<= (scalaVersion) { v => "metrics-scala for " + v }
+description <<= (crossVersion) { v => "metrics-scala for " + v }
 
 organization := "nl.grons"
 
 version := "2.2.0"
 
-scalaVersion := "2.10.0"
+scalaVersion := "2.9.3"
 
-crossScalaVersions := Seq("2.9.1", "2.9.1-1", "2.9.2", "2.10.0")
+crossScalaVersions := Seq("2.9.1", "2.9.1-1", "2.9.2", "2.9.3", "2.10.0")
 
 crossVersion := CrossVersion.binary
 
