@@ -23,7 +23,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
     <tr>
       <td valign="top"></td>
       <td valign="top"></td>
-      <td colspan="5" rowspan="1" valign="top">Scala version</td>
+      <td colspan="6" rowspan="1" valign="top">Scala version</td>
     </tr>
     <tr>
       <td valign="top"></td>
