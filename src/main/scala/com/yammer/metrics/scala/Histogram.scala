@@ -1,14 +1,19 @@
 package com.yammer.metrics.scala
 
-import collection.JavaConversions._
-import java.io.File
+object Histogram {
+  def apply(metric: com.codahale.metrics.Histogram) = new Histogram(metric)
+  def unapply(metric: Histogram) = Option(metric.metric)
+  
+  implicit def javaHistogram2ScalaHistogram(metric: com.codahale.metrics.Histogram) = apply(metric)
+  implicit def scalaHistogram2JavaHistogram(metric: Histogram) = metric.metric
+}
 
 /**
  * A Scala façade class for HistogramMetric.
  *
  * @see HistogramMetric
  */
-class Histogram(metric: com.yammer.metrics.core.Histogram) {
+class Histogram(private val metric: com.codahale.metrics.Histogram) {
 
   /**
    * Adds the recorded value to the histogram sample.
@@ -23,36 +28,38 @@ class Histogram(metric: com.yammer.metrics.core.Histogram) {
   def +=(value: Int) {
     metric.update(value)
   }
+  
+  /**
+   * Adds one to the histogram sample.
+   */
+  def ++ {
+    metric.update(1)
+  }
 
   /**
    * Returns the number of values recorded.
    */
-  def count = metric.count
-
-  /**
-   * Clears all recorded values.
-   */
-  def clear() { metric.clear() }
+  def count = metric.getCount()
 
   /**
    * Returns the largest recorded value.
    */
-  def max = metric.max
+  def max = snapshot.getMax()
 
   /**
    * Returns the smallest recorded value.
    */
-  def min = metric.min
+  def min = snapshot.getMin()
 
   /**
    * Returns the arithmetic mean of all recorded values.
    */
-  def mean = metric.mean
+  def mean = snapshot.getMean()
 
   /**
    * Returns the standard deviation of all recorded values.
    */
-  def stdDev = metric.stdDev
+  def stdDev = snapshot.getStdDev()
 
   /**
    * Returns a snapshot of the values in the histogram's sample.

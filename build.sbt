@@ -4,7 +4,7 @@ description <<= (crossVersion) { v => "metrics-scala for " + v }
 
 organization := "nl.grons"
 
-version := "2.2.0"
+version := "3.0.0"
 
 scalaVersion := "2.9.3"
 
@@ -17,7 +17,7 @@ resolvers ++= Seq(
   "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
 )
 
-libraryDependencies <+= (version) { v => "com.yammer.metrics" % "metrics-core" % v }
+libraryDependencies <+= (version) { v => "com.codahale.metrics" % "metrics-core" % v }
 
 javacOptions ++= Seq("-Xmx512m", "-Xms128m", "-Xss10m")
 
