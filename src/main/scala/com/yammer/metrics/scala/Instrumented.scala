@@ -1,11 +1,12 @@
 package com.yammer.metrics.scala
 
-import com.yammer.metrics.Metrics
+import com.codahale.metrics.MetricRegistry
 
 /**
- * The mixin trait for creating a class which is instrumented with metrics.
+ * The base class for creating a class which is instrumented with metrics.
  */
 trait Instrumented {
+  val registry: MetricRegistry
   private lazy val metricsGroup = new MetricsGroup(getClass, metricsRegistry)
 
   /**
@@ -16,6 +17,6 @@ trait Instrumented {
   /**
    * Returns the MetricsRegistry for the class.
    */
-  def metricsRegistry = Metrics.defaultRegistry()
+  def metricsRegistry = registry
 }
 
