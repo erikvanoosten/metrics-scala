@@ -3,13 +3,32 @@ Metrics-Scala
 
 *Capturing JVM- and application-level metrics. So you know what's going on.*
 
-For more information, please see [the documentation](http://metrics.codahale.com).
+This is the Scala API for Coda Hale's [Metrics](https://github.com/codahale/metrics) library. Initially this
+started out as a line for line copy of the Metrics-scala module, but then released for multiple
+scala versions. Metrics dropped the scala module in version 3.0.0 and this project continued separately.
+Older releases are still available and will be build for newer Scala versions upon request.
 
-This is a line for line copy of the Metrics-scala module of
-[Metrics](https://github.com/codahale/metrics) released for multiple
-scala versions.
+## Usage
 
-Tests are stripped because they depend on a library that is for scala 2.9.1 only.
+Metrics-scala provides the ``Instrumented`` trait for Scala 2.9.1 applications:
+
+```scala
+import nl.grons.metrics.scala.Instrumented
+
+class Example(db: Database) extends Instrumented {
+  private val loading = metrics.timer("loading")
+
+  def loadStuff(): Seq[Row] = loading.time {
+    db.fetchRows()
+  }
+}
+```
+
+There are Scala wrappers for each metric type: `gauge`, `counter`, `histogram`, `meter` and `timer`.
+
+More advanced usages are in the wiki (TODO!).
+
+For more information on Metrics, please see [the documentation](http://metrics.codahale.com).
 
 ## Available versions
 
@@ -117,6 +136,7 @@ it inconvenient to use JMX.
 License
 -------
 
-Copyright (c) 2010-2012 Coda Hale, Yammer.com
+Copyright (c) 2010-2012 Coda Hale, Yammer.com (before 3.0.0)
+Copyright (c) 2013 Erik van Oosten (3.0.0 and later)
 
 Published under Apache Software License 2.0, see LICENSE

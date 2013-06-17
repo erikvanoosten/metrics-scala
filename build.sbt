@@ -8,7 +8,7 @@ version := "3.0.0"
 
 scalaVersion := "2.10.0"
 
-crossScalaVersions := Seq("2.9.1", "2.9.1-1", "2.9.2", "2.9.3", "2.10.0", "2.10.1", "2.10.2")
+crossScalaVersions := Seq("2.9.1", "2.9.1-1", "2.9.2", "2.9.3", "2.10.0")
 
 crossVersion := CrossVersion.binary
 
@@ -17,13 +17,12 @@ resolvers ++= Seq(
   "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
 )
 
-libraryDependencies <+= (version) { v => "com.codahale.metrics" % "metrics-core" % v }
-
-libraryDependencies += "junit" % "junit" % "4.11" % "test"
-
-libraryDependencies += "org.scalatest" %% "scalatest" % "1.9.1" % "test"
-
-libraryDependencies += "org.mockito" % "mockito-all" % "1.9.5" % "test"
+libraryDependencies <++= (version) { v => Seq(
+  "com.codahale.metrics" % "metrics-core" % v,
+  "junit" % "junit" % "4.11" % "test",
+  "org.scalatest" %% "scalatest" % "1.9.1" % "test",
+  "org.mockito" % "mockito-all" % "1.9.5" % "test"
+)}
 
 javacOptions ++= Seq("-Xmx512m", "-Xms128m", "-Xss10m")
 
@@ -54,11 +53,6 @@ pomExtra := (
     <connection>scm:git:git@github.com:erikvanoosten/metrics-scala.git</connection>
   </scm>
   <developers>
-    <developer>
-      <name>Coda Hale</name>
-      <email>coda.hale@gmail.com</email>
-      <timezone>-8</timezone>
-    </developer>
     <developer>
       <name>Erik van Oosten</name>
       <url>http://day-to-day-stuff.blogspot.com/</url>

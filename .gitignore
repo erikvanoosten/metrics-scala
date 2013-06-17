@@ -1,7 +1,6 @@
 .idea/
 target/
 .idea_modules/
-
 .classpath
 .project
 .settings/

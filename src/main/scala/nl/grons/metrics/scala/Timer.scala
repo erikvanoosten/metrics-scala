@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2013-2013 Erik van Oosten
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package nl.grons.metrics.scala
 
 import java.util.concurrent.TimeUnit
@@ -35,58 +51,58 @@ class Timer(private val metric: CHTimer) {
   }
 
   /**
-   * Returns a timing [[com.metrics.yammer.core.TimerContext]],
+   * A timing [[com.metrics.yammer.core.TimerContext]],
    * which measures an elapsed time in nanoseconds.
    */
   def timerContext() = metric.time()
 
   /**
-   * Returns the number of durations recorded.
+   * The number of durations recorded.
    */
   def count = metric.getCount
 
   /**
-   * Returns the longest recorded duration.
+   * The longest recorded duration.
    */
   def max = snapshot.getMax
 
   /**
-   * Returns the shortest recorded duration.
+   * The shortest recorded duration.
    */
   def min = snapshot.getMin
 
   /**
-   * Returns the arithmetic mean of all recorded durations.
+   * The arithmetic mean of all recorded durations.
    */
   def mean = snapshot.getMean
 
   /**
-   * Returns the standard deviation of all recorded durations.
+   * The standard deviation of all recorded durations.
    */
   def stdDev = snapshot.getStdDev
 
   /**
-   * Returns a snapshot of the values in the timer's sample.
+   * A snapshot of the values in the timer's sample.
    */
   def snapshot = metric.getSnapshot
 
   /**
-   * Returns the fifteen-minute rate of timings.
+   * The fifteen-minute rate of timings.
    */
   def fifteenMinuteRate = metric.getFifteenMinuteRate
 
   /**
-   * Returns the five-minute rate of timings.
+   * The five-minute rate of timings.
    */
   def fiveMinuteRate = metric.getFiveMinuteRate
 
   /**
-   * Returns the mean rate of timings.
+   * The mean rate of timings.
    */
   def meanRate = metric.getMeanRate
 
   /**
-   * Returns the one-minute rate of timings.
+   * The one-minute rate of timings.
    */
   def oneMinuteRate = metric.getOneMinuteRate
 }
