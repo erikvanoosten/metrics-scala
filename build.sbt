@@ -6,7 +6,7 @@ organization := "nl.grons"
 
 version := "3.0.0"
 
-scalaVersion := "2.9.3"
+scalaVersion := "2.10.0"
 
 crossScalaVersions := Seq("2.9.1", "2.9.1-1", "2.9.2", "2.9.3", "2.10.0")
 
@@ -18,6 +18,12 @@ resolvers ++= Seq(
 )
 
 libraryDependencies <+= (version) { v => "com.codahale.metrics" % "metrics-core" % v }
+
+libraryDependencies += "junit" % "junit" % "4.11" % "test"
+
+libraryDependencies += "org.scalatest" %% "scalatest" % "1.9.1" % "test"
+
+libraryDependencies += "org.mockito" % "mockito-all" % "1.9.5" % "test"
 
 javacOptions ++= Seq("-Xmx512m", "-Xms128m", "-Xss10m")
 

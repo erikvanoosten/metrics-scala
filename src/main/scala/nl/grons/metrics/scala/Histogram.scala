@@ -1,10 +1,12 @@
-package com.yammer.metrics.scala
+package nl.grons.metrics.scala
+
+import com.codahale.metrics.{Histogram => CHHistogram}
 
 object Histogram {
-  def apply(metric: com.codahale.metrics.Histogram) = new Histogram(metric)
+  def apply(metric: CHHistogram) = new Histogram(metric)
   def unapply(metric: Histogram) = Option(metric.metric)
   
-  implicit def javaHistogram2ScalaHistogram(metric: com.codahale.metrics.Histogram) = apply(metric)
+  implicit def javaHistogram2ScalaHistogram(metric: CHHistogram) = apply(metric)
   implicit def scalaHistogram2JavaHistogram(metric: Histogram) = metric.metric
 }
 
@@ -13,7 +15,7 @@ object Histogram {
  *
  * @see HistogramMetric
  */
-class Histogram(private val metric: com.codahale.metrics.Histogram) {
+class Histogram(private val metric: CHHistogram) {
 
   /**
    * Adds the recorded value to the histogram sample.
