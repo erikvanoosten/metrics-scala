@@ -16,7 +16,7 @@ Metrics-scala provides the ``Instrumented`` trait for Scala applications:
 
 ```scala
 import nl.grons.metrics.scala.Instrumented
-// import com.codahale.metrics.scala.Instrumented   <-- versions 2.2.2 and earlier
+// import com.codahale.metrics.scala.Instrumented   <-- versions 2.x
 
 class Example(db: Database) extends Instrumented {
   private val loading = metrics.timer("loading")
