@@ -19,8 +19,8 @@ class MetricsConfigurationSpec extends FunSpec with MockitoSugar with ShouldMatc
     val histogram:Histogram = histogram("histo")
     val meter:Meter = meter("meter",Some("testscope"))
     
-    def waitFor1Ms = timer.time {
-      Thread.sleep(1L)
+    def waitFor100Ms = timer.time {
+      Thread.sleep(100L)
     }
     
     def value = 42
@@ -37,8 +37,8 @@ class MetricsConfigurationSpec extends FunSpec with MockitoSugar with ShouldMatc
     val underTest = new UnderTest
     
     it("defines a timer") {
-      underTest.waitFor1Ms
-      underTest.timer.min should be (1000000L plusOrMinus 200000L)
+      underTest.waitFor100Ms
+      underTest.timer.min should be (100000000L plusOrMinus 20000000L)
     }
     
     it("defines a gauge") {
