@@ -3,10 +3,12 @@ Metrics-Scala
 
 *Capturing JVM- and application-level metrics. So you know what's going on.*
 
-This is the Scala API for Coda Hale's [Metrics](https://github.com/codahale/metrics) library. Initially this
-started out as a line for line copy of the Metrics-scala module, but then released for multiple
+This is the Scala API for Coda Hale's [Metrics](https://github.com/codahale/metrics) library.
+
+Initially this project started out as a line for line copy of the Metrics-scala module, released for multiple
 scala versions. Metrics dropped the scala module in version 3.0.0 and this project continued separately.
-Older releases are still available and will be build for newer Scala versions upon request.
+
+The 3.0.0 version is currently in development.
 
 ## Usage
 
@@ -14,6 +16,7 @@ Metrics-scala provides the ``Instrumented`` trait for Scala applications:
 
 ```scala
 import nl.grons.metrics.scala.Instrumented
+// import com.codahale.metrics.scala.Instrumented   <-- versions 2.2.2 and earlier
 
 class Example(db: Database) extends Instrumented {
   private val loading = metrics.timer("loading")
@@ -32,8 +35,7 @@ For more information on Metrics, please see [the documentation](http://metrics.c
 
 ## Available versions
 
-Please consult the table below to see which versions of metrics-scala are available for
-which scala versions.
+Please consult the table below to see which versions of metrics-scala are available for which scala versions.
 
 Note that only the versions 2.1.4 and 2.1.5 support OSGI.
 
