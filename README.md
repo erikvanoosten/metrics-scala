@@ -10,7 +10,7 @@ Older releases are still available and will be build for newer Scala versions up
 
 ## Usage
 
-Metrics-scala provides the ``Instrumented`` trait for Scala 2.9.1 applications:
+Metrics-scala provides the ``Instrumented`` trait for Scala applications:
 
 ```scala
 import nl.grons.metrics.scala.Instrumented
