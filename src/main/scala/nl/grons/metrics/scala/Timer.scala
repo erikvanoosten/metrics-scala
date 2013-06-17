@@ -1,19 +1,20 @@
-package com.yammer.metrics.scala
+package nl.grons.metrics.scala
 
 import java.util.concurrent.TimeUnit
+import com.codahale.metrics.{Timer => CHTimer}
 
 object Timer {
-  def apply(metric: com.codahale.metrics.Timer) = new Timer(metric)
+  def apply(metric: CHTimer) = new Timer(metric)
   def unapply(metric: Timer) = Option(metric.metric)
   
-  implicit def javaTimer2ScalaTimer(metric: com.codahale.metrics.Timer) = apply(metric)
+  implicit def javaTimer2ScalaTimer(metric: CHTimer) = apply(metric)
   implicit def scalaTimer2JavaTimer(metric: Timer) = metric.metric
 }
 
 /**
  * A Scala façade class for Timer.
  */
-class Timer(private val metric: com.codahale.metrics.Timer) {
+class Timer(private val metric: CHTimer) {
   /**
    * Runs f, recording its duration, and returns the result of f.
    */

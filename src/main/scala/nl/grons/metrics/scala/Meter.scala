@@ -1,17 +1,33 @@
-package com.yammer.metrics.scala
+package nl.grons.metrics.scala
+
+import com.codahale.metrics.{Meter => CHMeter}
 
 object Meter {
-  def apply(metric: com.codahale.metrics.Meter) = new Meter(metric)
+  def apply(metric: CHMeter) = new Meter(metric)
   def unapply(metric: Meter) = Option(metric.metric)
   
-  implicit def javaMeter2ScalaMeter(metric: com.codahale.metrics.Meter) = apply(metric)
+  implicit def javaMeter2ScalaMeter(metric: CHMeter) = apply(metric)
   implicit def scalaMeter2JavaMeter(metric: Meter) = metric.metric
 }
 
 /**
  * A Scala façade class for Meter.
  */
-class Meter(private val metric: com.codahale.metrics.Meter) {
+class Meter(private val metric: CHMeter) {
+  
+  /**
+   * Increments meter on exception
+   */
+  def exceptionMeter[A](f: => A):A = {
+    try {
+      f
+    } catch {
+      case e : Throwable => { 
+    	  metric.mark()
+    	  throw e
+      }
+    }
+  }
 
   /**
    * Marks the occurrence of an event.
