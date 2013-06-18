@@ -57,6 +57,10 @@ pomExtra := (
       <name>Erik van Oosten</name>
       <url>http://day-to-day-stuff.blogspot.com/</url>
     </developer>
+    <developer>
+      <name>Brian Scully</name>
+      <url>https://github.com/scullxbones/</url>
+    </developer>
   </developers>
 )
 
