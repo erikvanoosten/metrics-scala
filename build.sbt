@@ -24,6 +24,24 @@ libraryDependencies <++= (version) { v => Seq(
   "org.mockito" % "mockito-all" % "1.9.5" % "test"
 )}
 
+libraryDependencies <++= (scalaVersion) { v: String =>
+  if (v.startsWith("2.10"))
+    Seq("com.typesafe.akka" %% "akka-actor" % "[2.2,)","com.typesafe.akka" %% "akka-testkit" % "[2.2,)" % "test")
+  else Seq()
+}
+
+unmanagedSourceDirectories in Compile <<= (unmanagedSourceDirectories in Compile, sourceDirectory in Compile, scalaVersion) { (sds: Seq[java.io.File], sd: java.io.File, v: String) =>
+  val mainVersion = v.split("""\.""").take(2).mkString(".")
+  val extra = new java.io.File(sd, "scala_" + mainVersion)
+  (if (extra.exists) Seq(extra) else Seq()) ++ sds
+}
+
+unmanagedSourceDirectories in Test <<= (unmanagedSourceDirectories in Test, sourceDirectory in Test, scalaVersion) { (sds: Seq[java.io.File], sd: java.io.File, v: String) =>
+  val mainVersion = v.split("""\.""").take(2).mkString(".")
+  val extra = new java.io.File(sd, "scala_" + mainVersion)
+  (if (extra.exists) Seq(extra) else Seq()) ++ sds
+}
+
 javacOptions ++= Seq("-Xmx512m", "-Xms128m", "-Xss10m")
 
 javaOptions += "-Xmx512m"
