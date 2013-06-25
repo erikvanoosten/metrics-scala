@@ -20,7 +20,7 @@ trait ReceiveCounterActor extends Actor with NamedMetric { self: MetricRegistry 
 
   abstract override def receive = {
     case msg => {
-      counter.inc()
+      counter += 1
       super.receive(msg)
     }
   }

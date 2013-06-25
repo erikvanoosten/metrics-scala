@@ -234,30 +234,36 @@ trait PartialFunctionMetrics { self: MetricRegistry =>
   
   def counter[A,B](metricName: String, pf: PartialFunction[A,B]): PartialFunction[A,B] = {
     val counter = self.counter(metricName)
-    PartialFunction({x: A => counter.inc(); pf(x)})
+    
+    { case x => counter.inc(); pf(x) }
   }
 
-  def timer[A,B](metricName: String, actor: PartialFunction[A,B]): PartialFunction[A,B] = {
+  def timer[A,B](metricName: String, pf: PartialFunction[A,B]): PartialFunction[A,B] = {
     val timer = self.timer(metricName)
-    PartialFunction({x: A => 
-      val ctx = timer.timerContext()
-      try { 
-    	  actor(x)
-      } finally {
-        ctx.stop()
+    
+    { 
+      case x => {
+	      val ctx = timer.timerContext()
+	      try { 
+	    	  pf(x)
+	      } finally {
+	        ctx.stop()
+	      }
       }
-    })
+    }
   }
   
-  def exceptionMeter[A,B](metricName: String, actor: PartialFunction[A,B]): PartialFunction[A,B] = {
+  def exceptionMeter[A,B](metricName: String, pf: PartialFunction[A,B]): PartialFunction[A,B] = {
     val meter = self.meter(metricName)
-    PartialFunction({x: A => 
-      try { 
-    	  actor(x)
-      } catch {
-        case e: Throwable => meter.mark(); throw e
-      }
-    })
+    
+    { case x  => { 
+	      try { 
+	    	  pf(x)
+	      } catch {
+	        case e: Throwable => meter.mark(); throw e
+	      }
+	    }
+    }
   }
 
   

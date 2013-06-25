@@ -36,57 +36,15 @@ class Counter(metric: CHCounter) {
   /**
    * Increments the counter by delta.
    */
-  def +=(delta: Long = 1L) {
+  def +=(delta: Long) {
     metric.inc(delta)
   }
   
   /**
-   * Increments the counter by delta.
-   */
-  def inc(delta: Long = 1L) {
-    this += delta
-  }
-  
-  /**
-   * Increments the counter by one.
-   */
-  def ++ {
-    metric.inc(1)
-  }
-  
-  /**
-   * Increments the counter by one.
-   */
-  def inc() {
-    this++
-  }
-
-  /**
    * Decrements the counter by delta.
    */
-  def -=(delta: Long = 1L) {
+  def -=(delta: Long) {
     metric.dec(delta)
-  }
-
-  /**
-   * Decrements the counter by delta.
-   */
-  def dec(delta: Long = 1L) {
-    this -= delta
-  }
-  
-  /**
-   * Decrements the counter by one.
-   */
-  def dec() {
-    this--
-  }
-  
-  /**
-   * Decrements the counter by one.
-   */
-  def -- {
-    metric.dec(1)
   }
 
   /**

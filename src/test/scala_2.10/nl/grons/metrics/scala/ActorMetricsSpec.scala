@@ -78,7 +78,7 @@ class ActorMetricsSpec extends FunSpec with MockitoSugar with ShouldMatchers wit
       val fixture = new Fixture
       val ref = TestActorRef(new CounterTestActor(fixture))
       ref ! "test"
-      verify(fixture.mockCounter).inc()
+      verify(fixture.mockCounter).+=(1)
       ref.underlyingActor.messages should contain ("test")
     }
   }
@@ -108,7 +108,7 @@ class ActorMetricsSpec extends FunSpec with MockitoSugar with ShouldMatchers wit
       val fixture = new Fixture
       val ref = TestActorRef(new ComposedActor(fixture))
       ref ! "test"
-      verify(fixture.mockCounter).inc()
+      verify(fixture.mockCounter).+=(1)
       verify(fixture.mockTimer).timerContext()
       verify(fixture.mockTimerContext).stop()
       verify(fixture.mockMeter,never()).mark()
