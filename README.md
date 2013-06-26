@@ -26,15 +26,14 @@ In Metrics 3 you have to specify an application wide `MetricRegistry`. Create an
 trait. Thereafter, you can create metrics by using the `metrics` builder.
 
 ```scala
-import com.codahale.metrics.MetricRegistry
 import nl.grons.metrics.scala.InstrumentedBuilder
 
 object Application {
   /** The application wide metrics registry. */
-  val MetricRegistry: MetricRegistry = new MetricRegistry()
+  val metricRegistry = new com.codahale.metrics.MetricRegistry()
 }
 trait Instrumented extends InstrumentedBuilder {
-  val MetricRegistry: MetricRegistry = Application.metricRegistry
+  val metricRegistry = Application.metricRegistry
 }
 
 class Example(db: Database) extends Instrumented {

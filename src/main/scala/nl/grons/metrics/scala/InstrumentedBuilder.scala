@@ -25,10 +25,10 @@ import com.codahale.metrics.MetricRegistry
  * {{{
  * object Application {
  *   // The application wide metrics registry.
- *   val MetricRegistry: MetricRegistry = new MetricRegistry()
+ *   val metricRegistry = new com.codahale.metrics.MetricRegistry()
  * }
  * trait Instrumented extends InstrumentedBuilder {
- *   val MetricRegistry: MetricRegistry = Application.metricRegistry
+ *   val metricRegistry = Application.metricRegistry
  * }
  *
  * class Example(db: Database) extends Instrumented {
