@@ -26,8 +26,6 @@ In Metrics 3 you have to specify an application wide `MetricRegistry`. Create an
 trait. Thereafter, you can create metrics by using the `metrics` builder.
 
 ```scala
-import nl.grons.metrics.scala.InstrumentedBuilder
-
 object Application {
   /** The application wide metrics registry. */
   val metricRegistry = new com.codahale.metrics.MetricRegistry()
@@ -36,7 +34,7 @@ trait Instrumented extends InstrumentedBuilder {
   val metricRegistry = Application.metricRegistry
 }
 
-class Example(db: Database) extends Instrumented {
+class Example(db: Database) extends nl.grons.metrics.scala.Instrumented {
   private[this] val loading = metrics.timer("loading")
 
   def loadStuff(): Seq[Row] = loading.time {
