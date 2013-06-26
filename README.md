@@ -22,7 +22,7 @@ The 3.0.0 version is currently in development (mostly by [@scullxbones](https://
 ### Usage (version 3.x)
 
 In Metrics 3 you have to specify an application wide `MetricRegistry`. Create an
-`Instrumented` trait that refers to that registry and by extending the `InstrumentedBuilder`
+`Instrumented` trait that refers to that registry and that extends the `InstrumentedBuilder`
 trait. Thereafter, you can create metrics by using the `metrics` builder.
 
 ```scala
