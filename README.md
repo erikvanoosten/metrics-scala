@@ -10,13 +10,16 @@ scala versions. Metrics dropped the scala module in version 3.0.0 and this proje
 
 The 3.0.0 version is currently in development.
 
-## Usage
+## Usage (version 3.x)
+
+TODO
+
+## Usage (version 2.x)
 
 Metrics-scala provides the ``Instrumented`` trait for Scala applications:
 
 ```scala
-import nl.grons.metrics.scala.Instrumented
-// import com.yammer.metrics.scala.Instrumented   <-- versions 2.x
+import com.yammer.metrics.scala.Instrumented
 
 class Example(db: Database) extends Instrumented {
   private val loading = metrics.timer("loading")
