@@ -10,13 +10,13 @@ scala versions. Metrics dropped the scala module in version 3.0.0 and this proje
 
 The 3.0.0 version is currently in development.
 
-## Usage (version 3.x)
+### Usage (version 3.x)
 
 TODO
 
 For more information on Metrics 3.x, please see the [documentation](http://metrics.codahale.com).
 
-## Usage (version 2.x)
+### Usage (version 2.x)
 
 Metrics-scala provides the ``Instrumented`` trait for Scala applications:
 
