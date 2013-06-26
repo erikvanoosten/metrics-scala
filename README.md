@@ -14,6 +14,8 @@ The 3.0.0 version is currently in development.
 
 TODO
 
+For more information on Metrics 3.x, please see the [documentation](http://metrics.codahale.com).
+
 ## Usage (version 2.x)
 
 Metrics-scala provides the ``Instrumented`` trait for Scala applications:
@@ -32,9 +34,9 @@ class Example(db: Database) extends Instrumented {
 
 There are Scala wrappers for each metric type: `gauge`, `counter`, `histogram`, `meter` and `timer`.
 
-More advanced usages are in the wiki (TODO!).
-
-For more information on Metrics, please see [the documentation](http://metrics.codahale.com).
+For more information on Metrics 2.x, please see the
+[documentation in the Way Back Machine](http://web.archive.org/web/20120925003800/http://metrics.codahale.com/manual/core/)
+or read it directly from [Metrics 2.2.0 git branch](https://github.com/codahale/metrics/tree/v2.2.0/docs/source/manual).
 
 ## Available versions
 
