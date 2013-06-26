@@ -8,7 +8,7 @@ This is the Scala API for [Coda Hale's Metrics](https://github.com/codahale/metr
 Initially this project started out as a line for line copy of the Metrics-scala module, released for multiple
 scala versions. Metrics dropped the scala module in version 3.0.0 and this project continued separately.
 
-The 3.0.0 version is currently in development.
+The 3.0.0 version is currently in development (mostly by @scullxbones).
 
 ### Usage (version 3.x)
 
