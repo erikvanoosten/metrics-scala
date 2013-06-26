@@ -26,6 +26,9 @@ In Metrics 3 you have to specify an application wide `MetricRegistry`. Create an
 trait. Thereafter, you can create metrics by using the `metrics` builder.
 
 ```scala
+import com.codahale.metrics.MetricRegistry
+import nl.grons.metrics.scala.InstrumentedBuilder
+
 object Application {
   /** The application wide metrics registry. */
   val MetricRegistry: MetricRegistry = new MetricRegistry()
@@ -48,7 +51,7 @@ For more information on Metrics 3.x, please see the [documentation](http://metri
 ### Usage (version 2.x)
 
 Metrics-scala provides the ``Instrumented`` trait for Scala applications. This
-trait gives you the `metrics` builder.
+trait gives you the metrics builder `metrics`.
 
 ```scala
 import com.yammer.metrics.scala.Instrumented
