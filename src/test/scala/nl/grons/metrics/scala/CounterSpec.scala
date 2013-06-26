@@ -43,10 +43,10 @@ class CounterSpec extends FunSpec with MockitoSugar with ShouldMatchers with One
     }
     
     it("should consult the underlying counter for current count") {
-      when(metric.getCount()).thenReturn(1L)
+      when(metric.getCount).thenReturn(1L)
       
       counter.count should equal (1)
-      verify(metric).getCount()
+      verify(metric).getCount
     }
   }
 }

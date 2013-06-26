@@ -10,21 +10,53 @@ scala versions. Metrics dropped the scala module in version 3.0.0 and this proje
 
 The 3.0.0 version is currently in development (mostly by [@scullxbones](https://github.com/scullxbones)).
 
+### Features
+
+* Easy creation of all metrics types.
+* Almost invisible syntax for using timers (see example below).
+* Scala specific methods on metrics (e.g. `+=` on counters).
+
+Planned:
+
+* Health check support.
+* Actor support.
+
 ### Usage (version 3.x)
 
-TODO
+In Metrics 3 you have to specify an application wide `MetricRegistry`. Create an
+`Instrumented` trait that refers to that registry and by extending the `InstrumentedBuilder`
+trait. Thereafter, you can create metrics by using the `metrics` builder.
+
+```scala
+object Application {
+  /** The application wide metrics registry. */
+  val MetricRegistry: MetricRegistry = new MetricRegistry()
+}
+trait Instrumented extends InstrumentedBuilder {
+  val MetricRegistry: MetricRegistry = Application.metricRegistry
+}
+
+class Example(db: Database) extends Instrumented {
+  private[this] val loading = metrics.timer("loading")
+
+  def loadStuff(): Seq[Row] = loading.time {
+    db.fetchRows()
+  }
+}
+```
 
 For more information on Metrics 3.x, please see the [documentation](http://metrics.codahale.com).
 
 ### Usage (version 2.x)
 
-Metrics-scala provides the ``Instrumented`` trait for Scala applications:
+Metrics-scala provides the ``Instrumented`` trait for Scala applications. This
+trait gives you the `metrics` builder.
 
 ```scala
 import com.yammer.metrics.scala.Instrumented
 
 class Example(db: Database) extends Instrumented {
-  private val loading = metrics.timer("loading")
+  private[this] val loading = metrics.timer("loading")
 
   def loadStuff(): Seq[Row] = loading.time {
     db.fetchRows()

@@ -17,12 +17,12 @@
 package nl.grons.metrics.scala
 
 import java.util.concurrent.TimeUnit
-import com.codahale.metrics.{Timer => CHTimer}
+import com.codahale.metrics.{Timer => CHTimer, Snapshot}
 
 object Timer {
   def apply(metric: CHTimer) = new Timer(metric)
   def unapply(metric: Timer) = Option(metric.metric)
-  
+
   implicit def javaTimer2ScalaTimer(metric: CHTimer) = apply(metric)
   implicit def scalaTimer2JavaTimer(metric: Timer) = metric.metric
 }
@@ -32,7 +32,7 @@ object Timer {
  */
 class Timer(private val metric: CHTimer) {
   /**
-   * Runs f, recording its duration, and returns the result of f.
+   * Runs f, recording its duration, and returns its result.
    */
   def time[A](f: => A): A = {
     val ctx = metric.time
@@ -59,51 +59,50 @@ class Timer(private val metric: CHTimer) {
   /**
    * The number of durations recorded.
    */
-  def count = metric.getCount
+  def count: Long = metric.getCount
 
   /**
-   * The longest recorded duration.
+   * The longest recorded duration in nanoseconds.
    */
-  def max = snapshot.getMax
+  def max: Long = snapshot.getMax
 
   /**
-   * The shortest recorded duration.
+   * The shortest recorded duration in nanoseconds.
    */
-  def min = snapshot.getMin
+  def min: Long = snapshot.getMin
 
   /**
-   * The arithmetic mean of all recorded durations.
+   * The arithmetic mean of all recorded durations in nanoseconds.
    */
-  def mean = snapshot.getMean
+  def mean: Double = snapshot.getMean
 
   /**
    * The standard deviation of all recorded durations.
    */
-  def stdDev = snapshot.getStdDev
+  def stdDev: Double = snapshot.getStdDev
 
   /**
    * A snapshot of the values in the timer's sample.
    */
-  def snapshot = metric.getSnapshot
+  def snapshot: Snapshot = metric.getSnapshot
 
   /**
    * The fifteen-minute rate of timings.
    */
-  def fifteenMinuteRate = metric.getFifteenMinuteRate
+  def fifteenMinuteRate: Double = metric.getFifteenMinuteRate
 
   /**
    * The five-minute rate of timings.
    */
-  def fiveMinuteRate = metric.getFiveMinuteRate
+  def fiveMinuteRate: Double = metric.getFiveMinuteRate
 
   /**
    * The mean rate of timings.
    */
-  def meanRate = metric.getMeanRate
+  def meanRate: Double = metric.getMeanRate
 
   /**
    * The one-minute rate of timings.
    */
-  def oneMinuteRate = metric.getOneMinuteRate
+  def oneMinuteRate: Double = metric.getOneMinuteRate
 }
-

@@ -16,7 +16,7 @@
 
 package nl.grons.metrics.scala
 
-import com.codahale.metrics.{Histogram => CHHistogram}
+import com.codahale.metrics.{Histogram => CHHistogram, Snapshot}
 
 object Histogram {
   def apply(metric: CHHistogram) = new Histogram(metric)
@@ -27,7 +27,7 @@ object Histogram {
 }
 
 /**
- * A Scala façade class for HistogramMetric.
+ * A Scala façade class for Histogram.
  *
  * @see HistogramMetric
  */
@@ -46,42 +46,35 @@ class Histogram(private val metric: CHHistogram) {
   def +=(value: Int) {
     metric.update(value)
   }
-  
-  /**
-   * Adds one to the histogram sample.
-   */
-  def ++ {
-    metric.update(1)
-  }
 
   /**
    * The number of values recorded.
    */
-  def count = metric.getCount()
+  def count: Long = metric.getCount
 
   /**
    * The largest recorded value.
    */
-  def max = snapshot.getMax()
+  def max: Long  = snapshot.getMax
 
   /**
    * The smallest recorded value.
    */
-  def min = snapshot.getMin()
+  def min: Long  = snapshot.getMin
 
   /**
    * The arithmetic mean of all recorded values.
    */
-  def mean = snapshot.getMean()
+  def mean: Double = snapshot.getMean
 
   /**
    * The standard deviation of all recorded values.
    */
-  def stdDev = snapshot.getStdDev()
+  def stdDev: Double = snapshot.getStdDev
 
   /**
    * A snapshot of the values in the histogram's sample.
    */
-  def snapshot = metric.getSnapshot
+  def snapshot: Snapshot = metric.getSnapshot
 }
 

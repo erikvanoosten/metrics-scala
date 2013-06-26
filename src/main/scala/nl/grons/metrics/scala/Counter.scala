@@ -36,20 +36,20 @@ class Counter(metric: CHCounter) {
   /**
    * Increments the counter by delta.
    */
-  def +=(delta: Long = 1L) {
+  def +=(delta: Long) {
     metric.inc(delta)
   }
 
   /**
    * Decrements the counter by delta.
    */
-  def -=(delta: Long = 1L) {
+  def -=(delta: Long) {
     metric.dec(delta)
   }
 
   /**
    * The current count.
    */
-  def count = metric.getCount
+  def count: Long = metric.getCount
 
 }

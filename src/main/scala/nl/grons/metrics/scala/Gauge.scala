@@ -29,11 +29,14 @@ object Gauge {
   def codahaleGauge2ScalaGauge[A](metric: CHGauge[A]) = new Gauge[A](metric)
 }
 
+/**
+ * A Scala façade class for Gauge.
+ */
 class Gauge[T](private val metric: CHGauge[T]) {
 
   /**
    * The current value.
    */
-  def value = metric.getValue()
+  def value: T = metric.getValue
 
 }
