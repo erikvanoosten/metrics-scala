@@ -30,11 +30,11 @@ object Application {
   /** The application wide metrics registry. */
   val metricRegistry = new com.codahale.metrics.MetricRegistry()
 }
-trait Instrumented extends InstrumentedBuilder {
+trait Instrumented extends nl.grons.metrics.scala.InstrumentedBuilder {
   val metricRegistry = Application.metricRegistry
 }
 
-class Example(db: Database) extends nl.grons.metrics.scala.Instrumented {
+class Example(db: Database) extends Instrumented {
   private[this] val loading = metrics.timer("loading")
 
   def loadStuff(): Seq[Row] = loading.time {
