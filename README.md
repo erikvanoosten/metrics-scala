@@ -10,16 +10,14 @@ scala versions. Metrics dropped the scala module in version 3.0.0 and this proje
 
 The 3.0.0 version is currently in development (mostly by [@scullxbones](https://github.com/scullxbones)).
 
-### Features
+### Contents
 
-* Easy creation of all metrics types.
-* Almost invisible syntax for using timers (see example below).
-* Scala specific methods on metrics (e.g. `+=` on counters).
-
-Planned:
-
-* Health check support.
-* Actor support.
+* Usage (version 3.x)
+* Usage (version 2.x)
+* Features
+* Available versions
+* Get it
+* License
 
 ### Usage (version 3.x)
 
@@ -69,6 +67,18 @@ There are Scala wrappers for each metric type: `gauge`, `counter`, `histogram`, 
 For more information on Metrics 2.x, please see the
 [documentation in the Way Back Machine](http://web.archive.org/web/20120925003800/http://metrics.codahale.com/manual/core/)
 or read it directly from [Metrics 2.2.0 git branch](https://github.com/codahale/metrics/tree/v2.2.0/docs/source/manual).
+
+### Features
+
+* Easy creation of all metrics types.
+* Almost invisible syntax for using timers (see example below).
+* Scala specific methods on metrics (e.g. `+=` on counters).
+
+Planned:
+
+* Health check support.
+* Actor support.
+* Future support.
 
 ## Available versions
 
@@ -172,8 +182,7 @@ Note: If you depend on JMX: 2.2.0 has a small [bug](https://github.com/codahale/
 it inconvenient to use JMX.
 
 
-License
--------
+### License
 
 Copyright (c) 2010-2012 Coda Hale, Yammer.com (before 3.0.0)
 
