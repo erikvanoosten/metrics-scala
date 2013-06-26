@@ -45,6 +45,8 @@ class Example(db: Database) extends Instrumented {
 }
 ```
 
+See the [change log](blob/master/CHANGELOG.md) for more upgrade notes.
+
 For more information on Metrics 3.x, please see the [documentation](http://metrics.codahale.com).
 
 ### Usage (version 2.x)
