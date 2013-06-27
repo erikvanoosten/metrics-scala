@@ -44,8 +44,8 @@ class HistogramSpec extends FunSpec with MockitoSugar with ShouldMatchers with O
 
     it("retrieves a snapshot for statistics") {
       val snapshot = mock[com.codahale.metrics.Snapshot]
-      when(snapshot.getMax()).thenReturn(1L)
-      when(metric.getSnapshot()).thenReturn(snapshot)
+      when(snapshot.getMax).thenReturn(1L)
+      when(metric.getSnapshot).thenReturn(snapshot)
 
       histogram.max should equal (1L)
     }
