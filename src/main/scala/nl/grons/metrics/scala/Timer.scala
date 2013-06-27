@@ -63,10 +63,10 @@ class Timer(private val metric: CHTimer) {
   }
 
   /**
-   * A timing [[com.metrics.yammer.core.TimerContext]],
+   * A timing [[com.codahale.metrics.Timer.Context]],
    * which measures an elapsed time in nanoseconds.
    */
-  def timerContext() = metric.time()
+  def timerContext(): CHTimer.Context = metric.time()
 
   /**
    * The number of durations recorded.
