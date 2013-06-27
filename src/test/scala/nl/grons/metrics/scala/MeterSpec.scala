@@ -20,7 +20,6 @@ import org.mockito.Mockito._
 import org.scalatest.mock.MockitoSugar
 import org.scalatest.matchers.ShouldMatchers
 import org.junit.runner.RunWith
-import org.junit.Test
 import org.scalatest.FunSpec
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.OneInstancePerTest
@@ -42,10 +41,10 @@ class MeterSpec extends FunSpec with MockitoSugar with ShouldMatchers with OneIn
 
       verify(metric).mark(12)
     }
-    
+
     it("increments meter on exception when exceptionMeter is used") {
-      evaluating { meter.exceptionMeter( throw new RuntimeException() ) } should produce [RuntimeException]
-      
+      evaluating { meter.exceptionMarker( throw new RuntimeException() ) } should produce [RuntimeException]
+
       verify(metric).mark()
     }
   }

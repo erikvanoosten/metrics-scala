@@ -17,6 +17,7 @@
 package nl.grons.metrics.scala
 
 import com.codahale.metrics.{Meter => CHMeter}
+import scala.util.control.ControlThrowable
 
 object Meter {
   def apply(metric: CHMeter) = new Meter(metric)
@@ -28,21 +29,49 @@ object Meter {
 
 /**
  * A Scala façade class for Meter.
+ *
+ * Example usage:
+ * {{{
+ *   class Example(val db: Db) extends Instrumented {
+ *     private[this] val rowsLoadedMeter = metrics.meter("rowsLoaded")
+ *
+ *     def load(id: Long): Seq[Row] = {
+ *       val rows = db.load(id)
+ *       rowsLoaded.mark(rows.size)
+ *       rows
+ *     }
+ *   }
+ * }}}
  */
 class Meter(private val metric: CHMeter) {
 
   /**
-   * Runs f, increments meter on exception, and returns result of f.
+   * Gives a marker that runs f, marks the meter on an exception, and returns result of f.
+   *
+   * Example usage:
+   * {{{
+   *   class Example(val db: Db) extends Instrumented {
+   *     private[this] val loadExceptionMeter = metrics.meter("load").exceptionMarker
+   *
+   *     def load(id: Long) = loadExceptionMeter {
+   *       db.load(id)
+   *     }
+   *   }
+   * }}}
    */
-  def exceptionMeter[A](f: => A):A = {
-    try {
-      f
-    } catch {
-      case e : Throwable => {
-        metric.mark()
-        throw e
+  def exceptionMarker = new AnyRef() {
+    def apply[A](f: => A): A = {
+        try {
+          f
+        } catch {
+          case e: ControlThrowable =>
+            // ControlThrowable is used by Scala for control, it is equivalent to success.
+            throw e
+          case e: Throwable =>
+            metric.mark()
+            throw e
+        }
       }
-    }
   }
 
   /**

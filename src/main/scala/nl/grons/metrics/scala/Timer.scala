@@ -29,8 +29,20 @@ object Timer {
 
 /**
  * A Scala façade class for Timer.
+ *
+ * Example usage:
+ * {{{
+ *   class Example(val db: Db) extends Instrumented {
+ *     private[this] val loadTimer = metrics.timer("load")
+ *
+ *     def load(id: Long) = loadTimer.time {
+ *       db.load(id)
+ *     }
+ *   }
+ * }}}
  */
 class Timer(private val metric: CHTimer) {
+
   /**
    * Runs f, recording its duration, and returns its result.
    */
