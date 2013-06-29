@@ -47,7 +47,7 @@ pomIncludeRepository := { _ => false }
 licenses := Seq("Apache 2" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
 
 pomExtra := (
-  <url>http://metrics.codahale.com/</url>
+  <url>https://github.com/erikvanoosten/metrics-scala</url>
   <scm>
     <url>git@github.com:erikvanoosten/metrics-scala.git</url>
     <connection>scm:git:git@github.com:erikvanoosten/metrics-scala.git</connection>
