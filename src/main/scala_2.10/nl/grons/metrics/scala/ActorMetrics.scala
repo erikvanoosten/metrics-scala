@@ -5,6 +5,8 @@ import akka.actor.Actor
 /**
  * Stackable actor trait - counts received messages
  *
+ * Metric name defaults to the class of the actor (e.g. ExampleActor below) + .receiveCounter
+ *
  * Use it as follows:
  * {{{
  * object Application {
@@ -17,8 +19,8 @@ import akka.actor.Actor
  *
  * class ExampleActor extends ReceiveCounterActor with Instrumented {
  *
- *   def loadStuff(): Seq[Row] = loading.time {
- *     db.fetchRows()
+ *   def receive = {
+ *     case _ => doWork()
  *   }
  * }
  * }}}
@@ -39,6 +41,26 @@ trait ReceiveCounterActor extends Actor { self: InstrumentedBuilder =>
 
 /**
  * Stackable actor trait - times the message receipt
+ *
+ * Metric name defaults to the class of the actor (e.g. ExampleActor below) + .receiveTimer
+ *
+ * Use it as follows:
+ * {{{
+ * object Application {
+ *   // The application wide metrics registry.
+ *   val metricRegistry = new com.codahale.metrics.MetricRegistry()
+ * }
+ * trait Instrumented extends InstrumentedBuilder {
+ *   val metricRegistry = Application.metricRegistry
+ * }
+ *
+ * class ExampleActor extends ReceiveTimerActor with Instrumented {
+ *
+ *   def receive = {
+ *     case _ => doWork()
+ *   }
+ * }
+ * }}}
  */
 trait ReceiveTimerActor extends Actor { self: InstrumentedBuilder =>
 
@@ -59,6 +81,26 @@ trait ReceiveTimerActor extends Actor { self: InstrumentedBuilder =>
 
 /**
  * Stackable actor trait - meters the exceptions thrown
+ *
+ * Metric name defaults to the class of the actor (e.g. ExampleActor below) + .receiveExceptionMeter
+ *
+ * Use it as follows:
+ * {{{
+ * object Application {
+ *   // The application wide metrics registry.
+ *   val metricRegistry = new com.codahale.metrics.MetricRegistry()
+ * }
+ * trait Instrumented extends InstrumentedBuilder {
+ *   val metricRegistry = Application.metricRegistry
+ * }
+ *
+ * class ExampleActor extends ReceiveTimerActor with Instrumented {
+ *
+ *   def receive = {
+ *     case _ => doWork()
+ *   }
+ * }
+ * }}}
  */
 trait ReceiveExceptionMeterActor extends Actor { self: InstrumentedBuilder =>
 
