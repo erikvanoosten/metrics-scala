@@ -50,6 +50,6 @@ class Counter(metric: CHCounter) {
   /**
    * The current count.
    */
-  def count = metric.getCount
+  def count: Long = metric.getCount
 
 }

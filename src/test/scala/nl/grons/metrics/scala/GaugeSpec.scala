@@ -37,7 +37,7 @@ class GaugeSpec extends FunSpec with MockitoSugar with ShouldMatchers with OneIn
     }
     
     it("invokes getValue on underlying gauge") {
-      when(metric.getValue()).thenReturn(1)
+      when(metric.getValue).thenReturn(1)
       
       gauge.value should equal (1)
     }

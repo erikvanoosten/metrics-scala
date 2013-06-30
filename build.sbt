@@ -4,7 +4,7 @@ description <<= (crossVersion) { v => "metrics-scala for " + v }
 
 organization := "nl.grons"
 
-version := "3.0.0"
+version := "3.0.1-SNAPSHOT"
 
 scalaVersion := "2.10.0"
 
@@ -17,12 +17,12 @@ resolvers ++= Seq(
   "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
 )
 
-libraryDependencies <++= (version) { v => Seq(
-  "com.codahale.metrics" % "metrics-core" % v,
+libraryDependencies ++= Seq(
+  "com.codahale.metrics" % "metrics-core" % "3.0.0",
   "junit" % "junit" % "4.11" % "test",
   "org.scalatest" %% "scalatest" % "1.9.1" % "test",
   "org.mockito" % "mockito-all" % "1.9.5" % "test"
-)}
+)
 
 libraryDependencies <++= (scalaVersion) { v: String =>
   if (v.startsWith("2.10"))
@@ -65,7 +65,7 @@ pomIncludeRepository := { _ => false }
 licenses := Seq("Apache 2" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
 
 pomExtra := (
-  <url>http://metrics.codahale.com/</url>
+  <url>https://github.com/erikvanoosten/metrics-scala</url>
   <scm>
     <url>git@github.com:erikvanoosten/metrics-scala.git</url>
     <connection>scm:git:git@github.com:erikvanoosten/metrics-scala.git</connection>

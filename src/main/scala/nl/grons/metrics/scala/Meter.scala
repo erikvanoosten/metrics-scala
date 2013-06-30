@@ -17,32 +17,61 @@
 package nl.grons.metrics.scala
 
 import com.codahale.metrics.{Meter => CHMeter}
+import scala.util.control.ControlThrowable
 
 object Meter {
   def apply(metric: CHMeter) = new Meter(metric)
   def unapply(metric: Meter) = Option(metric.metric)
-  
+
   implicit def javaMeter2ScalaMeter(metric: CHMeter) = apply(metric)
   implicit def scalaMeter2JavaMeter(metric: Meter) = metric.metric
 }
 
 /**
  * A Scala façade class for Meter.
+ *
+ * Example usage:
+ * {{{
+ *   class Example(val db: Db) extends Instrumented {
+ *     private[this] val rowsLoadedMeter = metrics.meter("rowsLoaded")
+ *
+ *     def load(id: Long): Seq[Row] = {
+ *       val rows = db.load(id)
+ *       rowsLoaded.mark(rows.size)
+ *       rows
+ *     }
+ *   }
+ * }}}
  */
 class Meter(private val metric: CHMeter) {
-  
+
   /**
-   * Increments meter on exception
+   * Gives a marker that runs f, marks the meter on an exception, and returns result of f.
+   *
+   * Example usage:
+   * {{{
+   *   class Example(val db: Db) extends Instrumented {
+   *     private[this] val loadExceptionMeter = metrics.meter("load").exceptionMarker
+   *
+   *     def load(id: Long) = loadExceptionMeter {
+   *       db.load(id)
+   *     }
+   *   }
+   * }}}
    */
-  def exceptionMeter[A](f: => A):A = {
-    try {
-      f
-    } catch {
-      case e : Throwable => { 
-        metric.mark()
-        throw e
+  def exceptionMarker = new AnyRef() {
+    def apply[A](f: => A): A = {
+        try {
+          f
+        } catch {
+          case e: ControlThrowable =>
+            // ControlThrowable is used by Scala for control, it is equivalent to success.
+            throw e
+          case e: Throwable =>
+            metric.mark()
+            throw e
+        }
       }
-    }
   }
 
   /**
@@ -62,7 +91,7 @@ class Meter(private val metric: CHMeter) {
   /**
    * The number of events which have been marked.
    */
-  def count = metric.getCount()
+  def count: Long = metric.getCount
 
   /**
    * The fifteen-minute exponentially-weighted moving average rate at
@@ -71,7 +100,7 @@ class Meter(private val metric: CHMeter) {
    * This rate has the same exponential decay factor as the fifteen-minute load
    * average in the top Unix command.
    */
-  def fifteenMinuteRate = metric.getFifteenMinuteRate
+  def fifteenMinuteRate: Double = metric.getFifteenMinuteRate
 
   /**
    * The five-minute exponentially-weighted moving average rate at
@@ -80,13 +109,13 @@ class Meter(private val metric: CHMeter) {
    * This rate has the same exponential decay factor as the five-minute load
    * average in the top Unix command.
    */
-  def fiveMinuteRate = metric.getFiveMinuteRate
+  def fiveMinuteRate: Double = metric.getFiveMinuteRate
 
   /**
    * The mean rate at which events have occurred since the meter was
    * created.
    */
-  def meanRate = metric.getMeanRate
+  def meanRate: Double = metric.getMeanRate
 
   /**
    * The one-minute exponentially-weighted moving average rate at
@@ -95,6 +124,5 @@ class Meter(private val metric: CHMeter) {
    * This rate has the same exponential decay factor as the one-minute load
    * average in the top Unix command.
    */
-  def oneMinuteRate = metric.getOneMinuteRate
+  def oneMinuteRate: Double = metric.getOneMinuteRate
 }
-
