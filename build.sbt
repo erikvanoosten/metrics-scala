@@ -17,12 +17,12 @@ resolvers ++= Seq(
   "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
 )
 
-libraryDependencies <++= (version) { v => Seq(
-  "com.codahale.metrics" % "metrics-core" % v,
+libraryDependencies ++= Seq(
+  "com.codahale.metrics" % "metrics-core" % "3.0.0",
   "junit" % "junit" % "4.11" % "test",
   "org.scalatest" %% "scalatest" % "1.9.1" % "test",
   "org.mockito" % "mockito-all" % "1.9.5" % "test"
-)}
+)
 
 javacOptions ++= Seq("-Xmx512m", "-Xms128m", "-Xss10m")
 
