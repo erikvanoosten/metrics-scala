@@ -30,7 +30,7 @@ object YourApplication {
   val metricRegistry = new com.codahale.metrics.MetricRegistry()
 }
 trait Instrumented extends nl.grons.metrics.scala.InstrumentedBuilder {
-  val metricRegistry = Application.metricRegistry
+  val metricRegistry = YourApplication.metricRegistry
 }
 ```
 
