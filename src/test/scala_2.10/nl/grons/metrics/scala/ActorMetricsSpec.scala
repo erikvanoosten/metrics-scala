@@ -10,69 +10,74 @@ import org.scalatest.junit.JUnitRunner
 import akka.actor.Actor
 import akka.actor.ActorSystem
 import com.codahale.metrics.Timer.Context
+import com.codahale.metrics.MetricRegistry
+import com.codahale.metrics.{Counter => CHCounter}
 
 object TestFixture {
-  
-  class Fixture extends MockitoSugar {
+
+  class Fixture  {
+    import MockitoSugar._
+
     val mockCounter = mock[Counter]
     val mockTimer = mock[Timer]
     val mockTimerContext = mock[Context]
     val mockMeter = mock[Meter]
-    
+
     when(mockTimer.timerContext()).thenReturn(mockTimerContext)
   }
-  
-  trait MetricRegistryFixture extends MetricRegistry {
+
+  trait MetricRegistryFixture extends InstrumentedBuilder {
+    import MockitoSugar._
+    import org.mockito.Matchers._
+
     val fixture: Fixture
-    
-    override def counter(name: String, maybeScope: Option[String] = None) = fixture.mockCounter
-    
-    override def timer(name: String, maybeScope: Option[String] = None) = fixture.mockTimer
-    
-    override def meter(name: String, maybeScope: Option[String] = None) = fixture.mockMeter
-  }
-  
-  class TestActor(val fixture: Fixture) extends Actor with MetricRegistryFixture {
-    
-    val messages = new scala.collection.mutable.ListBuffer[String]()
-    
-    def receive = {
-      case message: String => { 
-        messages += message 
-      }
+
+    val metricRegistry = null
+
+    var counterName: String = null
+
+    val mockBuilder = new MetricBuilder(null,null) {
+	  override def counter(name: String, scope: String = null) = { counterName = name; fixture.mockCounter }
+	  override def timer(name: String, scope: String = null) = fixture.mockTimer
+	  override def meter(name: String, scope: String = null) = fixture.mockMeter
     }
-    
+    override def metrics = mockBuilder
   }
-  
+
+  class TestActor(val fixture: Fixture) extends Actor with MetricRegistryFixture {
+    val messages = new scala.collection.mutable.ListBuffer[String]()
+
+    def receive = { case message: String => messages += message }
+  }
+
   class ExceptionThrowingTestActor(val fixture: Fixture) extends Actor with MetricRegistryFixture {
-    
-	  def receive = {
-	    case _ => throw new RuntimeException()
-	  }
-	  
+	  def receive = { case _ => throw new RuntimeException() }
   }
-  
-  
-	class CounterTestActor(fixture: Fixture) extends TestActor(fixture) with ReceiveCounterActor
-	
+
+
+	class CounterTestActor(fixture: Fixture) extends TestActor(fixture) with ReceiveCounterActor {
+	  override def receiveCounterName = "receiveCounter"
+	}
+
 	class TimerTestActor(fixture: Fixture) extends TestActor(fixture) with ReceiveTimerActor
-	
+
 	class ExceptionMeterTestActor(fixture: Fixture) extends ExceptionThrowingTestActor(fixture) with ReceiveExceptionMeterActor
-	
-	class ComposedActor(fixture: Fixture) extends TestActor(fixture) 
-		with ReceiveCounterActor with ReceiveTimerActor with ReceiveExceptionMeterActor 
+
+	class ComposedActor(fixture: Fixture) extends TestActor(fixture)
+		with ReceiveCounterActor with ReceiveTimerActor with ReceiveExceptionMeterActor
 }
 
 @RunWith(classOf[JUnitRunner])
-class ActorMetricsSpec extends FunSpec with MockitoSugar with ShouldMatchers with MetricRegistry {
+class ActorMetricsSpec extends FunSpec with ShouldMatchers {
   import TestFixture._
   import akka.testkit.TestActorRef
   import scala.concurrent.duration._
   import scala.concurrent.Await
   import akka.pattern.ask
-  
+  import MockitoSugar._
+
   implicit val system = ActorSystem()
-  
+
   describe("A counter actor") {
     it("increments counter on new messages") {
       val fixture = new Fixture
@@ -80,9 +85,10 @@ class ActorMetricsSpec extends FunSpec with MockitoSugar with ShouldMatchers wit
       ref ! "test"
       verify(fixture.mockCounter).+=(1)
       ref.underlyingActor.messages should contain ("test")
+      ref.underlyingActor.counterName should equal ("receiveCounter")
     }
   }
-  
+
   describe("A timer actor") {
     it("times a message processing") {
       val fixture = new Fixture
@@ -93,7 +99,7 @@ class ActorMetricsSpec extends FunSpec with MockitoSugar with ShouldMatchers wit
       ref.underlyingActor.messages should contain ("test")
     }
   }
-  
+
   describe("A exception meter actor") {
     it("meters thrown exceptions") {
       val fixture = new Fixture
@@ -102,7 +108,7 @@ class ActorMetricsSpec extends FunSpec with MockitoSugar with ShouldMatchers wit
       verify(fixture.mockMeter).mark()
     }
   }
-  
+
   describe("A composed actor") {
     it("counts and times processing of messages") {
       val fixture = new Fixture
@@ -113,7 +119,8 @@ class ActorMetricsSpec extends FunSpec with MockitoSugar with ShouldMatchers wit
       verify(fixture.mockTimerContext).stop()
       verify(fixture.mockMeter,never()).mark()
       ref.underlyingActor.messages should contain ("test")
+      ref.underlyingActor.counterName should equal ("nl.grons.metrics.scala.TestFixture$ComposedActor.receiveCounter")
     }
   }
-  
+
 }
