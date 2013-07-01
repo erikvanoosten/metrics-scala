@@ -47,5 +47,12 @@ class MeterSpec extends FunSpec with MockitoSugar with ShouldMatchers with OneIn
 
       verify(metric).mark()
     }
+
+    it("should increment time execution of partial function") {
+      val pf:PartialFunction[String,String] = { case "test" => throw new RuntimeException() }
+      val wrapped = meter.exceptionMarkerPartialFunction(pf)
+      evaluating { wrapped("test") } should produce [RuntimeException]
+      verify(metric).mark()
+    }
   }
 }

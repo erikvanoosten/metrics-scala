@@ -74,6 +74,18 @@ class Meter(private val metric: CHMeter) {
       }
   }
 
+
+   def exceptionMarkerPartialFunction = new AnyRef() {
+	def apply[A,B](pf: PartialFunction[A,B]): PartialFunction[A,B] = {
+	     case x =>
+	       try {
+	         pf(x)
+	       } catch {
+	         case e: Throwable => mark(); throw e
+	       }
+	   }
+	}
+
   /**
    * Marks the occurrence of an event.
    */

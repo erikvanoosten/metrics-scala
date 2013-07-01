@@ -45,5 +45,13 @@ class TimerSpec extends FunSpec with MockitoSugar with ShouldMatchers with OneIn
 
       verify(metric).update(1L,TimeUnit.MILLISECONDS)
     }
+
+    it("should increment time execution of partial function") {
+      val pf:PartialFunction[String,String] = { case "test" => "test" }
+      val wrapped = timer.time(pf)
+      wrapped("test") should equal ("test")
+      verify(metric).time()
+      verify(context).stop()
+    }
   }
 }

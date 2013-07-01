@@ -21,7 +21,7 @@ import com.codahale.metrics.{Counter => CHCounter}
 object Counter {
   def apply(metric: CHCounter) = new Counter(metric)
   def unapply(metric: Counter) = Option(metric.delegate)
-  
+
   implicit def javaCounter2ScalaCounter(metric: CHCounter) = apply(metric)
   implicit def scalaCounter2JavaCounter(metric: Counter) = metric.delegate
 }
@@ -30,8 +30,16 @@ object Counter {
  * A Scala façade class for Counter.
  */
 class Counter(metric: CHCounter) {
-  
+
   private def delegate = metric
+
+
+  /**
+   * Wraps partial function pf, incrementing counter once for every execution
+   */
+   def count[A,B](pf: PartialFunction[A,B]): PartialFunction[A,B] = {
+     case x => { this += 1; pf(x) }
+   }
 
   /**
    * Increments the counter by delta.
@@ -39,7 +47,7 @@ class Counter(metric: CHCounter) {
   def +=(delta: Long) {
     metric.inc(delta)
   }
-  
+
   /**
    * Decrements the counter by delta.
    */

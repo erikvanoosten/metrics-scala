@@ -1,6 +1,7 @@
 package nl.grons.metrics.scala
 
 import akka.actor.Actor
+import com.codahale.metrics.MetricRegistry
 
 /**
  * Stackable actor trait - counts received messages
@@ -27,7 +28,7 @@ import akka.actor.Actor
  */
 trait ReceiveCounterActor extends Actor { self: InstrumentedBuilder =>
 
-  def receiveCounterName: String = getClass.getName + ".receiveCounter"
+  def receiveCounterName: String = MetricRegistry.name(getClass,"receiveCounter")
   lazy val counter: Counter = metrics.counter(receiveCounterName)
 
   abstract override def receive = {
@@ -64,7 +65,7 @@ trait ReceiveCounterActor extends Actor { self: InstrumentedBuilder =>
  */
 trait ReceiveTimerActor extends Actor { self: InstrumentedBuilder =>
 
-  def receiveTimerName: String = getClass.getSuperclass.getName + ".receiveTimer"
+  def receiveTimerName: String = MetricRegistry.name(getClass,"receiveTimer")
   lazy val timer: Timer = metrics.timer(receiveTimerName)
 
   abstract override def receive = {
@@ -104,7 +105,7 @@ trait ReceiveTimerActor extends Actor { self: InstrumentedBuilder =>
  */
 trait ReceiveExceptionMeterActor extends Actor { self: InstrumentedBuilder =>
 
-  def receiveExceptionMeterName: String = getClass.getSuperclass.getName + ".receiveExceptionMeter"
+  def receiveExceptionMeterName: String = MetricRegistry.name(getClass,"receiveExceptionMeter")
   lazy val meter: Meter = metrics.meter(receiveExceptionMeterName)
 
   abstract override def receive = {

@@ -41,12 +41,19 @@ class CounterSpec extends FunSpec with MockitoSugar with ShouldMatchers with One
 
       verify(metric).dec(12)
     }
-    
+
     it("should consult the underlying counter for current count") {
       when(metric.getCount).thenReturn(1L)
-      
+
       counter.count should equal (1)
       verify(metric).getCount
+    }
+
+    it("should increment counter upon execution of partial function") {
+      val pf:PartialFunction[String,String] = { case "test" => "test" }
+      val wrapped = counter.count(pf)
+      wrapped("test") should equal ("test")
+      verify(metric).inc(1)
     }
   }
 }
