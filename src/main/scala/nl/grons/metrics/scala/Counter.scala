@@ -37,9 +37,17 @@ class Counter(metric: CHCounter) {
   /**
    * Wraps partial function pf, incrementing counter once for every execution
    */
-   def count[A,B](pf: PartialFunction[A,B]): PartialFunction[A,B] = {
-     case x => { this += 1; pf(x) }
-   }
+   def count[A,B](pf: PartialFunction[A,B]): PartialFunction[A,B] =
+     new PartialFunction[A,B] {
+	   def apply(a: A): B = {
+	      metric.inc(1)
+	      pf(a)
+	   }
+
+	   def isDefinedAt(a: A) = {
+	     pf.isDefinedAt(a)
+	   }
+     }
 
   /**
    * Increments the counter by delta.

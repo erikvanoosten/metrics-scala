@@ -54,6 +54,7 @@ class CounterSpec extends FunSpec with MockitoSugar with ShouldMatchers with One
       val wrapped = counter.count(pf)
       wrapped("test") should equal ("test")
       verify(metric).inc(1)
+      wrapped.isDefinedAt("x") should be (false)
     }
   }
 }

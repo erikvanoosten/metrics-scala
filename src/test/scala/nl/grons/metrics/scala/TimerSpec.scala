@@ -52,6 +52,7 @@ class TimerSpec extends FunSpec with MockitoSugar with ShouldMatchers with OneIn
       wrapped("test") should equal ("test")
       verify(metric).time()
       verify(context).stop()
+      wrapped.isDefinedAt("x") should be (false)
     }
   }
 }

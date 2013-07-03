@@ -58,16 +58,21 @@ class Timer(private val metric: CHTimer) {
   /**
    * Wraps partial function pf, timing every execution
    */
-   def time[A,B](pf: PartialFunction[A,B]): PartialFunction[A,B] = {
-     case x  => {
-       val ctx = timerContext()
-       try {
-         pf(x)
-       } finally {
-         ctx.stop()
-       }
+   def time[A,B](pf: PartialFunction[A,B]): PartialFunction[A,B] =
+     new PartialFunction[A,B] {
+	   def apply(a: A): B = {
+	       val ctx = timerContext()
+	       try {
+	         pf.apply(a)
+	       } finally {
+	         ctx.stop()
+	       }
+	   }
+
+	   def isDefinedAt(a: A) = {
+	     pf.isDefinedAt(a)
+	   }
      }
-   }
 
   /**
    * Adds a recorded duration.

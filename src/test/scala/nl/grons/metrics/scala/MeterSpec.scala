@@ -53,6 +53,7 @@ class MeterSpec extends FunSpec with MockitoSugar with ShouldMatchers with OneIn
       val wrapped = meter.exceptionMarkerPartialFunction(pf)
       evaluating { wrapped("test") } should produce [RuntimeException]
       verify(metric).mark()
+      wrapped.isDefinedAt("x") should be (false)
     }
   }
 }
