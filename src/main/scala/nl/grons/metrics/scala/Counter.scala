@@ -41,7 +41,7 @@ class Counter(metric: CHCounter) {
      new PartialFunction[A,B] {
 	   def apply(a: A): B = {
 	      metric.inc(1)
-	      pf(a)
+	      pf.apply(a)
 	   }
 
 	   def isDefinedAt(a: A) = {
