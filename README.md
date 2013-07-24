@@ -181,7 +181,7 @@ sent an email to the [metrics mailing list](http://groups.google.com/group/metri
 
 SBT:
 ```
-libraryDependencies += "nl.grons" %% "metrics-scala" % "3.0.0"
+libraryDependencies += "nl.grons" %% "metrics-scala" % "3.0.1"
 ```
 
 Maven:
@@ -193,7 +193,7 @@ Maven:
 <dependency>
     <groupId>nl.grons</groupId>
     <artifactId>metrics-scala_${scala.dep.version}</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.1</version>
 </dependency>
 ```
 
