@@ -47,12 +47,9 @@ trait ReceiveCounterActor extends Actor { self: InstrumentedBuilder =>
   def receiveCounterName: String = MetricRegistry.name(getClass,"receiveCounter")
   lazy val counter: Counter = metrics.counter(receiveCounterName)
 
-  abstract override def receive = {
-    case msg => {
-      counter += 1
-      super.receive(msg)
-    }
-  }
+  private[this] lazy val wrapped = counter.count(super.receive)
+
+  abstract override def receive = wrapped
 
 }
 
@@ -84,16 +81,9 @@ trait ReceiveTimerActor extends Actor { self: InstrumentedBuilder =>
   def receiveTimerName: String = MetricRegistry.name(getClass,"receiveTimer")
   lazy val timer: Timer = metrics.timer(receiveTimerName)
 
-  abstract override def receive = {
-    case msg => {
-      val ctx = timer.timerContext()
-      try {
-        super.receive(msg)
-      } finally {
-        ctx.stop()
-      }
-    }
-  }
+  private[this] lazy val wrapped = timer.time(super.receive)
+
+  abstract override def receive = wrapped
 }
 
 /**
@@ -124,17 +114,8 @@ trait ReceiveExceptionMeterActor extends Actor { self: InstrumentedBuilder =>
   def receiveExceptionMeterName: String = MetricRegistry.name(getClass,"receiveExceptionMeter")
   lazy val meter: Meter = metrics.meter(receiveExceptionMeterName)
 
-  abstract override def receive = {
-    case msg => {
-      try {
-        super.receive(msg)
-      } catch {
-        case e: Throwable => {
-          meter.mark()
-          throw e
-        }
-      }
-    }
-  }
+  private[this] lazy val wrapped = meter.exceptionMarkerPartialFunction(super.receive)
+
+  abstract override def receive = wrapped
 
 }

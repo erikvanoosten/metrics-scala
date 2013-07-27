@@ -33,13 +33,21 @@ object TestFixture {
 
   class Fixture  {
     import MockitoSugar._
+    import org.mockito.Matchers.any
 
     val mockCounter = mock[Counter]
     val mockTimer = mock[Timer]
     val mockTimerContext = mock[Context]
     val mockMeter = mock[Meter]
 
+    val pf:PartialFunction[Any,Unit] = {
+      case _ =>
+    }
+
     when(mockTimer.timerContext()).thenReturn(mockTimerContext)
+    when(mockCounter.count(any[PartialFunction[Any,Unit]])).thenReturn(pf)
+    when(mockTimer.time(any[PartialFunction[Any,Unit]])).thenReturn(pf)
+    when(mockMeter.exceptionMarkerPartialFunction).thenReturn(new { def apply[A,B](pf: PartialFunction[A,B]): PartialFunction[A,B] = pf })
   }
 
   trait MetricRegistryFixture extends InstrumentedBuilder {
@@ -91,6 +99,7 @@ class ActorMetricsSpec extends FunSpec with ShouldMatchers {
   import scala.concurrent.Await
   import akka.pattern.ask
   import MockitoSugar._
+  import org.mockito.Matchers._
 
   implicit val system = ActorSystem()
 
@@ -98,9 +107,10 @@ class ActorMetricsSpec extends FunSpec with ShouldMatchers {
     it("increments counter on new messages") {
       val fixture = new Fixture
       val ref = TestActorRef(new CounterTestActor(fixture))
+
+      ref.underlyingActor.receive should not be (null)
       ref ! "test"
-      verify(fixture.mockCounter).+=(1)
-      ref.underlyingActor.messages should contain ("test")
+      verify(fixture.mockCounter).count(any[PartialFunction[Any,Unit]])
       ref.underlyingActor.counterName should equal ("receiveCounter")
     }
   }
@@ -110,9 +120,7 @@ class ActorMetricsSpec extends FunSpec with ShouldMatchers {
       val fixture = new Fixture
       val ref = TestActorRef(new TimerTestActor(fixture))
       ref ! "test"
-      verify(fixture.mockTimer).timerContext()
-      verify(fixture.mockTimerContext).stop()
-      ref.underlyingActor.messages should contain ("test")
+      verify(fixture.mockTimer).time(any[PartialFunction[Any,Unit]])
     }
   }
 
@@ -121,7 +129,7 @@ class ActorMetricsSpec extends FunSpec with ShouldMatchers {
       val fixture = new Fixture
       val ref = TestActorRef(new ExceptionMeterTestActor(fixture))
       intercept[RuntimeException] { ref.receive("test") }
-      verify(fixture.mockMeter).mark()
+      verify(fixture.mockMeter).exceptionMarkerPartialFunction
     }
   }
 
@@ -130,11 +138,9 @@ class ActorMetricsSpec extends FunSpec with ShouldMatchers {
       val fixture = new Fixture
       val ref = TestActorRef(new ComposedActor(fixture))
       ref ! "test"
-      verify(fixture.mockCounter).+=(1)
-      verify(fixture.mockTimer).timerContext()
-      verify(fixture.mockTimerContext).stop()
+      verify(fixture.mockCounter).count(any[PartialFunction[Any,Unit]])
+      verify(fixture.mockTimer).time(any[PartialFunction[Any,Unit]])
       verify(fixture.mockMeter,never()).mark()
-      ref.underlyingActor.messages should contain ("test")
       ref.underlyingActor.counterName should equal ("nl.grons.metrics.scala.TestFixture$ComposedActor.receiveCounter")
     }
   }
