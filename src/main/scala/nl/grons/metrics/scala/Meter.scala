@@ -75,6 +75,43 @@ class Meter(private val metric: CHMeter) {
   }
 
   /**
+   * Gives a marker that wraps the PartialFunction pf, which on execution marks the meter on an exception, and returns result of f.
+   *
+   * Example usage:
+   * {{{
+   *  class Example(val shardedDb: List[Db]) extends Instrumented {
+   *    private[this] val shardExceptionMeter = metrics.meter("shard").exceptionMarkerPartialFunction
+   *
+   *    private[this] val shardFunction: PartialFunction[Long,Db] = shardExceptionMeter {
+   *    	case id:Long => shardedDb(id.toInt % shardedDb.length)
+   *    }
+   *
+   *    private[this] def shard(id: Long): Db = shardFunction.applyOrElse(id,(x: Long) => shardedDb(0))
+   *
+   *    def load(id: Long) = {
+   *      shard(id).load(id)
+   *    }
+   *  }
+   * }}}
+   */
+   def exceptionMarkerPartialFunction = new AnyRef() {
+	def apply[A,B](pf: PartialFunction[A,B]): PartialFunction[A,B] =
+     new PartialFunction[A,B] {
+	   def apply(a: A): B = {
+	     try {
+	         pf.apply(a)
+	       } catch {
+	         case e: Throwable => mark(); throw e
+	       }
+	   }
+
+	   def isDefinedAt(a: A) = {
+	     pf.isDefinedAt(a)
+	   }
+     }
+   }
+
+  /**
    * Marks the occurrence of an event.
    */
   def mark() {
