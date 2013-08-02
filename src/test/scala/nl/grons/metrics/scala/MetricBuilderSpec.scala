@@ -55,6 +55,32 @@ class MetricBuilderSpec extends FunSpec with MockitoSugar with ShouldMatchers wi
     def histogramPlusOne() { histogram += 1 }
   }
 
+  describe("Metrics name builder") {
+    it("concatenates names with a period as separator") {
+      MetricBuilder.metricName(classOf[MetricBuilder], Seq("part1", "part2")) should equal ("nl.grons.metrics.scala.MetricBuilder.part1.part2")
+    }
+
+    it("skips nulls") {
+      MetricBuilder.metricName(classOf[MetricBuilder], Seq("part1", null)) should equal ("nl.grons.metrics.scala.MetricBuilder.part1")
+    }
+
+    it("supports closures") {
+      val foo: String => Class[_] = s => this.getClass
+      MetricBuilder.metricName(foo(""), Seq("part1")) should equal ("nl.grons.metrics.scala.MetricBuilderSpec.part1")
+    }
+
+    it("supports objects") {
+      MetricBuilder.metricName(MetricBuilderSpec.ref, Seq("part1")) should equal ("nl.grons.metrics.scala.MetricBuilderSpec.part1")
+    }
+
+    it("supports nested objects") {
+      object TestObject {
+        val ref: Class[_] = this.getClass
+      }
+      MetricBuilder.metricName(TestObject.ref, Seq("part1")) should equal ("nl.grons.metrics.scala.MetricBuilderSpec.part1")
+    }
+  }
+
   describe("Metrics configuration dsl") {
     val underTest = new UnderTest
 
@@ -84,4 +110,8 @@ class MetricBuilderSpec extends FunSpec with MockitoSugar with ShouldMatchers wi
     }
   }
 
+}
+
+object MetricBuilderSpec {
+  private val ref: Class[_] = this.getClass
 }

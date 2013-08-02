@@ -17,12 +17,11 @@
 package nl.grons.metrics.scala
 
 import akka.actor.Actor
-import com.codahale.metrics.MetricRegistry
 
 /**
- * Stackable actor trait - counts received messages
+ * Stackable actor trait which counts received messages.
  *
- * Metric name defaults to the class of the actor (e.g. ExampleActor below) + .receiveCounter
+ * Metric name defaults to the class of the actor (e.g. `ExampleActor` below) + .`receiveCounter`
  *
  * Use it as follows:
  * {{{
@@ -44,7 +43,7 @@ import com.codahale.metrics.MetricRegistry
  */
 trait ReceiveCounterActor extends Actor { self: InstrumentedBuilder =>
 
-  def receiveCounterName: String = MetricRegistry.name(getClass,"receiveCounter")
+  def receiveCounterName: String = MetricBuilder.metricName(getClass, Seq("receiveCounter"))
   lazy val counter: Counter = metrics.counter(receiveCounterName)
 
   private[this] lazy val wrapped = counter.count(super.receive)
@@ -54,9 +53,9 @@ trait ReceiveCounterActor extends Actor { self: InstrumentedBuilder =>
 }
 
 /**
- * Stackable actor trait - times the message receipt
+ * Stackable actor trait which times the message receipt.
  *
- * Metric name defaults to the class of the actor (e.g. ExampleActor below) + .receiveTimer
+ * Metric name defaults to the class of the actor (e.g. `ExampleActor` below) + `.receiveTimer`
  *
  * Use it as follows:
  * {{{
@@ -78,7 +77,7 @@ trait ReceiveCounterActor extends Actor { self: InstrumentedBuilder =>
  */
 trait ReceiveTimerActor extends Actor { self: InstrumentedBuilder =>
 
-  def receiveTimerName: String = MetricRegistry.name(getClass,"receiveTimer")
+  def receiveTimerName: String = MetricBuilder.metricName(getClass, Seq("receiveTimer"))
   lazy val timer: Timer = metrics.timer(receiveTimerName)
 
   private[this] lazy val wrapped = timer.time(super.receive)
@@ -87,9 +86,9 @@ trait ReceiveTimerActor extends Actor { self: InstrumentedBuilder =>
 }
 
 /**
- * Stackable actor trait - meters the exceptions thrown
+ * Stackable actor trait which meters thrown exceptions.
  *
- * Metric name defaults to the class of the actor (e.g. ExampleActor below) + .receiveExceptionMeter
+ * Metric name defaults to the class of the actor (e.g. `ExampleActor` below) + `.receiveExceptionMeter`
  *
  * Use it as follows:
  * {{{
@@ -111,7 +110,7 @@ trait ReceiveTimerActor extends Actor { self: InstrumentedBuilder =>
  */
 trait ReceiveExceptionMeterActor extends Actor { self: InstrumentedBuilder =>
 
-  def receiveExceptionMeterName: String = MetricRegistry.name(getClass,"receiveExceptionMeter")
+  def receiveExceptionMeterName: String = MetricBuilder.metricName(getClass, Seq("receiveExceptionMeter"))
   lazy val meter: Meter = metrics.meter(receiveExceptionMeterName)
 
   private[this] lazy val wrapped = meter.exceptionMarkerPartialFunction(super.receive)
