@@ -19,14 +19,6 @@ package nl.grons.metrics.scala
 import com.codahale.metrics.{Meter => CHMeter}
 import scala.util.control.ControlThrowable
 
-object Meter {
-  def apply(metric: CHMeter) = new Meter(metric)
-  def unapply(metric: Meter) = Option(metric.metric)
-
-  implicit def javaMeter2ScalaMeter(metric: CHMeter) = apply(metric)
-  implicit def scalaMeter2JavaMeter(metric: Meter) = metric.metric
-}
-
 /**
  * A Scala façade class for Meter.
  *
@@ -94,22 +86,20 @@ class Meter(private val metric: CHMeter) {
    *  }
    * }}}
    */
-   def exceptionMarkerPartialFunction = new AnyRef() {
-	def apply[A,B](pf: PartialFunction[A,B]): PartialFunction[A,B] =
-     new PartialFunction[A,B] {
-	   def apply(a: A): B = {
-	     try {
-	         pf.apply(a)
-	       } catch {
-	         case e: Throwable => mark(); throw e
-	       }
-	   }
+  def exceptionMarkerPartialFunction = new AnyRef() {
+    def apply[A, B](pf: PartialFunction[A, B]): PartialFunction[A, B] =
+      new PartialFunction[A, B] {
+        def apply(a: A): B = {
+          try {
+            pf.apply(a)
+          } catch {
+            case e: Throwable => mark(); throw e
+          }
+        }
 
-	   def isDefinedAt(a: A) = {
-	     pf.isDefinedAt(a)
-	   }
-     }
-   }
+        def isDefinedAt(a: A) = pf.isDefinedAt(a)
+      }
+  }
 
   /**
    * Marks the occurrence of an event.

@@ -74,10 +74,7 @@ class MetricBuilderSpec extends FunSpec with MockitoSugar with ShouldMatchers wi
     }
 
     it("supports nested objects") {
-      object TestObject {
-        val ref: Class[_] = this.getClass
-      }
-      MetricBuilder.metricName(TestObject.ref, Seq("part1")) should equal ("nl.grons.metrics.scala.MetricBuilderSpec.part1")
+      MetricBuilder.metricName(MetricBuilderSpec.nestedRef, Seq("part1")) should equal ("nl.grons.metrics.scala.MetricBuilderSpec.Nested.part1")
     }
   }
 
@@ -113,5 +110,9 @@ class MetricBuilderSpec extends FunSpec with MockitoSugar with ShouldMatchers wi
 }
 
 object MetricBuilderSpec {
+  object Nested {
+    val ref: Class[_] = this.getClass
+  }
   private val ref: Class[_] = this.getClass
+  private val nestedRef: Class[_] = Nested.ref
 }

@@ -19,14 +19,6 @@ package nl.grons.metrics.scala
 import java.util.concurrent.TimeUnit
 import com.codahale.metrics.{Timer => CHTimer, Snapshot}
 
-object Timer {
-  def apply(metric: CHTimer) = new Timer(metric)
-  def unapply(metric: Timer) = Option(metric.metric)
-
-  implicit def javaTimer2ScalaTimer(metric: CHTimer) = apply(metric)
-  implicit def scalaTimer2JavaTimer(metric: Timer) = metric.metric
-}
-
 /**
  * A Scala façade class for Timer.
  *
@@ -60,18 +52,16 @@ class Timer(private val metric: CHTimer) {
    */
    def time[A,B](pf: PartialFunction[A,B]): PartialFunction[A,B] =
      new PartialFunction[A,B] {
-	   def apply(a: A): B = {
-	       val ctx = timerContext()
-	       try {
-	         pf.apply(a)
-	       } finally {
-	         ctx.stop()
-	       }
-	   }
+       def apply(a: A): B = {
+           val ctx = timerContext()
+           try {
+             pf.apply(a)
+           } finally {
+             ctx.stop()
+           }
+       }
 
-	   def isDefinedAt(a: A) = {
-	     pf.isDefinedAt(a)
-	   }
+       def isDefinedAt(a: A) = pf.isDefinedAt(a)
      }
 
   /**

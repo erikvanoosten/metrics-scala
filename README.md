@@ -170,6 +170,16 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
     </tr>
+    <tr>
+      <td valign="top">3.0.1</td>
+      <td valign="top">3.0.1</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+    </tr>
   </tbody>
 </table>
 

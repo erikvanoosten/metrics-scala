@@ -18,14 +18,6 @@ package nl.grons.metrics.scala
 
 import com.codahale.metrics.{Histogram => CHHistogram, Snapshot}
 
-object Histogram {
-  def apply(metric: CHHistogram) = new Histogram(metric)
-  def unapply(metric: Histogram) = Option(metric.metric)
-  
-  implicit def javaHistogram2ScalaHistogram(metric: CHHistogram) = apply(metric)
-  implicit def scalaHistogram2JavaHistogram(metric: Histogram) = metric.metric
-}
-
 /**
  * A Scala façade class for Histogram.
  *

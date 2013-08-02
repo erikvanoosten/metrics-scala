@@ -28,7 +28,7 @@ import org.scalatest.OneInstancePerTest
 class CounterSpec extends FunSpec with MockitoSugar with ShouldMatchers with OneInstancePerTest {
   describe("A counter") {
     val metric = mock[com.codahale.metrics.Counter]
-    val counter = Counter(metric)
+    val counter = new Counter(metric)
 
     it("should increment the underlying metric by an arbitrary amount") {
       counter += 12

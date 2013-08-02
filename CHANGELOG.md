@@ -1,7 +1,10 @@
-v3.0.1: July 2013
-=================
+v3.0.1: August 2013
+===================
 
-* Upgrade to Metrics-core 3.0.1
+* Upgrade to Metrics-core 3.0.1, #10.
+* Added support for partial functions (thanks @scullxbones).
+* Added support for actors and futures (scala 2.10 only) for timing and metering exceptions (thanks @scullxbones), #8.
+* Removes '$' from metrics names, #11.
 
 
 v3.0.0: June 2013

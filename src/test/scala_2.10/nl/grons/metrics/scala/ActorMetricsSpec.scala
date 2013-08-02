@@ -17,7 +17,6 @@
 package nl.grons.metrics.scala
 
 import org.mockito.Mockito._
-import org.scalatest.OneInstancePerTest
 import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.mock.MockitoSugar
 import org.scalatest.FunSpec
@@ -26,8 +25,6 @@ import org.scalatest.junit.JUnitRunner
 import akka.actor.Actor
 import akka.actor.ActorSystem
 import com.codahale.metrics.Timer.Context
-import com.codahale.metrics.MetricRegistry
-import com.codahale.metrics.{Counter => CHCounter}
 
 object TestFixture {
 
@@ -51,9 +48,6 @@ object TestFixture {
   }
 
   trait MetricRegistryFixture extends InstrumentedBuilder {
-    import MockitoSugar._
-    import org.mockito.Matchers._
-
     val fixture: Fixture
 
     val metricRegistry = null
@@ -61,9 +55,9 @@ object TestFixture {
     var counterName: String = null
 
     val mockBuilder = new MetricBuilder(null,null) {
-	  override def counter(name: String, scope: String = null) = { counterName = name; fixture.mockCounter }
-	  override def timer(name: String, scope: String = null) = fixture.mockTimer
-	  override def meter(name: String, scope: String = null) = fixture.mockMeter
+      override def counter(name: String, scope: String = null) = { counterName = name; fixture.mockCounter }
+      override def timer(name: String, scope: String = null) = fixture.mockTimer
+      override def meter(name: String, scope: String = null) = fixture.mockMeter
     }
     override def metrics = mockBuilder
   }
@@ -75,30 +69,29 @@ object TestFixture {
   }
 
   class ExceptionThrowingTestActor(val fixture: Fixture) extends Actor with MetricRegistryFixture {
-	  def receive = { case _ => throw new RuntimeException() }
+    def receive = {
+      case _ => throw new RuntimeException()
+    }
   }
 
 
-	class CounterTestActor(fixture: Fixture) extends TestActor(fixture) with ReceiveCounterActor {
-	  override def receiveCounterName = "receiveCounter"
-	}
+  class CounterTestActor(fixture: Fixture) extends TestActor(fixture) with ReceiveCounterActor {
+    override def receiveCounterName = "receiveCounter"
+  }
 
-	class TimerTestActor(fixture: Fixture) extends TestActor(fixture) with ReceiveTimerActor
+  class TimerTestActor(fixture: Fixture) extends TestActor(fixture) with ReceiveTimerActor
 
-	class ExceptionMeterTestActor(fixture: Fixture) extends ExceptionThrowingTestActor(fixture) with ReceiveExceptionMeterActor
+  class ExceptionMeterTestActor(fixture: Fixture) extends ExceptionThrowingTestActor(fixture) with ReceiveExceptionMeterActor
 
-	class ComposedActor(fixture: Fixture) extends TestActor(fixture)
-		with ReceiveCounterActor with ReceiveTimerActor with ReceiveExceptionMeterActor
+  class ComposedActor(fixture: Fixture) extends TestActor(fixture)
+  with ReceiveCounterActor with ReceiveTimerActor with ReceiveExceptionMeterActor
+
 }
 
 @RunWith(classOf[JUnitRunner])
 class ActorMetricsSpec extends FunSpec with ShouldMatchers {
   import TestFixture._
   import akka.testkit.TestActorRef
-  import scala.concurrent.duration._
-  import scala.concurrent.Await
-  import akka.pattern.ask
-  import MockitoSugar._
   import org.mockito.Matchers._
 
   implicit val system = ActorSystem()
@@ -141,7 +134,7 @@ class ActorMetricsSpec extends FunSpec with ShouldMatchers {
       verify(fixture.mockCounter).count(any[PartialFunction[Any,Unit]])
       verify(fixture.mockTimer).time(any[PartialFunction[Any,Unit]])
       verify(fixture.mockMeter,never()).mark()
-      ref.underlyingActor.counterName should equal ("nl.grons.metrics.scala.TestFixture$ComposedActor.receiveCounter")
+      ref.underlyingActor.counterName should equal ("nl.grons.metrics.scala.TestFixture.ComposedActor.receiveCounter")
     }
   }
 

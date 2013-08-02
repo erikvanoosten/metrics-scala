@@ -31,7 +31,7 @@ class MetricBuilder(val owner: Class[_], val registry: MetricRegistry) {
    * @param scope the scope of the gauge or null for no scope
    */
   def gauge[A](name: String, scope: String = null)(f: => A): Gauge[A] =
-    Gauge[A](registry.register(metricName(name, scope), new CHGauge[A] { def getValue: A = f }))
+    new Gauge[A](registry.register(metricName(name, scope), new CHGauge[A] { def getValue: A = f }))
 
   /**
    * Creates a new counter metric.
@@ -78,15 +78,21 @@ object MetricBuilder {
   /**
    * Create a metrics name.
    * Unlike [[com.codahale.metrics.MetricRegistry.name()]] this version supports Scala classes
-   * such as objects and closures by ignoring everything that follows the first `$`.
+   * such as objects and closures.
    *
    * @param owner the owning class
    * @param names the parts of the metric name, any `null`s are ignored
    * @return owner's class, name and names concatenated by periods
    */
   def metricName(owner: Class[_], names: Seq[String]): String = {
-    def removeScalaClassNameAppends(s: String): String = s.takeWhile(_ != '$')
+    // Example weird class name: TestContext$$anonfun$2$$anonfun$apply$TestObject$2$
+    def removeScalaParts(s: String) = s.
+      replaceAllLiterally("$$anonfun", ".").
+      replaceAllLiterally("$apply", ".").
+      replaceAll("""\$\d*""", ".").
+      replaceAllLiterally("$", ".").
+      split('.')
 
-    (owner.getName.split('.').toSeq.map(removeScalaClassNameAppends) ++ names.filter(_ != null)).filter(_.nonEmpty).mkString(".")
+    (owner.getName.split('.').toSeq.flatMap(removeScalaParts) ++ names.filter(_ != null)).filter(_.nonEmpty).mkString(".")
   }
 }

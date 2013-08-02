@@ -18,14 +18,6 @@ package nl.grons.metrics.scala
 
 import com.codahale.metrics.{Counter => CHCounter}
 
-object Counter {
-  def apply(metric: CHCounter) = new Counter(metric)
-  def unapply(metric: Counter) = Option(metric.delegate)
-
-  implicit def javaCounter2ScalaCounter(metric: CHCounter) = apply(metric)
-  implicit def scalaCounter2JavaCounter(metric: Counter) = metric.delegate
-}
-
 /**
  * A Scala façade class for Counter.
  */
@@ -39,14 +31,12 @@ class Counter(metric: CHCounter) {
    */
    def count[A,B](pf: PartialFunction[A,B]): PartialFunction[A,B] =
      new PartialFunction[A,B] {
-	   def apply(a: A): B = {
-	      metric.inc(1)
-	      pf.apply(a)
-	   }
+       def apply(a: A): B = {
+          metric.inc(1)
+          pf.apply(a)
+       }
 
-	   def isDefinedAt(a: A) = {
-	     pf.isDefinedAt(a)
-	   }
+       def isDefinedAt(a: A) = pf.isDefinedAt(a)
      }
 
   /**
