@@ -4,7 +4,7 @@ description <<= (crossVersion) { v => "metrics-scala for " + v }
 
 organization := "nl.grons"
 
-version := "3.0.1-SNAPSHOT"
+version := "3.0.1"
 
 scalaVersion := "2.10.0"
 
@@ -18,7 +18,7 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "com.codahale.metrics" % "metrics-core" % "3.0.0",
+  "com.codahale.metrics" % "metrics-core" % "3.0.1",
   "junit" % "junit" % "4.11" % "test",
   "org.scalatest" %% "scalatest" % "1.9.1" % "test",
   "org.mockito" % "mockito-all" % "1.9.5" % "test"
