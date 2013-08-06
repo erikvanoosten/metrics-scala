@@ -25,8 +25,20 @@ import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import java.util.concurrent.TimeUnit
 
+object TimerSpec {
+  case class Result()
+
+  def myFunc(x: String): List[Result] = {
+    List(Result())
+  }
+
+}
+
 @RunWith(classOf[JUnitRunner])
 class TimerSpec extends FunSpec with MockitoSugar with ShouldMatchers with OneInstancePerTest {
+
+  import TimerSpec._
+
   describe("A timer") {
     val metric = mock[com.codahale.metrics.Timer]
     val timer = new Timer(metric)
@@ -48,11 +60,23 @@ class TimerSpec extends FunSpec with MockitoSugar with ShouldMatchers with OneIn
 
     it("should increment time execution of partial function") {
       val pf:PartialFunction[String,String] = { case "test" => "test" }
-      val wrapped = timer.time(pf)
+      val wrapped = timer.timePF(pf)
       wrapped("test") should equal ("test")
       verify(metric).time()
       verify(context).stop()
       wrapped.isDefinedAt("x") should be (false)
+    }
+
+    it("correctly infers the type") {
+      val someString = "someString"
+      val timed = timer.time(myFunc(someString))
+      timed.isInstanceOf[List[_]] should be (true)
+      timed(0).isInstanceOf[Result] should be (true)
+
+      val pf:PartialFunction[String,String] = { case x:String => x }
+      val timedPF = timer.timePF( pf )
+      timedPF.isInstanceOf[PartialFunction[_,_]] should be (true)
+      timedPF("x") should be ("x")
     }
   }
 }
