@@ -80,7 +80,7 @@ trait ReceiveTimerActor extends Actor { self: InstrumentedBuilder =>
   def receiveTimerName: String = MetricBuilder.metricName(getClass, Seq("receiveTimer"))
   lazy val timer: Timer = metrics.timer(receiveTimerName)
 
-  private[this] lazy val wrapped = timer.time(super.receive)
+  private[this] lazy val wrapped = timer.timePF(super.receive)
 
   abstract override def receive = wrapped
 }
