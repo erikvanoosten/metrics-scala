@@ -54,6 +54,22 @@ class Counter(metric: CHCounter) {
   }
 
   /**
+   * Increments the counter by 1.
+   */
+  def inc(delta: Long = 1) {
+    metric.inc(delta)
+  }
+
+  /**
+   * Decrements the counter by 1.
+   */
+  def dec(delta: Long = 1) {
+    metric.dec(delta)
+  }
+
+
+
+  /**
    * The current count.
    */
   def count: Long = metric.getCount
