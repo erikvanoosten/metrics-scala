@@ -112,7 +112,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
     </tr>
     <tr>
       <td valign="top">2.1.2</td>
-      <td valign="top">2.1.2</td>
+      <td valign="top">same</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -122,7 +122,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
     </tr>
     <tr>
       <td valign="top">2.1.3</td>
-      <td valign="top">2.1.3</td>
+      <td valign="top">same</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -132,7 +132,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
     </tr>
     <tr>
       <td valign="top">2.1.4</td>
-      <td valign="top">2.1.4</td>
+      <td valign="top">same</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -142,7 +142,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
     </tr>
     <tr>
       <td valign="top">2.1.5</td>
-      <td valign="top">2.1.5</td>
+      <td valign="top">same</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -152,7 +152,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
     </tr>
     <tr>
       <td valign="top">2.2.0</td>
-      <td valign="top">2.2.0</td>
+      <td valign="top">same</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -162,7 +162,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
     </tr>
     <tr>
       <td valign="top">3.0.0</td>
-      <td valign="top">3.0.0</td>
+      <td valign="top">same</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -172,7 +172,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
     </tr>
     <tr>
       <td valign="top">3.0.1</td>
-      <td valign="top">3.0.1</td>
+      <td valign="top">same</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
