@@ -50,7 +50,7 @@ class Timer(private val metric: CHTimer) {
   /**
    * Wraps partial function pf, timing every execution
    */
-   def time[A,B](pf: PartialFunction[A,B]): PartialFunction[A,B] =
+   def timePF[A,B](pf: PartialFunction[A,B]): PartialFunction[A,B] =
      new PartialFunction[A,B] {
        def apply(a: A): B = {
            val ctx = timerContext()

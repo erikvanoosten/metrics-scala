@@ -43,7 +43,7 @@ object TestFixture {
 
     when(mockTimer.timerContext()).thenReturn(mockTimerContext)
     when(mockCounter.count(any[PartialFunction[Any,Unit]])).thenReturn(pf)
-    when(mockTimer.time(any[PartialFunction[Any,Unit]])).thenReturn(pf)
+    when(mockTimer.timePF(any[PartialFunction[Any,Unit]])).thenReturn(pf)
     when(mockMeter.exceptionMarkerPartialFunction).thenReturn(new { def apply[A,B](pf: PartialFunction[A,B]): PartialFunction[A,B] = pf })
   }
 
@@ -113,7 +113,7 @@ class ActorMetricsSpec extends FunSpec with ShouldMatchers {
       val fixture = new Fixture
       val ref = TestActorRef(new TimerTestActor(fixture))
       ref ! "test"
-      verify(fixture.mockTimer).time(any[PartialFunction[Any,Unit]])
+      verify(fixture.mockTimer).timePF(any[PartialFunction[Any,Unit]])
     }
   }
 
@@ -132,7 +132,7 @@ class ActorMetricsSpec extends FunSpec with ShouldMatchers {
       val ref = TestActorRef(new ComposedActor(fixture))
       ref ! "test"
       verify(fixture.mockCounter).count(any[PartialFunction[Any,Unit]])
-      verify(fixture.mockTimer).time(any[PartialFunction[Any,Unit]])
+      verify(fixture.mockTimer).timePF(any[PartialFunction[Any,Unit]])
       verify(fixture.mockMeter,never()).mark()
       ref.underlyingActor.counterName should equal ("nl.grons.metrics.scala.TestFixture.ComposedActor.receiveCounter")
     }
