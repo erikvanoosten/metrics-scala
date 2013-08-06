@@ -113,7 +113,7 @@ trait ReceiveExceptionMeterActor extends Actor { self: InstrumentedBuilder =>
   def receiveExceptionMeterName: String = MetricBuilder.metricName(getClass, Seq("receiveExceptionMeter"))
   lazy val meter: Meter = metrics.meter(receiveExceptionMeterName)
 
-  private[this] lazy val wrapped = meter.exceptionMarkerPartialFunction(super.receive)
+  private[this] lazy val wrapped = meter.exceptionMarkerPF(super.receive)
 
   abstract override def receive = wrapped
 

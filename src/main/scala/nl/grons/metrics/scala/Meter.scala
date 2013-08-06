@@ -102,6 +102,7 @@ class Meter(private val metric: CHMeter) {
   }
 
   @deprecated("please use exceptionMarkerPF", "3.0.2")
+  @inline
   def exceptionMarkerPartialFunction = exceptionMarkerPF
 
   /**

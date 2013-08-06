@@ -84,7 +84,7 @@ object TestFixture {
   class ExceptionMeterTestActor(fixture: Fixture) extends ExceptionThrowingTestActor(fixture) with ReceiveExceptionMeterActor
 
   class ComposedActor(fixture: Fixture) extends TestActor(fixture)
-  with ReceiveCounterActor with ReceiveTimerActor with ReceiveExceptionMeterActor
+    with ReceiveCounterActor with ReceiveTimerActor with ReceiveExceptionMeterActor
 
 }
 
@@ -122,7 +122,7 @@ class ActorMetricsSpec extends FunSpec with ShouldMatchers {
       val fixture = new Fixture
       val ref = TestActorRef(new ExceptionMeterTestActor(fixture))
       intercept[RuntimeException] { ref.receive("test") }
-      verify(fixture.mockMeter).exceptionMarkerPartialFunction
+      verify(fixture.mockMeter).exceptionMarkerPF
     }
   }
 
