@@ -1,10 +1,10 @@
 name := "metrics-scala"
 
-description <<= (crossVersion) { v => "metrics-scala for " + v }
+description <<= (crossVersion) { v => "metrics-scala for scala " + v }
 
 organization := "nl.grons"
 
-version := "3.0.1"
+version := "3.0.2"
 
 scalaVersion := "2.10.0"
 
@@ -44,7 +44,7 @@ unmanagedSourceDirectories in Test <<= (unmanagedSourceDirectories in Test, sour
 
 javacOptions ++= Seq("-Xmx512m", "-Xms128m", "-Xss10m")
 
-javaOptions += "-Xmx512m"
+javaOptions ++= Seq("-Xmx512m", "-Djava.awt.headless=true")
 
 scalacOptions ++= Seq("-deprecation", "-unchecked")
 

@@ -59,7 +59,7 @@ class TimerSpec extends FunSpec with MockitoSugar with ShouldMatchers with OneIn
     }
 
     it("should increment time execution of partial function") {
-      val pf:PartialFunction[String,String] = { case "test" => "test" }
+      val pf: PartialFunction[String,String] = { case "test" => "test" }
       val wrapped = timer.timePF(pf)
       wrapped("test") should equal ("test")
       verify(metric).time()
@@ -73,7 +73,7 @@ class TimerSpec extends FunSpec with MockitoSugar with ShouldMatchers with OneIn
       timed.isInstanceOf[List[_]] should be (true)
       timed(0).isInstanceOf[Result] should be (true)
 
-      val pf:PartialFunction[String,String] = { case x:String => x }
+      val pf: PartialFunction[String,String] = { case x: String => x }
       val timedPF = timer.timePF( pf )
       timedPF.isInstanceOf[PartialFunction[_,_]] should be (true)
       timedPF("x") should be ("x")

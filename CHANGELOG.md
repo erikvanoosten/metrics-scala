@@ -1,3 +1,9 @@
+v3.0.2: August 2013
+===================
+
+* Renamed `Timer.time` for partial functions to prevent type annotations (thanks @scullxbones), #13, #15.
+* Renamed `Meter.exceptionMarkerPartialFunction` to `Meter.exceptionMarkerPF` to be consistent with `Timer`.
+
 v3.0.1: August 2013
 ===================
 

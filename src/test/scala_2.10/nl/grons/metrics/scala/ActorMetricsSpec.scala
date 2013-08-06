@@ -37,14 +37,14 @@ object TestFixture {
     val mockTimerContext = mock[Context]
     val mockMeter = mock[Meter]
 
-    val pf:PartialFunction[Any,Unit] = {
+    val pf: PartialFunction[Any,Unit] = {
       case _ =>
     }
 
     when(mockTimer.timerContext()).thenReturn(mockTimerContext)
     when(mockCounter.count(any[PartialFunction[Any,Unit]])).thenReturn(pf)
     when(mockTimer.timePF(any[PartialFunction[Any,Unit]])).thenReturn(pf)
-    when(mockMeter.exceptionMarkerPartialFunction).thenReturn(new { def apply[A,B](pf: PartialFunction[A,B]): PartialFunction[A,B] = pf })
+    when(mockMeter.exceptionMarkerPF).thenReturn(new { def apply[A,B](pf: PartialFunction[A,B]): PartialFunction[A,B] = pf })
   }
 
   trait MetricRegistryFixture extends InstrumentedBuilder {

@@ -50,7 +50,7 @@ class CounterSpec extends FunSpec with MockitoSugar with ShouldMatchers with One
     }
 
     it("should increment counter upon execution of partial function") {
-      val pf:PartialFunction[String,String] = { case "test" => "test" }
+      val pf: PartialFunction[String, String] = { case "test" => "test" }
       val wrapped = counter.count(pf)
       wrapped("test") should equal ("test")
       verify(metric).inc(1)

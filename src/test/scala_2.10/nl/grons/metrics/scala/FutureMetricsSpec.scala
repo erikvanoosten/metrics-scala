@@ -35,7 +35,7 @@ import com.codahale.metrics.Timer.Context
 
 @RunWith(classOf[JUnitRunner])
 class FutureMetricsSpec extends FunSpec with ShouldMatchers with OneInstancePerTest
-		with FutureMetrics with InstrumentedBuilder {
+    with FutureMetrics with InstrumentedBuilder {
 
   import MockitoSugar._
   import Matchers._

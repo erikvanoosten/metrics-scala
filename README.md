@@ -180,18 +180,27 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
     </tr>
+    <tr>
+      <td valign="top">3.0.2</td>
+      <td valign="top">3.0.1</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+    </tr>
   </tbody>
 </table>
 
-If you need another version mix please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), or
-sent an email to the [metrics mailing list](http://groups.google.com/group/metrics-user).
+If you need another version mix please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), or sent an email to the [metrics mailing list](http://groups.google.com/group/metrics-user).
 
 
 ## Download
 
 SBT:
 ```
-libraryDependencies += "nl.grons" %% "metrics-scala" % "3.0.1"
+libraryDependencies += "nl.grons" %% "metrics-scala" % "3.0.2"
 ```
 
 Maven:
@@ -203,15 +212,13 @@ Maven:
 <dependency>
     <groupId>nl.grons</groupId>
     <artifactId>metrics-scala_${scala.dep.version}</artifactId>
-    <version>3.0.1</version>
+    <version>3.0.2</version>
 </dependency>
 ```
 
-Note: For scala versions before 2.10, you need to use the full scala version in the
-artifact name; e.g. `metrics-scala_2.9.1-1`.
+Note: For scala versions before 2.10, you need to use the full scala version in the artifact name; e.g. `metrics-scala_2.9.1-1`.
 
-Note: If you depend on JMX: 2.2.0 has a small [bug](https://github.com/codahale/metrics/issues/318)
-that makes it inconvenient to use JMX.
+Note: If you depend on JMX: 2.2.0 has a small [bug](https://github.com/codahale/metrics/issues/318) that makes it inconvenient to use JMX.
 
 
 ### License
