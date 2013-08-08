@@ -161,7 +161,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
     </tr>
     <tr>
-      <td valign="top">3.0.0</td>
+      <td valign="top"><a href="https://github.com/erikvanoosten/metrics-scala/releases/tag/version-3.0.0">3.0.0</a></td>
       <td valign="top">same</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -171,7 +171,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
     </tr>
     <tr>
-      <td valign="top">3.0.1</td>
+      <td valign="top"><a href="https://github.com/erikvanoosten/metrics-scala/releases/tag/version-3.0.1">3.0.1</a></td>
       <td valign="top">same</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -181,7 +181,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
     </tr>
     <tr>
-      <td valign="top">3.0.2</td>
+      <td valign="top"><a href="https://github.com/erikvanoosten/metrics-scala/releases/tag/version-3.0.2">3.0.2</a></td>
       <td valign="top">3.0.1</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
