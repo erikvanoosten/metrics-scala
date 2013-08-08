@@ -16,6 +16,7 @@ with the help of [@scullxbones](https://github.com/scullxbones).
 * Features
 * Available versions
 * Download
+* Support
 * License
 
 ### Usage (version 3.x)
@@ -219,6 +220,12 @@ Maven:
 Note: For scala versions before 2.10, you need to use the full scala version in the artifact name; e.g. `metrics-scala_2.9.1-1`.
 
 Note: If you depend on JMX: 2.2.0 has a small [bug](https://github.com/codahale/metrics/issues/318) that makes it inconvenient to use JMX.
+
+## Support
+
+If you found a bug, please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), better yet: send a pull request.
+For questions, please sent an email to the [metrics mailing list](http://groups.google.com/group/metrics-user).
+
 
 
 ### License
