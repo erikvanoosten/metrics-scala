@@ -1,6 +1,7 @@
 v3.0.2: August 2013
 ===================
 
+* added back inc/dec on Counter (thanks @alexy), #14
 * Renamed `Timer.time` for partial functions to prevent type annotations (thanks @scullxbones), #13, #15.
 * Renamed `Meter.exceptionMarkerPartialFunction` to `Meter.exceptionMarkerPF` to be consistent with `Timer`.
 
