@@ -21,9 +21,9 @@ class Example(db: Database) extends Instrumented {
 }
 ```
 
-There are Scala wrappers for each metric type: `gauge`, `counter`, `histogram`, `meter` and `timer`. There is no special support for 'Health Checks'.
+There are Scala wrappers for each metric type: `gauge`, `counter`, `histogram`, `meter` and `timer`. These are described below.
 
-For more information on Metrics 2.x, please see the
+There is no special support for Health Checks, JMX or other Reporters. For more information on these please see the Metrics 2.x
 [documentation in the Way Back Machine](http://web.archive.org/web/20120925003800/http://metrics.codahale.com/manual/core/)
 or read it directly from [Metrics 2.2.0 git branch](https://github.com/codahale/metrics/tree/v2.2.0/docs/source/manual).
 
@@ -142,9 +142,3 @@ Each metric has a unique metric name. In metrics-scala the name partly derived f
 *Scope:* An optional name describing the metric’s scope. Useful for when you have multiple instances of a class.
 
 The factory methods `metrics.gauge`, `metrics.counter`, `metrics.histogram`, `metrics.meter` and `metrics.timer` all accept a `scope` argument. Be default the scope is not used.
-
-# Health Checks, Reporters, JMX
-
-These features of metrics-core have no special support in metrics-scala. Please see the documentation of metrics-core 2.x in the
-[documentation in the Way Back Machine](http://web.archive.org/web/20120925003800/http://metrics.codahale.com/manual/core/)
-or read it directly from [Metrics 2.2.0 git branch](https://github.com/codahale/metrics/tree/v2.2.0/docs/source/manual).
