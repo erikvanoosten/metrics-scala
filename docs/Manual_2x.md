@@ -1,6 +1,6 @@
 **WARNING:** This document applies to metrics-scala 2.x only. Please use [Usage](/docs/Usage.md) for metrics 3.x.
 
-# Usage (version 2.x)
+# Manual (version 2.x)
 
 # 30 seconds introduction
 
