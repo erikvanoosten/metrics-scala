@@ -11,15 +11,15 @@ with the help of [@scullxbones](https://github.com/scullxbones).
 
 ### Contents
 
-* Usage (version 3.x)
-* Usage (version 2.x)
+* Usage
+* [Manual (version 2.x)](docs/Manual_2x.md)
 * Features
 * Available versions
 * Download
 * Support
 * License
 
-### Usage (version 3.x)
+### Usage
 
 In Metrics 3 you have to specify an application wide `MetricRegistry`. Create an
 `Instrumented` trait that refers to that registry and that extends the `InstrumentedBuilder`
@@ -52,29 +52,6 @@ There are Scala wrappers for each metric type: `gauge`, `counter`, `histogram`, 
 For more information on Metrics 3.x, please see the [documentation](http://metrics.codahale.com).
 
 See the [change log](CHANGELOG.md) for API changes compared to the 2.x versions.
-
-### Usage (version 2.x)
-
-Metrics-scala provides the ``Instrumented`` trait for Scala applications. This
-trait gives you the metrics builder `metrics`.
-
-```scala
-import com.yammer.metrics.scala.Instrumented
-
-class Example(db: Database) extends Instrumented {
-  private[this] val loading = metrics.timer("loading")
-
-  def loadStuff(): Seq[Row] = loading.time {
-    db.fetchRows()
-  }
-}
-```
-
-There are Scala wrappers for each metric type: `gauge`, `counter`, `histogram`, `meter` and `timer`.
-
-For more information on Metrics 2.x, please see the
-[documentation in the Way Back Machine](http://web.archive.org/web/20120925003800/http://metrics.codahale.com/manual/core/)
-or read it directly from [Metrics 2.2.0 git branch](https://github.com/codahale/metrics/tree/v2.2.0/docs/source/manual).
 
 ### Features
 
