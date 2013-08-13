@@ -79,7 +79,7 @@ or read it directly from [Metrics 2.2.0 git branch](https://github.com/codahale/
 ### Features
 
 * Easy creation of all metrics types.
-* Almost invisible syntax for using timers (see example below).
+* Almost invisible syntax for using timers (see example above).
 * Scala specific methods on metrics (e.g. `+=` on counters).
 * Derives proper metrics names for Scala objects and closures.
 * Actor support.
