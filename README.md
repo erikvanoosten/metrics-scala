@@ -12,6 +12,7 @@ with the help of [@scullxbones](https://github.com/scullxbones).
 ### Contents
 
 * Usage
+* [Manual](docs/Manual.md)
 * [Manual (version 2.x)](docs/Manual_2x.md)
 * Features
 * Available versions
@@ -21,9 +22,7 @@ with the help of [@scullxbones](https://github.com/scullxbones).
 
 ### Usage
 
-In Metrics 3 you have to specify an application wide `MetricRegistry`. Create an
-`Instrumented` trait that refers to that registry and that extends the `InstrumentedBuilder`
-trait.
+Metrics-scala provides an easy way to create metrics in Scala. Metrics-core requires an application wide `MetricRegistry`. Create an **`Instrumented`** trait that refers to that registry and extends the `InstrumentedBuilder` trait.
 
 ```scala
 object YourApplication {
@@ -47,9 +46,7 @@ class Example(db: Database) extends Instrumented {
 }
 ```
 
-There are Scala wrappers for each metric type: `gauge`, `counter`, `histogram`, `meter` and `timer`.
-
-For more information on Metrics 3.x, please see the [documentation](http://metrics.codahale.com).
+For more detailed information see the [manual](docs/Manual.md). For more information on Metrics-core 3.x, please see the [documentation](http://metrics.codahale.com).
 
 See the [change log](CHANGELOG.md) for API changes compared to the 2.x versions.
 
@@ -59,8 +56,8 @@ See the [change log](CHANGELOG.md) for API changes compared to the 2.x versions.
 * Almost invisible syntax for using timers (see example above).
 * Scala specific methods on metrics (e.g. `+=` on counters).
 * Derives proper metrics names for Scala objects and closures.
-* Actor support.
-* Future support.
+* Actor support (Scala 2.10 only).
+* Future support (Scala 2.10 only).
 
 Planned:
 
@@ -203,7 +200,6 @@ Note: If you depend on JMX: 2.2.0 has a small [bug](https://github.com/codahale/
 
 If you found a bug, please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), better yet: send a pull request.
 For questions, please sent an email to the [metrics mailing list](http://groups.google.com/group/metrics-user).
-
 
 
 ### License

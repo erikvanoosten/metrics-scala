@@ -1,11 +1,10 @@
-**WARNING:** This document applies to metrics-scala 2.x only. Please use [Usage](/docs/Usage.md) for metrics 3.x.
+**WARNING:** This document applies to metrics-scala 2.x only. Please use [Usage](/docs/Manual.md) for metrics 3.x.
 
 # Manual (version 2.x)
 
 # 30 seconds introduction
 
-Metrics-scala provides the ``Instrumented`` trait for Scala applications. This
-trait gives you the metrics builder `metrics`.
+Metrics-scala provides an easy way to create metrics in Scala. It does so by providing the ``Instrumented`` trait. This trait gives you the metrics builder `metrics`.
 
 For example, here is how to create and use a timer:
 
@@ -134,7 +133,9 @@ val timer: Timer = metrics.timer("get-requests", durationUnit = TimeUnit.SECONDS
 
 # Metric names and Instrumented
 
-Each metric has a unique metric name. In metrics-scala the name partly derived from the owner class. The owner class is the class that extends the `Instrumented` trait. The name is build from:
+Each metric has a unique metric name. In metrics-scala the name partly derived from the *owner class*. The owner class is the class that extends the `Instrumented` trait.
+
+The metric name is build from:
 
 * *Group:* The top-level grouping of the metric. This is set to the owner’s package name (e.g., com.example.proj.auth).
 * *Type:* The second-level grouping of the metric. This defaults to the owner’s class name (e.g., SessionStore).
