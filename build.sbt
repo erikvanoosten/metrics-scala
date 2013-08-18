@@ -19,6 +19,7 @@ resolvers ++= Seq(
 
 libraryDependencies ++= Seq(
   "com.codahale.metrics" % "metrics-core" % "3.0.1",
+  "com.codahale.metrics" % "metrics-healthchecks" % "3.0.1",
   "junit" % "junit" % "4.11" % "test",
   "org.scalatest" %% "scalatest" % "1.9.1" % "test",
   "org.mockito" % "mockito-all" % "1.9.5" % "test"
