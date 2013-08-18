@@ -1,3 +1,8 @@
+v3.0.3: August 2013
+===================
+
+* Added support for health checks (thanks @scullxbones), #17.
+
 v3.0.2: August 2013
 ===================
 
