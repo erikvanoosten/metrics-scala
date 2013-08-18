@@ -28,9 +28,9 @@ class Example(db: Database) extends Instrumented {
 }
 ```
 
-There are Scala wrappers for each metric type: `gauge`, `counter`, `histogram`, `meter` and `timer`. These are described below. In addition, in Scala 2.10, you can instrument Actors and Futures. This is described at [Instrumenting Actors and Futures](/docs/ActorsAndFutures.md) <-- TODO.
+There are Scala wrappers for each metric type: `gauge`, `counter`, `histogram`, `meter` and `timer`. These are described below. Health check support is described at [Health check support](/docs/HealthCheckManual.md). In Scala 2.10 you can also instrument Actors and Futures. This is described at [Instrumenting Actors and Futures](/docs/ActorsAndFutures.md).
 
-There is no special support for Health Checks, JMX or other Reporters. For more information on Metrics 3.x, please see the [documentation](http://metrics.codahale.com).
+There is no special support for JMX or other Reporters. For more information on Metrics 3.x, please see the [documentation](http://metrics.codahale.com).
 
 
 # Gauges

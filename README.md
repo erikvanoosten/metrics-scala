@@ -22,7 +22,7 @@ with the help of [@scullxbones](https://github.com/scullxbones).
 
 ### Usage
 
-Metrics-scala provides an easy way to create metrics in Scala. Metrics-core requires an application wide `MetricRegistry`. Create an **`Instrumented`** trait that refers to that registry and extends the `InstrumentedBuilder` trait.
+Metrics-scala provides an easy way to create metrics and health checks in Scala. Metrics-core requires an application wide `MetricRegistry`. Create an **`Instrumented`** trait that refers to that registry and extends the `InstrumentedBuilder` trait.
 
 ```scala
 object YourApplication {
@@ -53,15 +53,12 @@ See the [change log](CHANGELOG.md) for API changes compared to the 2.x versions.
 ### Features
 
 * Easy creation of all metrics types.
+* Easy creation of Health Checks.
 * Almost invisible syntax for using timers (see example above).
 * Scala specific methods on metrics (e.g. `+=` on counters).
 * Derives proper metrics names for Scala objects and closures.
 * Actor support (Scala 2.10 only).
 * Future support (Scala 2.10 only).
-
-Planned:
-
-* Health check support.
 
 ## Available versions
 
@@ -158,6 +155,16 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
     </tr>
     <tr>
       <td valign="top"><a href="https://github.com/erikvanoosten/metrics-scala/releases/tag/version-3.0.2">3.0.2</a></td>
+      <td valign="top">3.0.1</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+    </tr>
+    <tr>
+      <td valign="top"><a href="https://github.com/erikvanoosten/metrics-scala/releases/tag/version-3.0.3">3.0.3</a> not yet released</td>
       <td valign="top">3.0.1</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>

@@ -4,7 +4,7 @@ description <<= (crossVersion) { v => "metrics-scala for scala " + v }
 
 organization := "nl.grons"
 
-version := "3.0.2"
+version := "3.0.3"
 
 scalaVersion := "2.10.0"
 
