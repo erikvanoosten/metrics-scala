@@ -19,11 +19,12 @@ package nl.grons.metrics.scala
 import com.codahale.metrics.health.HealthCheck.Result
 import com.codahale.metrics.health.{HealthCheck, HealthCheckRegistry}
 import org.junit.runner.RunWith
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.{when, verify}
 import org.scalatest.FunSpec
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.mock.MockitoSugar
+import org.scalatest.mock.MockitoSugar._
 
 @RunWith(classOf[JUnitRunner])
 class HealthCheckSpec extends FunSpec with ShouldMatchers {
@@ -31,98 +32,114 @@ class HealthCheckSpec extends FunSpec with ShouldMatchers {
 
   describe("healthCheck factory method") {
     it ("registers the created checker") {
-      val check = underTest.createBooleanHealthCheck { true }
-      verify(testRegistry).register("test", check)
+      val checkOwner = newCheckOwner
+      val check = checkOwner.createBooleanHealthCheck { true }
+      verify(checkOwner.registry).register("nl.grons.metrics.scala.CheckOwner.test", check)
     }
 
-    it("support boolean checker returning true") {
-      val check = underTest.createBooleanHealthCheck { true }
+    it("build health checks that call the provided checker") {
+      val mockChecker = mock[SimpleChecker]
+      when(mockChecker.check()).thenReturn(true, false, true, false)
+      val check = newCheckOwner.createCheckerHealthCheck(mockChecker)
       check.execute() should be (Result.healthy())
-    }
-
-    it("support boolean checker returning false") {
-      val check = underTest.createBooleanHealthCheck { false }
+      check.execute() should be (Result.unhealthy("FAIL"))
+      check.execute() should be (Result.healthy())
       check.execute() should be (Result.unhealthy("FAIL"))
     }
 
-    it("support boolean checker returning true implicitly") {
-      val check = underTest.createImplicitBooleanHealthCheck { Success }
+    it("supports boolean checker returning true") {
+      val check = newCheckOwner.createBooleanHealthCheck { true }
       check.execute() should be (Result.healthy())
     }
 
-    it("support boolean checker returning false implicitly") {
-      val check = underTest.createImplicitBooleanHealthCheck { Failure }
+    it("supports boolean checker returning false") {
+      val check = newCheckOwner.createBooleanHealthCheck { false }
       check.execute() should be (Result.unhealthy("FAIL"))
     }
 
-    it("support boolean checker returning Right") {
-      val check = underTest.createEitherHealthCheck { Right(()) }
+    it("supports boolean checker returning true implicitly") {
+      val check = newCheckOwner.createImplicitBooleanHealthCheck { Success }
       check.execute() should be (Result.healthy())
     }
 
-    it("support boolean checker returning Left") {
-      val check = underTest.createEitherHealthCheck { Left(()) }
+    it("supports boolean checker returning false implicitly") {
+      val check = newCheckOwner.createImplicitBooleanHealthCheck { Failure }
       check.execute() should be (Result.unhealthy("FAIL"))
     }
 
-    it("support boolean checker returning Right[String]") {
-      val check = underTest.createEitherHealthCheck { Right("I am alright") }
+    it("supports boolean checker returning Right[Long]") {
+      val check = newCheckOwner.createEitherHealthCheck { Right(123L) }
+      check.execute() should be (Result.healthy("123"))
+    }
+
+    it("supports boolean checker returning Left[Boolean]") {
+      val check = newCheckOwner.createEitherHealthCheck { Left(true) }
+      check.execute() should be (Result.unhealthy("true"))
+    }
+
+    it("supports boolean checker returning Right[String]") {
+      val check = newCheckOwner.createEitherHealthCheck { Right("I am alright") }
       check.execute() should be (Result.healthy("I am alright"))
     }
 
-    it("support boolean checker returning Left[String]") {
-      val check = underTest.createEitherHealthCheck { Left("Oops, I am not fine") }
+    it("supports boolean checker returning Left[String]") {
+      val check = newCheckOwner.createEitherHealthCheck { Left("Oops, I am not fine") }
       check.execute() should be (Result.unhealthy("Oops, I am not fine"))
     }
 
-    it("support boolean checker returning Left[Throwable]") {
+    it("supports boolean checker returning Left[Throwable]") {
       val exception: IllegalArgumentException = new IllegalArgumentException()
-      val check = underTest.createEitherHealthCheck { Left(exception) }
+      val check = newCheckOwner.createEitherHealthCheck { Left(exception) }
       check.execute() should be (Result.unhealthy(exception))
     }
 
-    it("support boolean checker returning Result unchanged") {
+    it("supports boolean checker returning Result unchanged") {
       val result = Result.healthy()
-      val check = underTest.createResultHealthCheck { result }
+      val check = newCheckOwner.createResultHealthCheck { result }
       check.execute() should be theSameInstanceAs (result)
     }
 
-    it("support boolean checker throwing an exception") {
+    it("supports boolean checker throwing an exception") {
       val exception: IllegalArgumentException = new IllegalArgumentException()
-      val check = underTest.createThrowingHealthCheck(exception)
+      val check = newCheckOwner.createThrowingHealthCheck(exception)
       check.execute() should be (Result.unhealthy(exception))
     }
   }
 
-  private val testRegistry = mock[HealthCheckRegistry]
+  private val newCheckOwner = new CheckOwner()
 
-  private class UnderTest extends CheckedBuilder {
-    val registry = testRegistry
+}
 
-    // Unfortunately we need a helper method for each supported type. If we wanted a single helper method,
-    // we would need to repeat the magnet pattern right here in a test class :(
+private trait SimpleChecker {
+  def check(): Boolean
+}
 
-    def createBooleanHealthCheck(checker: Boolean): HealthCheck =
-      healthCheck("test", "FAIL") { checker }
+private class CheckOwner() extends CheckedBuilder {
+  val registry: HealthCheckRegistry = mock[HealthCheckRegistry]
 
-    def createImplicitBooleanHealthCheck(checker: Outcome): HealthCheck =
-      healthCheck("test", "FAIL") { checker }
+  // Unfortunately we need a helper method for each supported type. If we wanted a single helper method,
+  // we would need to repeat the magnet pattern right here in a test class :(
 
-    def createEitherHealthCheck(checker: Either[_, _]): HealthCheck =
-      healthCheck("test", "FAIL") { checker }
+  def createBooleanHealthCheck(checker: Boolean): HealthCheck =
+    healthCheck("test", "FAIL") { checker }
 
-    def createResultHealthCheck(checker: Result): HealthCheck =
-      healthCheck("test", "FAIL") { checker }
+  def createImplicitBooleanHealthCheck(checker: Outcome): HealthCheck =
+    healthCheck("test", "FAIL") { checker }
 
-    def createThrowingHealthCheck(checkerFailure: Throwable): HealthCheck =
-      healthCheck("test", "FAIL") {
-        def alwaysFails(): Boolean = throw checkerFailure
-        alwaysFails()
-      }
-  }
+  def createEitherHealthCheck(checker: Either[_, _]): HealthCheck =
+    healthCheck("test", "FAIL") { checker }
 
-  private val underTest = new UnderTest()
+  def createResultHealthCheck(checker: Result): HealthCheck =
+    healthCheck("test", "FAIL") { checker }
 
+  def createThrowingHealthCheck(checkerFailure: Throwable): HealthCheck =
+    healthCheck("test", "FAIL") {
+      def alwaysFails(): Boolean = throw checkerFailure
+      alwaysFails()
+    }
+
+  def createCheckerHealthCheck(checker: SimpleChecker): HealthCheck =
+    healthCheck("test", "FAIL") { checker.check() }
 }
 
 /** Used to test implicit conversion to boolean. */
