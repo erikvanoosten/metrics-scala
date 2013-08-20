@@ -105,7 +105,7 @@ object HealthCheckMagnet {
   /**
    * Magnet for checkers returning a [[com.codahale.metrics.health.HealthCheck.Result]].
    */
-  implicit def fromBooleanCheck(checker: => Result) = new HealthCheckMagnet {
+  implicit def fromMetricsResultCheck(checker: => Result) = new HealthCheckMagnet {
     def apply(unhealthyMessage: String) = new HealthCheck() {
       protected def check: Result = checker
     }
