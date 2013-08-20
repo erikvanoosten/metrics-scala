@@ -67,22 +67,23 @@ class Meter(private val metric: CHMeter) {
   }
 
   /**
-   * Gives a marker that wraps a PartialFunction pf, which on execution marks the meter on an exception, and returns result of pf.
+   * Converts partial function `pf` into a side-effecting partial function that meters
+   * thrown exceptions for every invocation of `pf` (for the cases it is defined).
+   * The result is passed unchanged.
    *
    * Example usage:
    * {{{
-   *  class Example(val shardedDb: List[Db]) extends Instrumented {
-   *    private[this] val shardExceptionMeter = metrics.meter("shard").exceptionMarkerPF
-   *
-   *    private[this] val shardFunction: PartialFunction[Long,Db] = shardExceptionMeter {
-   *      case id: Long => shardedDb(id.toInt % shardedDb.length)
+   *  class Example extends Instrumented {
+   *    val isEven: PartialFunction[Int, String] = {
+   *      case x if x % 2 == 0 => x+" is even"
+   *      case 5 => throw new IllegalArgumentException("5 is unlucky")
    *    }
    *
-   *    private[this] def shard(id: Long): Db = shardFunction.applyOrElse(id,(x: Long) => shardedDb(0))
+   *    val isEvenExceptionMeter = metrics.meter("isEvenExceptions")
+   *    val meteredIsEven: PartialFunction[Int, String] = isEvenExceptionMeter.exceptionMarkerPF(isEvent)
    *
-   *    def load(id: Long) = {
-   *      shard(id).load(id)
-   *    }
+   *    val sample = 1 to 10
+   *    sample collect meteredIsEven   // the meter counts 1 exception
    *  }
    * }}}
    */
@@ -101,7 +102,7 @@ class Meter(private val metric: CHMeter) {
       }
   }
 
-  @deprecated("please use exceptionMarkerPF", "3.0.2")
+  @deprecated("please use exceptionMarkerPF", since = "3.0.2")
   @inline
   def exceptionMarkerPartialFunction = exceptionMarkerPF
 

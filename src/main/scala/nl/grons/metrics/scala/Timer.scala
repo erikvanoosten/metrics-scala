@@ -48,7 +48,23 @@ class Timer(private val metric: CHTimer) {
   }
 
   /**
-   * Wraps partial function pf, timing every execution
+   * Converts partial function `pf` into a side-effecting partial function that times
+   * every invocation of `pf` for which it is defined. The result is passed unchanged.
+   *
+   * Example usage:
+   * {{{
+   *  class Example extends Instrumented {
+   *    val isEven: PartialFunction[Int, String] = {
+   *      case x if x % 2 == 0 => x+" is even"
+   *    }
+   *
+   *    val isEvenTimer = metrics.timer("isEven")
+   *    val timedIsEven: PartialFunction[Int, String] = isEvenTimer.timePF(isEvent)
+   *
+   *    val sample = 1 to 10
+   *    sample collect timedIsEven   // timer does 5 measurements
+   *  }
+   * }}}
    */
    def timePF[A,B](pf: PartialFunction[A,B]): PartialFunction[A,B] =
      new PartialFunction[A,B] {
