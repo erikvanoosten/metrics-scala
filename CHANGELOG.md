@@ -1,13 +1,13 @@
 v3.0.3: August 2013
 ===================
 
-* Added support for health checks (thanks @scullxbones), [#17](#17).
+* Added support for health checks (thanks @scullxbones), [#17](/erikvanoosten/metrics-scala/issue/17).
 
 v3.0.2: August 2013
 ===================
 
-* added back inc/dec on Counter (thanks @alexy), #14
-* Renamed `Timer.time` for partial functions to prevent type annotations (thanks @scullxbones), #13, #15.
+* added back inc/dec on Counter (thanks @alexy), [#14](/erikvanoosten/metrics-scala/issue/14)
+* Renamed `Timer.time` for partial functions to prevent type annotations (thanks @scullxbones), [#13](/erikvanoosten/metrics-scala/issue/13), [#15](https://github.com/erikvanoosten/metrics-scala/issue/15).
 * Renamed `Meter.exceptionMarkerPartialFunction` to `Meter.exceptionMarkerPF` to be consistent with `Timer`.
 
 v3.0.1: August 2013
