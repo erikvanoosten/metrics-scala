@@ -59,7 +59,7 @@ class Timer(private val metric: CHTimer) {
    *    }
    *
    *    val isEvenTimer = metrics.timer("isEven")
-   *    val timedIsEven: PartialFunction[Int, String] = isEvenTimer.timePF(isEvent)
+   *    val timedIsEven: PartialFunction[Int, String] = isEvenTimer.timePF(isEven)
    *
    *    val sample = 1 to 10
    *    sample collect timedIsEven   // timer does 5 measurements

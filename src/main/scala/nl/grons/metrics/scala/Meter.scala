@@ -80,7 +80,7 @@ class Meter(private val metric: CHMeter) {
    *    }
    *
    *    val isEvenExceptionMeter = metrics.meter("isEvenExceptions")
-   *    val meteredIsEven: PartialFunction[Int, String] = isEvenExceptionMeter.exceptionMarkerPF(isEvent)
+   *    val meteredIsEven: PartialFunction[Int, String] = isEvenExceptionMeter.exceptionMarkerPF(isEven)
    *
    *    val sample = 1 to 10
    *    sample collect meteredIsEven   // the meter counts 1 exception
