@@ -134,7 +134,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
     </tr>
     <tr>
-      <td valign="top"><a href="https://github.com/erikvanoosten/metrics-scala/blob/master/CHANGELOG.md#v300-june-2013">3.0.0</a></td>
+      <td valign="top"><a href="CHANGELOG.md#v300-june-2013">3.0.0</a></td>
       <td valign="top">same</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
