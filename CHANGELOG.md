@@ -1,7 +1,7 @@
 v3.0.3: August 2013
 ===================
 
-* Added support for health checks (thanks @scullxbones), [#17](https://github.com/erikvanoosten/metrics-scala/issue/17).
+* Added support for health checks (thanks @scullxbones), [#17](https://github.com/erikvanoosten/metrics-scala/issue/17). The module metrics-healthchecks is now a required dependency.
 
 v3.0.2: August 2013
 ===================
