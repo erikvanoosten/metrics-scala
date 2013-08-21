@@ -144,7 +144,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
     </tr>
     <tr>
-      <td valign="top"><a href="https://github.com/erikvanoosten/metrics-scala/blob/master/CHANGELOG.md#v301-august-2013">3.0.1</a></td>
+      <td valign="top"><a href="CHANGELOG.md#v301-august-2013">3.0.1</a></td>
       <td valign="top">same</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -154,7 +154,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
     </tr>
     <tr>
-      <td valign="top"><a href="https://github.com/erikvanoosten/metrics-scala/blob/master/CHANGELOG.md#v302-august-2013">3.0.2</a></td>
+      <td valign="top"><a href="CHANGELOG.md#v302-august-2013">3.0.2</a></td>
       <td valign="top">3.0.1</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -164,7 +164,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
     </tr>
     <tr>
-      <td valign="top"><a href="https://github.com/erikvanoosten/metrics-scala/blob/master/CHANGELOG.md#v303-august-2013">3.0.3</a></td>
+      <td valign="top"><a href="CHANGELOG.md#v303-august-2013">3.0.3</a></td>
       <td valign="top">3.0.1</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
