@@ -164,7 +164,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
     </tr>
     <tr>
-      <td valign="top"><a href="https://github.com/erikvanoosten/metrics-scala/releases/tag/version-3.0.3">3.0.3</a> not yet released</td>
+      <td valign="top"><a href="https://github.com/erikvanoosten/metrics-scala/releases/tag/version-3.0.3">3.0.3</a></td>
       <td valign="top">3.0.1</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -183,7 +183,7 @@ If you need another version mix please open an [issue](https://github.com/erikva
 
 SBT:
 ```
-libraryDependencies += "nl.grons" %% "metrics-scala" % "3.0.2"
+libraryDependencies += "nl.grons" %% "metrics-scala" % "3.0.3"
 ```
 
 Maven:
@@ -195,7 +195,7 @@ Maven:
 <dependency>
     <groupId>nl.grons</groupId>
     <artifactId>metrics-scala_${scala.dep.version}</artifactId>
-    <version>3.0.2</version>
+    <version>3.0.3</version>
 </dependency>
 ```
 
