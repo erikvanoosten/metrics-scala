@@ -1,22 +1,22 @@
 v3.0.3: August 2013
 ===================
 
-* Added support for health checks (thanks @scullxbones), [#17](/erikvanoosten/metrics-scala/issue/17).
+* Added support for health checks (thanks @scullxbones), [#17](https://github.com/erikvanoosten/metrics-scala/issue/17).
 
 v3.0.2: August 2013
 ===================
 
-* added back inc/dec on Counter (thanks @alexy), [#14](/erikvanoosten/metrics-scala/issue/14)
-* Renamed `Timer.time` for partial functions to prevent type annotations (thanks @scullxbones), [#13](/erikvanoosten/metrics-scala/issue/13), [#15](https://github.com/erikvanoosten/metrics-scala/issue/15).
+* added back inc/dec on Counter (thanks @alexy), [#14](https://github.com/erikvanoosten/metrics-scala/issue/14)
+* Renamed `Timer.time` for partial functions to prevent type annotations (thanks @scullxbones), [#13](https://github.com/erikvanoosten/metrics-scala/issue/13), [#15](https://github.com/erikvanoosten/metrics-scala/issue/15).
 * Renamed `Meter.exceptionMarkerPartialFunction` to `Meter.exceptionMarkerPF` to be consistent with `Timer`.
 
 v3.0.1: August 2013
 ===================
 
-* Upgrade to Metrics-core 3.0.1, #10.
+* Upgrade to Metrics-core 3.0.1, [#10](https://github.com/erikvanoosten/metrics-scala/issue/10).
 * Added support for partial functions (thanks @scullxbones).
-* Added support for actors and futures (scala 2.10 only) for timing and metering exceptions (thanks @scullxbones), #8.
-* Removes '$' from metrics names, #11.
+* Added support for actors and futures (scala 2.10 only) for timing and metering exceptions (thanks @scullxbones), [#8](https://github.com/erikvanoosten/metrics-scala/issue/8).
+* Removes '$' from metrics names, [#11](https://github.com/erikvanoosten/metrics-scala/issue/11).
 
 
 v3.0.0: June 2013
