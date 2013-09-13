@@ -140,7 +140,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
     </tr>
     <tr>
@@ -150,7 +150,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
     </tr>
     <tr>
@@ -160,7 +160,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
     </tr>
     <tr>
@@ -170,7 +170,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
     </tr>
   </tbody>
