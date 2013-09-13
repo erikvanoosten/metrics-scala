@@ -80,7 +80,6 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">2.9.1-1</td>
       <td valign="top">2.9.2</td>
       <td valign="top">2.9.3</td>
-      <td valign="top">2.10.0-RC1</td>
       <td valign="top">2.10.x</td>
     </tr>
     <tr>
@@ -89,7 +88,6 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
     </tr>
@@ -101,7 +99,6 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
-      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top">2.1.4</td>
@@ -109,7 +106,6 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
     </tr>
@@ -120,13 +116,11 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
-      <td valign="top"></td>
       <td valign="top">✓</td>
     </tr>
     <tr>
       <td valign="top">2.2.0</td>
       <td valign="top">same</td>
-      <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -140,7 +134,6 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top"></td>
       <td valign="top">✓</td>
     </tr>
     <tr>
@@ -150,7 +143,6 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top"></td>
       <td valign="top">✓</td>
     </tr>
     <tr>
@@ -160,7 +152,6 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top"></td>
       <td valign="top">✓</td>
     </tr>
     <tr>
@@ -170,7 +161,6 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top"></td>
       <td valign="top">✓</td>
     </tr>
   </tbody>
