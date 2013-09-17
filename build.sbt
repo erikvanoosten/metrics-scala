@@ -4,7 +4,7 @@ description <<= (crossVersion) { v => "metrics-scala for scala " + v }
 
 organization := "nl.grons"
 
-version := "3.0.3"
+version := "3.0.3_a2.1.0"
 
 scalaVersion := "2.10.0"
 
@@ -27,8 +27,12 @@ libraryDependencies ++= Seq(
 
 libraryDependencies <++= (scalaVersion) { v: String =>
   if (v.startsWith("2.10"))
-    Seq("com.typesafe.akka" %% "akka-actor" % "[2.2,)","com.typesafe.akka" %% "akka-testkit" % "[2.2,)" % "test")
-  else Seq()
+    Seq(
+      "com.typesafe.akka" %% "akka-actor" % "2.1.0",
+      "com.typesafe.akka" %% "akka-testkit" % "2.1.0" % "test"
+    )
+  else
+    Seq()
 }
 
 unmanagedSourceDirectories in Compile <<= (unmanagedSourceDirectories in Compile, sourceDirectory in Compile, scalaVersion) { (sds: Seq[java.io.File], sd: java.io.File, v: String) =>

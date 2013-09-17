@@ -155,12 +155,21 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v303-august-2013">3.0.3</a></td>
+      <td valign="top"><a href="CHANGELOG.md#v303-august-2013">3.0.3</a> (Akka 2.2.0)</td>
       <td valign="top">3.0.1</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top">✓</td>
+    </tr>
+    <tr>
+      <td valign="top"><a href="CHANGELOG.md#v303_a210-september-2013">3.0.3_a2.1.0</a> (Akka 2.1.0)</td>
+      <td valign="top">3.0.1</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
     </tr>
   </tbody>
