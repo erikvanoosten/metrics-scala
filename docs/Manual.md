@@ -40,7 +40,7 @@ There are Scala wrappers for each metric type: [gauge](#gauges), [counter](#coun
 
 In Scala 2.10 you can also instrument *Actors* and *Futures*. This is described at [Instrumenting Actors and Futures](/docs/ActorsAndFutures.md).
 
-There is no scala support for JMX or other Reporters. For more information on Metrics 3.x, please see the [documentation](http://metrics.codahale.com).
+There is no scala support for JMX or other reporters. For more information on reporters and other aspacts of Metrics 3.x, please see the [documentation](http://metrics.codahale.com).
 
 
 ## Gauges
