@@ -8,7 +8,7 @@ Other manual pages:
 
 ## 1 minute introduction
 
-Metrics-scala provides an easy way to create metrics in Scala.
+Metrics-scala provides an easy way to create metrics in Scala. It builds on the metrics-core library.
 
 Metrics-core requires metrics to be registered in an application wide `MetricRegistry`. Metrics-scala hides use of it, but you do need to create an `Instrumented` trait that refers to that registry. Your `Instrumented` needs to extends `InstrumentedBuilder`. (See also [About Instrumented](#about-instrumented) below.)
 
@@ -40,8 +40,7 @@ There are Scala wrappers for each metric type: [gauge](#gauges), [counter](#coun
 
 In Scala 2.10 you can also instrument *Actors* and *Futures*. This is described at [Instrumenting Actors and Futures](/docs/ActorsAndFutures.md).
 
-There is no scala support for JMX or other reporters. For more information on reporters and other aspacts of Metrics 3.x, please see the [documentation](http://metrics.codahale.com).
-
+For more information on (JMX) reporters and other aspects of Metrics 3.x, please see the Java api in the [Metrics documentation](http://metrics.codahale.com).
 
 ## Gauges
 
