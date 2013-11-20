@@ -18,6 +18,7 @@ package nl.grons.metrics.scala
 
 import java.util.concurrent.TimeUnit
 import com.codahale.metrics.{Timer => CHTimer, Snapshot}
+import scala.concurrent.{ExecutionContext, Future}
 
 /**
  * A Scala façade class for Timer.
@@ -45,6 +46,13 @@ class Timer(private val metric: CHTimer) {
     } finally {
       ctx.stop
     }
+  }
+
+  def futureTime[A]( f: => Future[A])(implicit ec: ExecutionContext): Future[A] = {
+    val ctx = metric.time
+    val out = f
+    out.onComplete { case _ => ctx.stop() }
+    out
   }
 
   /**
