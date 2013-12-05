@@ -71,9 +71,11 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
     <tr>
       <td valign="top">Metrics-<br>scala<br>version</td>
       <td valign="top">Metrics-<br>core<br>version</td>
+      <td valign="top">Akka-br>version</td>
       <td colspan="6" rowspan="1" valign="top">Scala version</td>
     </tr>
     <tr>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">2.9.1</td>
@@ -85,6 +87,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
     <tr>
       <td valign="top">2.1.2</td>
       <td valign="top">same</td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -94,6 +97,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
     <tr>
       <td valign="top">2.1.3</td>
       <td valign="top">same</td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -103,6 +107,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
     <tr>
       <td valign="top">2.1.4</td>
       <td valign="top">same</td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -112,6 +117,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
     <tr>
       <td valign="top">2.1.5</td>
       <td valign="top">same</td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -121,6 +127,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
     <tr>
       <td valign="top">2.2.0</td>
       <td valign="top">same</td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -130,6 +137,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
     <tr>
       <td valign="top"><a href="CHANGELOG.md#v300-june-2013">3.0.0</a></td>
       <td valign="top">same</td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -139,6 +147,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
     <tr>
       <td valign="top"><a href="CHANGELOG.md#v301-august-2013">3.0.1</a></td>
       <td valign="top">same</td>
+      <td valign="top">2.2.0 (*)</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -148,6 +157,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
     <tr>
       <td valign="top"><a href="CHANGELOG.md#v302-august-2013">3.0.2</a></td>
       <td valign="top">3.0.1</td>
+      <td valign="top">2.2.0 (*)</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -155,8 +165,9 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v303-august-2013">3.0.3</a> (Akka 2.2.0)</td>
+      <td valign="top"><a href="CHANGELOG.md#v303-august-2013">3.0.3</a></td>
       <td valign="top">3.0.1</td>
+      <td valign="top">2.2.0 (*)</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -164,12 +175,23 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v303_a210-september-2013">3.0.3_a2.1.0</a> (Akka 2.1.0)</td>
+      <td valign="top"><a href="CHANGELOG.md#v303_a210-september-2013">3.0.3_a2.1.0</a></td>
       <td valign="top">3.0.1</td>
+      <td valign="top">2.1.0</td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top">✓</td>
+    </tr>
+    <tr>
+      <td valign="top"><a href="CHANGELOG.md#v304-december-2013">3.0.4</a></td>
+      <td valign="top">3.0.1</td>
+      <td valign="top">2.2.0</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
       <td valign="top">✓</td>
     </tr>
   </tbody>
@@ -177,12 +199,15 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
 
 If you need another version mix please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), or sent an email to the [metrics mailing list](http://groups.google.com/group/metrics-user).
 
+(*) Metrics-scala `3.0.1`, `3.0.2` and `3.0.3` erroneously depend on Akka `[2.2,)`.
+When Akka came with pre-releases of 2.3 this wont work (2.2 and 2.3 are not binary compatible).
+Either upgrade metrics-scala to version `3.0.4` or fix the Akka dependency in your project to `2.2.0`.
 
 ## Download
 
 SBT:
 ```
-libraryDependencies += "nl.grons" %% "metrics-scala" % "3.0.3"
+libraryDependencies += "nl.grons" %% "metrics-scala" % "3.0.4"
 ```
 
 Maven:
@@ -194,13 +219,15 @@ Maven:
 <dependency>
     <groupId>nl.grons</groupId>
     <artifactId>metrics-scala_${scala.dep.version}</artifactId>
-    <version>3.0.3</version>
+    <version>3.0.4</version>
 </dependency>
 ```
 
 Note: For scala versions before 2.10, you need to use the full scala version in the artifact name; e.g. `metrics-scala_2.9.1-1`.
 
 Note: If you depend on JMX: 2.2.0 has a small [bug](https://github.com/codahale/metrics/issues/318) that makes it inconvenient to use JMX.
+
+Note: If you are not using the latest version, make sure you read the notes on Akka above.
 
 ## Support
 

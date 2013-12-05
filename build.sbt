@@ -4,7 +4,7 @@ description <<= (crossVersion) { v => "metrics-scala for scala " + v }
 
 organization := "nl.grons"
 
-version := "3.0.3_a2.1.0"
+version := "3.0.4"
 
 scalaVersion := "2.10.0"
 
@@ -13,8 +13,7 @@ crossScalaVersions := Seq("2.9.1", "2.9.1-1", "2.9.2", "2.9.3", "2.10.0")
 crossVersion := CrossVersion.binary
 
 resolvers ++= Seq(
-  "Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository",
-  "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
+  "Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository"
 )
 
 libraryDependencies ++= Seq(
@@ -28,8 +27,8 @@ libraryDependencies ++= Seq(
 libraryDependencies <++= (scalaVersion) { v: String =>
   if (v.startsWith("2.10"))
     Seq(
-      "com.typesafe.akka" %% "akka-actor" % "2.1.0",
-      "com.typesafe.akka" %% "akka-testkit" % "2.1.0" % "test"
+      "com.typesafe.akka" %% "akka-actor" % "2.2.0",
+      "com.typesafe.akka" %% "akka-testkit" % "2.2.0" % "test"
     )
   else
     Seq()
@@ -53,10 +52,12 @@ javaOptions ++= Seq("-Xmx512m", "-Djava.awt.headless=true")
 
 scalacOptions ++= Seq("-deprecation", "-unchecked")
 
-publishTo <<= version { v: String =>
+publishTo := {
   val nexus = "https://oss.sonatype.org/"
-  if (v.trim.endsWith("SNAPSHOT")) Some("snapshots" at nexus + "content/repositories/snapshots")
-  else                             Some("releases" at nexus + "service/local/staging/deploy/maven2")
+  if (version.value.trim.endsWith("SNAPSHOT"))
+    Some("snapshots" at nexus + "content/repositories/snapshots")
+  else
+    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
 }
 
 credentials += Credentials(Path.userHome / ".sbt" / "sonatype.credentials")
@@ -86,18 +87,3 @@ pomExtra := (
     </developer>
   </developers>
 )
-
-// osgiSettings
-//
-// OsgiKeys.importPackage := Seq(
-//   """com.yammer.metrics;version="[2.1,3)"""",
-//   """com.yammer.metrics.core;version="[2.1,3)"""",
-//   """com.yammer.metrics.stats;version="[2.1,3)"""",
-//   "scala",
-//   "scala.reflect")
-//
-// OsgiKeys.exportPackage := Seq("com.yammer.metrics.scala")
-//
-// OsgiKeys.privatePackage := Seq()
-//
-// OsgiKeys.additionalHeaders := Map("-removeheaders" -> "Include-Resource")
