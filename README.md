@@ -229,6 +229,10 @@ Note: If you depend on JMX: 2.2.0 has a small [bug](https://github.com/codahale/
 
 Note: If you are not using the latest version, make sure you read the notes on Akka above.
 
+Note: It might be wise to use the latest minor-version of Akka. For example `2.1.4`
+instead of `2.1.0`, and `2.2.3` instead of `2.2.0`. To do this you can fix the Akka
+version in your project's build configuration.
+
 ## Support
 
 If you found a bug, please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), better yet: send a pull request.
