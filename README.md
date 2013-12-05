@@ -71,7 +71,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
     <tr>
       <td valign="top">Metrics-<br>scala<br>version</td>
       <td valign="top">Metrics-<br>core<br>version</td>
-      <td valign="top">Akka-br>version</td>
+      <td valign="top">Akka-<br>version</td>
       <td colspan="6" rowspan="1" valign="top">Scala version</td>
     </tr>
     <tr>
