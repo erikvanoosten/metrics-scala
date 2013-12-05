@@ -185,6 +185,12 @@ SBT:
 libraryDependencies += "nl.grons" %% "metrics-scala" % "3.0.3"
 ```
 
+Note: If you add this dependency to a Play! framework project, you might need to override the akka dependencies of metrics-scala as it would introduce Akka 2.3. To do so add the following to the dependency overrides:
+
+```
+dependencyOverrides += "com.typesafe.akka" %% "akka-actor" % "2.2.0"
+```
+
 Maven:
 ```
 <properties>
