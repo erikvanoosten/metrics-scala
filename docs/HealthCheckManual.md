@@ -49,12 +49,12 @@ object YourApplication {
   /** The application wide metrics registry. */
   val metricRegistry = new com.codahale.metrics.MetricRegistry()
   /** The application wide health check registry. */
-  val healthChecksRegistry = new com.codahale.metrics.health.HealthCheckRegistry();
+  val healthCheckRegistry = new com.codahale.metrics.health.HealthCheckRegistry();
 }
 
 trait Instrumented extends InstrumentedBuilder with CheckedBuilder {
   val metricRegistry = YourApplication.metricRegistry
-  val healthCheckRegistry = Application.healthCheckRegistry
+  val healthCheckRegistry = YourApplication.healthCheckRegistry
 }
 ```
 
