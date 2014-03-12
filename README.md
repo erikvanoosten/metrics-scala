@@ -251,7 +251,7 @@ version in your project's build configuration.
 
 SBT:
 ```
-libraryDependencies += "nl.grons" %% "metrics-scala" % "3.0.5"
+libraryDependencies += "nl.grons" %% "metrics-scala" % "3.0.5_a2.3"
 ```
 
 Maven:
@@ -263,7 +263,7 @@ Maven:
 <dependency>
     <groupId>nl.grons</groupId>
     <artifactId>metrics-scala_${scala.dep.version}</artifactId>
-    <version>3.0.5</version>
+    <version>3.0.5_a2.3</version>
 </dependency>
 ```
 
