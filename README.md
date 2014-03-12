@@ -194,6 +194,46 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
     </tr>
+    <tr>
+      <td valign="top"><a href="CHANGELOG.md#v305-march-2014">3.0.5</a></td>
+      <td valign="top">3.0.2</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+    </tr>
+    <tr>
+      <td valign="top"><a href="CHANGELOG.md#v305-march-2014">3.0.5_a2.1</a></td>
+      <td valign="top">3.0.2</td>
+      <td valign="top">2.1.4</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+    </tr>
+    <tr>
+      <td valign="top"><a href="CHANGELOG.md#v305-march-2014">3.0.5_a2.2</a></td>
+      <td valign="top">3.0.2</td>
+      <td valign="top">2.2.4</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+    </tr>
+    <tr>
+      <td valign="top"><a href="CHANGELOG.md#v305-march-2014">3.0.5_a2.3</a></td>
+      <td valign="top">3.0.2</td>
+      <td valign="top">2.3.0</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+    </tr>
   </tbody>
 </table>
 
