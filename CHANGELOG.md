@@ -4,7 +4,7 @@ v3.0.5: March 2014
 * Build against Metrics-core 3.0.2.
 * Build against Akka 2.1.4, 2.2.4 and 2.3.0.
 * Small documentations correction (thanks @oschrenk!)
-* Fixed version in pom.
+* Fixed description in pom.
 
 v3.0.4: December 2013
 =====================
