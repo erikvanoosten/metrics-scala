@@ -3,13 +3,13 @@ name := "metrics-scala"
 // Akka versions: 2.1.4, 2.2.3, 2.3.0
 
 description <<= (scalaVersion) { v =>
-  val akkaVersion = if (v.startsWith("2.10")) "Akka 2.1 and " else ""
+  val akkaVersion = if (v.startsWith("2.10")) "Akka 2.2 and " else ""
   "metrics-scala for " + akkaVersion + "Scala " + sbt.cross.CrossVersionUtil.binaryScalaVersion(v)
 }
 
 organization := "nl.grons"
 
-version := "3.0.5_a2.1"
+version := "3.0.5_a2.2"
 
 scalaVersion := "2.10.0"
 
@@ -32,8 +32,8 @@ libraryDependencies ++= Seq(
 libraryDependencies <++= (scalaVersion) { v: String =>
   if (v.startsWith("2.10"))
     Seq(
-      "com.typesafe.akka" %% "akka-actor" % "2.1.4",
-      "com.typesafe.akka" %% "akka-testkit" % "2.1.4" % "test"
+      "com.typesafe.akka" %% "akka-actor" % "2.2.4",
+      "com.typesafe.akka" %% "akka-testkit" % "2.2.4" % "test"
     )
   else
     Seq()
