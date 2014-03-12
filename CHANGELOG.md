@@ -1,10 +1,17 @@
+v3.0.5: March 2014
+==================
+
+* Build against Metrics-core 3.0.2.
+* Build against Akka 2.1.4, 2.2.4 and 2.3.0.
+* Fixed version in pom.
+
 v3.0.4: December 2013
-===================
+=====================
 
 * Same release build against Akka 2.2.0 instead of `[2.2,)`.
 
 v3.0.3_a2.1.0: September 2013
-===================
+=============================
 
 * Same release build against Akka 2.1.0 instead of 2.2.0.
 

@@ -201,17 +201,17 @@ If you need another version mix please open an [issue](https://github.com/erikva
 
 (*) Metrics-scala `3.0.1`, `3.0.2` and `3.0.3` erroneously depend on Akka `[2.2,)`.
 When Akka came with pre-releases of 2.3 this wont work (2.2 and 2.3 are not binary compatible).
-Either upgrade metrics-scala to version `3.0.4` or fix the Akka dependency in your project to `2.2.0`.
+Either upgrade metrics-scala to at least `3.0.4` or fix the Akka dependency in your project to `2.2.0`.
 
 Note: It might be wise to use the latest minor-version of Akka. For example `2.1.4`
-instead of `2.1.0`, and `2.2.3` instead of `2.2.0`. To do this you can fix the Akka
+instead of `2.1.0`, and `2.2.4` instead of `2.2.0`. To do this you can fix the Akka
 version in your project's build configuration.
 
 ## Download
 
 SBT:
 ```
-libraryDependencies += "nl.grons" %% "metrics-scala" % "3.0.4"
+libraryDependencies += "nl.grons" %% "metrics-scala" % "3.0.5"
 ```
 
 Maven:
@@ -223,7 +223,7 @@ Maven:
 <dependency>
     <groupId>nl.grons</groupId>
     <artifactId>metrics-scala_${scala.dep.version}</artifactId>
-    <version>3.0.4</version>
+    <version>3.0.5</version>
 </dependency>
 ```
 
