@@ -1,19 +1,26 @@
+lazy val baseVersion = "3.0.5"
+
+akkaVersion := "2.3.0"
+
 name := "metrics-scala"
 
 // Akka versions: 2.1.4, 2.2.3, 2.3.0
 
-description <<= (scalaVersion) { v =>
-  val akkaVersion = if (v.startsWith("2.10")) "Akka 2.3 and " else ""
-  "metrics-scala for " + akkaVersion + "Scala " + sbt.cross.CrossVersionUtil.binaryScalaVersion(v)
+description <<= (scalaVersion,akkaVersion) { (sv,av) =>
+  val akkaVersion = if (sv.startsWith("2.10")) "Akka " + av +" and " else ""
+  "metrics-scala for " + akkaVersion + "Scala " + sbt.cross.CrossVersionUtil.binaryScalaVersion(sv)
 }
 
 organization := "nl.grons"
 
-version := "3.0.5_a2.3"
+version <<= (scalaVersion,akkaVersion) { (sv,av) => 
+  if (sv.startsWith("2.10")) baseVersion + "_a" + av.substring(0,3) 
+  else baseVersion
+}
 
 scalaVersion := "2.10.0"
 
-// crossScalaVersions := Seq("2.9.1", "2.9.1-1", "2.9.2", "2.9.3", "2.10.0")
+crossScalaVersions := Seq("2.9.1", "2.9.1-1", "2.9.2", "2.9.3", "2.10.0")
 
 crossVersion := CrossVersion.binary
 
@@ -29,11 +36,11 @@ libraryDependencies ++= Seq(
   "org.mockito" % "mockito-all" % "1.9.5" % "test"
 )
 
-libraryDependencies <++= (scalaVersion) { v: String =>
-  if (v.startsWith("2.10"))
+libraryDependencies <++= (scalaVersion,akkaVersion) { (sv,av) =>
+  if (sv.startsWith("2.10"))
     Seq(
-      "com.typesafe.akka" %% "akka-actor" % "2.3.0",
-      "com.typesafe.akka" %% "akka-testkit" % "2.3.0" % "test"
+      "com.typesafe.akka" %% "akka-actor" % av,
+      "com.typesafe.akka" %% "akka-testkit" % av % "test"
     )
   else
     Seq()
