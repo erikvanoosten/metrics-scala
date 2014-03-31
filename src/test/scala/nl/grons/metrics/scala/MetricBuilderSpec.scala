@@ -76,6 +76,10 @@ class MetricBuilderSpec extends FunSpec with MockitoSugar with ShouldMatchers wi
     it("supports nested objects") {
       MetricBuilder.metricName(MetricBuilderSpec.nestedRef, Seq("part1")) should equal ("nl.grons.metrics.scala.MetricBuilderSpec.Nested.part1")
     }
+
+    it("supports packages") {
+        MetricBuilder.metricName(nl.grons.metrics.scala.ref, Seq("part1")) should equal ("nl.grons.metrics.scala.part1")
+    }
   }
 
   describe("Metrics configuration dsl") {

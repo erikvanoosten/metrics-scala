@@ -90,6 +90,7 @@ object MetricBuilder {
       replaceAllLiterally("$$anonfun", ".").
       replaceAllLiterally("$apply", ".").
       replaceAll("""\$\d*""", ".").
+      replaceAllLiterally(".package.", ".").
       split('.')
 
     (removeScalaParts(owner.getName) ++ names.filter(_ != null)).filter(_.nonEmpty).mkString(".")
