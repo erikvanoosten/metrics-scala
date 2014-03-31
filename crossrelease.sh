@@ -1,0 +1,11 @@
+#!/bin/bash
+# Does a full cross build of all scala/akka versions.
+
+DEFAULT_COMMAND=publish-signed
+
+CMD=${1:-DEFAULT_COMMAND}
+
+sbt '; set akkaVersion := ""; set crossScalaVersions := Seq("2.9.1", "2.9.1-1", "2.9.2", "2.9.3", "2.10.0") ' +$CMD \
+    '; set akkaVersion := "2.1.4"; set crossScalaVersions := Seq("2.10.0")' +$CMD \
+    '; set akkaVersion := "2.2.4"; set crossScalaVersions := Seq("2.10.0")' +$CMD \
+    '; set akkaVersion := "2.3.1"; set crossScalaVersions := Seq("2.10.0")' +$CMD

@@ -1,21 +1,20 @@
-lazy val baseVersion = "3.0.5"
-
-akkaVersion := "2.3.0"
-
-name := "metrics-scala"
-
 // Akka versions: 2.1.4, 2.2.3, 2.3.0
-
-description <<= (scalaVersion,akkaVersion) { (sv,av) =>
-  val akkaVersion = if (sv.startsWith("2.10")) "Akka " + av +" and " else ""
-  "metrics-scala for " + akkaVersion + "Scala " + sbt.cross.CrossVersionUtil.binaryScalaVersion(sv)
-}
+akkaVersion := "2.3.1"
 
 organization := "nl.grons"
 
-version <<= (scalaVersion,akkaVersion) { (sv,av) => 
-  if (sv.startsWith("2.10")) baseVersion + "_a" + av.substring(0,3) 
-  else baseVersion
+name := "metrics-scala"
+
+lazy val baseVersion = "3.0.6-SNAPSHOT"
+
+version <<= (scalaVersion, akkaVersion) { (sv, av) =>
+  val akkaVersion = if (sv.startsWith("2.10") && av.nonEmpty) "_a" + av.split('.').take(2).mkString(".") else ""
+  baseVersion + akkaVersion
+}
+
+description <<= (scalaVersion, akkaVersion) { (sv, av) =>
+  val akkaDescription = if (sv.startsWith("2.10") && av.nonEmpty) "Akka " + av +" and " else ""
+  "metrics-scala for " + akkaDescription + "Scala " + sbt.cross.CrossVersionUtil.binaryScalaVersion(sv)
 }
 
 scalaVersion := "2.10.0"
@@ -36,8 +35,8 @@ libraryDependencies ++= Seq(
   "org.mockito" % "mockito-all" % "1.9.5" % "test"
 )
 
-libraryDependencies <++= (scalaVersion,akkaVersion) { (sv,av) =>
-  if (sv.startsWith("2.10"))
+libraryDependencies <++= (scalaVersion, akkaVersion) { (sv, av) =>
+  if (sv.startsWith("2.10") && av.nonEmpty)
     Seq(
       "com.typesafe.akka" %% "akka-actor" % av,
       "com.typesafe.akka" %% "akka-testkit" % av % "test"
@@ -46,16 +45,16 @@ libraryDependencies <++= (scalaVersion,akkaVersion) { (sv,av) =>
     Seq()
 }
 
-unmanagedSourceDirectories in Compile <<= (unmanagedSourceDirectories in Compile, sourceDirectory in Compile, scalaVersion) { (sds: Seq[java.io.File], sd: java.io.File, v: String) =>
-  val mainVersion = v.split("""\.""").take(2).mkString(".")
+unmanagedSourceDirectories in Compile <<= (unmanagedSourceDirectories in Compile, sourceDirectory in Compile, scalaVersion, akkaVersion) { (sds: Seq[java.io.File], sd: java.io.File, sv: String, av: String) =>
+  val mainVersion = sv.split('.').take(2).mkString(".")
   val extra = new java.io.File(sd, "scala_" + mainVersion)
-  (if (extra.exists) Seq(extra) else Seq()) ++ sds
+  (if (av.nonEmpty && extra.exists) Seq(extra) else Seq()) ++ sds
 }
 
-unmanagedSourceDirectories in Test <<= (unmanagedSourceDirectories in Test, sourceDirectory in Test, scalaVersion) { (sds: Seq[java.io.File], sd: java.io.File, v: String) =>
-  val mainVersion = v.split("""\.""").take(2).mkString(".")
+unmanagedSourceDirectories in Test <<= (unmanagedSourceDirectories in Test, sourceDirectory in Test, scalaVersion, akkaVersion) { (sds: Seq[java.io.File], sd: java.io.File, sv: String, av: String) =>
+  val mainVersion = sv.split('.').take(2).mkString(".")
   val extra = new java.io.File(sd, "scala_" + mainVersion)
-  (if (extra.exists) Seq(extra) else Seq()) ++ sds
+  (if (av.nonEmpty && extra.exists) Seq(extra) else Seq()) ++ sds
 }
 
 javacOptions ++= Seq("-Xmx512m", "-Xms128m", "-Xss10m")
