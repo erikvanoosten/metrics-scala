@@ -273,6 +273,8 @@ Note: If you depend on JMX: 2.2.0 has a small [bug](https://github.com/codahale/
 
 Note: If you are not using the latest version, make sure you read the notes on Akka above.
 
+Next release (3.0.6) will also be build for 2.10 without Akka.
+
 ## Support
 
 If you found a bug, please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), better yet: send a pull request.
