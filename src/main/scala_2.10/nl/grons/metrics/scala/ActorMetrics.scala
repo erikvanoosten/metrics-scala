@@ -43,7 +43,7 @@ import akka.actor.Actor
  */
 trait ReceiveCounterActor extends Actor { self: InstrumentedBuilder =>
 
-  def receiveCounterName: String = MetricBuilder.metricName(getClass, Seq("receiveCounter"))
+  def receiveCounterName: String = MetricName(getClass).append("receiveCounter").name
   lazy val counter: Counter = metrics.counter(receiveCounterName)
 
   private[this] lazy val wrapped = counter.count(super.receive)
@@ -77,7 +77,7 @@ trait ReceiveCounterActor extends Actor { self: InstrumentedBuilder =>
  */
 trait ReceiveTimerActor extends Actor { self: InstrumentedBuilder =>
 
-  def receiveTimerName: String = MetricBuilder.metricName(getClass, Seq("receiveTimer"))
+  def receiveTimerName: String = MetricName(getClass).append("receiveTimer").name
   lazy val timer: Timer = metrics.timer(receiveTimerName)
 
   private[this] lazy val wrapped = timer.timePF(super.receive)
@@ -110,7 +110,7 @@ trait ReceiveTimerActor extends Actor { self: InstrumentedBuilder =>
  */
 trait ReceiveExceptionMeterActor extends Actor { self: InstrumentedBuilder =>
 
-  def receiveExceptionMeterName: String = MetricBuilder.metricName(getClass, Seq("receiveExceptionMeter"))
+  def receiveExceptionMeterName: String = MetricName(getClass).append("receiveExceptionMeter").name
   lazy val meter: Meter = metrics.meter(receiveExceptionMeterName)
 
   private[this] lazy val wrapped = meter.exceptionMarkerPF(super.receive)

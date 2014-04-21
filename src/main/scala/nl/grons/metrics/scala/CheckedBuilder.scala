@@ -24,7 +24,7 @@ import com.codahale.metrics.health.{HealthCheck, HealthCheckRegistry}
  */
 trait CheckedBuilder {
   /** The owner of the health check. */
-  val owner: Class[_] = getClass
+  val baseName: MetricName = MetricName(getClass)
 
   /**
    * The [[com.codahale.metrics.health.HealthCheckRegistry]] where created metrics are registered.
@@ -64,7 +64,7 @@ trait CheckedBuilder {
    */
   def healthCheck(name: String, unhealthyMessage: String = "Health check failed")(checker: HealthCheckMagnet): HealthCheck = {
     val check = checker(unhealthyMessage)
-    registry.register(MetricBuilder.metricName(owner, Seq(name)), check)
+    registry.register(baseName.append(name).name, check)
     check
   }
 }
