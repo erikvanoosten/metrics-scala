@@ -1,3 +1,12 @@
+v3.0.6: April 2014
+==================
+
+* Build against Metrics-core 3.0.2.
+* Build against no Akka (closes #32, #33, #21), Akka 2.1.4, 2.2.4 and 2.3.2.
+* Now also build for Scala 2.11 (closes #34).
+* Entire cross-build is now done with a script (#30, #31), based on research from @scullxbones.
+* ".package" in metrics name (closes #19), thanks @akalinovskiy!
+
 v3.0.5: March 2014
 ==================
 

@@ -38,7 +38,7 @@ There are Scala wrappers for each metric type: [gauge](#gauges), [counter](#coun
 
 *Health check* support is described at [Health check support](/docs/HealthCheckManual.md).
 
-In Scala 2.10 you can also instrument *Actors* and *Futures*. This is described at [Instrumenting Actors and Futures](/docs/ActorsAndFutures.md).
+Starting with Scala 2.10 you can also instrument *Actors* and *Futures*. This is described at [Instrumenting Actors and Futures](/docs/ActorsAndFutures.md).
 
 For more information on (JMX) reporters and other aspects of Metrics 3.x, please see the Java api in the [Metrics documentation](http://metrics.codahale.com).
 
