@@ -35,10 +35,15 @@ libraryDependencies ++= Seq(
 )
 
 libraryDependencies <++= (scalaVersion, akkaVersion) { (sv, av) =>
-  if (sv.startsWith("2.1") && av.nonEmpty)
+  if (sv.startsWith("2.10") && av.nonEmpty)
     Seq(
       "com.typesafe.akka" %% "akka-actor" % av,
       "com.typesafe.akka" %% "akka-testkit" % av % "test"
+    )
+  else if (sv.startsWith("2.11") && av.nonEmpty)
+    Seq(
+      "com.typesafe.akka" %% "akka-actor" % av,
+      "com.typesafe.akka" % "akka-testkit_2.11.0-RC4" % "2.3.0" intransitive()
     )
   else
     Seq()
