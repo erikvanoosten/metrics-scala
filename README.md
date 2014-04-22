@@ -1,3 +1,6 @@
+Metrics-scala IS NOT YET AVAILABLE FOR SCALA 2.11, PLEASE BEAR WITH ME, I AM WORKING ON IT!
+===========================================================================================
+
 Metrics-Scala
 =============
 
