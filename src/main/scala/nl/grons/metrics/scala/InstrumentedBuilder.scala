@@ -39,6 +39,16 @@ import com.codahale.metrics.MetricRegistry
  *   }
  * }
  * }}}
+ *
+ * If you'd like to derive the metric name from something other than the
+ * instrumented class name, you can override `metricBaseName` to your own
+ * [[nl.grons.metrics.scala.MetricName]] instance:
+ * {{{
+ * trait Instrumented extends InstrumentedBuilder {
+ *   override lazy val metricBaseName = MetricName("some", "custom", "names")
+ *   val metricRegistry = Application.metricRegistry
+ * }
+ * }}}
  */
 trait InstrumentedBuilder {
   /** The base name for all metrics created from this builder. */
