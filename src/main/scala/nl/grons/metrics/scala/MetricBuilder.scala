@@ -22,7 +22,7 @@ import com.codahale.metrics.{Gauge => CHGauge}
 /**
  * Builds and registering metrics.
  */
-class MetricBuilder(val owner: Class[_], val registry: MetricRegistry) {
+class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) {
 
   /**
    * Registers a new gauge metric.
@@ -70,29 +70,5 @@ class MetricBuilder(val owner: Class[_], val registry: MetricRegistry) {
     new Timer(registry.timer(metricName(name, scope)))
 
   private[this] def metricName(name: String, scope: String = null): String =
-    MetricBuilder.metricName(owner, Seq(name, scope))
-
-}
-
-object MetricBuilder {
-  /**
-   * Create a metrics name.
-   * Unlike [[com.codahale.metrics.MetricRegistry.name()]] this version supports Scala classes
-   * such as objects and closures.
-   *
-   * @param owner the owning class
-   * @param names the parts of the metric name, any `null`s are ignored
-   * @return owner's class, name and names concatenated by periods
-   */
-  def metricName(owner: Class[_], names: Seq[String]): String = {
-    // Example weird class name: TestContext$$anonfun$2$$anonfun$apply$TestObject$2$
-    def removeScalaParts(s: String) = s.
-      replaceAllLiterally("$$anonfun", ".").
-      replaceAllLiterally("$apply", ".").
-      replaceAll("""\$\d*""", ".").
-      replaceAllLiterally(".package.", ".").
-      split('.')
-
-    (removeScalaParts(owner.getName) ++ names.filter(_ != null)).filter(_.nonEmpty).mkString(".")
-  }
+    baseName.append(name, scope).name
 }
