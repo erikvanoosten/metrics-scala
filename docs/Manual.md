@@ -149,14 +149,16 @@ Partial function support is available since metrics-scala v3.0.1.
 
 ## Metric names and the metrics builder
 
-Each metric has a unique metric name. In metrics-scala the name partly derived from the *owner class*. The owner class is the class that extends the `Instrumented` trait you defined earlier.
+Each metric has a unique metric name, with four components:
 
-The metric name is build from:
-
-* *Group:* The top-level grouping of the metric. This is set to the owner’s package name (e.g., com.example.proj.auth).
-* *Type:* The second-level grouping of the metric. This defaults to the owner’s class name (e.g., SessionStore).
+* *Group:* The top-level grouping of the metric.
+* *Type:* The second-level grouping of the metric.
 * *Name:* A short name describing the metric’s purpose (e.g., session-count).
 * *Scope:* An optional name describing the metric’s scope. Useful for when you have multiple instances of a class.
+
+In metrics-scala the default *Group* and *Type* are derived from the *owner class* (the class that extends the `Instrumented` trait you defined earlier). The *Group* defaults to the package name, e.g., "com.example.proj.auth", and the *Type* defaults to the class name, e.g., "SessionStore".
+
+If you'd like to derive the metric name from something other than the instrumented class name, you can override `metricBaseName` in your owner class with your own `MetricName` instance.
 
 The factory methods `metrics.gauge`, `metrics.counter`, `metrics.histogram`, `metrics.meter` and `metrics.timer` all accept a `scope` argument. Be default the scope is not used.
 
