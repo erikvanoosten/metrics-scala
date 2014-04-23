@@ -1,14 +1,16 @@
-name := "metrics-scala"
-
-description <<= (scalaVersion) { v => "metrics-scala for " + v }
-
 organization := "nl.grons"
+
+name := "metrics-scala"
 
 version := "2.1.5"
 
-scalaVersion := "2.9.2"
+description <<= (scalaVersion) { sv =>
+  "metrics-scala for Scala " + sbt.cross.CrossVersionUtil.binaryScalaVersion(sv)
+}
 
-crossScalaVersions := Seq("2.9.1", "2.9.1-1", "2.9.2" /*, "2.10.0" */)
+scalaVersion := "2.11.0"
+
+// crossScalaVersions := Seq("2.9.1", "2.9.1-1", "2.9.2" /*, "2.10.0" */)
 
 resolvers ++= Seq(
   "Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository",
