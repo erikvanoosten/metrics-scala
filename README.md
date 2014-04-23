@@ -311,7 +311,7 @@ To do this you can fix the Akka version in your project's build configuration.
 
 SBT:
 ```
-libraryDependencies += "nl.grons" %% "metrics-scala" % "3.0.5_a2.3"
+libraryDependencies += "nl.grons" %% "metrics-scala" % "3.1.0_a2.3"
 ```
 
 Maven:
