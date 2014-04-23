@@ -1,6 +1,3 @@
-Metrics-scala IS NOT YET AVAILABLE FOR SCALA 2.11, PLEASE BEAR WITH ME, I AM WORKING ON IT!
-===========================================================================================
-
 Metrics-Scala
 =============
 
@@ -130,7 +127,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
-      <td valign="top">✓</td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top">2.2.0</td>
