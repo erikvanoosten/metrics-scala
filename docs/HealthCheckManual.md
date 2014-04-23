@@ -36,6 +36,26 @@ The code block may also return an `Either` or a `com.codahale.metrics.health.Hea
 
 For more details see the scaladoc in [CheckedBuilder](/src/main/scala/nl/grons/metrics/scala/CheckedBuilder.scala).
 
+## Health check names
+
+Each health check has a unique name. In metrics-scala the name starts with a name derived from the *owner class*.
+The owner class is the class that extends the `Checked` trait you defined earlier.
+
+The health check name is build from:
+
+* *Metric base name* By default this is set to the owner class name (e.g., `com.example.proj.auth.SessionStore`).
+* *Name:* A short name describing the health check (e.g., `database`).
+
+Since 3.1.0 the *metric base name* can be overridden. For example by using `Checked` as follows:
+
+```scala
+class Example extends Checked {
+  override lazy val metricBaseName = MetricName("Overridden.Base.Name")
+  ....
+}
+```
+
+
 ## About `Checked` and `Instrumented`
 
 Although all Metrics-scala documentation refers to the `Checked` trait (as created in the text above), you are free to chose the name, or in fact not to use it at all. It is also possible to directly extend `CheckedBuilder` and provide an implementation of `healthCheckRegistry` in every class.
@@ -53,7 +73,7 @@ object YourApplication {
 }
 
 trait Instrumented extends InstrumentedBuilder with CheckedBuilder {
-  override lazy val metricBaseName = MetricName(getClass)
+  override lazy val metricBaseName = MetricName(getClass) // Required with 3.1.0, optional since 3.1.1.
   val metricRegistry = YourApplication.metricRegistry
   val healthCheckRegistry = YourApplication.healthCheckRegistry
 }

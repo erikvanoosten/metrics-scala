@@ -39,11 +39,20 @@ import com.codahale.metrics.MetricRegistry
  *   }
  * }
  * }}}
+ *
+ * It is also possible to override the metric base name. For example:
+ * {{{
+ * class Example(db: Database) extends Instrumented {
+ *   override lazy val metricBaseName = MetricName("Overridden.Base.Name")
+ *   private[this] val loading = metrics.timer("loading")
+ *
+ *   def loadStuff(): Seq[Row] = loading.time {
+ *     db.fetchRows()
+ *   }
+ * }
+ * }}}
  */
-trait InstrumentedBuilder {
-  /** The base name for all metrics created from this builder. */
-  lazy val metricBaseName = MetricName(getClass)
-
+trait InstrumentedBuilder extends BaseBuilder {
   private lazy val metricBuilder = new MetricBuilder(metricBaseName, metricRegistry)
 
   /**

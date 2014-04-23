@@ -149,16 +149,25 @@ Partial function support is available since metrics-scala v3.0.1.
 
 ## Metric names and the metrics builder
 
-Each metric has a unique metric name. In metrics-scala the name partly derived from the *owner class*. The owner class is the class that extends the `Instrumented` trait you defined earlier.
+Each metric has a unique metric name. In metrics-scala the name starts with a name derived from the *owner class*.
+The owner class is the class that extends the `Instrumented` trait you defined earlier.
 
 The metric name is build from:
 
-* *Group:* The top-level grouping of the metric. This is set to the owner’s package name (e.g., com.example.proj.auth).
-* *Type:* The second-level grouping of the metric. This defaults to the owner’s class name (e.g., SessionStore).
-* *Name:* A short name describing the metric’s purpose (e.g., session-count).
+* *Metric base name* By default this is set to the owner class name (e.g., `com.example.proj.auth.SessionStore`).
+* *Name:* A short name describing the metric’s purpose (e.g., `session-count`).
 * *Scope:* An optional name describing the metric’s scope. Useful for when you have multiple instances of a class.
 
 The factory methods `metrics.gauge`, `metrics.counter`, `metrics.histogram`, `metrics.meter` and `metrics.timer` all accept a `scope` argument. Be default the scope is not used.
+
+Since 3.1.0 the *metric base name* can be overridden. For example by using `Instrumented` as follows:
+
+```scala
+class Example extends Instrumented {
+  override lazy val metricBaseName = MetricName("Overridden.Base.Name")
+  ...
+}
+```
 
 ## About `Instrumented`
 

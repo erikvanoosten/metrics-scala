@@ -5,21 +5,21 @@ organization := "nl.grons"
 
 name := "metrics-scala"
 
-lazy val baseVersion = "3.1.0"
+lazy val baseVersion = "3.1.1"
 
-version <<= (scalaVersion, akkaVersion) { (sv, av) =>
-  val akkaVersion = if (sv.startsWith("2.1") && av.nonEmpty) "_a" + av.split('.').take(2).mkString(".") else ""
+version <<= (akkaVersion) { av =>
+  val akkaVersion = if (av.nonEmpty) "_a" + av.split('.').take(2).mkString(".") else ""
   baseVersion + akkaVersion
 }
 
 description <<= (scalaVersion, akkaVersion) { (sv, av) =>
-  val akkaDescription = if (sv.startsWith("2.1") && av.nonEmpty) "Akka " + av +" and " else ""
+  val akkaDescription = if (av.nonEmpty) "Akka " + av +" and " else ""
   "metrics-scala for " + akkaDescription + "Scala " + sbt.cross.CrossVersionUtil.binaryScalaVersion(sv)
 }
 
 scalaVersion := "2.10.0"
 
-crossScalaVersions := Seq("2.9.1", "2.9.1-1", "2.9.2", "2.9.3", "2.10.0", "2.11.0")
+crossScalaVersions := Seq("2.10.0", "2.11.0")
 
 crossVersion := CrossVersion.binary
 
@@ -31,6 +31,7 @@ libraryDependencies ++= Seq(
   "com.codahale.metrics" % "metrics-core" % "3.0.2",
   "com.codahale.metrics" % "metrics-healthchecks" % "3.0.2",
   "junit" % "junit" % "4.11" % "test",
+  "org.scalatest" %% "scalatest" % "2.1.3" % "test",
   "org.mockito" % "mockito-all" % "1.9.5" % "test"
 )
 
@@ -47,13 +48,6 @@ libraryDependencies <++= (scalaVersion, akkaVersion) { (sv, av) =>
     )
   else
     Seq()
-}
-
-libraryDependencies <+= (scalaVersion) { sv =>
-  if (sv.startsWith("2.1"))
-    "org.scalatest" %% "scalatest" % "2.1.3" % "test"
-  else
-    "org.scalatest" %% "scalatest" % "1.9.2" % "test"
 }
 
 unmanagedSourceDirectories in Compile <<= (unmanagedSourceDirectories in Compile, sourceDirectory in Compile, akkaVersion) { (sds: Seq[java.io.File], sd: java.io.File, av: String) =>

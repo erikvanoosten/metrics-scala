@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Erik van Oosten
+ * Copyright (c) 2013-2014 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,30 +24,43 @@ import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.OneInstancePerTest
 import com.codahale.metrics.MetricRegistry
 import org.mockito.Mockito.verify
+import com.codahale.metrics.health.{HealthCheck, HealthCheckRegistry}
 
 @RunWith(classOf[JUnitRunner])
-class InstrumentedBuilderSpec extends FunSpec with MockitoSugar with ShouldMatchers with OneInstancePerTest {
+class CombinedBuilderSpec extends FunSpec with MockitoSugar with ShouldMatchers with OneInstancePerTest {
 
-  describe("InstrumentedBuilder") {
+  describe("InstrumentedBuilder combined with CheckedBuilder") {
     it("uses owner class as metric base name") {
-      val metricOwner = new MetricOwner
-      metricOwner.createCounter()
-      verify(metricOwner.metricRegistry).counter("nl.grons.metrics.scala.InstrumentedBuilderSpec.MetricOwner.cnt")
+      val combinedBuilder = new CombinedBuilder
+
+      combinedBuilder.createCounter()
+      verify(combinedBuilder.metricRegistry).counter("nl.grons.metrics.scala.CombinedBuilderSpec.CombinedBuilder.cnt")
+
+      val check = combinedBuilder.createBooleanHealthCheck { true }
+      verify(combinedBuilder.registry).register("nl.grons.metrics.scala.CombinedBuilderSpec.CombinedBuilder.test", check)
     }
 
     it("supports overriding the metric base name") {
-      val metricOwner = new MetricOwner {
+      val combinedBuilder = new CombinedBuilder {
         override lazy val metricBaseName: MetricName = MetricName("OverriddenBaseName")
       }
-      metricOwner.createCounter()
-      verify(metricOwner.metricRegistry).counter("OverriddenBaseName.cnt")
+
+      combinedBuilder.createCounter()
+      verify(combinedBuilder.metricRegistry).counter("OverriddenBaseName.cnt")
+
+      val check = combinedBuilder.createBooleanHealthCheck { true }
+      verify(combinedBuilder.registry).register("OverriddenBaseName.test", check)
     }
   }
 
-  private class MetricOwner() extends InstrumentedBuilder {
+  private class CombinedBuilder() extends InstrumentedBuilder with CheckedBuilder {
     val metricRegistry: MetricRegistry = mock[MetricRegistry]
+    val registry: HealthCheckRegistry = mock[HealthCheckRegistry]
 
     def createCounter(): Counter = metrics.counter("cnt")
+
+    def createBooleanHealthCheck(checker: Boolean): HealthCheck =
+      healthCheck("test", "FAIL") { checker }
   }
 
 }

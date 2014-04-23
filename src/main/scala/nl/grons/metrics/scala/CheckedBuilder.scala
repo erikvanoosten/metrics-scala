@@ -22,10 +22,7 @@ import com.codahale.metrics.health.{HealthCheck, HealthCheckRegistry}
 /**
  * The mixin trait for creating a class which creates health checks.
  */
-trait CheckedBuilder {
-  /** The base name for all metrics created from this builder. */
-  lazy val metricBaseName: MetricName = MetricName(getClass)
-
+trait CheckedBuilder extends BaseBuilder {
   /**
    * The [[com.codahale.metrics.health.HealthCheckRegistry]] where created metrics are registered.
    */
@@ -57,6 +54,15 @@ trait CheckedBuilder {
    *    unhealthy. The embedded value (after applying `.toString`) or throwable is used as (un)healthy message.
    *  - If the check result is of type `Result`, the result is passed unchanged.
    *  - In case the code block throws an exception, the result is considered 'unhealthy'.
+   *
+   *
+   * It is also possible to override the health check base name. For example:
+   * {{{
+   * class Example(db: Database) extends Checked {
+   *   override lazy val metricBaseName = MetricName("Overridden.Base.Name")
+   *   private[this] val databaseCheck = healthCheck("database") { db.isConnected }
+   * }
+   * }}}
    *
    * @param name the name of the health check
    * @param unhealthyMessage the unhealthy message for checkers that return `false`, defaults to `"Health check failed"`

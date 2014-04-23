@@ -1,3 +1,8 @@
+v3.1.1: April 2014
+==================
+
+* Solved problem with conflicting inherited members in the version 3.1.0 (#37) reported by @dvallejo, thanks!
+
 v3.1.0: April 2014
 ==================
 
