@@ -1,5 +1,5 @@
 // Akka versions: 2.1.4, 2.2.3, 2.3.2
-akkaVersion := "2.3.2"
+akkaVersion := ""
 
 organization := "nl.grons"
 
