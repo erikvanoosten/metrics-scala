@@ -55,33 +55,6 @@ class MetricBuilderSpec extends FunSpec with MockitoSugar with ShouldMatchers wi
     def histogramPlusOne() { histogram += 1 }
   }
 
-  describe("MetricName") {
-    it("concatenates names with a period as separator") {
-      MetricName(classOf[MetricBuilder]).append("part1", "part2").name should equal ("nl.grons.metrics.scala.MetricBuilder.part1.part2")
-    }
-
-    it("skips nulls") {
-      MetricName(classOf[MetricBuilder]).append("part1", null).name should equal ("nl.grons.metrics.scala.MetricBuilder.part1")
-    }
-
-    it("supports closures") {
-      val foo: String => MetricName = s => MetricName(this.getClass)
-      foo("").append("part1").name should equal ("nl.grons.metrics.scala.MetricBuilderSpec.part1")
-    }
-
-    it("supports objects") {
-      MetricBuilderSpec.ref.append("part1").name should equal ("nl.grons.metrics.scala.MetricBuilderSpec.part1")
-    }
-
-    it("supports nested objects") {
-      MetricBuilderSpec.nestedRef.append("part1").name should equal ("nl.grons.metrics.scala.MetricBuilderSpec.Nested.part1")
-    }
-
-    it("supports packages") {
-        nl.grons.metrics.scala.ref.append("part1").name should equal ("nl.grons.metrics.scala.part1")
-    }
-  }
-
   describe("Metrics configuration dsl") {
     val underTest = new UnderTest
 
@@ -111,12 +84,4 @@ class MetricBuilderSpec extends FunSpec with MockitoSugar with ShouldMatchers wi
     }
   }
 
-}
-
-object MetricBuilderSpec {
-  object Nested {
-    val ref: MetricName = MetricName(this.getClass)
-  }
-  private val ref: MetricName = MetricName(this.getClass)
-  private val nestedRef: MetricName = Nested.ref
 }

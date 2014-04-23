@@ -16,9 +16,9 @@
 
 package nl.grons.metrics
 
-/**
- * Used in [[nl.grons.metrics.scala.MetricBuilderSpec]].
- */
 package object scala {
+  /**
+   * Used in [[nl.grons.metrics.scala.MetricNameSpec]].
+   */
   val ref: MetricName = MetricName(this.getClass)
 }

@@ -141,7 +141,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">✓</td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top"><a href="CHANGELOG.md#v300-june-2013">3.0.0</a></td>
@@ -254,7 +254,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top"></td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v306-april-2014">3.0.6</a></td>
+      <td valign="top"><a href="CHANGELOG.md#v310-april-2014">3.1.0</a></td>
       <td valign="top">3.0.2</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
@@ -265,7 +265,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v306-april-2014">3.0.6_a2.1</a></td>
+      <td valign="top"><a href="CHANGELOG.md#v310-april-2014">3.1.0_a2.1</a></td>
       <td valign="top">3.0.2</td>
       <td valign="top">2.1.4</td>
       <td valign="top"></td>
@@ -276,7 +276,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top"></td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v306-april-2014">3.0.6_a2.2</a></td>
+      <td valign="top"><a href="CHANGELOG.md#v310-april-2014">3.1.0_a2.2</a></td>
       <td valign="top">3.0.2</td>
       <td valign="top">2.2.4</td>
       <td valign="top"></td>
@@ -287,7 +287,7 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top"></td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v306-april-2014">3.0.6_a2.3</a></td>
+      <td valign="top"><a href="CHANGELOG.md#v310-april-2014">3.1.0_a2.3</a></td>
       <td valign="top">3.0.2</td>
       <td valign="top">2.3.2</td>
       <td valign="top"></td>
@@ -326,7 +326,7 @@ Maven:
 <dependency>
     <groupId>nl.grons</groupId>
     <artifactId>metrics-scala_${scala.dep.version}</artifactId>
-    <version>3.0.6_a2.3</version>
+    <version>3.1.0_a2.3</version>
 </dependency>
 ```
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2013 Erik van Oosten
+ * Copyright (c) 2013-2014 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,23 +16,20 @@
 
 package nl.grons.metrics.scala
 
-class MetricName(val name: String) {
-  def append(names: String*): MetricName =
-    new MetricName((name.split('.') ++ names.filter(_ != null)).filter(_.nonEmpty).mkString("."))
-}
-
 object MetricName {
-  def apply(name: String, names: String*): MetricName = new MetricName(name).append(names: _*)
 
   /**
-   * Create a metrics name.
+   * Create a metrics name from a [[Class]].
+   *
    * Unlike [[com.codahale.metrics.MetricRegistry.name()]] this version supports Scala classes
    * such as objects and closures.
    *
-   * @param owner the owning class
-   * @return owner's classname as a metric name
+   * @param metricOwner the class that 'owns' the metric
+   * @param names the name parts to append, `null`s are filtered out
+   * @return a metric (base)name
    */
-  def apply(klass: Class[_]): MetricName = new MetricName(removeScalaParts(klass.getName))
+  def apply(metricOwner: Class[_], names: String*): MetricName =
+    new MetricName(removeScalaParts(metricOwner.getName)).append(names: _*)
 
   // Example weird class name: TestContext$$anonfun$2$$anonfun$apply$TestObject$2$
   private def removeScalaParts(s: String) =
@@ -40,4 +37,30 @@ object MetricName {
      .replaceAllLiterally("$apply", ".")
      .replaceAll("""\$\d*""", ".")
      .replaceAllLiterally(".package.", ".")
+
+  /**
+   * Directly create a metrics name from a [[String]].
+   *
+   * @param name the (base)name for the metric
+   * @param names the name parts to append, `null`s are filtered out
+   * @return a metric (base)name
+   */
+  def apply(name: String, names: String*): MetricName = new MetricName(name).append(names: _*)
+}
+
+/**
+ * The (base)name of a metric.
+ *
+ * Constructed via the companion object, e.g. `MetricName(getClass, "requests")`.
+ */
+class MetricName private (val name: String) {
+
+  /**
+   * Extend a metric name.
+   *
+   * @param names the name parts to append, `null`s are filtered out
+   * @return the extended metric name
+   */
+  def append(names: String*): MetricName =
+    new MetricName((name.split('.') ++ names.filter(_ != null)).filter(_.nonEmpty).mkString("."))
 }
