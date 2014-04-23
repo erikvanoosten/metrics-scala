@@ -41,7 +41,10 @@ import com.codahale.metrics.MetricRegistry
  * }}}
  */
 trait InstrumentedBuilder {
-  private lazy val metricBuilder = new MetricBuilder(MetricName(getClass), metricRegistry)
+  /** The base name for all metrics created from this builder. */
+  lazy val metricBaseName = MetricName(getClass)
+
+  private lazy val metricBuilder = new MetricBuilder(metricBaseName, metricRegistry)
 
   /**
    * The MetricBuilder that can be used for creating timers, counters, etc.

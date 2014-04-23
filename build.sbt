@@ -17,7 +17,7 @@ description <<= (scalaVersion, akkaVersion) { (sv, av) =>
   "metrics-scala for " + akkaDescription + "Scala " + sbt.cross.CrossVersionUtil.binaryScalaVersion(sv)
 }
 
-scalaVersion := "2.11.0"
+scalaVersion := "2.10.0"
 
 crossScalaVersions := Seq("2.9.1", "2.9.1-1", "2.9.2", "2.9.3", "2.10.0", "2.11.0")
 

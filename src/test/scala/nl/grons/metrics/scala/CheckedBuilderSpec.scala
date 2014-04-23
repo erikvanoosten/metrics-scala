@@ -104,6 +104,14 @@ class HealthCheckSpec extends FunSpec with ShouldMatchers {
       val check = newCheckOwner.createThrowingHealthCheck(exception)
       check.execute() should be (Result.unhealthy(exception))
     }
+
+    it("supports override of metric base name") {
+      val checkOwner = new CheckOwner() {
+        override lazy val metricBaseName: MetricName = MetricName("OverriddenMetricBaseName")
+      }
+      val check = checkOwner.createBooleanHealthCheck { true }
+      verify(checkOwner.registry).register("OverriddenMetricBaseName.test", check)
+    }
   }
 
   private val newCheckOwner = new CheckOwner()
