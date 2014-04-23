@@ -53,6 +53,7 @@ object YourApplication {
 }
 
 trait Instrumented extends InstrumentedBuilder with CheckedBuilder {
+  override lazy val metricBaseName = MetricName(getClass)
   val metricRegistry = YourApplication.metricRegistry
   val healthCheckRegistry = YourApplication.healthCheckRegistry
 }
