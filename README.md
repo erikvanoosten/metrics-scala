@@ -338,6 +338,17 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
     </tr>
+    <tr>
+      <td valign="top"><a href="CHANGELOG.md#v3111-april-2014">3.1.1.1_a2.3</a></td>
+      <td valign="top">3.0.2</td>
+      <td valign="top">2.3.2</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+    </tr>
   </tbody>
 </table>
 
@@ -355,7 +366,12 @@ To do this you can fix the Akka version in your project's build configuration.
 
 SBT:
 ```
-libraryDependencies += "nl.grons" %% "metrics-scala" % "3.1.0_a2.3"
+libraryDependencies += "nl.grons" %% "metrics-scala" % "3.1.1_a2.3"
+```
+
+or for Scala 2.11:
+```
+libraryDependencies += "nl.grons" %% "metrics-scala" % "3.1.1.1_a2.3"
 ```
 
 Maven:
@@ -367,11 +383,11 @@ Maven:
 <dependency>
     <groupId>nl.grons</groupId>
     <artifactId>metrics-scala_${scala.dep.version}</artifactId>
-    <version>3.1.0_a2.3</version>
+    <version>3.1.1.1_a2.3</version>
 </dependency>
 ```
 
-Note: For scala versions before 2.10, you need to use the full scala version in the artifact name; e.g. `metrics-scala_2.9.1-1`.
+Note: For scala 2.9.x you need to use the full scala version in the artifact name; e.g. `metrics-scala_2.9.1-1`.
 
 Note: If you depend on JMX: 2.2.0 has a small [bug](https://github.com/codahale/metrics/issues/318) that makes it inconvenient to use JMX.
 

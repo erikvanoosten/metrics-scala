@@ -1,3 +1,9 @@
+v3.1.1.1: April 2014
+==================
+
+* Only released for Scala 2.11 and Akka 2.3.
+* This release fixed a test dependency which was accidentally declared as regular dependency (#40) thanks for the report @lvicentesanchez.
+
 v3.1.1: April 2014
 ==================
 
