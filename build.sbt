@@ -1,3 +1,5 @@
+// See crossrelease.sh for valid combinations of akkaVersion and crossScalaVersion.
+
 // Akka versions: 2.1.4, 2.2.3, 2.3.2
 akkaVersion := ""
 
@@ -5,7 +7,7 @@ organization := "nl.grons"
 
 name := "metrics-scala"
 
-lazy val baseVersion = "3.1.1"
+lazy val baseVersion = "3.1.1.1"
 
 version <<= (akkaVersion) { av =>
   val akkaVersion = if (av.nonEmpty) "_a" + av.split('.').take(2).mkString(".") else ""
@@ -35,16 +37,11 @@ libraryDependencies ++= Seq(
   "org.mockito" % "mockito-all" % "1.9.5" % "test"
 )
 
-libraryDependencies <++= (scalaVersion, akkaVersion) { (sv, av) =>
-  if (sv.startsWith("2.10") && av.nonEmpty)
+libraryDependencies <++= (akkaVersion) { av =>
+  if (av.nonEmpty)
     Seq(
       "com.typesafe.akka" %% "akka-actor" % av,
       "com.typesafe.akka" %% "akka-testkit" % av % "test"
-    )
-  else if (sv.startsWith("2.11") && av.nonEmpty)
-    Seq(
-      "com.typesafe.akka" %% "akka-actor" % av,
-      "com.typesafe.akka" % "akka-testkit_2.11.0-RC4" % "2.3.0" intransitive()
     )
   else
     Seq()
