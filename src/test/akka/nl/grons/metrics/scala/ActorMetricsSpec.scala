@@ -16,9 +16,10 @@
 
 package nl.grons.metrics.scala
 
-import org.mockito.Mockito._
-import org.scalatest.matchers.ShouldMatchers
-import org.scalatest.mock.MockitoSugar
+import org.mockito.Mockito.{when, verify, never}
+import org.mockito.Matchers.any
+import org.scalatest.Matchers._
+import org.scalatest.mock.MockitoSugar._
 import org.scalatest.FunSpec
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
@@ -29,9 +30,6 @@ import com.codahale.metrics.Timer.Context
 object TestFixture {
 
   class Fixture  {
-    import MockitoSugar._
-    import org.mockito.Matchers.any
-
     val mockCounter = mock[Counter]
     val mockTimer = mock[Timer]
     val mockTimerContext = mock[Context]
@@ -89,10 +87,9 @@ object TestFixture {
 }
 
 @RunWith(classOf[JUnitRunner])
-class ActorMetricsSpec extends FunSpec with ShouldMatchers {
+class ActorMetricsSpec extends FunSpec {
   import TestFixture._
   import akka.testkit.TestActorRef
-  import org.mockito.Matchers._
 
   implicit val system = ActorSystem()
 
@@ -133,7 +130,7 @@ class ActorMetricsSpec extends FunSpec with ShouldMatchers {
       ref ! "test"
       verify(fixture.mockCounter).count(any[PartialFunction[Any,Unit]])
       verify(fixture.mockTimer).timePF(any[PartialFunction[Any,Unit]])
-      verify(fixture.mockMeter,never()).mark()
+      verify(fixture.mockMeter, never()).mark()
       ref.underlyingActor.counterName should equal ("nl.grons.metrics.scala.TestFixture.ComposedActor.receiveCounter")
     }
   }

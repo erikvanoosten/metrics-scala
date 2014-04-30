@@ -22,13 +22,11 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.{when, verify}
 import org.scalatest.FunSpec
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.matchers.ShouldMatchers
-import org.scalatest.mock.MockitoSugar
+import org.scalatest.Matchers._
 import org.scalatest.mock.MockitoSugar._
 
 @RunWith(classOf[JUnitRunner])
-class HealthCheckSpec extends FunSpec with ShouldMatchers {
-  import MockitoSugar._
+class HealthCheckSpec extends FunSpec {
 
   describe("healthCheck factory method") {
     it ("registers the created checker") {

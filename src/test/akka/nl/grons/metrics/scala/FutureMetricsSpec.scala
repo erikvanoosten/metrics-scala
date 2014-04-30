@@ -16,11 +16,10 @@
 
 package nl.grons.metrics.scala
 
-import org.mockito.Matchers
-import org.mockito.Mockito._
+import org.mockito.Mockito.when
 import org.scalatest.OneInstancePerTest
-import org.scalatest.matchers.ShouldMatchers
-import org.scalatest.mock.MockitoSugar
+import org.scalatest.Matchers._
+import org.scalatest.mock.MockitoSugar._
 import org.scalatest.FunSpec
 import scala.concurrent.ExecutionContext
 import java.util.concurrent.Executors
@@ -29,16 +28,11 @@ import org.scalatest.junit.JUnitRunner
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import java.util.concurrent.TimeUnit
-import com.codahale.metrics.MetricRegistry
 import com.codahale.metrics.{Timer => CHTimer}
 import com.codahale.metrics.Timer.Context
 
 @RunWith(classOf[JUnitRunner])
-class FutureMetricsSpec extends FunSpec with ShouldMatchers with OneInstancePerTest
-    with FutureMetrics with InstrumentedBuilder {
-
-  import MockitoSugar._
-  import Matchers._
+class FutureMetricsSpec extends FunSpec with OneInstancePerTest with FutureMetrics with InstrumentedBuilder {
 
   val metricRegistry = null
   override def metrics = new MetricBuilder(null,null) {

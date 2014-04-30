@@ -16,16 +16,16 @@
 
 package nl.grons.metrics.scala
 
-import org.mockito.Mockito._
-import org.scalatest.mock.MockitoSugar
-import org.scalatest.matchers.ShouldMatchers
+import org.mockito.Mockito.verify
+import org.scalatest.mock.MockitoSugar._
+import org.scalatest.Matchers._
 import org.junit.runner.RunWith
 import org.scalatest.FunSpec
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.OneInstancePerTest
 
 @RunWith(classOf[JUnitRunner])
-class MeterSpec extends FunSpec with MockitoSugar with ShouldMatchers with OneInstancePerTest {
+class MeterSpec extends FunSpec with OneInstancePerTest {
   describe("A meter") {
     val metric = mock[com.codahale.metrics.Meter]
     val meter = new Meter(metric)
@@ -43,7 +43,7 @@ class MeterSpec extends FunSpec with MockitoSugar with ShouldMatchers with OneIn
     }
 
     it("increments meter on exception when exceptionMeter is used") {
-      evaluating { meter.exceptionMarker( throw new RuntimeException() ) } should produce [RuntimeException]
+      a [RuntimeException] should be thrownBy { meter.exceptionMarker( throw new RuntimeException() ) }
 
       verify(metric).mark()
     }
@@ -51,7 +51,7 @@ class MeterSpec extends FunSpec with MockitoSugar with ShouldMatchers with OneIn
     it("should increment time execution of partial function") {
       val pf: PartialFunction[String,String] = { case "test" => throw new RuntimeException() }
       val wrapped = meter.exceptionMarkerPF(pf)
-      evaluating { wrapped("test") } should produce [RuntimeException]
+      a [RuntimeException] should be thrownBy { wrapped("test") }
       verify(metric).mark()
       wrapped.isDefinedAt("x") should be (false)
     }

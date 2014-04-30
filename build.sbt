@@ -1,7 +1,7 @@
 // See crossrelease.sh for valid combinations of akkaVersion and crossScalaVersion.
 
 // Akka versions: 2.1.4, 2.2.3, 2.3.2
-akkaVersion := ""
+akkaVersion := "2.3.2"
 
 organization := "nl.grons"
 

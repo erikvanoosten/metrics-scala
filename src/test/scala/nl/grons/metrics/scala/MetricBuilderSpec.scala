@@ -16,8 +16,7 @@
 
 package nl.grons.metrics.scala
 
-import org.scalatest.mock.MockitoSugar
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.Matchers._
 import org.junit.runner.RunWith
 import org.scalatest.OneInstancePerTest
 import org.scalatest.FunSpec
@@ -25,7 +24,7 @@ import org.scalatest.junit.JUnitRunner
 import com.codahale.metrics.MetricRegistry
 
 @RunWith(classOf[JUnitRunner])
-class MetricBuilderSpec extends FunSpec with MockitoSugar with ShouldMatchers with OneInstancePerTest {
+class MetricBuilderSpec extends FunSpec with OneInstancePerTest {
 
   private val testMetricRegistry = new MetricRegistry()
 

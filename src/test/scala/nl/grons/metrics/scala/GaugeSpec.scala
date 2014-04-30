@@ -16,16 +16,16 @@
 
 package nl.grons.metrics.scala
 
-import org.mockito.Mockito._
+import org.mockito.Mockito.when
 import org.scalatest.OneInstancePerTest
-import org.scalatest.matchers.ShouldMatchers
-import org.scalatest.mock.MockitoSugar
+import org.scalatest.Matchers._
+import org.scalatest.mock.MockitoSugar._
 import org.scalatest.FunSpec
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class GaugeSpec extends FunSpec with MockitoSugar with ShouldMatchers with OneInstancePerTest {
+class GaugeSpec extends FunSpec with OneInstancePerTest {
   describe("A gauge") {
     val metric = mock[com.codahale.metrics.Gauge[Int]]
     val gauge = new Gauge(metric)

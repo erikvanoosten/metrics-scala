@@ -16,10 +16,10 @@
 
 package nl.grons.metrics.scala
 
-import org.mockito.Mockito._
+import org.mockito.Mockito.{when, verify}
 import org.scalatest.OneInstancePerTest
-import org.scalatest.matchers.ShouldMatchers
-import org.scalatest.mock.MockitoSugar
+import org.scalatest.Matchers._
+import org.scalatest.mock.MockitoSugar._
 import org.scalatest.FunSpec
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
@@ -35,7 +35,7 @@ object TimerSpec {
 }
 
 @RunWith(classOf[JUnitRunner])
-class TimerSpec extends FunSpec with MockitoSugar with ShouldMatchers with OneInstancePerTest {
+class TimerSpec extends FunSpec with OneInstancePerTest {
 
   import TimerSpec._
 

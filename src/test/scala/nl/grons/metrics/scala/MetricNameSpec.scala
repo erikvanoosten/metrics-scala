@@ -16,15 +16,14 @@
 
 package nl.grons.metrics.scala
 
-import org.scalatest.mock.MockitoSugar
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.Matchers._
 import org.junit.runner.RunWith
 import org.scalatest.OneInstancePerTest
 import org.scalatest.FunSpec
 import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class MetricNameSpec extends FunSpec with MockitoSugar with ShouldMatchers with OneInstancePerTest {
+class MetricNameSpec extends FunSpec with OneInstancePerTest {
 
   describe("MetricName object") {
     it("concatenates names with a period as separator") {
