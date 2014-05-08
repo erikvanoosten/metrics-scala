@@ -87,10 +87,22 @@ object HealthCheckMagnet {
   /**
    * Magnet for checkers returning a [[scala.Boolean]] (possibly implicitly converted).
    */
+  @deprecated("This method may cause unexpected results due to the interaction between implicit resolution and by-value methods.  Please use fromBooleanFunctionCheck instead.","3.1.2")
   implicit def fromBooleanCheck[A <% Boolean](checker: => A) = new HealthCheckMagnet {
     def apply(unhealthyMessage: String) = new HealthCheck() {
       protected def check: Result =
         if (checker) Result.healthy()
+        else Result.unhealthy(unhealthyMessage)
+    }
+  }
+
+  /**
+   * Magnet for checker functions returning a [[scala.Boolean]] (possibly implicitly converted).
+   */
+  implicit def fromBooleanFunctionCheck[A <% Boolean](checker: () => A) = new HealthCheckMagnet {
+    def apply(unhealthyMessage: String) = new HealthCheck() {
+      protected def check: Result =
+        if (checker()) Result.healthy()
         else Result.unhealthy(unhealthyMessage)
     }
   }

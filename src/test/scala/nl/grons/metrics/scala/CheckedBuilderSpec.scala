@@ -55,6 +55,32 @@ class HealthCheckSpec extends FunSpec {
       check.execute() should be (Result.unhealthy("FAIL"))
     }
 
+    it("supports boolean checker function alternating true and false") {
+      def counter() = {
+        var counter = 0
+        () => { counter += 1; (counter % 2 == 0) }
+      }
+      val check = newCheckOwner.createBooleanFunctionHealthCheck( counter() )
+      check.execute() should be (Result.unhealthy("FAIL"))
+      check.execute() should be (Result.healthy())
+    }
+
+    it("supports boolean checker function alternating true and false implicitly") {
+      def counter() = {
+        var counter = 0
+        () => {
+          counter += 1
+          (counter % 2 == 0) match {
+            case true => Success
+            case false => Failure
+          }
+        }
+      }
+      val check = newCheckOwner.createImplicitBooleanFunctionHealthCheck( counter() )
+      check.execute() should be (Result.unhealthy("FAIL"))
+      check.execute() should be (Result.healthy())
+    }
+
     it("supports boolean checker returning true implicitly") {
       val check = newCheckOwner.createImplicitBooleanHealthCheck { Success }
       check.execute() should be (Result.healthy())
@@ -129,8 +155,14 @@ private class CheckOwner() extends CheckedBuilder {
   def createBooleanHealthCheck(checker: Boolean): HealthCheck =
     healthCheck("test", "FAIL") { checker }
 
+  def createBooleanFunctionHealthCheck(checker: () => Boolean): HealthCheck =
+    healthCheck("test", "FAIL")(checker)
+
   def createImplicitBooleanHealthCheck(checker: Outcome): HealthCheck =
     healthCheck("test", "FAIL") { checker }
+
+  def createImplicitBooleanFunctionHealthCheck(checker: () => Outcome): HealthCheck =
+    healthCheck("test", "FAIL") ( checker )
 
   def createEitherHealthCheck(checker: Either[_, _]): HealthCheck =
     healthCheck("test", "FAIL") { checker }
