@@ -16,20 +16,15 @@
 
 package nl.grons.metrics.scala
 
-import org.mockito.Mockito.when
 import org.mockito.Mockito.verify
 import org.scalatest.OneInstancePerTest
 import org.scalatest.Matchers._
 import org.scalatest.mock.MockitoSugar._
 import org.scalatest.FunSpec
 import scala.concurrent.ExecutionContext
-import java.util.concurrent.Executors
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import scala.concurrent.Await
-import scala.concurrent.duration.Duration
-import java.util.concurrent.TimeUnit
-import com.codahale.metrics.{Timer => CHTimer}
 import com.codahale.metrics.Timer.Context
 import scala.concurrent.Promise
 import scala.concurrent.duration._
@@ -49,7 +44,6 @@ class FutureMetricsSpec extends FunSpec with OneInstancePerTest with FutureMetri
   }
   val mockTimerContext = mock[Context]
 
-  //ExecutionContext.fromExecutor(Executors.newSingleThreadExecutor)
   implicit def sameThreadEc: ExecutionContext = new ExecutionContext {
     def execute(runnable: Runnable): Unit = runnable.run
     def reportFailure(t: Throwable): Unit = throw t
