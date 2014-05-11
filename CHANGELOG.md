@@ -1,3 +1,12 @@
+v3.2.0: May 2014
+================
+
+* This release is not binary compatible with 3.1.x.
+* Properly support multi-line health-checks, closes #42. An incredibly subtle bug reported by @joster-jambit, with a nifty solution from @som-snytt.
+* Added support for `Try` in Health-checks, an idea of our own @scullxbones.
+* `Future`s are now supported in the build without Akka (solves #44 by @yatskevich).
+* Allow measurements of `Future`s that were created elsewhere (#45).
+
 v3.1.1.1: April 2014
 ==================
 

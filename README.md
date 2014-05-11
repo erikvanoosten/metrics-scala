@@ -57,14 +57,12 @@ See the [change log](CHANGELOG.md) for API changes compared to the 2.x versions.
 * Almost invisible syntax for using timers (see example above).
 * Scala specific methods on metrics (e.g. `+=` on counters).
 * Derives proper metrics names for Scala objects and closures.
-* Actor support (Scala 2.10 or later only).
-* Future support (Scala 2.10 or later only).
+* Actor support.
+* Future support.
 
-## Available versions
+## Available versions (abbreviated)
 
-Please consult the table below to see which versions of metrics-scala are available for which scala versions.
-
-Note that only the versions 2.1.4 and 2.1.5 support OSGI.
+This table shows the most relevant versions of metrics-scala. For the full list, including the Scala 2.9 versions, see [All available version](docs/AvailableVersions.md).
 
 <table border="0" cellpadding="2" cellspacing="2">
   <tbody>
@@ -72,51 +70,14 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top">Metrics-<br>scala<br>version</td>
       <td valign="top">Metrics-<br>core<br>version</td>
       <td valign="top">Akka-<br>version</td>
-      <td colspan="7" rowspan="1" valign="top">Scala version</td>
+      <td colspan="2" rowspan="1" valign="top">Scala version</td>
     </tr>
     <tr>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
-      <td valign="top">2.9.1</td>
-      <td valign="top">2.9.1-1</td>
-      <td valign="top">2.9.2</td>
-      <td valign="top">2.9.3</td>
-      <td valign="top">2.10.x</td>
-      <td valign="top">2.11.x</td>
-    </tr>
-    <tr>
-      <td valign="top">2.1.2</td>
-      <td valign="top">same</td>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-    </tr>
-    <tr>
-      <td valign="top">2.1.3</td>
-      <td valign="top">same</td>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-    </tr>
-    <tr>
-      <td valign="top">2.1.4</td>
-      <td valign="top">same</td>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
+      <td valign="top">2.10</td>
+      <td valign="top">2.11</td>
     </tr>
     <tr>
       <td valign="top">2.1.5</td>
@@ -124,229 +85,33 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
     </tr>
     <tr>
-      <td valign="top">2.2.0</td>
-      <td valign="top">same</td>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-    </tr>
-    <tr>
-      <td valign="top"><a href="CHANGELOG.md#v300-june-2013">3.0.0</a></td>
-      <td valign="top">same</td>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-    </tr>
-    <tr>
-      <td valign="top"><a href="CHANGELOG.md#v301-august-2013">3.0.1</a></td>
-      <td valign="top">same</td>
-      <td valign="top">2.2.0 (*)</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-    </tr>
-    <tr>
-      <td valign="top"><a href="CHANGELOG.md#v302-august-2013">3.0.2</a></td>
-      <td valign="top">3.0.1</td>
-      <td valign="top">2.2.0 (*)</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-    </tr>
-    <tr>
-      <td valign="top"><a href="CHANGELOG.md#v303-august-2013">3.0.3</a></td>
-      <td valign="top">3.0.1</td>
-      <td valign="top">2.2.0 (*)</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-    </tr>
-    <tr>
-      <td valign="top"><a href="CHANGELOG.md#v303_a210-september-2013">3.0.3_a2.1.0</a></td>
-      <td valign="top">3.0.1</td>
-      <td valign="top">2.1.0</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-    </tr>
-    <tr>
-      <td valign="top"><a href="CHANGELOG.md#v304-december-2013">3.0.4</a></td>
-      <td valign="top">3.0.1</td>
-      <td valign="top">2.2.0</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-    </tr>
-    <tr>
-      <td valign="top"><a href="CHANGELOG.md#v305-march-2014">3.0.5</a></td>
+      <td valign="top"><a href="CHANGELOG.md#v320-may-2014">3.2.0</a></td>
       <td valign="top">3.0.2</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v305-march-2014">3.0.5_a2.1</a></td>
+      <td valign="top">3.2.0_a2.1</td>
       <td valign="top">3.0.2</td>
       <td valign="top">2.1.4</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v305-march-2014">3.0.5_a2.2</a></td>
+      <td valign="top">3.2.0_a2.2</td>
       <td valign="top">3.0.2</td>
       <td valign="top">2.2.4</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v305-march-2014">3.0.5_a2.3</a></td>
-      <td valign="top">3.0.2</td>
-      <td valign="top">2.3.0</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-    </tr>
-    <tr>
-      <td valign="top"><a href="CHANGELOG.md#v310-april-2014">3.1.0</a></td>
-      <td valign="top">3.0.2</td>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-    </tr>
-    <tr>
-      <td valign="top"><a href="CHANGELOG.md#v310-april-2014">3.1.0_a2.1</a></td>
-      <td valign="top">3.0.2</td>
-      <td valign="top">2.1.4</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-    </tr>
-    <tr>
-      <td valign="top"><a href="CHANGELOG.md#v310-april-2014">3.1.0_a2.2</a></td>
-      <td valign="top">3.0.2</td>
-      <td valign="top">2.2.4</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-    </tr>
-    <tr>
-      <td valign="top"><a href="CHANGELOG.md#v310-april-2014">3.1.0_a2.3</a></td>
+      <td valign="top">3.2.0_a2.3</td>
       <td valign="top">3.0.2</td>
       <td valign="top">2.3.2</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
       <td valign="top">✓</td>
-      <td valign="top">✓</td>
-    </tr>
-    <tr>
-      <td valign="top"><a href="CHANGELOG.md#v311-april-2014">3.1.1</a></td>
-      <td valign="top">3.0.2</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-    </tr>
-    <tr>
-      <td valign="top"><a href="CHANGELOG.md#v311-april-2014">3.1.1_a2.1</a></td>
-      <td valign="top">3.0.2</td>
-      <td valign="top">2.1.4</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-    </tr>
-    <tr>
-      <td valign="top"><a href="CHANGELOG.md#v311-april-2014">3.1.1_a2.2</a></td>
-      <td valign="top">3.0.2</td>
-      <td valign="top">2.2.4</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-    </tr>
-    <tr>
-      <td valign="top"><a href="CHANGELOG.md#v311-april-2014">3.1.1_a2.3</a></td>
-      <td valign="top">3.0.2</td>
-      <td valign="top">2.3.2</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-    </tr>
-    <tr>
-      <td valign="top"><a href="CHANGELOG.md#v3111-april-2014">3.1.1.1_a2.3</a></td>
-      <td valign="top">3.0.2</td>
-      <td valign="top">2.3.2</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
       <td valign="top">✓</td>
     </tr>
   </tbody>
@@ -354,24 +119,13 @@ Note that only the versions 2.1.4 and 2.1.5 support OSGI.
 
 If you need another version mix please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), or sent an email to the [metrics mailing list](http://groups.google.com/group/metrics-user).
 
-(*) Metrics-scala `3.0.1`, `3.0.2` and `3.0.3` erroneously depend on Akka `[2.2,)`.
-When Akka came with pre-releases of 2.3 this wont work (2.2 and 2.3 are not binary compatible).
-Either upgrade metrics-scala to at least `3.0.4` or fix the Akka dependency in your project to `2.2.0`.
-
-Note: It might be wise to use the latest minor-version of Akka. For example `2.1.4`
-instead of `2.1.0`, `2.2.4` instead of `2.2.0`, and `2.3.2` instead of `2.3.0`.
-To do this you can fix the Akka version in your project's build configuration.
+Note: If Akka has a newer minor-version, you can use that instead of the version metrics was build against.
 
 ## Download
 
 SBT:
 ```
-libraryDependencies += "nl.grons" %% "metrics-scala" % "3.1.1_a2.3"
-```
-
-or for Scala 2.11:
-```
-libraryDependencies += "nl.grons" %% "metrics-scala" % "3.1.1.1_a2.3"
+libraryDependencies += "nl.grons" %% "metrics-scala" % "3.2.0_a2.3"
 ```
 
 Maven:
@@ -383,19 +137,13 @@ Maven:
 <dependency>
     <groupId>nl.grons</groupId>
     <artifactId>metrics-scala_${scala.dep.version}</artifactId>
-    <version>3.1.1.1_a2.3</version>
+    <version>3.2.0_a2.3</version>
 </dependency>
 ```
 
-Note: For scala 2.9.x you need to use the full scala version in the artifact name; e.g. `metrics-scala_2.9.1-1`.
-
-Note: If you depend on JMX: 2.2.0 has a small [bug](https://github.com/codahale/metrics/issues/318) that makes it inconvenient to use JMX.
-
-Note: If you are not using the latest version, make sure you read the notes on Akka above.
-
 ## Support
 
-If you found a bug, please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), better yet: send a pull request.
+If you find a bug, please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), better yet: send a pull request.
 For questions, please sent an email to the [metrics mailing list](http://groups.google.com/group/metrics-user).
 
 

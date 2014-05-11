@@ -32,9 +32,40 @@ This creates and registers a health check named `com.example.Example.database` t
 healthCheck("database", unhealthyMessage = "Ouch!") { db.isConnected }
 ```
 
-The code block may also return an `Either` or a `com.codahale.metrics.health.HealthCheck.Result`. In these cases the `unhealthyMessage` is always ignored.
+The code block may also return a `Try` (version 3.2.0 and later), an `Either` or a `com.codahale.metrics.health.HealthCheck.Result`. In these cases the `unhealthyMessage` is always ignored.
 
 For more details see the scaladoc in [CheckedBuilder](/src/main/scala/nl/grons/metrics/scala/CheckedBuilder.scala).
+
+### Warning for version 3.1.x and earlier
+
+Due to the way the Scala compiler works you have to be careful with inline health checks that contain multiple statements.
+
+```scala
+class Example(db: Database) extends Checked {
+  var counter: Int = 0
+  healthCheck("database") {
+    counter += 1        // <-- executed only once!
+    counter % 2 == 0    // <-- the actually health check, however this will return the same value always!
+  }
+}
+```
+
+In this example the compiler only takes the last expression in the block as the health check. As a solution either upgrade to metrics-scala 3.2 or later, or change your code such that the last expression in the block contains all your logic. For example:
+
+```scala
+class Example(db: Database) extends Checked {
+  var counter: Int = 0
+  healthCheck("database") {
+    def check(): Boolean = {
+      counter += 1
+      counter % 2 == 0
+    }
+    check()
+  }
+}
+```
+
+The issue has been fixed in version 3.2.0. See also [issue 42](https://github.com/erikvanoosten/metrics-scala/issues/42).
 
 ## Health check names
 
