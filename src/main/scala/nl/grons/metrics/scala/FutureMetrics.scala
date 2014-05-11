@@ -32,13 +32,28 @@ import scala.concurrent.ExecutionContext
  *   val metricRegistry = Application.metricRegistry
  * }
  *
+ * case class Row(record: Map[String,Any])
+ *
+ * trait SynchronousDb {
+ *   def fetchRows(): Seq[Row]
+ * }
+ *
+ * trait AsynchronousDb {
+ *   def fetchRows(): Future[Seq[Row]]
+ * }
+ *
  * class Example(db: Database) extends Instrumented with FutureMetrics {
  *   import scala.concurrent._
  *   import ExecutionContext.Implicits.global
  *
- *   def loadStuffEventually(): Future[Seq[Row]] = timed("loading") {
+ *   def loadStuffEventually()(implicit db: SynchronousDb): Future[Seq[Row]] = timed("loading") {
  *     db.fetchRows()
  *   }
+ *
+ *   def loadStuffEventually2()(implicit db: AsynchronousDb): Future[Seq[Row]] = timing("loading") {
+ *     db.fetchRows()
+ *   }
+ *
  * }
  * }}}
  */
@@ -48,4 +63,10 @@ trait FutureMetrics { self: InstrumentedBuilder =>
     Future(timer.time(action))
   }
 
+  def timing[A](metricName: String)(block: => Future[A])(implicit context: ExecutionContext): Future[A] = {
+    val timer = metrics.timer(metricName)
+    val ctx = timer.timerContext
+    block.onComplete(_ => ctx.stop())
+    block
+  }
 }

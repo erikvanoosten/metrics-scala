@@ -17,6 +17,7 @@
 package nl.grons.metrics.scala
 
 import org.mockito.Mockito.when
+import org.mockito.Mockito.verify
 import org.scalatest.OneInstancePerTest
 import org.scalatest.Matchers._
 import org.scalatest.mock.MockitoSugar._
@@ -30,6 +31,8 @@ import scala.concurrent.duration.Duration
 import java.util.concurrent.TimeUnit
 import com.codahale.metrics.{Timer => CHTimer}
 import com.codahale.metrics.Timer.Context
+import scala.concurrent.Promise
+import scala.concurrent.duration._
 
 @RunWith(classOf[JUnitRunner])
 class FutureMetricsSpec extends FunSpec with OneInstancePerTest with FutureMetrics with InstrumentedBuilder {
@@ -46,7 +49,11 @@ class FutureMetricsSpec extends FunSpec with OneInstancePerTest with FutureMetri
   }
   val mockTimerContext = mock[Context]
 
-  implicit def ec: ExecutionContext = ExecutionContext.fromExecutor(Executors.newSingleThreadExecutor)
+  //ExecutionContext.fromExecutor(Executors.newSingleThreadExecutor)
+  implicit def sameThreadEc: ExecutionContext = new ExecutionContext {
+    def execute(runnable: Runnable): Unit = runnable.run
+    def reportFailure(t: Throwable): Unit = throw t
+  }
 
   describe("A future timer") {
     it("should time an execution") {
@@ -54,9 +61,20 @@ class FutureMetricsSpec extends FunSpec with OneInstancePerTest with FutureMetri
         Thread.sleep(10L)
         10
       }
-      val result = Await.result(f, Duration(300L,TimeUnit.MILLISECONDS))
+      val result = Await.result(f, 300.millis)
       timeCalled should be (true)
       result should be (10)
+    }
+
+    it("should attach an onComplete listener") {
+      val p = Promise[String]()
+      val f = timing("test") {
+        p.future
+      }
+      p.success("test")
+      val result = Await.result(f, 50.millis)
+      result should be ("test")
+      verify(mockTimerContext).stop()
     }
   }
 
