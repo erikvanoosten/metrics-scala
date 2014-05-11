@@ -3,7 +3,8 @@
 Other manual pages:
 
 * [Health check support](/docs/HealthCheckManual.md)
-* [Instrumenting Actors and Futures](/docs/ActorsAndFutures.md)
+* [Instrumenting Futures](/docs/Futures.md)
+* [Instrumenting Actors](/docs/Actors.md)
 * [Coda Hale metrics documentation](http://metrics.codahale.com)
 
 ## 1 minute introduction
