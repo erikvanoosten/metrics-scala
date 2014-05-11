@@ -4,6 +4,24 @@
 
 The `FutureMetrics` trait supplies a pair of timer methods, both of which return a `Future[A]` where `A` is the parameterized type of the block passed.  Both expect an `ExecutionContext` to be in implicit scope.
 
+`FutureMetrics` can be mixed in with the `Instrumented` class (see [Manual](/docs/Manual.md)) as follows:
+
+```scala
+object YourApplication { ... }
+trait Instrumented extends nl.grons.metrics.scala.InstrumentedBuilder with FutureMetrics {
+  val metricRegistry = YourApplication.metricRegistry
+}
+```
+
+Alternatively, you can mixin `FutureMetrics` only with the classes that need Future support:
+
+```scala
+class Example(db: Database) extends Instrumented with FutureMetrics {
+  ...
+}
+```
+
+
 ### Timed (Synchronous API)
 
 The first method `timed` is written to be used with a synchronous API and has the following signature:
@@ -19,12 +37,12 @@ This executes the provided block in the background using the provided `Execution
 The second method `timing` is written to be used with an asynchronous API and has the following signature:
 
 ```scala
-def timing[A](block: => Future[A])(implicit ec: ExecutionContext): Future[A]
+def timing[A](future: => Future[A])(implicit ec: ExecutionContext): Future[A]
 ```
 
-This starts a timer when called, and adds an `onComplete` handler to the block-produced `Future[A]` which stops said timer. This listener closes over the `TimerContext`.
+This starts a timer when called. The timer stops when the given future completes.
 
-An important point is that the timer does not measure *only* the run time, unlike `timed`. It also adds the time it takes for the work to be scheduled, as well as the time it takes for the `onComplete` listener to be scheduled. The latter should be an insignificant amount of time. The former could be a different story.
+An important point is that the timer does not measure the exact execution time of the `future`, unlike `timed`. The future might not have been scheduled, or it could have been completed the moment `timing` is called. The `onComplete` listener also needs to be scheduled. If you need exact timings, please make sure to use a timer inside the future's execution.
 
 Please see the scaladoc in [FutureMetrics](/src/main/scala/nl/grons/metrics/scala/FutureMetrics.scala).
 

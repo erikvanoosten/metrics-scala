@@ -32,7 +32,7 @@ trait FutureMetrics { self: InstrumentedBuilder =>
    *   // The application wide metrics registry.
    *   val metricRegistry = new com.codahale.metrics.MetricRegistry()
    * }
-   * trait Instrumented extends InstrumentedBuilder {
+   * trait Instrumented extends InstrumentedBuilder with FutureMetrics {
    *   val metricRegistry = Application.metricRegistry
    * }
    *
@@ -42,7 +42,7 @@ trait FutureMetrics { self: InstrumentedBuilder =>
    *   def fetchRows(): Seq[Row]
    * }
    *
-   * class Example(db: Database) extends Instrumented with FutureMetrics {
+   * class Example(db: Database) extends Instrumented {
    *   import scala.concurrent._
    *   import ExecutionContext.Implicits.global
    *
@@ -61,9 +61,9 @@ trait FutureMetrics { self: InstrumentedBuilder =>
    * Starts a timer that stops when the given `future` completes.
    *
    * An important point is that the timer does not measure the exact execution time of the `future`, unlike `timed`.
-   * It also adds the time it takes for the work to be scheduled, as well as the time it takes for the `onComplete`
-   * listener to be scheduled. The latter should be an insignificant amount of time. The former could be a different
-   * story.
+   * The future might not have been scheduled, or it could have been completed the moment `timing` is called. The
+   * `onComplete` listener also needs to be scheduled. If you need exact timings, please make sure to use a timer
+   * inside the future's execution.
    *
    * Use it as follows:
    * {{{
@@ -71,7 +71,7 @@ trait FutureMetrics { self: InstrumentedBuilder =>
    *   // The application wide metrics registry.
    *   val metricRegistry = new com.codahale.metrics.MetricRegistry()
    * }
-   * trait Instrumented extends InstrumentedBuilder {
+   * trait Instrumented extends InstrumentedBuilder with FutureMetrics {
    *   val metricRegistry = Application.metricRegistry
    * }
    *
@@ -81,7 +81,7 @@ trait FutureMetrics { self: InstrumentedBuilder =>
    *   def fetchRows(): Future[Seq[Row]]
    * }
    *
-   * class Example(db: Database) extends Instrumented with FutureMetrics {
+   * class Example(db: Database) extends Instrumented {
    *   import scala.concurrent._
    *   import ExecutionContext.Implicits.global
    *
