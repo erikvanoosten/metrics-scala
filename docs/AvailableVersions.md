@@ -303,6 +303,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
     </tr>
@@ -313,6 +314,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
     </tr>
@@ -320,6 +322,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top">3.2.0_a2.3</td>
       <td valign="top">3.0.2</td>
       <td valign="top">2.3.2</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>

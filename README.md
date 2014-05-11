@@ -62,26 +62,23 @@ See the [change log](CHANGELOG.md) for API changes compared to the 2.x versions.
 
 ## Available versions (abbreviated)
 
-This table shows the most relevant versions of metrics-scala. For the full list, including the Scala 2.9 versions, see [All available version](docs/AvailableVersions.md).
+This table shows the most relevant versions of metrics-scala. For the full list, including the Scala 2.9 versions, see [all available version](docs/AvailableVersions.md).
 
 <table border="0" cellpadding="2" cellspacing="2">
   <tbody>
     <tr>
-      <td valign="top">Metrics-<br>scala<br>version</td>
-      <td valign="top">Metrics-<br>core<br>version</td>
-      <td valign="top">Akka-<br>version</td>
+      <td valign="top" rowspan="2">Metrics-<br>scala<br>version</td>
+      <td valign="top" rowspan="2">Metrics-<br>core<br>version</td>
+      <td valign="top" rowspan="2">Akka-<br>version</td>
       <td colspan="2" rowspan="1" valign="top">Scala version</td>
     </tr>
     <tr>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
       <td valign="top">2.10</td>
       <td valign="top">2.11</td>
     </tr>
     <tr>
       <td valign="top">2.1.5</td>
-      <td valign="top">same</td>
+      <td valign="top">2.1.5</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -94,21 +91,21 @@ This table shows the most relevant versions of metrics-scala. For the full list,
       <td valign="top">✓</td>
     </tr>
     <tr>
-      <td valign="top">3.2.0_a2.1</td>
+      <td valign="top"><a href="CHANGELOG.md#v320-may-2014">3.2.0_a2.1</a></td>
       <td valign="top">3.0.2</td>
       <td valign="top">2.1.4</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
     </tr>
     <tr>
-      <td valign="top">3.2.0_a2.2</td>
+      <td valign="top"><a href="CHANGELOG.md#v320-may-2014">3.2.0_a2.2</a></td>
       <td valign="top">3.0.2</td>
       <td valign="top">2.2.4</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
     </tr>
     <tr>
-      <td valign="top">3.2.0_a2.3</td>
+      <td valign="top"><a href="CHANGELOG.md#v320-may-2014">3.2.0_a2.3</a></td>
       <td valign="top">3.0.2</td>
       <td valign="top">2.3.2</td>
       <td valign="top">✓</td>
