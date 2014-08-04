@@ -62,13 +62,16 @@ class FutureMetricsSpec extends FunSpec with OneInstancePerTest with FutureMetri
 
     it("should attach an onComplete listener") {
       val p = Promise[String]()
+      var invocationCount = 0
       val f = timing("test") {
+        invocationCount += 1
         p.future
       }
       p.success("test")
       val result = Await.result(f, 50.millis)
       result should be ("test")
       verify(mockTimerContext).stop()
+      invocationCount should be (1)
     }
   }
 
