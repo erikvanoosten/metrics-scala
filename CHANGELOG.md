@@ -1,3 +1,8 @@
+TBD
+===
+
+* For future timing, invoke argument only once, closes #50. Bug report and solution from @JeffBellegarde.
+
 v3.2.0: May 2014
 ================
 
