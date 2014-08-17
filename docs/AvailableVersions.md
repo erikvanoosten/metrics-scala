@@ -330,6 +330,50 @@ This table contains all available versions of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
     </tr>
+    <tr>
+      <td valign="top"><a href="CHANGELOG.md#v321-aug-2014">3.2.1</a></td>
+      <td valign="top">3.0.2</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+    </tr>
+    <tr>
+      <td valign="top">3.2.1_a2.1</td>
+      <td valign="top">3.0.2</td>
+      <td valign="top">2.1.4</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+    </tr>
+    <tr>
+      <td valign="top">3.2.1_a2.2</td>
+      <td valign="top">3.0.2</td>
+      <td valign="top">2.2.4</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+    </tr>
+    <tr>
+      <td valign="top">3.2.1_a2.3</td>
+      <td valign="top">3.0.2</td>
+      <td valign="top">2.3.5</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+    </tr>
   </tbody>
 </table>
 
@@ -344,5 +388,5 @@ When Akka came with pre-releases of 2.3 this wont work (2.2 and 2.3 are not bina
 Either upgrade metrics-scala to at least `3.0.4` or fix the Akka dependency in your project to `2.2.0`.
 
 Note: It might be wise to use the latest minor-version of Akka. For example `2.1.4`
-instead of `2.1.0`, `2.2.4` instead of `2.2.0`, and `2.3.2` instead of `2.3.0`.
+instead of `2.1.0`, `2.2.4` instead of `2.2.0`, and `2.3.5` instead of `2.3.0`.
 To do this you can fix the Akka version in your project's build configuration.

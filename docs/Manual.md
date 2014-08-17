@@ -57,6 +57,23 @@ class SessionStore(cache: Cache) extends Instrumented {
 
 This will create a new gauge named `com.example.proj.auth.SessionStore.cache-evictions` which will return the number of evictions from the cache.
 
+## Cached gauges
+
+(Available since metrics-scala 3.2.1.)
+
+In case the gauge method is expensive to calculate you can use a cached gauge. A cached gauge retains the calculated value for a given duration.
+
+```scala
+import scala.concurrent.duration._
+class UserRepository(db: Database) extends Instrumented {
+  metrics.cachedGauge("row-count", 5 minutes) {
+    db.usersRowCount()
+  }
+}
+```
+
+This will create a new gauge named `com.example.proj.UserRepository.row-count` which will return the results of the database query. Once the value is retrieved, it will be retained for 5 minutes. Only when the gauge's value is requested after these 5 minutes, the database query is executed again.
+
 ## Counters
 
 A counter is a simple incrementing and decrementing 64-bit integer:
