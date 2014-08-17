@@ -22,7 +22,7 @@ import org.scalatest.OneInstancePerTest
 import org.scalatest.FunSpec
 import org.scalatest.junit.JUnitRunner
 import com.codahale.metrics.MetricRegistry
-import java.util.concurrent.TimeUnit
+import scala.concurrent.duration._
 
 @RunWith(classOf[JUnitRunner])
 class MetricBuilderSpec extends FunSpec with OneInstancePerTest {
@@ -36,7 +36,7 @@ class MetricBuilderSpec extends FunSpec with OneInstancePerTest {
   class UnderTest extends Instrumented {
     val timer: Timer = metrics.timer("10ms")
     val gauge: Gauge[Int] = metrics.gauge("the answer")(value)
-    val cachedGauge: Gauge[Int] = metrics.cachedGauge("cached", 1, TimeUnit.HOURS)(cachedValue)
+    val cachedGauge: Gauge[Int] = metrics.cachedGauge("cached", 300 milliseconds)(cachedValue)
     val counter: Counter = metrics.counter("1..2..3..4")
     val histogram: Histogram = metrics.histogram("histo")
     val meter: Meter = metrics.meter("meter", "testscope")
@@ -81,6 +81,9 @@ class MetricBuilderSpec extends FunSpec with OneInstancePerTest {
       underTest.cachedCalls should equal (1)
       underTest.cachedGauge.value should equal (42)
       underTest.cachedCalls should equal (1)
+      Thread.sleep(400L)
+      underTest.cachedGauge.value should equal (42)
+      underTest.cachedCalls should equal (2)
     }
 
     it("defines a counter") {

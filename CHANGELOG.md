@@ -1,8 +1,9 @@
-TBD
-===
+v3.2.1: Aug 2014
+================
 
 * For future timing, invoke argument only once, closes #50. Bug report and solution from @JeffBellegarde.
-* Added MetricBuilder.cachedGauge method (from @pasieronen).
+* Added support for cached gauge, a nice pull request by @pasieronen (#52).
+* For Akka 2.3 build: build against Akka 2.3.5.
 
 v3.2.0: May 2014
 ================
