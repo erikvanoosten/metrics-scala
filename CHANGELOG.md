@@ -1,3 +1,9 @@
+TBD
+===
+
+* For future timing, invoke argument only once, closes #50. Bug report and solution from @JeffBellegarde.
+* Added MetricBuilder.cachedGauge method (from @pasieronen).
+
 v3.2.0: May 2014
 ================
 

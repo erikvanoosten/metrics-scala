@@ -16,8 +16,9 @@
 
 package nl.grons.metrics.scala
 
+import java.util.concurrent.TimeUnit
 import com.codahale.metrics.MetricRegistry
-import com.codahale.metrics.{Gauge => CHGauge}
+import com.codahale.metrics.{Gauge => CHGauge, CachedGauge => CHCachedGauge}
 
 /**
  * Builds and registering metrics.
@@ -32,6 +33,17 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) {
    */
   def gauge[A](name: String, scope: String = null)(f: => A): Gauge[A] =
     new Gauge[A](registry.register(metricName(name, scope), new CHGauge[A] { def getValue: A = f }))
+
+  /**
+   * Registers a new cached gauge metric.
+   *
+   * @param name  the name of the gauge
+   * @param timeout  the timeout
+   * @param timeoutUnit  the unit of <code>timeout</code>
+   * @param scope the scope of the gauge or null for no scope
+   */
+  def cachedGauge[A](name: String, timeout: Long, timeoutUnit: TimeUnit, scope: String = null)(f: => A): Gauge[A] =
+    new Gauge[A](registry.register(metricName(name, scope), new CHCachedGauge[A](timeout, timeoutUnit) { def loadValue: A = f }))
 
   /**
    * Creates a new counter metric.
