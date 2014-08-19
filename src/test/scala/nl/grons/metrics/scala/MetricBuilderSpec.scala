@@ -36,7 +36,7 @@ class MetricBuilderSpec extends FunSpec with OneInstancePerTest {
   class UnderTest extends Instrumented {
     val timer: Timer = metrics.timer("10ms")
     val gauge: Gauge[Int] = metrics.gauge("the answer")(value)
-    val cachedGauge: Gauge[Int] = metrics.cachedGauge("cached", 300 milliseconds)(cachedValue)
+    val cachedGauge: Gauge[Int] = metrics.cachedGauge("cached", 300 milliseconds)(expensiveValue)
     val counter: Counter = metrics.counter("1..2..3..4")
     val histogram: Histogram = metrics.histogram("histo")
     val meter: Meter = metrics.meter("meter", "testscope")
@@ -49,10 +49,10 @@ class MetricBuilderSpec extends FunSpec with OneInstancePerTest {
 
     def value = 42
 
-    var cachedCalls = 0
+    var expensiveValueInvocations = 0
 
-    def cachedValue = {
-      cachedCalls += 1
+    def expensiveValue = {
+      expensiveValueInvocations += 1
       42
     }
 
@@ -76,14 +76,14 @@ class MetricBuilderSpec extends FunSpec with OneInstancePerTest {
     }
 
     it("defines a cached gauge") {
-      underTest.cachedCalls should equal (0)
+      underTest.expensiveValueInvocations should equal (0)
       underTest.cachedGauge.value should equal (42)
-      underTest.cachedCalls should equal (1)
+      underTest.expensiveValueInvocations should equal (1)
       underTest.cachedGauge.value should equal (42)
-      underTest.cachedCalls should equal (1)
+      underTest.expensiveValueInvocations should equal (1)
       Thread.sleep(400L)
       underTest.cachedGauge.value should equal (42)
-      underTest.cachedCalls should equal (2)
+      underTest.expensiveValueInvocations should equal (2)
     }
 
     it("defines a counter") {
