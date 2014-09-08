@@ -3,7 +3,7 @@ Metrics-Scala
 
 *Capturing JVM- and application-level metrics. So you know what's going on.*
 
-This is the Scala API for [Coda Hale's Metrics](https://github.com/codahale/metrics) library.
+This is the Scala API for [Dropwizard's Metrics](https://github.com/dropwizard/metrics) library.
 
 Initially this project started out as a line for line copy of the Metrics-scala module, released for multiple
 scala versions. Metrics dropped the scala module in version 3.0.0 and this project continued separately
