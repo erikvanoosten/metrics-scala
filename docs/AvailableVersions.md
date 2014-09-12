@@ -432,5 +432,5 @@ When Akka came with pre-releases of 2.3 this wont work (2.2 and 2.3 are not bina
 Either upgrade metrics-scala to at least `3.0.4` or fix the Akka dependency in your project to `2.2.0`.
 
 Note: It might be wise to use the latest minor-version of Akka. For example `2.1.4`
-instead of `2.1.0`, `2.2.4` instead of `2.2.0`, and `2.3.5` instead of `2.3.0`.
+instead of `2.1.0`, `2.2.4` instead of `2.2.0`, and `2.3.6` instead of `2.3.0`.
 To do this you can fix the Akka version in your project's build configuration.
