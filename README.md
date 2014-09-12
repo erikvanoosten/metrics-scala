@@ -46,7 +46,7 @@ class Example(db: Database) extends Instrumented {
 }
 ```
 
-For more detailed information see the [manual](docs/Manual.md). For more information on Metrics-core 3.x, please see the [documentation](http://metrics.codahale.com).
+For more detailed information see the [manual](docs/Manual.md). For more information on Metrics-core 3.x, please see the [documentation](https://dropwizard.github.io/metrics/3.1.0/).
 
 See the [change log](CHANGELOG.md) for API changes compared to the 2.x versions.
 
@@ -84,30 +84,30 @@ This table shows the most relevant versions of metrics-scala. For the full list,
       <td valign="top">✓</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v321-aug-2014">3.2.1</a></td>
-      <td valign="top">3.0.2</td>
+      <td valign="top"><a href="CHANGELOG.md#v330-sep-2014">3.3.0</a></td>
+      <td valign="top">3.1.0</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v321-aug-2014">3.2.1_a2.1</a></td>
-      <td valign="top">3.0.2</td>
+      <td valign="top"><a href="CHANGELOG.md#v330-sep-2014">3.3.0_a2.1</a></td>
+      <td valign="top">3.1.0</td>
       <td valign="top">2.1.4</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v321-aug-2014">3.2.1_a2.2</a></td>
-      <td valign="top">3.0.2</td>
+      <td valign="top"><a href="CHANGELOG.md#v330-sep-2014">3.3.0_a2.2</a></td>
+      <td valign="top">3.1.0</td>
       <td valign="top">2.2.4</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v321-aug-2014">3.2.1_a2.3</a></td>
-      <td valign="top">3.0.2</td>
-      <td valign="top">2.3.5</td>
+      <td valign="top"><a href="CHANGELOG.md#v330-sep-2014">3.3.0_a2.3</a></td>
+      <td valign="top">3.1.0</td>
+      <td valign="top">2.3.6</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
     </tr>
@@ -122,7 +122,7 @@ Note: If Akka has a newer minor-version, you can use that instead of the version
 
 SBT:
 ```
-libraryDependencies += "nl.grons" %% "metrics-scala" % "3.2.1_a2.3"
+libraryDependencies += "nl.grons" %% "metrics-scala" % "3.3.0_a2.3"
 ```
 
 Maven:
@@ -134,7 +134,7 @@ Maven:
 <dependency>
     <groupId>nl.grons</groupId>
     <artifactId>metrics-scala_${scala.dep.version}</artifactId>
-    <version>3.2.1_a2.3</version>
+    <version>3.3.0_a2.3</version>
 </dependency>
 ```
 

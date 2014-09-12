@@ -1,13 +1,13 @@
 // See crossrelease.sh for valid combinations of akkaVersion and crossScalaVersion.
 
 // Build against Akka versions: 2.1.4, 2.2.3, 2.3.5,
-akkaVersion := "2.3.5"
+akkaVersion := "2.3.6"
 
 organization := "nl.grons"
 
 name := "metrics-scala"
 
-lazy val baseVersion = "3.2.1"
+lazy val baseVersion = "3.3.0"
 
 version <<= (akkaVersion) { av =>
   val akkaVersion = if (av.nonEmpty) "_a" + av.split('.').take(2).mkString(".") else ""
@@ -31,10 +31,10 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "com.codahale.metrics" % "metrics-core" % "3.0.2",
-  "com.codahale.metrics" % "metrics-healthchecks" % "3.0.2",
+  "io.dropwizard.metrics" % "metrics-core" % "3.1.0",
+  "io.dropwizard.metrics" % "metrics-healthchecks" % "3.1.0",
   "junit" % "junit" % "4.11" % "test",
-  "org.scalatest" %% "scalatest" % "2.1.3" % "test",
+  "org.scalatest" %% "scalatest" % "2.2.1" % "test",
   "org.mockito" % "mockito-all" % "1.9.5" % "test"
 )
 
@@ -58,7 +58,7 @@ unmanagedSourceDirectories in Test <<= (unmanagedSourceDirectories in Test, sour
   (if (av.nonEmpty && extra.exists) Seq(extra) else Seq()) ++ sds
 }
 
-javacOptions ++= Seq("-Xmx512m", "-Xms128m", "-Xss10m")
+javacOptions ++= Seq("-Xmx512m", "-Xms128m", "-Xss10m", "-source", "1.6", "-target", "1.6")
 
 javaOptions ++= Seq("-Xmx512m", "-Djava.awt.headless=true")
 

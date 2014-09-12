@@ -1,3 +1,9 @@
+v3.3.0: Sep 2014
+================
+
+* Build against io.dropwizard.metrics 3.1.0.
+* For Akka 2.3 build: build against Akka 2.3.6.
+
 v3.2.1: Aug 2014
 ================
 

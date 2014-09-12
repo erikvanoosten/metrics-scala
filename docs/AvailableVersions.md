@@ -374,6 +374,50 @@ This table contains all available versions of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
     </tr>
+    <tr>
+      <td valign="top"><a href="CHANGELOG.md#v330-sep-2014">3.3.0</a></td>
+      <td valign="top">3.1.0</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+    </tr>
+    <tr>
+      <td valign="top">3.3.0_a2.1</td>
+      <td valign="top">3.1.0</td>
+      <td valign="top">2.1.4</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+    </tr>
+    <tr>
+      <td valign="top">3.3.0_a2.2</td>
+      <td valign="top">3.1.0</td>
+      <td valign="top">2.2.4</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+    </tr>
+    <tr>
+      <td valign="top">3.3.0_a2.3</td>
+      <td valign="top">3.1.0</td>
+      <td valign="top">2.3.6</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+    </tr>
   </tbody>
 </table>
 
