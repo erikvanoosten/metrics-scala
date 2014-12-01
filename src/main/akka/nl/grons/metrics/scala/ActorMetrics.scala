@@ -33,12 +33,15 @@ import akka.actor.Actor
  *   val metricRegistry = Application.metricRegistry
  * }
  *
- * class ExampleActor extends ReceiveCounterActor with Instrumented {
+ * class ExampleActor extends Actor {
  *
  *   def receive = {
  *     case _ => doWork()
  *   }
  * }
+ *
+ * class InstrumentedExampleActor extends ExampleActor with ReceiveCounterActor with Instrumented
+ *
  * }}}
  */
 trait ReceiveCounterActor extends Actor { self: InstrumentedBuilder =>
@@ -67,12 +70,15 @@ trait ReceiveCounterActor extends Actor { self: InstrumentedBuilder =>
  *   val metricRegistry = Application.metricRegistry
  * }
  *
- * class ExampleActor extends ReceiveTimerActor with Instrumented {
+ * class ExampleActor extends Actor {
  *
  *   def receive = {
  *     case _ => doWork()
  *   }
  * }
+ *
+ * class InstrumentedExampleActor extends ExampleActor with ReceiveCounterActor with Instrumented
+ *
  * }}}
  */
 trait ReceiveTimerActor extends Actor { self: InstrumentedBuilder =>
@@ -100,12 +106,15 @@ trait ReceiveTimerActor extends Actor { self: InstrumentedBuilder =>
  *   val metricRegistry = Application.metricRegistry
  * }
  *
- * class ExampleActor extends ReceiveTimerActor with Instrumented {
+ * class ExampleActor extends Actor {
  *
  *   def receive = {
  *     case _ => doWork()
  *   }
  * }
+ *
+ * class InstrumentedExampleActor extends ExampleActor with ReceiveCounterActor with Instrumented
+ *
  * }}}
  */
 trait ReceiveExceptionMeterActor extends Actor { self: InstrumentedBuilder =>
