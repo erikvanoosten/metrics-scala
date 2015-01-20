@@ -12,7 +12,7 @@ object YourApplication {
   val healthChecksRegistry = new com.codahale.metrics.health.HealthCheckRegistry();
 }
 trait Checked extends nl.grons.metrics.scala.CheckedBuilder {
-  val healthCheckRegistry = Application.healthCheckRegistry
+  val registry = Application.healthCheckRegistry
 }
 ```
 
@@ -106,7 +106,7 @@ object YourApplication {
 trait Instrumented extends InstrumentedBuilder with CheckedBuilder {
   override lazy val metricBaseName = MetricName(getClass) // Required with 3.1.0, optional since 3.1.1.
   val metricRegistry = YourApplication.metricRegistry
-  val healthCheckRegistry = YourApplication.healthCheckRegistry
+  val registry = YourApplication.healthCheckRegistry
 }
 ```
 
