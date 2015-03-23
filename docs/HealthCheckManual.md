@@ -12,7 +12,7 @@ object YourApplication {
   val healthChecksRegistry = new com.codahale.metrics.health.HealthCheckRegistry();
 }
 trait Checked extends nl.grons.metrics.scala.CheckedBuilder {
-  val registry = Application.healthCheckRegistry
+  val registry = YourApplication.healthChecksRegistry
 }
 ```
 
