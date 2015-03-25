@@ -59,6 +59,7 @@ See the [change log](CHANGELOG.md) for API changes compared to the 2.x versions.
 * Derives proper metrics names for Scala objects and closures.
 * Actor support.
 * Future support.
+* [Hdrhistogram](http://hdrhistogram.org/) support.
 
 ## Available versions (abbreviated)
 
@@ -69,8 +70,9 @@ This table shows the most relevant versions of metrics-scala. For the full list,
     <tr>
       <td valign="top" rowspan="2">Metrics-<br>scala<br>version</td>
       <td valign="top" rowspan="2">Metrics-<br>core<br>version</td>
-      <td valign="top" rowspan="2">Akka-<br>version</td>
+      <td valign="top" rowspan="2">Akka<br>version</td>
       <td colspan="2" rowspan="1" valign="top">Scala version</td>
+      <td rowspan="2" valign="top">Hdr<br>version</td>
     </tr>
     <tr>
       <td valign="top">2.10</td>
@@ -82,41 +84,46 @@ This table shows the most relevant versions of metrics-scala. For the full list,
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top">1.1.0</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v330-sep-2014">3.3.0</a></td>
+      <td valign="top"><a href="CHANGELOG.md#v340-mar-2015">3.4.0</a></td>
       <td valign="top">3.1.0</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top">1.1.0</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v330-sep-2014">3.3.0_a2.1</a></td>
+      <td valign="top"><a href="CHANGELOG.md#v340-mar-2015">3.4.0_a2.1</a></td>
       <td valign="top">3.1.0</td>
       <td valign="top">2.1.4</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
+      <td valign="top">1.1.0</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v330-sep-2014">3.3.0_a2.2</a></td>
+      <td valign="top"><a href="CHANGELOG.md#v340-mar-2015">3.4.0_a2.2</a></td>
       <td valign="top">3.1.0</td>
-      <td valign="top">2.2.4</td>
+      <td valign="top">2.2.5</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
+      <td valign="top">1.1.0</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v330-sep-2014">3.3.0_a2.3</a></td>
+      <td valign="top"><a href="CHANGELOG.md#v340-mar-2015">3.4.0_a2.3</a></td>
       <td valign="top">3.1.0</td>
-      <td valign="top">2.3.6</td>
+      <td valign="top">2.3.9</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top">1.1.0</td>
     </tr>
   </tbody>
 </table>
 
 If you need another version mix please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), or sent an email to the [metrics mailing list](http://groups.google.com/group/metrics-user).
 
-Note: If Akka has a newer minor-version, you can use that instead of the version metrics was build against.
+Note: If Akka or hdrhistogram has a newer minor-version, you can use that instead of the version metrics-scala was build against.
 
 ## Download
 
@@ -137,6 +144,8 @@ Maven:
     <version>3.3.0_a2.3</version>
 </dependency>
 ```
+
+To use hdrhistogram additional dependencies are needed. See the [hdrhistogram manual page](/docs/Hdrhistogram.md).
 
 ## Support
 

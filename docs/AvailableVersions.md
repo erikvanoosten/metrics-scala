@@ -10,6 +10,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top">Metrics-<br>core<br>version</td>
       <td valign="top">Akka-<br>version</td>
       <td colspan="7" rowspan="1" valign="top">Scala version</td>
+      <td valign="top">Hdr<br>version</td>
     </tr>
     <tr>
       <td valign="top"></td>
@@ -32,6 +33,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top">2.1.3</td>
@@ -40,6 +42,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -54,6 +57,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top">2.1.5 (*)</td>
@@ -65,6 +69,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top">2.2.0 (**)</td>
@@ -75,6 +80,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
     </tr>
     <tr>
@@ -87,6 +93,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top"><a href="CHANGELOG.md#v301-august-2013">3.0.1</a></td>
@@ -97,6 +104,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
     </tr>
     <tr>
@@ -109,6 +117,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top"><a href="CHANGELOG.md#v303-august-2013">3.0.3</a></td>
@@ -119,6 +128,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
     </tr>
     <tr>
@@ -131,6 +141,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top"><a href="CHANGELOG.md#v304-december-2013">3.0.4</a></td>
@@ -142,6 +153,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top"><a href="CHANGELOG.md#v305-march-2014">3.0.5</a></td>
@@ -151,6 +163,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
     </tr>
@@ -164,6 +177,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top">3.0.5_a2.2</td>
@@ -174,6 +188,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
     </tr>
     <tr>
@@ -186,6 +201,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top"><a href="CHANGELOG.md#v310-april-2014">3.1.0</a></td>
@@ -197,6 +213,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top">3.1.0_a2.1</td>
@@ -207,6 +224,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
     </tr>
     <tr>
@@ -219,6 +237,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top">3.1.0_a2.3</td>
@@ -230,6 +249,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top"><a href="CHANGELOG.md#v311-april-2014">3.1.1</a></td>
@@ -241,6 +261,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top">3.1.1_a2.1</td>
@@ -251,6 +272,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
     </tr>
     <tr>
@@ -263,6 +285,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top">3.1.1_a2.3</td>
@@ -274,6 +297,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top"><a href="CHANGELOG.md#v3111-april-2014">3.1.1.1_a2.3</a></td>
@@ -285,6 +309,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top"><a href="CHANGELOG.md#v320-may-2014">3.2.0</a></td>
@@ -296,6 +321,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top">3.2.0_a2.1</td>
@@ -306,6 +332,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
     </tr>
     <tr>
@@ -318,6 +345,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top">3.2.0_a2.3</td>
@@ -329,6 +357,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top"><a href="CHANGELOG.md#v321-aug-2014">3.2.1</a></td>
@@ -340,6 +369,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top">3.2.1_a2.1</td>
@@ -350,6 +380,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
     </tr>
     <tr>
@@ -362,6 +393,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top">3.2.1_a2.3</td>
@@ -373,6 +405,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top"><a href="CHANGELOG.md#v330-sep-2014">3.3.0</a></td>
@@ -384,6 +417,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top">3.3.0_a2.1</td>
@@ -394,6 +428,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
     </tr>
     <tr>
@@ -406,6 +441,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
+      <td valign="top"></td>
     </tr>
     <tr>
       <td valign="top">3.3.0_a2.3</td>
@@ -417,6 +453,55 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
+    </tr>
+    <tr>
+      <td valign="top"><a href="CHANGELOG.md#v340-mar-2015">3.4.0</a></td>
+      <td valign="top">3.1.0</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">1.1.0</td>
+    </tr>
+    <tr>
+      <td valign="top">3.4.0_a2.1</td>
+      <td valign="top">3.1.0</td>
+      <td valign="top">2.1.4</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">1.1.0</td>
+    </tr>
+    <tr>
+      <td valign="top">3.4.0_a2.2</td>
+      <td valign="top">3.1.0</td>
+      <td valign="top">2.2.5</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">1.1.0</td>
+    </tr>
+    <tr>
+      <td valign="top">3.4.0_a2.3</td>
+      <td valign="top">3.1.0</td>
+      <td valign="top">2.3.9</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">1.1.0</td>
     </tr>
   </tbody>
 </table>
