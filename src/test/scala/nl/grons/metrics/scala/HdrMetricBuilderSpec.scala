@@ -89,8 +89,8 @@ class HdrMetricBuilderSpec extends FunSpec with OneInstancePerTest {
 
     it("defines a timer with non-resetting reservoir") {
       waitFor100Ms(underTest.timer)
-      underTest.timer.max should be >= 100000000L
-      underTest.timer.max should be >= 100000000L
+      underTest.timer.max should be >= 80000000L
+      underTest.timer.max should be >= 80000000L
     }
 
     it("defines a histogram with non-resetting reservoir") {
@@ -105,7 +105,7 @@ class HdrMetricBuilderSpec extends FunSpec with OneInstancePerTest {
 
     it("defines a timer with resetting reservoir") {
       waitFor100Ms(underTest.timer)
-      underTest.timer.max should be >= 100000000L
+      underTest.timer.max should be >= 80000000L
       underTest.timer.max should be (0)
     }
 
