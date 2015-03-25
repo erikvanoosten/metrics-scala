@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2014 Erik van Oosten
+ * Copyright (c) 2013-2015 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

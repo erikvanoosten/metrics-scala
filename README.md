@@ -148,6 +148,6 @@ For questions, please sent an email to the [metrics mailing list](http://groups.
 
 Copyright (c) 2010-2012 Coda Hale, Yammer.com (before 3.0.0)
 
-Copyright (c) 2013-2014 Erik van Oosten (3.0.0 and later)
+Copyright (c) 2013-2015 Erik van Oosten (3.0.0 and later)
 
 Published under Apache Software License 2.0, see [LICENSE](LICENSE)
