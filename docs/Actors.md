@@ -37,4 +37,4 @@ This trait provides an exception meter around the `receive` partial function.  T
 `Supervisor` configuration.  Any exception thrown by `receive` will be counted equally, ignoring whether the `Supervisor` chooses to
 `restart`, `escalate`, or other.
 
-Previous: [Instrumenting Futures](/docs/Futures.md) Next: [Manual](/docs/Manual.md)
+Previous: [Instrumenting Futures](/docs/Futures.md) Up: [Manual](/docs/Manual.md) Next: [Hdrhistogram](/docs/Hdrhistogram.md)

@@ -16,18 +16,18 @@
 
 package nl.grons.metrics.scala
 
-import com.codahale.metrics.{Gauge => CHGauge}
+import com.codahale.metrics.{Gauge => DropwizardGauge}
 
 object Gauge {
-  def apply[A](f: => A) = new Gauge[A](new CHGauge[A] {
+  def apply[A](f: => A) = new Gauge[A](new DropwizardGauge[A] {
     def getValue = f
   })
 }
 
 /**
- * A Scala façade class for Gauge.
+ * A Scala facade class for [[DropwizardGauge]].
  */
-class Gauge[T](private val metric: CHGauge[T]) {
+class Gauge[T](metric: DropwizardGauge[T]) {
 
   /**
    * The current value.

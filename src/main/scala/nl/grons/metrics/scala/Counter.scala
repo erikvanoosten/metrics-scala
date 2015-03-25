@@ -16,15 +16,12 @@
 
 package nl.grons.metrics.scala
 
-import com.codahale.metrics.{Counter => CHCounter}
+import com.codahale.metrics.{Counter => DropwizardCounter}
 
 /**
- * A Scala façade class for Counter.
+ * A Scala facade class for [[DropwizardCounter]].
  */
-class Counter(metric: CHCounter) {
-
-  private def delegate = metric
-
+class Counter(metric: DropwizardCounter) {
 
   /**
    * Wraps partial function pf, incrementing counter once for every execution
@@ -66,8 +63,6 @@ class Counter(metric: CHCounter) {
   def dec(delta: Long = 1) {
     metric.dec(delta)
   }
-
-
 
   /**
    * The current count.

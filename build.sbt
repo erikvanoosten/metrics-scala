@@ -19,10 +19,10 @@ description <<= (scalaVersion, akkaVersion) { (sv, av) =>
   "metrics-scala for " + akkaDescription + "Scala " + sbt.cross.CrossVersionUtil.binaryScalaVersion(sv)
 }
 
-// Developed against 2.10.0, see crossrelease.sh for test/build versions.
-scalaVersion := "2.10.0"
+// Developed against 2.10, see crossrelease.sh for test/build versions.
+scalaVersion := "2.10.5"
 
-crossScalaVersions := Seq("2.10.0", "2.11.0")
+crossScalaVersions := Seq("2.10.5", "2.11.6")
 
 crossVersion := CrossVersion.binary
 
@@ -33,6 +33,7 @@ resolvers ++= Seq(
 libraryDependencies ++= Seq(
   "io.dropwizard.metrics" % "metrics-core" % "3.1.0",
   "io.dropwizard.metrics" % "metrics-healthchecks" % "3.1.0",
+  "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0" % "optional",
   "junit" % "junit" % "4.11" % "test",
   "org.scalatest" %% "scalatest" % "2.2.1" % "test",
   "org.mockito" % "mockito-all" % "1.9.5" % "test"

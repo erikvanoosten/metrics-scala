@@ -16,11 +16,12 @@
 
 package nl.grons.metrics.scala
 
+import com.codahale.metrics.{Snapshot, Timer => DropwizardTimer}
 import java.util.concurrent.TimeUnit
-import com.codahale.metrics.{Timer => CHTimer, Snapshot}
+import scala.concurrent.duration.FiniteDuration
 
 /**
- * A Scala façade class for Timer.
+ * A Scala facade class for [[DropwizardTimer]].
  *
  * Example usage:
  * {{{
@@ -33,7 +34,7 @@ import com.codahale.metrics.{Timer => CHTimer, Snapshot}
  *   }
  * }}}
  */
-class Timer(private val metric: CHTimer) {
+class Timer(private[scala] val metric: DropwizardTimer) {
 
   /**
    * Runs f, recording its duration, and returns its result.
@@ -83,6 +84,13 @@ class Timer(private val metric: CHTimer) {
   /**
    * Adds a recorded duration.
    */
+  def update(duration: FiniteDuration) {
+    metric.update(duration.length, duration.unit)
+  }
+
+  /**
+   * Adds a recorded duration.
+   */
   def update(duration: Long, unit: TimeUnit) {
     metric.update(duration, unit)
   }
@@ -91,7 +99,7 @@ class Timer(private val metric: CHTimer) {
    * A timing [[com.codahale.metrics.Timer.Context]],
    * which measures an elapsed time in nanoseconds.
    */
-  def timerContext(): CHTimer.Context = metric.time()
+  def timerContext(): DropwizardTimer.Context = metric.time()
 
   /**
    * The number of durations recorded.

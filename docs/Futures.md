@@ -46,4 +46,4 @@ An important point is that the timer does not measure the exact execution time o
 
 Please see the scaladoc in [FutureMetrics](/src/main/scala/nl/grons/metrics/scala/FutureMetrics.scala).
 
-Previous: [Health check support](/docs/HealthCheckManual.md) Next: [Instrumenting Actors](/docs/Actors.md)
+Previous: [Health check support](/docs/HealthCheckManual.md) Up: [Manual](/docs/Manual.md) Next: [Instrumenting Actors](/docs/Actors.md)

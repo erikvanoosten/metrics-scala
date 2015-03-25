@@ -51,9 +51,20 @@ import com.codahale.metrics.MetricRegistry
  *   }
  * }
  * }}}
+ *
+ * If you want to use hdrhistograms, you can override the metric builder as follows:
+ * {{{
+ * trait Instrumented extends InstrumentedBuilder {
+ *   override lazy protected val metricBuilder = new HdrMetricBuilder(metricBaseName, metricRegistry, false)
+ *   val metricRegistry = Application.metricRegistry
+ * }
+ * }}}
+ *
+ * See the [[https://github.com/erikvanoosten/metrics-scala/blob/master/docs/Hdrhistogram.md the manual]]
+ * for more instructions on using hdrhistogram.
  */
 trait InstrumentedBuilder extends BaseBuilder {
-  private lazy val metricBuilder = new MetricBuilder(metricBaseName, metricRegistry)
+  protected lazy val metricBuilder = new MetricBuilder(metricBaseName, metricRegistry)
 
   /**
    * The MetricBuilder that can be used for creating timers, counters, etc.

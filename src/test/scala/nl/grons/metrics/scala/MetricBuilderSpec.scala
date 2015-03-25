@@ -29,11 +29,11 @@ class MetricBuilderSpec extends FunSpec with OneInstancePerTest {
 
   private val testMetricRegistry = new MetricRegistry()
 
-  trait Instrumented extends InstrumentedBuilder {
+  private trait Instrumented extends InstrumentedBuilder {
     val metricRegistry = testMetricRegistry
   }
 
-  class UnderTest extends Instrumented {
+  private class UnderTest extends Instrumented {
     val timer: Timer = metrics.timer("10ms")
     val gauge: Gauge[Int] = metrics.gauge("the answer")(value)
     val cachedGauge: Gauge[Int] = metrics.cachedGauge("cached", 300 milliseconds)(expensiveValue)

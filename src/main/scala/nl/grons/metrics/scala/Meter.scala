@@ -16,11 +16,11 @@
 
 package nl.grons.metrics.scala
 
-import com.codahale.metrics.{Meter => CHMeter}
+import com.codahale.metrics.{Meter => DropwizardMeter}
 import scala.util.control.ControlThrowable
 
 /**
- * A Scala façade class for Meter.
+ * A Scala facade class for [[DropwizardMeter]].
  *
  * Example usage:
  * {{{
@@ -35,7 +35,7 @@ import scala.util.control.ControlThrowable
  *   }
  * }}}
  */
-class Meter(private val metric: CHMeter) {
+class Meter(metric: DropwizardMeter) {
 
   /**
    * Gives a marker that runs f, marks the meter on an exception, and returns result of f.

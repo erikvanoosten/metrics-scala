@@ -16,14 +16,13 @@
 
 package nl.grons.metrics.scala
 
-import com.codahale.metrics.{Histogram => CHHistogram, Snapshot}
+import com.codahale.metrics.{Histogram => DropwizardHistogram, Snapshot}
 
 /**
- * A Scala façade class for Histogram.
+ * A Scala facade class for [[DropwizardHistogram]].
  *
- * @see HistogramMetric
  */
-class Histogram(private val metric: CHHistogram) {
+class Histogram(private[scala] val metric: DropwizardHistogram) {
 
   /**
    * Adds the recorded value to the histogram sample.

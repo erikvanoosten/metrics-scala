@@ -1,3 +1,10 @@
+v3.4.0: Mar 2015
+================
+
+* Added support for [hdrhistogram](http://hdrhistogram.org/).
+* For Akka 2.2 build: build against Akka 2.2.5.
+* For Akka 2.3 build: build against Akka 2.3.9.
+
 v3.3.0: Sep 2014
 ================
 
