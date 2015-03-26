@@ -6,11 +6,11 @@ This table contains all available versions of metrics-scala.
 <table border="0" cellpadding="2" cellspacing="2">
   <tbody>
     <tr>
-      <td valign="top">Metrics-<br>scala<br>version</td>
-      <td valign="top">Metrics-<br>core<br>version</td>
-      <td valign="top">Akka-<br>version</td>
-      <td colspan="6" rowspan="2" valign="top">Scala version</td>
-      <td valign="top">Hdr<br>version</td>
+      <td valign="top" rowspan="2">Metrics-<br>scala<br>version</td>
+      <td valign="top" rowspan="2">Metrics-<br>core<br>version</td>
+      <td valign="top" rowspan="2">Akka-<br>version</td>
+      <td valign="top" colspan="6">Scala version</td>
+      <td valign="top" rowspan="2">Hdr<br>version</td>
     </tr>
     <tr>
       <td valign="top">2.9.1</td>
