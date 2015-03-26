@@ -60,7 +60,7 @@ class HdrMetricBuilderSpec extends FunSpec with OneInstancePerTest {
 
     it("defines a timer") {
       waitFor100Ms(underTest.timer)
-      underTest.timer.min should be >= 100000000L
+      underTest.timer.max should be >= 80000000L
     }
 
     it("defines a histogram") {
