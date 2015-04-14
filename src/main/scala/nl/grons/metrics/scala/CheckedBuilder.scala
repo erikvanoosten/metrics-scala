@@ -72,8 +72,9 @@ trait CheckedBuilder extends BaseBuilder {
    * @param unhealthyMessage the unhealthy message for checkers that return `false`, defaults to `"Health check failed"`
    * @param checker the code block that does the health check
    */
-  def healthCheck(name: String, unhealthyMessage: String = "Health check failed")(checker: => HealthCheckMagnet): HealthCheck = {
-    val check = checker(unhealthyMessage)
+  def healthCheck[T](name: String, unhealthyMessage: String = "Health check failed")(checker: => T)(implicit toMagnet: ByName[T] => HealthCheckMagnet): HealthCheck = {
+    val magnet = toMagnet(ByName(checker))
+    val check = magnet(unhealthyMessage)
     registry.register(metricBaseName.append(name).name, check)
     check
   }
@@ -88,23 +89,36 @@ sealed trait HealthCheckMagnet {
 }
 
 object HealthCheckMagnet {
+  import scala.language.implicitConversions
+
   /**
-   * Magnet for checkers returning a [[scala.Boolean]] (possibly implicitly converted).
+   * Magnet for checkers returning a [[scala.Unit]].
+   *
+   * If the `checker` throws an exception the check is considered failed, otherwise a success.
    */
-  implicit def fromBooleanCheck[A <% Boolean](checker: => A) = new HealthCheckMagnet {
-    def apply(unhealthyMessage: String) = new HealthCheck() {
-      protected def check: Result =
-        if (checker) Result.healthy()
-        else Result.unhealthy(unhealthyMessage)
+  implicit def fromUnitCheck(checker: ByName[Unit]): HealthCheckMagnet =
+    fromTryChecker(ByName(Try(checker())))
+
+  /**
+   * Magnet for checkers returning a [[scala.Boolean]].
+   */
+  implicit def fromBooleanCheck[T](checker: ByName[T])(implicit convert: T => Boolean): HealthCheckMagnet = {
+    val mapped = checker map convert
+    new HealthCheckMagnet {
+      def apply(unhealthyMessage: String) = new HealthCheck() {
+        protected def check: Result =
+          if (mapped()) Result.healthy()
+          else Result.unhealthy(unhealthyMessage)
+      }
     }
   }
 
   /**
    * Magnet for checkers returning an [[scala.util.Try]].
    */
-  implicit def fromTryChecker(checker: => Try[_]) = new HealthCheckMagnet {
+  implicit def fromTryChecker[T](checker: ByName[Try[T]]): HealthCheckMagnet = new HealthCheckMagnet {
     def apply(unhealthyMessage: String) = new HealthCheck() {
-      protected def check: Result = checker match {
+      protected def check: Result = checker() match {
         case Success(m) => Result.healthy(m.toString)
         case Failure(t) => Result.unhealthy(t)
       }
@@ -114,9 +128,9 @@ object HealthCheckMagnet {
   /**
    * Magnet for checkers returning an [[scala.util.Either]].
    */
-  implicit def fromEitherChecker(checker: => Either[_, _]) = new HealthCheckMagnet {
+  implicit def fromEitherChecker[T, U](checker: ByName[Either[T, U]]): HealthCheckMagnet = new HealthCheckMagnet {
     def apply(unhealthyMessage: String) = new HealthCheck() {
-      protected def check: Result = checker match {
+      protected def check: Result = checker() match {
         case Right(m) => Result.healthy(m.toString)
         case Left(t: Throwable) => Result.unhealthy(t)
         case Left(m) => Result.unhealthy(m.toString)
@@ -127,9 +141,9 @@ object HealthCheckMagnet {
   /**
    * Magnet for checkers returning a [[com.codahale.metrics.health.HealthCheck.Result]].
    */
-  implicit def fromMetricsResultCheck(checker: => Result) = new HealthCheckMagnet {
+  implicit def fromMetricsResultCheck(checker: ByName[Result]): HealthCheckMagnet = new HealthCheckMagnet {
     def apply(unhealthyMessage: String) = new HealthCheck() {
-      protected def check: Result = checker
+      protected def check: Result = checker()
     }
   }
 }
