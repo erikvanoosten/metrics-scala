@@ -19,11 +19,14 @@ package nl.grons.metrics.scala
 import com.codahale.metrics.health.HealthCheck.Result
 import com.codahale.metrics.health.{HealthCheck, HealthCheckRegistry}
 import org.junit.runner.RunWith
-import org.mockito.Mockito.{when, verify}
+import org.mockito.Mockito.{verify, when}
 import org.scalatest.FunSpec
-import org.scalatest.junit.JUnitRunner
 import org.scalatest.Matchers._
+import org.scalatest.junit.JUnitRunner
 import org.scalatest.mock.MockitoSugar._
+import scala.concurrent.{Future, TimeoutException}
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration.{DurationInt, FiniteDuration}
 import scala.util.Try
 
 @RunWith(classOf[JUnitRunner])
@@ -69,6 +72,16 @@ class HealthCheckSpec extends FunSpec {
     it("supports Try checker returning Success[Long]") {
       val check = newCheckOwner.createTryHealthCheck { Try(123L) }
       check.execute() should be (Result.healthy("123"))
+    }
+
+    it("supports Try checker returning Success(Unit)") {
+      val check = newCheckOwner.createTryHealthCheck { Try(()) }
+      check.execute() should be (Result.healthy())
+    }
+
+    it("supports Try checker returning Success(null)") {
+      val check = newCheckOwner.createTryHealthCheck { Try[String](null) }
+      check.execute() should be (Result.healthy("null"))
     }
 
     it("supports Try checker returning Failure") {
@@ -123,19 +136,59 @@ class HealthCheckSpec extends FunSpec {
       verify(checkOwner.registry).register("OverriddenMetricBaseName.test", check)
     }
 
-    it("supports inline Either checker alternating success and failure") {
-      // Tests an inline block because of https://github.com/erikvanoosten/metrics-scala/issues/42 and
-      // https://issues.scala-lang.org/browse/SI-3237
+    it("supports Unit checker with side-effects (healthy)") {
       var counter = 0
-      val check = newCheckOwner.createEitherHealthCheck {
+      val sideEffect: () => Unit = () => {
         counter += 1
-        counter match {
-          case i if i % 2 == 0 => Right(i)
-          case i => Left(i)
-        }
       }
-      check.execute() should be (Result.unhealthy("1"))
-      check.execute() should be (Result.healthy("2"))
+
+      val check = newCheckOwner.createUnitHealthCheckWithSideEffect(sideEffect)
+      check.execute() should be (Result.healthy())
+      counter should be (1)
+      check.execute() should be (Result.healthy())
+      counter should be (2)
+    }
+
+    it("supports Unit checker with side-effects (unhealthy)") {
+      val checkerFailure = new IllegalArgumentException()
+      var counter = 0
+      val sideEffect: () => Unit = () => {
+        counter += 1
+        throw  checkerFailure
+      }
+
+      val check = newCheckOwner.createUnitHealthCheckWithSideEffect(sideEffect)
+      check.execute() should be (Result.unhealthy(checkerFailure))
+      counter should be (1)
+      check.execute() should be (Result.unhealthy(checkerFailure))
+      counter should be (2)
+    }
+
+    it("supports Future checker returning a Success(Long)") {
+      val check = newCheckOwner.createFutureHealthCheck(200.milliseconds)(Future {
+        Thread.sleep(50)
+        123L
+      })
+      check.execute() should be (Result.healthy("123"))
+    }
+
+    it("supports Future checker returning a Failure(exception)") {
+      val exception: IllegalArgumentException = new IllegalArgumentException()
+      val check = newCheckOwner.createFutureHealthCheck(200.milliseconds)(Future[Long] {
+        Thread.sleep(50)
+        throw exception
+      })
+      check.execute() should be (Result.unhealthy(exception))
+    }
+
+    it("supports Future checker not returning in time") {
+      val check = newCheckOwner.createFutureHealthCheck(10.milliseconds)(Future {
+        Thread.sleep(1000)
+        123L
+      })
+      val checkResult = check.execute()
+      checkResult.isHealthy should be (false)
+      checkResult.getError shouldBe a[TimeoutException]
     }
   }
 
@@ -154,28 +207,44 @@ private class CheckOwner() extends CheckedBuilder {
   // we would need to repeat the magnet pattern right here in a test class :(
 
   def createBooleanHealthCheck(checker: => Boolean): HealthCheck =
-    healthCheck("test", "FAIL") { checker }
+    healthCheck("test", "FAIL")(checker)
 
   def createImplicitBooleanHealthCheck(checker: => Outcome): HealthCheck =
-    healthCheck("test", "FAIL") { checker }
+    healthCheck("test", "FAIL")(checker)
 
   def createTryHealthCheck(checker: => Try[_]): HealthCheck =
-    healthCheck("test", "FAIL") { checker }
+    healthCheck("test", "FAIL")(checker)
 
   def createEitherHealthCheck(checker: => Either[_, _]): HealthCheck =
-    healthCheck("test", "FAIL") { checker }
+    healthCheck("test", "FAIL")(checker)
 
   def createResultHealthCheck(checker: => Result): HealthCheck =
-    healthCheck("test", "FAIL") { checker }
+    healthCheck("test", "FAIL")(checker)
 
-  def createThrowingHealthCheck(checkerFailure: => Throwable): HealthCheck =
-    healthCheck("test", "FAIL") {
-      def alwaysFails(): Boolean = throw checkerFailure
-      alwaysFails()
-    }
+  def createThrowingHealthCheck(checkerFailure: => Throwable): HealthCheck = {
+    def alwaysFails(): Boolean = throw checkerFailure
+    healthCheck("test", "FAIL")(alwaysFails())
+  }
 
   def createCheckerHealthCheck(checker: => SimpleChecker): HealthCheck =
-    healthCheck("test", "FAIL") { checker.check() }
+    healthCheck("test", "FAIL")(checker.check())
+
+  def createUnitHealthCheckWithSideEffect(sideEffect: () => Unit): HealthCheck = {
+    // Tests an inline block because of
+    // https://github.com/erikvanoosten/metrics-scala/issues/42,
+    // https://github.com/erikvanoosten/metrics-scala/pull/59 and
+    // https://issues.scala-lang.org/browse/SI-3237
+    healthCheck("test", "FAIL") {
+      sideEffect()
+      // Force result type of unit:
+      ()
+    }
+  }
+
+  def createFutureHealthCheck(timeout: FiniteDuration)(checker: => Future[_]): HealthCheck = {
+    implicit val checkTimeout = timeout
+    healthCheck("test", "FAIL")(checker)
+  }
 }
 
 /** Used to test implicit conversion to boolean. */

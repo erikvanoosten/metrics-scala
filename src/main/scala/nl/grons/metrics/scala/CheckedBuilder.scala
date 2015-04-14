@@ -19,6 +19,7 @@ package nl.grons.metrics.scala
 import com.codahale.metrics.health.HealthCheck.Result
 import com.codahale.metrics.health.{HealthCheck, HealthCheckRegistry}
 import scala.util.{Failure, Success, Try}
+import scala.concurrent.Future
 
 /**
  * The mixin trait for creating a class which creates health checks.
@@ -47,18 +48,21 @@ trait CheckedBuilder extends BaseBuilder {
    * }
    * }}}
    *
-   * The code block must have a result of type `Boolean`, `Try`, `Either` or
-   * [[com.codahale.metrics.health.HealthCheck.Result]].
+   * The code block must have a result of type `Boolean`, `Try`, `Either`, `Future`,
+   * [[com.codahale.metrics.health.HealthCheck.Result]], or simply `Unit`.
    *
    *  - A check result of `true` indicates healthy, `false` indicates unhealthy.
    *  - A check result of type [[Success]] indicates healthy, [[Failure]] indicates
    *    unhealthy. The embedded value (after applying `.toString`) or throwable is used as (un)healthy message.
+   *  - A check result of type [[Future]] will have 3 seconds to execute (by default). The
+   *    result of the execution will be treated as [[Success]] or [[Failure]].
    *  - A check result of type [[Right]] indicates healthy, [[Left]]`[Any]` or [[Left]]`[Throwable]` indicates
    *    unhealthy. The embedded value (after applying `.toString`) or throwable is used as (un)healthy message.
    *  - If the check result is of type [[com.codahale.metrics.health.HealthCheck.Result]], the result is passed
    *    unchanged.
-   *  - In case the code block throws an exception, the result is considered 'unhealthy'.
-   *
+   *  - A check result of type [[Unit]] indicates healthy.
+   *  - If a checker throws an exception, the result is considered unhealthy with the throwable as
+   *    unhealthy message.
    *
    * It is also possible to override the health check base name. For example:
    * {{{
@@ -68,12 +72,21 @@ trait CheckedBuilder extends BaseBuilder {
    * }
    * }}}
    *
+   * To change the timeout for [[Future]] execution, set an implicit duration:
+   * {{{
+   * class Example(db: Database) extends Checked {
+   *   implicit private val timeout = 10.seconds
+   *   private[this] val databaseCheck = healthCheck("database")(Future { db.isConnected })
+   * }
+   * }}}
+   *
    * @param name the name of the health check
    * @param unhealthyMessage the unhealthy message for checkers that return `false`, defaults to `"Health check failed"`
    * @param checker the code block that does the health check
    */
-  def healthCheck(name: String, unhealthyMessage: String = "Health check failed")(checker: => HealthCheckMagnet): HealthCheck = {
-    val check = checker(unhealthyMessage)
+  def healthCheck[T](name: String, unhealthyMessage: String = "Health check failed")(checker: => T)(implicit toMagnet: ByName[T] => HealthCheckMagnet): HealthCheck = {
+    val magnet = toMagnet(ByName(checker))
+    val check = magnet(unhealthyMessage)
     registry.register(metricBaseName.append(name).name, check)
     check
   }
@@ -88,24 +101,39 @@ sealed trait HealthCheckMagnet {
 }
 
 object HealthCheckMagnet {
+  import scala.concurrent.{Await, Future}
+  import scala.concurrent.duration.{DurationInt, FiniteDuration}
+  import scala.language.implicitConversions
+
   /**
-   * Magnet for checkers returning a [[scala.Boolean]] (possibly implicitly converted).
+   * Magnet for checkers returning a [[scala.Unit]].
+   *
+   * If the `checker` throws an exception the check is considered failed, otherwise a success.
    */
-  implicit def fromBooleanCheck[A <% Boolean](checker: => A) = new HealthCheckMagnet {
-    def apply(unhealthyMessage: String) = new HealthCheck() {
-      protected def check: Result =
-        if (checker) Result.healthy()
-        else Result.unhealthy(unhealthyMessage)
+  implicit def fromUnitCheck(checker: ByName[Unit]): HealthCheckMagnet =
+    fromTryChecker(ByName(Try(checker())))
+
+  /**
+   * Magnet for checkers returning a [[scala.Boolean]] (or convertible to Boolean).
+   */
+  implicit def fromBooleanCheck[T](checker: ByName[T])(implicit convert: T => Boolean): HealthCheckMagnet = {
+    val booleanChecker = checker map convert
+    new HealthCheckMagnet {
+      def apply(unhealthyMessage: String) = new HealthCheck() {
+        protected def check: Result =
+          if (booleanChecker()) Result.healthy()
+          else Result.unhealthy(unhealthyMessage)
+      }
     }
   }
 
   /**
    * Magnet for checkers returning an [[scala.util.Try]].
    */
-  implicit def fromTryChecker(checker: => Try[_]) = new HealthCheckMagnet {
+  implicit def fromTryChecker[T](checker: ByName[Try[T]]): HealthCheckMagnet = new HealthCheckMagnet {
     def apply(unhealthyMessage: String) = new HealthCheck() {
-      protected def check: Result = checker match {
-        case Success(m) => Result.healthy(m.toString)
+      protected def check: Result = checker() match {
+        case Success(m) => healthyWithValue[T](m)
         case Failure(t) => Result.unhealthy(t)
       }
     }
@@ -114,10 +142,10 @@ object HealthCheckMagnet {
   /**
    * Magnet for checkers returning an [[scala.util.Either]].
    */
-  implicit def fromEitherChecker(checker: => Either[_, _]) = new HealthCheckMagnet {
+  implicit def fromEitherChecker[T, U](checker: ByName[Either[T, U]]): HealthCheckMagnet = new HealthCheckMagnet {
     def apply(unhealthyMessage: String) = new HealthCheck() {
-      protected def check: Result = checker match {
-        case Right(m) => Result.healthy(m.toString)
+      protected def check: Result = checker() match {
+        case Right(m) => healthyWithValue[U](m)
         case Left(t: Throwable) => Result.unhealthy(t)
         case Left(m) => Result.unhealthy(m.toString)
       }
@@ -127,9 +155,59 @@ object HealthCheckMagnet {
   /**
    * Magnet for checkers returning a [[com.codahale.metrics.health.HealthCheck.Result]].
    */
-  implicit def fromMetricsResultCheck(checker: => Result) = new HealthCheckMagnet {
+  implicit def fromMetricsResultCheck(checker: ByName[Result]): HealthCheckMagnet = new HealthCheckMagnet {
     def apply(unhealthyMessage: String) = new HealthCheck() {
-      protected def check: Result = checker
+      protected def check: Result = checker()
     }
   }
+
+  /**
+   * Magnet for checkers returning a [[scala.concurrent.Future]].
+   *
+   * The check will block waiting for the [[scala.concurrent.Future]] to complete. It is given a 3-second default
+   * timeout after which the [[scala.concurrent.Future]] will be considered a failure and the health check will
+   * consequently fail.
+   */
+  implicit def fromFutureCheck[T](futureChecker: ByName[Future[T]])(implicit timeout: FiniteDuration = 3.seconds): HealthCheckMagnet =
+    //TODO: Remove asInstanceOf when Scala 2.10 support is no longer required.
+    fromTryChecker(ByName(Await.ready(futureChecker(), timeout).asInstanceOf[Future[T]].value.get))
+
+  private def healthyWithValue[A](value: A): Result = value match {
+    case _: Unit => Result.healthy()
+    case null => Result.healthy("null")
+    case m => Result.healthy(m.toString)
+  }
+
+}
+
+/**
+ * Provides a wrapper for by-name expressions with the intent that they can become eligible for
+ * implicit conversions and implicit resolution.
+ *
+ * @param expression A by-name parameter that will yield a result of type `T` when evaluated
+ * @tparam T Result type of the evaluated `expression`
+ */
+final class ByName[+T](expression: => T) extends (() => T) {
+  /**
+   * Evaluates the given `expression` every time <em>without</em> memoizing the result.
+   *
+   * @return Result of type `T` when evaluating the provided `expression`.
+   */
+  def apply(): T = expression
+
+  /**
+   * Lazily maps the given expression of type `T` to type `U`.
+   */
+  def map[U](fn: T => U): ByName[U] =
+    ByName[U](fn(expression))
+}
+
+object ByName {
+  import scala.language.implicitConversions
+
+  /**
+   * Implicitly converts a by-name `expression` of type `T` into an instance of [[nl.grons.metrics.scala.ByName]].
+   */
+  implicit def apply[T](expression: => T): ByName[T] =
+    new ByName(expression)
 }
