@@ -89,6 +89,8 @@ sealed trait HealthCheckMagnet {
 }
 
 object HealthCheckMagnet {
+  import scala.concurrent.{Await, Future}
+  import scala.concurrent.duration._
   import scala.language.implicitConversions
 
   /**
@@ -98,6 +100,17 @@ object HealthCheckMagnet {
    */
   implicit def fromUnitCheck(checker: ByName[Unit]): HealthCheckMagnet =
     fromTryChecker(ByName(Try(checker())))
+
+  /**
+   * Magnet for checkers returning a [[scala.concurrent.Future]].
+   *
+   * The check will block waiting for the [[scala.concurrent.Future]] to complete. It is given a 3-second default
+   * timeout after which the [[scala.concurrent.Future]] will be considered a failure and the health check will
+   * consequently fail.
+   */
+  implicit def fromFutureCheck[T](check: ByName[Future[T]])(implicit timeout: Duration = 3.seconds): HealthCheckMagnet =
+    //TODO: Remove asInstanceOf when Scala 2.10 support is no longer required.
+    fromTryChecker(ByName(Await.ready(check(), timeout).asInstanceOf[Future[T]].value.get))
 
   /**
    * Magnet for checkers returning a [[scala.Boolean]].
