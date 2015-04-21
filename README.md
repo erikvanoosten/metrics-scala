@@ -72,7 +72,7 @@ This table shows the most relevant versions of metrics-scala. For the full list,
       <td valign="top" rowspan="2">Metrics-<br>core<br>version</td>
       <td valign="top" rowspan="2">Akka<br>version</td>
       <td colspan="2" rowspan="1" valign="top">Scala version</td>
-      <td rowspan="2" valign="top">Hdr<br>version</td>
+      <td rowspan="2" valign="top">Hdr<br>version (*)</td>
     </tr>
     <tr>
       <td valign="top">2.10</td>
@@ -124,6 +124,8 @@ This table shows the most relevant versions of metrics-scala. For the full list,
 If you need another version mix please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), or sent an email to the [metrics mailing list](http://groups.google.com/group/metrics-user).
 
 Note: If Akka or hdrhistogram has a newer minor-version, you can use that instead of the version metrics-scala was build against.
+
+(*) Hdrhistogram is an optional dependency.
 
 ## Download
 
