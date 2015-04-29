@@ -10,7 +10,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top" rowspan="2">Metrics-<br>core<br>version</td>
       <td valign="top" rowspan="2">Akka-<br>version</td>
       <td valign="top" colspan="6">Scala version</td>
-      <td valign="top" rowspan="2">Hdr<br>version</td>
+      <td valign="top" rowspan="2">Hdr<br>version (****)</td>
     </tr>
     <tr>
       <td valign="top">2.9.1</td>
@@ -500,6 +500,54 @@ This table contains all available versions of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">1.1.0</td>
     </tr>
+    <tr>
+      <td valign="top"><a href="/CHANGELOG.md#v350-apr-2015">3.5.0</a></td>
+      <td valign="top">3.1.0</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">1.1.0</td>
+    </tr>
+    <tr>
+      <td valign="top">3.5.0_a2.1</td>
+      <td valign="top">3.1.2</td>
+      <td valign="top">2.1.4</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">1.1.0</td>
+    </tr>
+    <tr>
+      <td valign="top">3.5.0_a2.2</td>
+      <td valign="top">3.1.2</td>
+      <td valign="top">2.2.5</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">1.1.0</td>
+    </tr>
+    <tr>
+      <td valign="top">3.5.0_a2.3</td>
+      <td valign="top">3.1.2</td>
+      <td valign="top">2.3.9</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">1.1.0</td>
+    </tr>
   </tbody>
 </table>
 
@@ -516,3 +564,5 @@ Either upgrade metrics-scala to at least `3.0.4` or fix the Akka dependency in y
 Note: It might be wise to use the latest minor-version of Akka. For example `2.1.4`
 instead of `2.1.0`, `2.2.4` instead of `2.2.0`, and `2.3.6` instead of `2.3.0`.
 To do this you can fix the Akka version in your project's build configuration.
+
+(****) Hdrhistogram is an optional dependency.

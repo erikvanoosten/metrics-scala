@@ -87,32 +87,32 @@ This table shows the most relevant versions of metrics-scala. For the full list,
       <td valign="top"></td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v340-mar-2015">3.4.0</a></td>
-      <td valign="top">3.1.0</td>
+      <td valign="top"><a href="CHANGELOG.md#v350-apr-2015">3.5.0</a></td>
+      <td valign="top">3.1.2</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">1.1.0</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v340-mar-2015">3.4.0_a2.1</a></td>
-      <td valign="top">3.1.0</td>
+      <td valign="top"><a href="CHANGELOG.md#v350-apr-2015">3.5.0_a2.1</a></td>
+      <td valign="top">3.1.2</td>
       <td valign="top">2.1.4</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top">1.1.0</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v340-mar-2015">3.4.0_a2.2</a></td>
-      <td valign="top">3.1.0</td>
+      <td valign="top"><a href="CHANGELOG.md#v350-apr-2015">3.5.0_a2.2</a></td>
+      <td valign="top">3.1.2</td>
       <td valign="top">2.2.5</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top">1.1.0</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v340-mar-2015">3.4.0_a2.3</a></td>
-      <td valign="top">3.1.0</td>
+      <td valign="top"><a href="CHANGELOG.md#v350-apr-2015">3.5.0_a2.3</a></td>
+      <td valign="top">3.1.2</td>
       <td valign="top">2.3.9</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>

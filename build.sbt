@@ -30,14 +30,18 @@ resolvers ++= Seq(
   "Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository"
 )
 
-libraryDependencies ++= Seq(
-  "io.dropwizard.metrics" % "metrics-core" % "3.1.0",
-  "io.dropwizard.metrics" % "metrics-healthchecks" % "3.1.0",
-  "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0" % "optional",
-  "junit" % "junit" % "4.11" % "test",
-  "org.scalatest" %% "scalatest" % "2.2.1" % "test",
-  "org.mockito" % "mockito-all" % "1.9.5" % "test"
-)
+libraryDependencies <++= (scalaVersion) { sv =>
+  Seq(
+    "io.dropwizard.metrics" % "metrics-core" % "3.1.2",
+    "io.dropwizard.metrics" % "metrics-healthchecks" % "3.1.2",
+    "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0" % "optional",
+    "junit" % "junit" % "4.11" % "test",
+    "org.scalatest" %% "scalatest" % "2.2.4" % "test",
+    // Override version that scalatest depends on:
+    "org.scala-lang" % "scala-reflect" % sv % "test",
+    "org.mockito" % "mockito-all" % "1.10.19" % "test"
+  )
+}
 
 libraryDependencies <++= (akkaVersion) { av =>
   if (av.nonEmpty)

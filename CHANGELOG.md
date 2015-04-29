@@ -1,3 +1,15 @@
+v3.5.0: Apr 2015
+================
+
+* This release is not binary, nor source compatible with 3.4.x.
+  The incompatibility is restricted to health-checks. Previously a code block written as second parameter
+  for method `healthCheck` would be evaluated at the call-side, using only the last expression in the
+  block as pass-by-name parameter. Now, the entire block is passed as a call-by-value parameter. The latter
+  is more what you would expect, so you probably won't notice any incompatibility.
+* Health-checks now support `Unit` and `Future` checkers. Based on a pull request from Scala virtuoso @davidhoyt (#59).
+  (Also, this solves #42 for real.)
+* Build against io.dropwizard.metrics 3.1.2.
+
 v3.4.0: Mar 2015
 ================
 
