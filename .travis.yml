@@ -5,6 +5,4 @@ scala:
 jdk:
   - oraclejdk7
   - openjdk7
-
-# Building for java 8 is useless because scala 2.10 does not support it.
-#  - oraclejdk8
+  - oraclejdk8
