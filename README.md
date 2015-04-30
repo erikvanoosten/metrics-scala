@@ -131,7 +131,7 @@ Note: If Akka or hdrhistogram has a newer minor-version, you can use that instea
 
 SBT:
 ```
-libraryDependencies += "nl.grons" %% "metrics-scala" % "3.4.0_a2.3"
+libraryDependencies += "nl.grons" %% "metrics-scala" % "3.5.0_a2.3"
 ```
 
 Maven:
@@ -143,7 +143,7 @@ Maven:
 <dependency>
     <groupId>nl.grons</groupId>
     <artifactId>metrics-scala_${scala.dep.version}</artifactId>
-    <version>3.4.0_a2.3</version>
+    <version>3.5.0_a2.3</version>
 </dependency>
 ```
 
