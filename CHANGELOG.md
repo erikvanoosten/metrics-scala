@@ -9,6 +9,7 @@ v3.5.0: Apr 2015
 * Health-checks now support `Unit` and `Future` checkers. Based on a pull request from Scala virtuoso @davidhoyt (#59).
   (Also, this solves #42 for real.)
 * Build against io.dropwizard.metrics 3.1.2.
+* Build with Java 6. (Previous release was accidentally build with Java 7.)
 
 v3.4.0: Mar 2015
 ================
@@ -35,6 +36,7 @@ v3.2.0: May 2014
 
 * This release is not binary compatible with 3.1.x.
 * Properly support multi-line health-checks, closes #42. An incredibly subtle bug reported by @joster-jambit, with a nifty solution from @som-snytt.
+  (Update: the problem has been fully solved in version 3.5.0.)
 * Added support for `Try` in Health-checks, an idea of our own @scullxbones.
 * `Future`s are now supported in the build without Akka (solves #44 by @yatskevich).
 * Allow measurements of `Future`s that were created elsewhere (#45).
