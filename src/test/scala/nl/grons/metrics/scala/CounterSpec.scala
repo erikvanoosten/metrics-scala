@@ -59,7 +59,7 @@ class CounterSpec extends FunSpec with OneInstancePerTest {
 
     it("should increment and decrement a counter upon execution of a function") {
       def x = 123
-      val result = counter.concurrentCount(x)
+      val result = counter.countConcurrencyOf(x)
       verify(metric).inc(1)
       verify(metric).dec(1)
       result should be (x)

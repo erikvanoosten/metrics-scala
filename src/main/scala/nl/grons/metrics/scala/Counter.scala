@@ -36,9 +36,9 @@ class Counter(metric: DropwizardCounter) {
      }
 
   /**
-   * Runs f and counts concurrent executions of concurrentCount
+   * Runs f and counts concurrent executions of countConcurrencyOf
    */
-  def concurrentCount[A](f: => A): A = {
+  def countConcurrencyOf[A](f: => A): A = {
     metric.inc(1)
     try {
       f
