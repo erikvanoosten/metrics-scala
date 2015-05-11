@@ -22,7 +22,6 @@ import com.codahale.metrics.{Counter => DropwizardCounter}
  * A Scala facade class for [[DropwizardCounter]].
  */
 class Counter(metric: DropwizardCounter) {
-
   /**
    * Wraps partial function pf, incrementing counter once for every execution
    */
@@ -35,6 +34,18 @@ class Counter(metric: DropwizardCounter) {
 
        def isDefinedAt(a: A) = pf.isDefinedAt(a)
      }
+
+  /**
+   * Runs f and counts concurrent executions of countConcurrencyOf
+   */
+  def countConcurrencyOf[A](f: => A): A = {
+    metric.inc(1)
+    try {
+      f
+    } finally {
+      metric.dec(1)
+    }
+  }
 
   /**
    * Increments the counter by delta.
