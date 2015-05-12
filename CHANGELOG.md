@@ -15,7 +15,6 @@ v3.5.0: Apr 2015
 * Health-checks now support `Unit` and `Future` checkers. Based on a pull request from Scala virtuoso @davidhoyt (#59).
   (Also, this solves #42 for real.)
 * Build against io.dropwizard.metrics 3.1.2.
-* Build with Java 6. (Previous release was accidentally build with Java 7.)
 
 v3.4.0: Mar 2015
 ================
