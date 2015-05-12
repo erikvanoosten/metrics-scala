@@ -30,39 +30,58 @@ class CounterSpec extends FunSpec with OneInstancePerTest {
     val metric = mock[com.codahale.metrics.Counter]
     val counter = new Counter(metric)
 
-    it("should increment the underlying metric by an arbitrary amount") {
+    it("+= should increment the underlying metric by an arbitrary amount") {
       counter += 12
-
       verify(metric).inc(12)
     }
 
-    it("should decrement the underlying metric by an arbitrary amount") {
+    it("-= should decrement the underlying metric by an arbitrary amount") {
       counter -= 12
-
       verify(metric).dec(12)
     }
 
-    it("should consult the underlying counter for current count") {
-      when(metric.getCount).thenReturn(1L)
+    it("inc should increment the underlying metric by an arbitrary amount") {
+      counter.inc(12)
+      verify(metric).inc(12)
+    }
 
+    it("dec should decrement the underlying metric by an arbitrary amount") {
+      counter.dec(12)
+      verify(metric).dec(12)
+    }
+
+    it("getCount should consult the underlying counter for current count") {
+      when(metric.getCount).thenReturn(1L)
       counter.count should equal (1)
       verify(metric).getCount
     }
 
-    it("should increment counter upon execution of partial function") {
+    describe("count") {
       val pf: PartialFunction[String, String] = { case "test" => "test" }
       val wrapped = counter.count(pf)
-      wrapped("test") should equal ("test")
-      verify(metric).inc(1)
-      wrapped.isDefinedAt("x") should be (false)
+
+      it("should consult the wrapper partial function for isDefined") {
+        wrapped.isDefinedAt("test") should be(true)
+        wrapped.isDefinedAt("x") should be(false)
+      }
+
+      it("should increment counter upon execution of partial function") {
+        wrapped("test") should equal("test")
+        verify(metric).inc(1)
+      }
+
+      it("should increment counter upon execution of undefined partial function") {
+        a[MatchError] should be thrownBy wrapped("x")
+        verify(metric).inc(1)
+      }
     }
 
-    it("should increment and decrement a counter upon execution of a function") {
-      def x = 123
-      val result = counter.countConcurrencyOf(x)
+    it("countConcurrency should increment and decrement underlying counter upon execution of a function") {
+      def dummyWork = 123
+      val result = counter.countConcurrency(dummyWork)
       verify(metric).inc(1)
       verify(metric).dec(1)
-      result should be (x)
+      result should be (123)
     }
   }
 }

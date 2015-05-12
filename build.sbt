@@ -1,13 +1,13 @@
 // See crossrelease.sh for valid combinations of akkaVersion and crossScalaVersion.
 
 // Developed against 2.3.*, see crossrelease.sh for test/build versions.
-akkaVersion := "2.3.9"
+akkaVersion := "2.3.11"
 
 organization := "nl.grons"
 
 name := "metrics-scala"
 
-lazy val baseVersion = "3.5.0"
+lazy val baseVersion = "3.5.1"
 
 version <<= akkaVersion { av =>
   val akkaVersion = if (av.nonEmpty) "_a" + av.split('.').take(2).mkString(".") else ""

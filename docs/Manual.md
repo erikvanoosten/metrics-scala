@@ -87,6 +87,27 @@ evictions -= 2
 
 All `Counter` metrics start out at 0.
 
+A common pattern is:
+
+```scala
+val someWorkConcurrencyCounter: Counter = metrics.counter
+someWorkConcurrencyCounter += 1
+val result = try {
+  someWork()
+} finally {
+  someWorkConcurrencyCounter -= 1
+}
+```
+
+Since metrics-scala 3.5.1 this can be written as: 
+
+```scala
+val someWorkConcurrencyCounter: Counter = metrics.counter
+val result = someWorkConcurrencyCounter.countConcurrency {
+  someWork()
+}
+```
+
 ## Histograms
 
 A `Histogram` measures the distribution of values in a stream of data: e.g., the number of results returned by a search:

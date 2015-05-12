@@ -87,7 +87,7 @@ This table shows the most relevant versions of metrics-scala. For the full list,
       <td valign="top"></td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v350-apr-2015">3.5.0</a></td>
+      <td valign="top"><a href="CHANGELOG.md#v351-may-2015">3.5.1</a></td>
       <td valign="top">3.1.2</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
@@ -95,7 +95,7 @@ This table shows the most relevant versions of metrics-scala. For the full list,
       <td valign="top">1.1.0</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v350-apr-2015">3.5.0_a2.1</a></td>
+      <td valign="top"><a href="CHANGELOG.md#v351-may-2015">3.5.1_a2.1</a></td>
       <td valign="top">3.1.2</td>
       <td valign="top">2.1.4</td>
       <td valign="top">✓</td>
@@ -103,7 +103,7 @@ This table shows the most relevant versions of metrics-scala. For the full list,
       <td valign="top">1.1.0</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v350-apr-2015">3.5.0_a2.2</a></td>
+      <td valign="top"><a href="CHANGELOG.md#v351-may-2015">3.5.1_a2.2</a></td>
       <td valign="top">3.1.2</td>
       <td valign="top">2.2.5</td>
       <td valign="top">✓</td>
@@ -111,9 +111,9 @@ This table shows the most relevant versions of metrics-scala. For the full list,
       <td valign="top">1.1.0</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v350-apr-2015">3.5.0_a2.3</a></td>
+      <td valign="top"><a href="CHANGELOG.md#v351-may-2015">3.5.1_a2.3</a></td>
       <td valign="top">3.1.2</td>
-      <td valign="top">2.3.9</td>
+      <td valign="top">2.3.11</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">1.1.0</td>
@@ -131,7 +131,7 @@ Note: If Akka or hdrhistogram has a newer minor-version, you can use that instea
 
 SBT:
 ```
-libraryDependencies += "nl.grons" %% "metrics-scala" % "3.5.0_a2.3"
+libraryDependencies += "nl.grons" %% "metrics-scala" % "3.5.1_a2.3"
 ```
 
 Maven:
@@ -143,7 +143,7 @@ Maven:
 <dependency>
     <groupId>nl.grons</groupId>
     <artifactId>metrics-scala_${scala.dep.version}</artifactId>
-    <version>3.5.0_a2.3</version>
+    <version>3.5.1_a2.3</version>
 </dependency>
 ```
 

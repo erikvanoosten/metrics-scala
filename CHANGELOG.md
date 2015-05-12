@@ -1,3 +1,9 @@
+v3.5.1: May 2015
+================
+
+* Added method `countConcurrency` to counters, idea from @fedeoasi, pull request by @gshakhn (#60).
+* For Akka 2.3 build: build against Akka 2.3.11.
+
 v3.5.0: Apr 2015
 ================
 

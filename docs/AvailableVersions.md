@@ -548,6 +548,54 @@ This table contains all available versions of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">1.1.0</td>
     </tr>
+    <tr>
+      <td valign="top"><a href="/CHANGELOG.md#v351-may-2015">3.5.1</a></td>
+      <td valign="top">3.1.0</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">1.1.0</td>
+    </tr>
+    <tr>
+      <td valign="top">3.5.1_a2.1</td>
+      <td valign="top">3.1.2</td>
+      <td valign="top">2.1.4</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">1.1.0</td>
+    </tr>
+    <tr>
+      <td valign="top">3.5.1_a2.2</td>
+      <td valign="top">3.1.2</td>
+      <td valign="top">2.2.5</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">1.1.0</td>
+    </tr>
+    <tr>
+      <td valign="top">3.5.1_a2.3</td>
+      <td valign="top">3.1.2</td>
+      <td valign="top">2.3.11</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">1.1.0</td>
+    </tr>
   </tbody>
 </table>
 
