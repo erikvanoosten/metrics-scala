@@ -35,6 +35,8 @@ libraryDependencies <++= (scalaVersion) { sv =>
     "io.dropwizard.metrics" % "metrics-core" % "3.1.2",
     "io.dropwizard.metrics" % "metrics-healthchecks" % "3.1.2",
     "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0" % "optional",
+    // Override version that hdrhistogram-metrics-reservoir depends on:
+    "org.hdrhistogram" % "HdrHistogram" % "2.1.6" % "optional",
     "junit" % "junit" % "4.11" % "test",
     "org.scalatest" %% "scalatest" % "2.2.4" % "test",
     // Override version that scalatest depends on:
