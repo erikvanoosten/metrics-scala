@@ -125,7 +125,7 @@ If you need another version mix please open an [issue](https://github.com/erikva
 
 Note: If Akka or hdrhistogram has a newer minor-version, you can use that instead of the version metrics-scala was build against.
 
-(*) Hdrhistogram is an optional dependency.
+(*) optional dependency, see the [hdrhistogram manual page](/docs/Hdrhistogram.md).
 
 ## Download
 
