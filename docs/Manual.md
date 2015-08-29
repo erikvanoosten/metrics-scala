@@ -6,6 +6,7 @@ Other manual pages:
 * [Instrumenting Futures](/docs/Futures.md)
 * [Instrumenting Actors](/docs/Actors.md)
 * [Hdrhistogram](/docs/Hdrhistogram.md)
+* [Miscellaneous](/docs/Miscellaneous.md)
 * [Dropwizard metrics documentation](https://dropwizard.github.io/metrics)
 
 ## 1 minute introduction
