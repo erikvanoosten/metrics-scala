@@ -123,7 +123,7 @@ This table shows the most relevant versions of metrics-scala. For the full list,
 
 If you need another version mix please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), or sent an email to the [metrics mailing list](http://groups.google.com/group/metrics-user).
 
-Note: If Akka or hdrhistogram has a newer minor-version, you can use that instead of the version metrics-scala was build against.
+Note: If Akka or hdrhistogram has a newer minor-version, you can use that instead of the version metrics-scala was build against. (If you use Akka 2.4, you can use the build for Akka 2.3 as Akka 2.4 is even binary compatible with Akka 2.3.)
 
 (*) optional dependency, see the [hdrhistogram manual page](/docs/Hdrhistogram.md).
 
