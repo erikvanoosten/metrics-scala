@@ -596,6 +596,42 @@ This table contains all available versions of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">1.1.0</td>
     </tr>
+    <tr>
+      <td valign="top"><a href="/CHANGELOG.md#v352-sep-2015">3.5.2</a></td>
+      <td valign="top">3.1.0</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">1.1.0</td>
+    </tr>
+    <tr>
+      <td valign="top">3.5.2_a2.2</td>
+      <td valign="top">3.1.2</td>
+      <td valign="top">2.2.5</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">1.1.0</td>
+    </tr>
+    <tr>
+      <td valign="top">3.5.2_a2.3</td>
+      <td valign="top">3.1.2</td>
+      <td valign="top">2.3.13</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">1.1.0</td>
+    </tr>
   </tbody>
 </table>
 
@@ -608,6 +644,8 @@ If you need another version mix please open an [issue](https://github.com/erikva
 (***) Metrics-scala `3.0.1`, `3.0.2` and `3.0.3` erroneously depend on Akka `[2.2,)`.
 When Akka came with pre-releases of 2.3 this wont work (2.2 and 2.3 are not binary compatible).
 Either upgrade metrics-scala to at least `3.0.4` or fix the Akka dependency in your project to `2.2.0`.
+
+Note: For Akka 2.4 you can use the builds for Akka 2.3.
 
 Note: It might be wise to use the latest minor-version of Akka. For example `2.1.4`
 instead of `2.1.0`, `2.2.4` instead of `2.2.0`, and `2.3.6` instead of `2.3.0`.

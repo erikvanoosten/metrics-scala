@@ -1,13 +1,13 @@
 // See crossrelease.sh for valid combinations of akkaVersion and crossScalaVersion.
 
 // Developed against 2.3.*, see crossrelease.sh for test/build versions.
-akkaVersion := "2.3.11"
+akkaVersion := "2.3.13"
 
 organization := "nl.grons"
 
 name := "metrics-scala"
 
-lazy val baseVersion = "3.5.1"
+lazy val baseVersion = "3.5.2"
 
 version <<= akkaVersion { av =>
   val akkaVersion = if (av.nonEmpty) "_a" + av.split('.').take(2).mkString(".") else ""
@@ -22,7 +22,7 @@ description <<= (scalaVersion, akkaVersion) { (sv, av) =>
 // Developed against 2.10, see crossrelease.sh for test/build versions.
 scalaVersion := "2.10.5"
 
-crossScalaVersions := Seq("2.10.5", "2.11.6")
+crossScalaVersions := Seq("2.10.5", "2.11.7")
 
 crossVersion := CrossVersion.binary
 
@@ -38,7 +38,7 @@ libraryDependencies <++= (scalaVersion) { sv =>
     // Override version that hdrhistogram-metrics-reservoir depends on:
     "org.hdrhistogram" % "HdrHistogram" % "2.1.6" % "optional",
     "junit" % "junit" % "4.11" % "test",
-    "org.scalatest" %% "scalatest" % "2.2.4" % "test",
+    "org.scalatest" %% "scalatest" % "2.2.5" % "test",
     // Override version that scalatest depends on:
     "org.scala-lang" % "scala-reflect" % sv % "test",
     "org.mockito" % "mockito-all" % "1.10.19" % "test"

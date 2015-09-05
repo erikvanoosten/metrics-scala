@@ -1,3 +1,10 @@
+v3.5.2: Sep 2015
+================
+
+* Added implicits to write MetricFilters as a scala function, idea and code from @maciej (#62).
+* Removed Akka 2.1 support.
+* Akka 2.3 bumped to 2.3.13, Scala 2.11 bumped to 2.11.7.
+
 v3.5.1: May 2015
 ================
 
