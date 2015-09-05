@@ -63,7 +63,7 @@ See the [change log](CHANGELOG.md) for API changes compared to the 2.x versions.
 
 ## Available versions (abbreviated)
 
-This table shows the most relevant versions of metrics-scala. For the full list, including the Scala 2.9 versions, see [all available versions](docs/AvailableVersions.md).
+This table shows the most relevant versions of metrics-scala. For the full list see [all available versions](docs/AvailableVersions.md).
 
 <table border="0" cellpadding="2" cellspacing="2">
   <tbody>
