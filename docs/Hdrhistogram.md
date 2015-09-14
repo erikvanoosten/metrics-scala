@@ -17,10 +17,10 @@ for instructions for your build tool. For SBT use:
 libraryDependencies += "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0"
 ```
 
-in addition, you should probably override the dependency to HdrHistogram. E.g.:
+in addition, you should probably override the dependency to HdrHistogram to the latest minor version. E.g.:
 
 ```
-libraryDependencies += "org.hdrhistogram" % "HdrHistogram" % "2.1.6"
+libraryDependencies += "org.hdrhistogram" % "HdrHistogram" % "2.1.7"
 ```
 
 See the [README](/README.md) to see which version(s) you can use.

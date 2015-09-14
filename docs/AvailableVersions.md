@@ -462,7 +462,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">1.1.0</td>
+      <td valign="top">1.1.0/2.1.6</td>
     </tr>
     <tr>
       <td valign="top">3.4.0_a2.1</td>
@@ -474,7 +474,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
-      <td valign="top">1.1.0</td>
+      <td valign="top">1.1.0/2.1.6</td>
     </tr>
     <tr>
       <td valign="top">3.4.0_a2.2</td>
@@ -486,7 +486,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
-      <td valign="top">1.1.0</td>
+      <td valign="top">1.1.0/2.1.6</td>
     </tr>
     <tr>
       <td valign="top">3.4.0_a2.3</td>
@@ -498,7 +498,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">1.1.0</td>
+      <td valign="top">1.1.0/2.1.6</td>
     </tr>
     <tr>
       <td valign="top"><a href="/CHANGELOG.md#v350-apr-2015">3.5.0</a></td>
@@ -510,7 +510,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">1.1.0</td>
+      <td valign="top">1.1.0/2.1.6</td>
     </tr>
     <tr>
       <td valign="top">3.5.0_a2.1</td>
@@ -522,7 +522,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
-      <td valign="top">1.1.0</td>
+      <td valign="top">1.1.0/2.1.6</td>
     </tr>
     <tr>
       <td valign="top">3.5.0_a2.2</td>
@@ -534,7 +534,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
-      <td valign="top">1.1.0</td>
+      <td valign="top">1.1.0/2.1.6</td>
     </tr>
     <tr>
       <td valign="top">3.5.0_a2.3</td>
@@ -546,7 +546,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">1.1.0</td>
+      <td valign="top">1.1.0/2.1.6</td>
     </tr>
     <tr>
       <td valign="top"><a href="/CHANGELOG.md#v351-may-2015">3.5.1</a></td>
@@ -558,7 +558,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">1.1.0</td>
+      <td valign="top">1.1.0/2.1.6</td>
     </tr>
     <tr>
       <td valign="top">3.5.1_a2.1</td>
@@ -570,7 +570,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
-      <td valign="top">1.1.0</td>
+      <td valign="top">1.1.0/2.1.6</td>
     </tr>
     <tr>
       <td valign="top">3.5.1_a2.2</td>
@@ -582,7 +582,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
-      <td valign="top">1.1.0</td>
+      <td valign="top">1.1.0/2.1.6</td>
     </tr>
     <tr>
       <td valign="top">3.5.1_a2.3</td>
@@ -594,7 +594,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">1.1.0</td>
+      <td valign="top">1.1.0/2.1.6</td>
     </tr>
     <tr>
       <td valign="top"><a href="/CHANGELOG.md#v352-sep-2015">3.5.2</a></td>
@@ -606,7 +606,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">1.1.0</td>
+      <td valign="top">1.1.0/2.1.6</td>
     </tr>
     <tr>
       <td valign="top">3.5.2_a2.2</td>
@@ -618,7 +618,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
-      <td valign="top">1.1.0</td>
+      <td valign="top">1.1.0/2.1.6</td>
     </tr>
     <tr>
       <td valign="top">3.5.2_a2.3</td>
@@ -630,7 +630,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">1.1.0</td>
+      <td valign="top">1.1.0/2.1.6</td>
     </tr>
   </tbody>
 </table>
@@ -652,3 +652,6 @@ instead of `2.1.0`, `2.2.4` instead of `2.2.0`, and `2.3.6` instead of `2.3.0`.
 To do this you can fix the Akka version in your project's build configuration.
 
 (****) Hdrhistogram is an optional dependency.
+
+The first number is the version of `"org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir"`, the second
+the version of `"org.hdrhistogram" % "HdrHistogram"`. Both can probably be upgraded to a later (minor) release.

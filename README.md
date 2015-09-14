@@ -92,7 +92,7 @@ This table shows the most relevant versions of metrics-scala. For the full list 
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">1.1.0</td>
+      <td valign="top">1.1.0/2.1.6</td>
     </tr>
     <tr>
       <td valign="top"><a href="CHANGELOG.md#v352-sep-2015">3.5.2_a2.2</a></td>
@@ -100,7 +100,7 @@ This table shows the most relevant versions of metrics-scala. For the full list 
       <td valign="top">2.2.5</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
-      <td valign="top">1.1.0</td>
+      <td valign="top">1.1.0/2.1.6</td>
     </tr>
     <tr>
       <td valign="top"><a href="CHANGELOG.md#v352-sep-2015">3.5.2_a2.3</a></td>
@@ -108,7 +108,7 @@ This table shows the most relevant versions of metrics-scala. For the full list 
       <td valign="top">2.3.13</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">1.1.0</td>
+      <td valign="top">1.1.0/2.1.6</td>
     </tr>
   </tbody>
 </table>
@@ -117,7 +117,7 @@ If you need another version mix please open an [issue](https://github.com/erikva
 
 Note: If Akka or hdrhistogram has a newer minor-version, you can use that instead of the version metrics-scala was build against. (If you use Akka 2.4, you can use the build for Akka 2.3 as Akka 2.4 is even binary compatible with Akka 2.3.)
 
-(*) optional dependency, see the [hdrhistogram manual page](/docs/Hdrhistogram.md).
+(*) Hdr is an optional dependency. The first number is the version of `"org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir"`, the second the version of `"org.hdrhistogram" % "HdrHistogram"`. See also [hdrhistogram manual page](/docs/Hdrhistogram.md).
 
 ## Download
 
