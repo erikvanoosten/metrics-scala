@@ -80,6 +80,6 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) {
   def timer(name: String, scope: String = null): Timer =
     new Timer(registry.timer(metricNameFor(name, scope)))
 
-  protected def metricNameFor(name: String, scope: String = null): String =
+  def metricNameFor(name: String, scope: String = null): String =
     baseName.append(name, scope).name
 }

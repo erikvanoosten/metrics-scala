@@ -127,3 +127,44 @@ trait ReceiveExceptionMeterActor extends Actor { self: InstrumentedBuilder =>
   abstract override def receive = wrapped
 
 }
+
+/**
+  * Actor helper trait which links the lifecycle of gauge registration/removal to the actor start/stop lifecycle.
+  *
+  * All gauges are removed by class name on restart due to exception.
+  *
+  * Use it as follows:
+  * {{{
+  * object Application {
+  *   // The application wide metrics registry.
+  *   val metricRegistry = new com.codahale.metrics.MetricRegistry()
+  * }
+  * trait Instrumented extends InstrumentedBuilder {
+  *   val metricRegistry = Application.metricRegistry
+  * }
+  *
+  * class ExampleActor extends Actor with Instrumented with ActorLifecycleMetricsLink {
+  *
+  *   var counter = 0
+  *
+  *   metrics.gauge("counter"){
+  *     counter
+  *   }
+  *
+  *   def receive = {
+  *     case 'increment =>
+  *       counter += 1
+  *       doWork()
+  *     case 'error =>
+  *       throw new RuntimeException("BOOM!")
+  *   }
+  * }
+  *
+  * }}}
+  */
+trait ActorLifecycleMetricsLink extends GaugeCleanup { self: Actor with InstrumentedBuilder =>
+
+  abstract override def preRestart(reason: Throwable, message: Option[Any]) =
+    cleanupByPrefix(getClass.getName)
+
+}
