@@ -133,6 +133,8 @@ trait ReceiveExceptionMeterActor extends Actor { self: InstrumentedBuilder =>
   *
   * All gauges are removed by class name on restart due to exception.
   *
+  * Expects default metric naming scheme of <class>.<metric_name>
+  *
   * Use it as follows:
   * {{{
   * object Application {
@@ -151,20 +153,24 @@ trait ReceiveExceptionMeterActor extends Actor { self: InstrumentedBuilder =>
   *     counter
   *   }
   *
-  *   def receive = {
+  *   override def receive = {
   *     case 'increment =>
   *       counter += 1
   *       doWork()
-  *     case 'error =>
-  *       throw new RuntimeException("BOOM!")
+  *   }
+  *
+  *   def doWork(): Unit = {
+  *     // etc etc etc
   *   }
   * }
   *
   * }}}
   */
-trait ActorLifecycleMetricsLink extends GaugeCleanup { self: Actor with InstrumentedBuilder =>
+trait ActorLifecycleMetricsLink extends Actor with GaugeCleanup { self: InstrumentedBuilder =>
 
-  abstract override def preRestart(reason: Throwable, message: Option[Any]) =
+  override def preRestart(reason: Throwable, message: Option[Any]) = {
     cleanupByPrefix(getClass.getName)
+    super.preRestart(reason,message)
+  }
 
 }
