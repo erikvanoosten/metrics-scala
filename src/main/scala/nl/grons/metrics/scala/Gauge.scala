@@ -16,7 +16,7 @@
 
 package nl.grons.metrics.scala
 
-import com.codahale.metrics.{Gauge => DropwizardGauge}
+import com.codahale.metrics.{Gauge => DropwizardGauge, MetricFilter, Metric}
 
 object Gauge {
   def apply[A](f: => A) = new Gauge[A](new DropwizardGauge[A] {
@@ -34,4 +34,23 @@ class Gauge[T](metric: DropwizardGauge[T]) {
    */
   def value: T = metric.getValue
 
+}
+
+import collection.JavaConverters._
+
+/**
+  * A gauge cleanup helper trait for [[DropwizardGauge]]
+  */
+trait GaugeCleanup { self: InstrumentedBuilder =>
+
+  /**
+    * Removes matching gauges from registry
+    *
+    * @param namePrefix is used to apply a leading string match to gauges to remove
+    */
+  def cleanupByPrefix(namePrefix: String) {
+    metricRegistry.getGauges(new MetricFilter {
+      override def matches(name: String, metric: Metric): Boolean = name.startsWith(namePrefix)
+    }).keySet().asScala.foreach(metricRegistry.remove)
+  }
 }
