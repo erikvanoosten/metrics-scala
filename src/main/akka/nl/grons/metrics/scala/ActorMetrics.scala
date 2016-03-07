@@ -127,3 +127,82 @@ trait ReceiveExceptionMeterActor extends Actor { self: InstrumentedBuilder =>
   abstract override def receive = wrapped
 
 }
+
+/**
+ * Actor helper trait which links the lifecycle of gauge registration/removal to the actor start/stop lifecycle.
+ *
+ * Use it as follows:
+ * {{{
+ * object Application {
+ *   // The application wide metrics registry.
+ *   val metricRegistry = new com.codahale.metrics.MetricRegistry()
+ * }
+ * trait Instrumented extends InstrumentedBuilder {
+ *   val metricRegistry = Application.metricRegistry
+ * }
+ *
+ * class ExampleActor extends Actor with Instrumented with ActorLifecycleMetricsLink {
+ *
+ *   var counter = 0
+ *
+ *   metrics.gauge("counter"){
+ *     counter
+ *   }
+ *
+ *   override def receive = {
+ *     case 'increment =>
+ *       counter += 1
+ *       doWork()
+ *   }
+ *
+ *   def doWork(): Unit = {
+ *     // etc etc etc
+ *   }
+ * }
+ *
+ * }}}
+ */
+trait ActorLifecycleMetricsLink extends Actor with InstrumentedBuilder {
+
+  import scala.collection.mutable
+  import scala.concurrent.duration.FiniteDuration
+
+  private[this] val gaugesToUnregister: mutable.ArrayBuffer[Gauge[_]] = mutable.ArrayBuffer.empty
+
+  /**
+   * A wrapped MetricBuilder that tracks created gauges.
+   */
+  override def metrics: MetricBuilder = {
+    val wrappedMetrics = super.metrics
+
+    // TODO: if this works, consider introducing a MetricBuilder trait to prevent silly bugs from not overriding new methods here
+    new MetricBuilder(wrappedMetrics.baseName, wrappedMetrics.registry) {
+      override def gauge[A](name: String, scope: String)(f: => A): Gauge[A] = {
+        val gaugeWrapper = wrappedMetrics.gauge(name, scope)(f)
+        gaugesToUnregister += gaugeWrapper
+        gaugeWrapper
+      }
+
+      override def cachedGauge[A](name: String, timeout: FiniteDuration, scope: String)(f: => A): Gauge[A] =  {
+        val gaugeWrapper = wrappedMetrics.cachedGauge(name, timeout, scope)(f)
+        gaugesToUnregister += gaugeWrapper
+        gaugeWrapper
+      }
+
+      override def counter(name: String, scope: String): Counter = wrappedMetrics.counter(name, scope)
+
+      override def histogram(name: String, scope: String): Histogram = wrappedMetrics.histogram(name, scope)
+
+      override def meter(name: String, scope: String): Meter = wrappedMetrics.meter(name, scope)
+
+      override def timer(name: String, scope: String): Timer = wrappedMetrics.timer(name, scope)
+    }
+  }
+
+  override def preRestart(reason: Throwable, message: Option[Any]) = {
+    gaugesToUnregister.foreach(_.unregister())
+    gaugesToUnregister.clear()
+    super.preRestart(reason,message)
+  }
+
+}

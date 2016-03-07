@@ -16,10 +16,10 @@
 
 package nl.grons.metrics.scala
 
-import com.codahale.metrics.{Gauge => DropwizardGauge}
+import com.codahale.metrics.{Gauge => DropwizardGauge, Metric => DropwizardMetric, MetricFilter, MetricRegistry}
 
 object Gauge {
-  def apply[A](f: => A) = new Gauge[A](new DropwizardGauge[A] {
+  def apply[A](registry: MetricRegistry)(f: => A) = new Gauge[A](registry, new DropwizardGauge[A] {
     def getValue = f
   })
 }
@@ -27,11 +27,19 @@ object Gauge {
 /**
  * A Scala facade class for [[DropwizardGauge]].
  */
-class Gauge[T](metric: DropwizardGauge[T]) {
+class Gauge[T](registry: MetricRegistry, metric: DropwizardGauge[T]) {
 
   /**
    * The current value.
    */
   def value: T = metric.getValue
 
+  /**
+   * Unregisters this Gauge from the metric registry.
+   */
+  def unregister(): Unit = {
+    registry.removeMatching(new MetricFilter {
+      override def matches(name: String, dwMetric: DropwizardMetric): Boolean = metric eq dwMetric
+    })
+  }
 }

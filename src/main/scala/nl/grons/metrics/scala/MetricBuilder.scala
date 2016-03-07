@@ -32,7 +32,7 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) {
    * @param scope the scope of the gauge or null for no scope
    */
   def gauge[A](name: String, scope: String = null)(f: => A): Gauge[A] =
-    new Gauge[A](registry.register(metricNameFor(name, scope), new DropwizardGauge[A] { def getValue: A = f }))
+    new Gauge[A](registry, registry.register(metricNameFor(name, scope), new DropwizardGauge[A] { def getValue: A = f }))
 
   /**
    * Registers a new gauge metric that caches its value for a given duration.
@@ -42,7 +42,7 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) {
    * @param scope the scope of the gauge or null for no scope
    */
   def cachedGauge[A](name: String, timeout: FiniteDuration, scope: String = null)(f: => A): Gauge[A] =
-    new Gauge[A](registry.register(metricNameFor(name, scope), new DropwizardCachedGauge[A](timeout.length, timeout.unit) { def loadValue: A = f }))
+    new Gauge[A](registry, registry.register(metricNameFor(name, scope), new DropwizardCachedGauge[A](timeout.length, timeout.unit) { def loadValue: A = f }))
 
   /**
    * Creates a new counter metric.
