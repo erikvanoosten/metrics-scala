@@ -28,13 +28,10 @@ import scala.concurrent.Promise
 
 object ActorGaugeLifecycleSpec {
 
-  object Application {
-    // The application wide metrics registry.
-    val metricRegistry = new com.codahale.metrics.MetricRegistry()
-  }
+  val MetricRegistry = new com.codahale.metrics.MetricRegistry()
 
   trait Instrumented extends InstrumentedBuilder {
-    val metricRegistry = Application.metricRegistry
+    val metricRegistry = MetricRegistry
   }
 
   class ExampleActor(restarted: Promise[Boolean]) extends Actor with Instrumented with ActorLifecycleMetricsLink {
@@ -74,7 +71,7 @@ class ActorGaugeLifecycleSpec extends TestKit(ActorSystem("lifecycle_spec")) wit
   }
 
   def report = {
-    Application.metricRegistry
+    MetricRegistry
       .getGauges(NameFilter("nl.grons.metrics.scala")).asScala
       .headOption
       .map {case (_,g) => g.getValue}
