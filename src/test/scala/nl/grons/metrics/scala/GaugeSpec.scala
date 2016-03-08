@@ -16,9 +16,7 @@
 
 package nl.grons.metrics.scala
 
-import com.codahale.metrics.MetricFilter
-import org.mockito.ArgumentCaptor
-import org.mockito.Mockito.{when, verify}
+import org.mockito.Mockito.when
 import org.scalatest.OneInstancePerTest
 import org.scalatest.Matchers._
 import org.scalatest.mock.MockitoSugar._
@@ -30,28 +28,18 @@ import org.scalatest.junit.JUnitRunner
 class GaugeSpec extends FunSpec with OneInstancePerTest {
   describe("A gauge") {
     val metric = mock[com.codahale.metrics.Gauge[Int]]
-    val repository = mock[com.codahale.metrics.MetricRegistry]
-    val gauge = new Gauge(repository, metric)
+    val gauge = new Gauge(metric)
 
     it("invokes underlying function for sugar factory") {
-      val sugared = Gauge(repository)({ 1 })
-      
+      val sugared = Gauge({ 1 })
+
       sugared.value should equal (1)
     }
 
     it("invokes getValue on underlying gauge") {
       when(metric.getValue).thenReturn(1)
-      
+
       gauge.value should equal (1)
-    }
-
-    it("unregisters the underlying gauge") {
-      gauge.unregister()
-
-      val metricFilterCaptor = ArgumentCaptor.forClass(classOf[MetricFilter])
-      verify(repository).removeMatching(metricFilterCaptor.capture)
-      metricFilterCaptor.getValue.matches("anyString", metric) should equal (true)
-      metricFilterCaptor.getValue.matches("anyString", mock[com.codahale.metrics.Gauge[Int]]) should equal (false)
     }
   }
 }

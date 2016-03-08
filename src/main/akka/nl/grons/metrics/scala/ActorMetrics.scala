@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2015 Erik van Oosten
+ * Copyright (c) 2013-2016 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -162,46 +162,10 @@ trait ReceiveExceptionMeterActor extends Actor { self: InstrumentedBuilder =>
  *
  * }}}
  */
-trait ActorLifecycleMetricsLink extends Actor with InstrumentedBuilder {
-
-  import scala.collection.mutable
-  import scala.concurrent.duration.FiniteDuration
-
-  private[this] val gaugesToUnregister: mutable.ArrayBuffer[Gauge[_]] = mutable.ArrayBuffer.empty
-
-  /**
-   * A wrapped MetricBuilder that tracks created gauges.
-   */
-  override def metrics: MetricBuilder = {
-    val wrappedMetrics = super.metrics
-
-    // TODO: if this works, consider introducing a MetricBuilder trait to prevent silly bugs from not overriding new methods here
-    new MetricBuilder(wrappedMetrics.baseName, wrappedMetrics.registry) {
-      override def gauge[A](name: String, scope: String)(f: => A): Gauge[A] = {
-        val gaugeWrapper = wrappedMetrics.gauge(name, scope)(f)
-        gaugesToUnregister += gaugeWrapper
-        gaugeWrapper
-      }
-
-      override def cachedGauge[A](name: String, timeout: FiniteDuration, scope: String)(f: => A): Gauge[A] =  {
-        val gaugeWrapper = wrappedMetrics.cachedGauge(name, timeout, scope)(f)
-        gaugesToUnregister += gaugeWrapper
-        gaugeWrapper
-      }
-
-      override def counter(name: String, scope: String): Counter = wrappedMetrics.counter(name, scope)
-
-      override def histogram(name: String, scope: String): Histogram = wrappedMetrics.histogram(name, scope)
-
-      override def meter(name: String, scope: String): Meter = wrappedMetrics.meter(name, scope)
-
-      override def timer(name: String, scope: String): Timer = wrappedMetrics.timer(name, scope)
-    }
-  }
+trait ActorLifecycleMetricsLink extends Actor { self: InstrumentedBuilder =>
 
   override def preRestart(reason: Throwable, message: Option[Any]) = {
-    gaugesToUnregister.foreach(_.unregister())
-    gaugesToUnregister.clear()
+    metrics.unregisterGauges()
     super.preRestart(reason,message)
   }
 

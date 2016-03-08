@@ -41,7 +41,7 @@ object ActorGaugeLifecycleSpec {
 
     var counter = 0
 
-    metrics.gauge("counter") {
+    metrics.gauge("counter-gauge") {
       counter
     }
 
