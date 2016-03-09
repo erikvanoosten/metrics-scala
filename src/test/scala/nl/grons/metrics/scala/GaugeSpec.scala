@@ -29,16 +29,16 @@ class GaugeSpec extends FunSpec with OneInstancePerTest {
   describe("A gauge") {
     val metric = mock[com.codahale.metrics.Gauge[Int]]
     val gauge = new Gauge(metric)
-    
+
     it("invokes underlying function for sugar factory") {
       val sugared = Gauge({ 1 })
-      
+
       sugared.value should equal (1)
     }
-    
+
     it("invokes getValue on underlying gauge") {
       when(metric.getValue).thenReturn(1)
-      
+
       gauge.value should equal (1)
     }
   }

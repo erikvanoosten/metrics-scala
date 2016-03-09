@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2015 Erik van Oosten
+ * Copyright (c) 2013-2016 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -125,5 +125,48 @@ trait ReceiveExceptionMeterActor extends Actor { self: InstrumentedBuilder =>
   private[this] lazy val wrapped = meter.exceptionMarkerPF(super.receive)
 
   abstract override def receive = wrapped
+
+}
+
+/**
+ * Actor helper trait which links the lifecycle of gauge registration/removal to the actor start/stop lifecycle.
+ *
+ * Use it as follows:
+ * {{{
+ * object Application {
+ *   // The application wide metrics registry.
+ *   val metricRegistry = new com.codahale.metrics.MetricRegistry()
+ * }
+ * trait Instrumented extends InstrumentedBuilder {
+ *   val metricRegistry = Application.metricRegistry
+ * }
+ *
+ * class ExampleActor extends Actor with Instrumented with ActorLifecycleMetricsLink {
+ *
+ *   var counter = 0
+ *
+ *   metrics.gauge("counter"){
+ *     counter
+ *   }
+ *
+ *   override def receive = {
+ *     case 'increment =>
+ *       counter += 1
+ *       doWork()
+ *   }
+ *
+ *   def doWork(): Unit = {
+ *     // etc etc etc
+ *   }
+ * }
+ *
+ * }}}
+ */
+trait ActorLifecycleMetricsLink extends Actor { self: InstrumentedBuilder =>
+
+  override def preRestart(reason: Throwable, message: Option[Any]) = {
+    metrics.unregisterGauges()
+    super.preRestart(reason,message)
+  }
 
 }

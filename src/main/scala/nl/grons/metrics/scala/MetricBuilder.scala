@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2015 Erik van Oosten
+ * Copyright (c) 2013-2016 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,19 @@
 
 package nl.grons.metrics.scala
 
-import com.codahale.metrics.MetricRegistry
-import com.codahale.metrics.{Gauge => DropwizardGauge, CachedGauge => DropwizardCachedGauge}
-import scala.concurrent.duration.FiniteDuration
+import java.util.concurrent.atomic.AtomicReference
+
+import com.codahale.metrics.{CachedGauge => DropwizardCachedGauge, Gauge => DropwizardGauge, Metric, MetricFilter, MetricRegistry}
+import nl.grons.metrics.scala.MoreImplicits.RichAtomicReference
+
+import _root_.scala.concurrent.duration.FiniteDuration
 
 /**
  * Builds and registering metrics.
  */
 class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) {
+
+  private[this] val gauges: AtomicReference[Seq[DropwizardGauge[_]]] = new AtomicReference(Seq.empty)
 
   /**
    * Registers a new gauge metric.
@@ -31,8 +36,9 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) {
    * @param name the name of the gauge
    * @param scope the scope of the gauge or null for no scope
    */
-  def gauge[A](name: String, scope: String = null)(f: => A): Gauge[A] =
-    new Gauge[A](registry.register(metricNameFor(name, scope), new DropwizardGauge[A] { def getValue: A = f }))
+  def gauge[A](name: String, scope: String = null)(f: => A): Gauge[A] = {
+    wrapDwGauge(metricNameFor(name, scope), new DropwizardGauge[A] { def getValue: A = f })
+  }
 
   /**
    * Registers a new gauge metric that caches its value for a given duration.
@@ -41,8 +47,15 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) {
    * @param timeout the timeout
    * @param scope the scope of the gauge or null for no scope
    */
-  def cachedGauge[A](name: String, timeout: FiniteDuration, scope: String = null)(f: => A): Gauge[A] =
-    new Gauge[A](registry.register(metricNameFor(name, scope), new DropwizardCachedGauge[A](timeout.length, timeout.unit) { def loadValue: A = f }))
+  def cachedGauge[A](name: String, timeout: FiniteDuration, scope: String = null)(f: => A): Gauge[A] = {
+    wrapDwGauge(metricNameFor(name, scope), new DropwizardCachedGauge[A](timeout.length, timeout.unit) { def loadValue: A = f })
+  }
+
+  private def wrapDwGauge[A](name: String, dwGauge: DropwizardGauge[A]): Gauge[A] = {
+    registry.register(name, dwGauge)
+    gauges.getAndTransform(_ :+ dwGauge)
+    new Gauge[A](dwGauge)
+  }
 
   /**
    * Creates a new counter metric.
@@ -79,6 +92,17 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) {
    */
   def timer(name: String, scope: String = null): Timer =
     new Timer(registry.timer(metricNameFor(name, scope)))
+
+  /**
+   * Unregisters all gauges that were created through this builder.
+   */
+  def unregisterGauges(): Unit = {
+    val toUnregister = gauges.getAndTransform(_ => Seq.empty)
+    registry.removeMatching(new MetricFilter {
+      override def matches(name: String, metric: Metric): Boolean =
+        metric.isInstanceOf[DropwizardGauge[_]] && toUnregister.contains(metric)
+    })
+  }
 
   protected def metricNameFor(name: String, scope: String = null): String =
     baseName.append(name, scope).name
