@@ -13,7 +13,9 @@ Other manual pages:
 
 Metrics-scala provides an easy way to create metrics in Scala. It builds on the metrics-core library.
 
-Metrics-core requires metrics to be registered in an application wide `MetricRegistry`. Metrics-scala hides use of it, but you do need to create an `Instrumented` trait that refers to that registry. Your `Instrumented` needs to extends `InstrumentedBuilder`. (See also [About Instrumented](#about-instrumented) below.)
+Metrics-core requires metrics to be registered in an application wide `MetricRegistry`. Metrics-scala hides use of it,
+but you do need to create an `Instrumented` trait that refers to that registry. Your `Instrumented` needs to extends
+`InstrumentedBuilder`. (See also [About Instrumented](#about-instrumented) below.)
 
 ```scala
 object YourApplication {
@@ -37,17 +39,20 @@ class Example(db: Database) extends Instrumented {
 }
 ```
 
-There are Scala wrappers for each metric type: [gauge](#gauges), [counter](#counters), [histogram](#histograms), [meter](#meters) and [timer](#timers). These are described below.
+There are Scala wrappers for each metric type: [gauge](#gauges), [counter](#counters), [histogram](#histograms),
+[meter](#meters) and [timer](#timers). These are described below.
 
 *Health check* support is described at [Health check support](/docs/HealthCheckManual.md).
 
 There are also helper methods to instrument [Futures](/docs/Futures.md) and [Actors](/docs/Actors.md).
 
-For more information on (JMX) reporters and other aspects of Metrics 3.x, please see the Java api in the [Metrics documentation](http://metrics.codahale.com).
+For more information on (JMX) reporters and other aspects of Metrics 3.x, please see the Java api in the
+[Metrics documentation](http://metrics.codahale.com).
 
 ## Gauges
 
-A gauge is the simplest metric type. It just returns a value. If, for example, your application has a value which is maintained by a third-party library, you can easily expose it by registering a Gauge instance which returns that value:
+A gauge is the simplest metric type. It just returns a value. If, for example, your application has a value which is
+maintained by a third-party library, you can easily expose it by registering a Gauge instance which returns that value:
 
 ```scala
 class SessionStore(cache: Cache) extends Instrumented {
@@ -57,13 +62,18 @@ class SessionStore(cache: Cache) extends Instrumented {
 }
 ```
 
-This will create a new gauge named `com.example.proj.auth.SessionStore.cache-evictions` which will return the number of evictions from the cache.
+This will create a new gauge named `com.example.proj.auth.SessionStore.cache-evictions` which will return the number
+of evictions from the cache.
+
+Note: when a Gauge is created from an Actor with restart behavior, trait `ActorInstrumentedLifeCycle` should also be
+mixed in. See [Instrumenting Actors](/docs/Actors.md) for more information.
 
 ## Cached gauges
 
 (Available since metrics-scala 3.2.1.)
 
-In case the gauge method is expensive to calculate you can use a cached gauge. A cached gauge retains the calculated value for a given duration.
+In case the gauge method is expensive to calculate you can use a cached gauge. A cached gauge retains the calculated
+value for a given duration.
 
 ```scala
 import scala.concurrent.duration._
@@ -74,7 +84,9 @@ class UserRepository(db: Database) extends Instrumented {
 }
 ```
 
-This will create a new gauge named `com.example.proj.UserRepository.row-count` which will return the results of the database query. Once the value is retrieved, it will be retained for 5 minutes. Only when the gauge's value is requested after these 5 minutes, the database query is executed again.
+This will create a new gauge named `com.example.proj.UserRepository.row-count` which will return the results of the
+database query. Once the value is retrieved, it will be retained for 5 minutes. Only when the gauge's value is
+requested after these 5 minutes, the database query is executed again.
 
 ## Counters
 

@@ -19,6 +19,54 @@ package nl.grons.metrics.scala
 import akka.actor.Actor
 
 /**
+ * Stackable [[Actor]] trait which links [[Gauge]] life cycles with the actor life cycle.
+ *
+ * When an actor is restarted, gauges can not be created again under the same name in the same metric registry.
+ * By mixing in this trait, all gauges created in this actor will be automatically unregistered before this actor
+ * restarts.
+ *
+ * Use it as follows:
+ * {{{
+ * object Application {
+ *   // The application wide metrics registry.
+ *   val metricRegistry = new com.codahale.metrics.MetricRegistry()
+ * }
+ * trait Instrumented extends InstrumentedBuilder {
+ *   val metricRegistry = Application.metricRegistry
+ * }
+ *
+ * class ExampleActor extends Actor with Instrumented with ActorInstrumentedLifecycle {
+ *
+ *   var counter = 0
+ *
+ *   // The following gauge will automatically unregister before a restart of this actor.
+ *   metrics.gauge("sample-gauge"){
+ *     counter
+ *   }
+ *
+ *   override def receive = {
+ *     case 'increment =>
+ *       counter += 1
+ *       doWork()
+ *   }
+ *
+ *   def doWork(): Unit = {
+ *     // etc etc etc
+ *   }
+ * }
+ *
+ * }}}
+ */
+trait ActorInstrumentedLifeCycle extends Actor { self: InstrumentedBuilder =>
+
+  abstract override def preRestart(reason: Throwable, message: Option[Any]) = {
+    metrics.unregisterGauges()
+    super.preRestart(reason, message)
+  }
+
+}
+
+/**
  * Stackable actor trait which counts received messages.
  *
  * Metric name defaults to the class of the actor (e.g. `ExampleActor` below) + .`receiveCounter`
@@ -125,48 +173,5 @@ trait ReceiveExceptionMeterActor extends Actor { self: InstrumentedBuilder =>
   private[this] lazy val wrapped = meter.exceptionMarkerPF(super.receive)
 
   abstract override def receive = wrapped
-
-}
-
-/**
- * Actor helper trait which links the lifecycle of gauge registration/removal to the actor start/stop lifecycle.
- *
- * Use it as follows:
- * {{{
- * object Application {
- *   // The application wide metrics registry.
- *   val metricRegistry = new com.codahale.metrics.MetricRegistry()
- * }
- * trait Instrumented extends InstrumentedBuilder {
- *   val metricRegistry = Application.metricRegistry
- * }
- *
- * class ExampleActor extends Actor with Instrumented with ActorLifecycleMetricsLink {
- *
- *   var counter = 0
- *
- *   metrics.gauge("counter"){
- *     counter
- *   }
- *
- *   override def receive = {
- *     case 'increment =>
- *       counter += 1
- *       doWork()
- *   }
- *
- *   def doWork(): Unit = {
- *     // etc etc etc
- *   }
- * }
- *
- * }}}
- */
-trait ActorLifecycleMetricsLink extends Actor { self: InstrumentedBuilder =>
-
-  override def preRestart(reason: Throwable, message: Option[Any]) = {
-    metrics.unregisterGauges()
-    super.preRestart(reason,message)
-  }
 
 }

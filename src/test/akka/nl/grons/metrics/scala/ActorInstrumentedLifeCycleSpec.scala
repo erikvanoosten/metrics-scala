@@ -26,7 +26,7 @@ import org.scalatest.{BeforeAndAfterAll, FunSpecLike, Matchers}
 
 import scala.concurrent.Promise
 
-object ActorGaugeLifecycleSpec {
+object ActorInstrumentedLifeCycleSpec {
 
   val MetricRegistry = new com.codahale.metrics.MetricRegistry()
 
@@ -34,11 +34,12 @@ object ActorGaugeLifecycleSpec {
     val metricRegistry = MetricRegistry
   }
 
-  class ExampleActor(restarted: Promise[Boolean]) extends Actor with Instrumented with ActorLifecycleMetricsLink {
+  class ExampleActor(restarted: Promise[Boolean]) extends Actor with Instrumented with ActorInstrumentedLifeCycle {
 
     var counter = 0
 
-    metrics.gauge("counter-gauge") {
+    // The following gauge will automatically unregister before a restart of this actor.
+    metrics.gauge("sample-gauge") {
       counter
     }
 
@@ -62,15 +63,15 @@ object ActorGaugeLifecycleSpec {
 }
 
 @RunWith(classOf[JUnitRunner])
-class ActorGaugeLifecycleSpec extends TestKit(ActorSystem("lifecycle_spec")) with FunSpecLike with ImplicitSender with Matchers with ScalaFutures with BeforeAndAfterAll {
-  import ActorGaugeLifecycleSpec._
+class ActorInstrumentedLifeCycleSpec extends TestKit(ActorSystem("lifecycle_spec")) with FunSpecLike with ImplicitSender with Matchers with ScalaFutures with BeforeAndAfterAll {
+  import ActorInstrumentedLifeCycleSpec._
   import collection.JavaConverters._
 
-  case class NameFilter(prefix: String) extends MetricFilter {
-    override def matches(name: String, metric: Metric): Boolean = name.startsWith(prefix)
-  }
-
   def report = {
+    case class NameFilter(prefix: String) extends MetricFilter {
+      override def matches(name: String, metric: Metric): Boolean = name.startsWith(prefix)
+    }
+
     MetricRegistry
       .getGauges(NameFilter("nl.grons.metrics.scala")).asScala
       .headOption
