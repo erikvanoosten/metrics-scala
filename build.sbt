@@ -1,7 +1,7 @@
 // See crossrelease.sh for valid combinations of akkaVersion and crossScalaVersion.
 
 // Developed against 2.3.*, see crossrelease.sh for test/build versions.
-akkaVersion := "2.3.13"
+akkaVersion := "2.3.14"
 
 organization := "nl.grons"
 
@@ -20,9 +20,9 @@ description <<= (scalaVersion, akkaVersion) { (sv, av) =>
 }
 
 // Developed against 2.10, see crossrelease.sh for test/build versions.
-scalaVersion := "2.10.5"
+scalaVersion := "2.10.6"
 
-crossScalaVersions := Seq("2.10.5", "2.11.7")
+crossScalaVersions := Seq("2.10.6", "2.11.8")
 
 crossVersion := CrossVersion.binary
 
