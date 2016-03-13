@@ -502,7 +502,7 @@ This table contains all available versions of metrics-scala.
     </tr>
     <tr>
       <td valign="top"><a href="/CHANGELOG.md#v350-apr-2015">3.5.0</a></td>
-      <td valign="top">3.1.0</td>
+      <td valign="top">3.1.2</td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -550,7 +550,7 @@ This table contains all available versions of metrics-scala.
     </tr>
     <tr>
       <td valign="top"><a href="/CHANGELOG.md#v351-may-2015">3.5.1</a></td>
-      <td valign="top">3.1.0</td>
+      <td valign="top">3.1.2</td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -598,7 +598,7 @@ This table contains all available versions of metrics-scala.
     </tr>
     <tr>
       <td valign="top"><a href="/CHANGELOG.md#v352-sep-2015">3.5.2</a></td>
-      <td valign="top">3.1.0</td>
+      <td valign="top">3.1.2</td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -624,6 +624,42 @@ This table contains all available versions of metrics-scala.
       <td valign="top">3.5.2_a2.3</td>
       <td valign="top">3.1.2</td>
       <td valign="top">2.3.13</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">1.1.0/2.1.6</td>
+    </tr>
+    <tr>
+      <td valign="top"><a href="/CHANGELOG.md#v353-mar-2016">3.5.3</a></td>
+      <td valign="top">3.1.2</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">1.1.0/2.1.6</td>
+    </tr>
+    <tr>
+      <td valign="top">3.5.3_a2.2</td>
+      <td valign="top">3.1.2</td>
+      <td valign="top">2.2.5</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">1.1.0/2.1.6</td>
+    </tr>
+    <tr>
+      <td valign="top">3.5.3_a2.3</td>
+      <td valign="top">3.1.2</td>
+      <td valign="top">2.3.14 / 2.4.x</td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
