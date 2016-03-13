@@ -9,3 +9,5 @@
 9. Update version in `README.md`
 10. Add version in `docs/AvailableVersions.md`
 11. Check the documented links online.
+12. Send e-mail to metrics user list.
+13. Tweet.
