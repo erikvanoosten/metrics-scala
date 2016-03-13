@@ -1,8 +1,6 @@
 v3.5.3: Mar 2016
 ================
 
-Note: 3.5.3 is work in progress.
-
 * Introduced `ActorInstrumentedLifeCycle` to automatically unregister gauges in actors (#69). It took quite some
   time to find a simple solution. Thanks go to @mrmeyers99, @ymeymann and @scullxbones for ideas and example code.
 * Akka 2.3 bumped to 2.3.14, Scala 2.10 bumped to 2.10.6, Scala 2.11 bumped to 2.11.8.
