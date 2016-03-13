@@ -7,7 +7,7 @@ organization := "nl.grons"
 
 name := "metrics-scala"
 
-lazy val baseVersion = "3.5.2"
+lazy val baseVersion = "3.5.3"
 
 version <<= akkaVersion { av =>
   val akkaVersion = if (av.nonEmpty) "_a" + av.split('.').take(2).mkString(".") else ""
