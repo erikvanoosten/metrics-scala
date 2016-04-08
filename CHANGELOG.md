@@ -1,3 +1,9 @@
+v3.5.4: Apr 2016
+================
+
+* Removed double class from metric name (#75), reported by Per Rovegård (@provegard). Thanks Per!
+* Improved metric names for metrics in nested classes and in anonymous sub-classes.
+
 v3.5.3: Mar 2016
 ================
 
