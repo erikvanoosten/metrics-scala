@@ -32,8 +32,11 @@ object MetricName {
     new MetricName(removeScalaParts(metricOwner.getName)).append(names: _*)
 
   // Example weird class name: TestContext$$anonfun$2$$anonfun$apply$TestObject$2$
+  // Anonymous subclass example: ActorMetricsSpec$$anonfun$2$$anonfun$apply$mcV$sp$4$$anonfun$8$$anon$1
   private def removeScalaParts(s: String) =
     s.replaceAllLiterally("$$anonfun", ".")
+     .replaceAllLiterally("$$anon", ".anon")
+     .replaceAllLiterally("$mcV$sp", ".")
      .replaceAllLiterally("$apply", ".")
      .replaceAll("""\$\d*""", ".")
      .replaceAllLiterally(".package.", ".")

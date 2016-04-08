@@ -18,12 +18,11 @@ package nl.grons.metrics.scala
 
 import org.scalatest.Matchers._
 import org.junit.runner.RunWith
-import org.scalatest.OneInstancePerTest
 import org.scalatest.FunSpec
 import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class MetricNameSpec extends FunSpec with OneInstancePerTest {
+class MetricNameSpec extends FunSpec {
 
   describe("MetricName object") {
     it("concatenates names with a period as separator") {
@@ -50,6 +49,14 @@ class MetricNameSpec extends FunSpec with OneInstancePerTest {
     it("supports packages") {
       nl.grons.metrics.scala.ref.name should equal ("nl.grons.metrics.scala")
     }
+
+    it("supports nested classes") {
+      MetricNameSpec.aBaseClass.ref.name should equal ("nl.grons.metrics.scala.MetricNameSpec.ABaseClass")
+    }
+
+    it("supports anonymous classes") {
+      MetricNameSpec.anAnonymousClass.ref.name should equal ("nl.grons.metrics.scala.MetricNameSpec.anon")
+    }
   }
 
   describe("MetricName") {
@@ -69,4 +76,11 @@ object MetricNameSpec {
   }
   private val ref: MetricName = MetricName(this.getClass)
   private val nestedRef: MetricName = Nested.ref
+
+  class ABaseClass {
+    val ref: MetricName = MetricName(this.getClass)
+  }
+
+  private val aBaseClass = new ABaseClass
+  private val anAnonymousClass = new ABaseClass {}
 }
