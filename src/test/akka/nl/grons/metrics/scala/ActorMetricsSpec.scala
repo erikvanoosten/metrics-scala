@@ -16,123 +16,168 @@
 
 package nl.grons.metrics.scala
 
-import org.mockito.Mockito.{when, verify, never}
-import org.mockito.Matchers.any
-import org.scalatest.Matchers._
-import org.scalatest.mock.MockitoSugar._
-import org.scalatest.FunSpec
+import akka.actor.{Actor, ActorSystem}
+import com.codahale.metrics.{Metric, MetricFilter, MetricRegistry}
 import org.junit.runner.RunWith
+import org.scalatest.Matchers._
 import org.scalatest.junit.JUnitRunner
-import akka.actor.Actor
-import akka.actor.ActorSystem
-import com.codahale.metrics.Timer.Context
+import org.scalatest.{FunSpec, OneInstancePerTest}
 
-object TestFixture {
-
-  class Fixture  {
-    val mockCounter = mock[Counter]
-    val mockTimer = mock[Timer]
-    val mockTimerContext = mock[Context]
-    val mockMeter = mock[Meter]
-
-    val pf: PartialFunction[Any,Unit] = {
-      case _ =>
-    }
-
-    when(mockTimer.timerContext()).thenReturn(mockTimerContext)
-    when(mockCounter.count(any[PartialFunction[Any,Unit]])).thenReturn(pf)
-    when(mockTimer.timePF(any[PartialFunction[Any,Unit]])).thenReturn(pf)
-    when(mockMeter.exceptionMarkerPF).thenReturn(new { def apply[A,B](pf: PartialFunction[A,B]): PartialFunction[A,B] = pf })
-  }
-
-  trait MetricRegistryFixture extends InstrumentedBuilder {
-    val fixture: Fixture
-
-    val metricRegistry = null
-
-    var counterName: String = null
-
-    val mockBuilder = new MetricBuilder(null,null) {
-      override def counter(name: String, scope: String = null) = { counterName = name; fixture.mockCounter }
-      override def timer(name: String, scope: String = null) = fixture.mockTimer
-      override def meter(name: String, scope: String = null) = fixture.mockMeter
-    }
-    override def metrics = mockBuilder
-  }
-
-  class TestActor(val fixture: Fixture) extends Actor with MetricRegistryFixture {
-    val messages = new scala.collection.mutable.ListBuffer[String]()
-
-    def receive = { case message: String => messages += message }
-  }
-
-  class ExceptionThrowingTestActor(val fixture: Fixture) extends Actor with MetricRegistryFixture {
-    def receive = {
-      case _ => throw new RuntimeException()
-    }
-  }
-
-
-  class CounterTestActor(fixture: Fixture) extends TestActor(fixture) with ReceiveCounterActor {
-    override def receiveCounterName = "receiveCounter"
-  }
-
-  class TimerTestActor(fixture: Fixture) extends TestActor(fixture) with ReceiveTimerActor
-
-  class ExceptionMeterTestActor(fixture: Fixture) extends ExceptionThrowingTestActor(fixture) with ReceiveExceptionMeterActor
-
-  class ComposedActor(fixture: Fixture) extends TestActor(fixture)
-    with ReceiveCounterActor with ReceiveTimerActor with ReceiveExceptionMeterActor
-
-}
+import scala.collection.JavaConverters._
 
 @RunWith(classOf[JUnitRunner])
-class ActorMetricsSpec extends FunSpec {
-  import TestFixture._
+class ActorMetricsSpec extends FunSpec with OneInstancePerTest {
+  import ActorMetricsSpec._
   import akka.testkit.TestActorRef
 
   implicit val system = ActorSystem()
 
   describe("A counter actor") {
-    it("increments counter on new messages") {
-      val fixture = new Fixture
-      val ref = TestActorRef(new CounterTestActor(fixture))
+    it("invokes original receive and increments counter on new messages") {
+      val ref = TestActorRef(new CounterTestActor)
+      val counterName = "nl.grons.metrics.scala.ActorMetricsSpec.CounterTestActor.receiveCounter"
 
-      ref.underlyingActor.receive should not be (null)
-      ref ! "test"
-      verify(fixture.mockCounter).count(any[PartialFunction[Any,Unit]])
-      ref.underlyingActor.counterName should equal ("receiveCounter")
+      counterValue(counterName) should be (0)
+
+      ref.receive("test")
+
+      ref.underlyingActor.messages should contain only "test"
+      counterValue(counterName) should be (1)
+    }
+
+    it("can override metric name") {
+      val ref = TestActorRef(new CounterTestActorNameOverride)
+      val counterName = "nl.grons.metrics.scala.ActorMetricsSpec.CounterTestActorNameOverride.overrideReceiveCounter"
+
+      counterValue(counterName) should be (0)
+
+      ref.receive("test")
+
+      ref.underlyingActor.messages should contain only "test"
+      counterValue(counterName) should be (1)
     }
   }
 
   describe("A timer actor") {
-    it("times a message processing") {
-      val fixture = new Fixture
-      val ref = TestActorRef(new TimerTestActor(fixture))
-      ref ! "test"
-      verify(fixture.mockTimer).timePF(any[PartialFunction[Any,Unit]])
+    it("invokes original receive and times message processing") {
+      val ref = TestActorRef(new TimerTestActor)
+      val timerName = "nl.grons.metrics.scala.ActorMetricsSpec.TimerTestActor.receiveTimer"
+
+      timerCountValue(timerName) should be (0)
+
+      ref.receive("test")
+
+      ref.underlyingActor.messages should contain only "test"
+      timerCountValue(timerName) should be (1)
+    }
+
+    it("can override metric name") {
+      val ref = TestActorRef(new TimerTestActor {
+        override def receiveTimerName: String = "something-else"
+      })
+      val timerName = "nl.grons.metrics.scala.ActorMetricsSpec.anon.something-else"
+
+      timerCountValue(timerName) should be (0)
+
+      ref.receive("test")
+
+      ref.underlyingActor.messages should contain only "test"
+      timerCountValue(timerName) should be (1)
     }
   }
 
   describe("A exception meter actor") {
-    it("meters thrown exceptions") {
-      val fixture = new Fixture
-      val ref = TestActorRef(new ExceptionMeterTestActor(fixture))
+    it("invokes original receive and meters thrown exceptions") {
+      val ref = TestActorRef(new ExceptionMeterTestActor)
+      val meterName = "nl.grons.metrics.scala.ActorMetricsSpec.ExceptionMeterTestActor.receiveExceptionMeter"
+
+      meterCountValue(meterName) should be (0)
+
       intercept[RuntimeException] { ref.receive("test") }
-      verify(fixture.mockMeter).exceptionMarkerPF
+
+      ref.underlyingActor.messages should contain only "test"
+      meterCountValue(meterName) should be (1)
     }
   }
 
   describe("A composed actor") {
     it("counts and times processing of messages") {
-      val fixture = new Fixture
-      val ref = TestActorRef(new ComposedActor(fixture))
-      ref ! "test"
-      verify(fixture.mockCounter).count(any[PartialFunction[Any,Unit]])
-      verify(fixture.mockTimer).timePF(any[PartialFunction[Any,Unit]])
-      verify(fixture.mockMeter, never()).mark()
-      ref.underlyingActor.counterName should equal ("nl.grons.metrics.scala.TestFixture.ComposedActor.receiveCounter")
+      val ref = TestActorRef(new ComposedActor)
+      val counterName = "nl.grons.metrics.scala.ActorMetricsSpec.ComposedActor.receiveCounter"
+      val timerName = "nl.grons.metrics.scala.ActorMetricsSpec.ComposedActor.receiveTimer"
+      val meterName = "nl.grons.metrics.scala.ActorMetricsSpec.ComposedActor.receiveExceptionMeter"
+
+      counterValue(counterName) should be (0)
+      timerCountValue(timerName) should be (0)
+      meterCountValue(meterName) should be (0)
+
+      intercept[RuntimeException] { ref.receive("test") }
+
+      ref.underlyingActor.messages should contain only "test"
+      counterValue(counterName) should be (1)
+      timerCountValue(timerName) should be (1)
+      meterCountValue(meterName) should be (1)
     }
   }
+
+  private def counterValue(counterName: String): Long = {
+    testMetricRegistry.getCounters(nameFilter(counterName)).values().asScala.headOption.map(_.getCount).getOrElse {
+      fail(s"Counter '${counterName}' was not registered. Registered counters: " + testMetricRegistry.getCounters.keySet().asScala)
+    }
+  }
+
+  private def timerCountValue(timerName: String): Long = {
+    testMetricRegistry.getTimers(nameFilter(timerName)).values().asScala.headOption.map(_.getCount).getOrElse {
+      fail(s"Timer '${timerName}' was not registered. Registered timers: " + testMetricRegistry.getTimers.keySet().asScala)
+    }
+  }
+
+  private def meterCountValue(meterName: String): Long = {
+    testMetricRegistry.getMeters(nameFilter(meterName)).values().asScala.headOption.map(_.getCount).getOrElse {
+      fail(s"Meter '${meterName}' was not registered. Registered meters: " + testMetricRegistry.getMeters.keySet().asScala)
+    }
+  }
+
+  private def nameFilter(filterName: String) = new MetricFilter {
+    override def matches(name: String, metric: Metric): Boolean = name == filterName
+  }
+}
+
+object ActorMetricsSpec {
+
+  val testMetricRegistry = new MetricRegistry()
+
+  trait ActorMetricsSpecInstrumented extends InstrumentedBuilder {
+    val metricRegistry = testMetricRegistry
+  }
+
+  class TestActor extends Actor with ActorMetricsSpecInstrumented {
+    val messages = new scala.collection.mutable.ListBuffer[String]()
+
+    def receive = { case message: String => messages += message }
+  }
+
+  class ExceptionThrowingTestActor extends Actor with ActorMetricsSpecInstrumented {
+    val messages = new scala.collection.mutable.ListBuffer[String]()
+
+    private def storeMessage: Actor.Receive = { case message: String => messages += message }
+
+    def receive = storeMessage.andThen({
+      case _ => throw new RuntimeException()
+    })
+  }
+
+  class CounterTestActor extends TestActor with ReceiveCounterActor
+
+  class CounterTestActorNameOverride extends TestActor with ReceiveCounterActor {
+    override def receiveCounterName = "overrideReceiveCounter"
+  }
+
+  class TimerTestActor extends TestActor with ReceiveTimerActor
+
+  class ExceptionMeterTestActor extends ExceptionThrowingTestActor with ReceiveExceptionMeterActor
+
+  class ComposedActor extends ExceptionThrowingTestActor
+    with ReceiveCounterActor with ReceiveTimerActor with ReceiveExceptionMeterActor
 
 }

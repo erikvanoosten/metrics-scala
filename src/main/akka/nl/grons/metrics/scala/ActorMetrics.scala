@@ -94,7 +94,7 @@ trait ActorInstrumentedLifeCycle extends Actor { self: InstrumentedBuilder =>
  */
 trait ReceiveCounterActor extends Actor { self: InstrumentedBuilder =>
 
-  def receiveCounterName: String = MetricName(getClass).append("receiveCounter").name
+  def receiveCounterName: String = "receiveCounter"
   lazy val counter: Counter = metrics.counter(receiveCounterName)
 
   private[this] lazy val wrapped = counter.count(super.receive)
@@ -131,7 +131,7 @@ trait ReceiveCounterActor extends Actor { self: InstrumentedBuilder =>
  */
 trait ReceiveTimerActor extends Actor { self: InstrumentedBuilder =>
 
-  def receiveTimerName: String = MetricName(getClass).append("receiveTimer").name
+  def receiveTimerName: String = "receiveTimer"
   lazy val timer: Timer = metrics.timer(receiveTimerName)
 
   private[this] lazy val wrapped = timer.timePF(super.receive)
@@ -167,7 +167,7 @@ trait ReceiveTimerActor extends Actor { self: InstrumentedBuilder =>
  */
 trait ReceiveExceptionMeterActor extends Actor { self: InstrumentedBuilder =>
 
-  def receiveExceptionMeterName: String = MetricName(getClass).append("receiveExceptionMeter").name
+  def receiveExceptionMeterName: String = "receiveExceptionMeter"
   lazy val meter: Meter = metrics.meter(receiveExceptionMeterName)
 
   private[this] lazy val wrapped = meter.exceptionMarkerPF(super.receive)
