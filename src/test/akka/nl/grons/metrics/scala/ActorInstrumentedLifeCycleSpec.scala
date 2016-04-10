@@ -52,7 +52,7 @@ object ActorInstrumentedLifeCycleSpec {
       case 'increment =>
         counter += 1
       case 'get =>
-        sender() ! counter
+        sender ! counter
       case 'error =>
         throw new RuntimeException("BOOM!")
       case 'prerestart =>
@@ -63,7 +63,7 @@ object ActorInstrumentedLifeCycleSpec {
 }
 
 @RunWith(classOf[JUnitRunner])
-class ActorInstrumentedLifeCycleSpec extends TestKit(ActorSystem("lifecycle_spec")) with FunSpecLike with ImplicitSender with Matchers with ScalaFutures with BeforeAndAfterAll {
+class ActorInstrumentedLifeCycleSpec extends TestKit(ActorSystem("lifecycle-spec")) with FunSpecLike with ImplicitSender with Matchers with ScalaFutures with BeforeAndAfterAll {
   import ActorInstrumentedLifeCycleSpec._
   import collection.JavaConverters._
 
