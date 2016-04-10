@@ -16,7 +16,7 @@
 
 package nl.grons.metrics.scala
 
-import org.mockito.Mockito.{when, verify}
+import org.mockito.Mockito.{verify, when}
 import org.scalatest.OneInstancePerTest
 import org.scalatest.Matchers._
 import org.scalatest.mock.MockitoSugar._
@@ -24,6 +24,8 @@ import org.scalatest.FunSpec
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import java.util.concurrent.TimeUnit
+
+import scala.concurrent.{ExecutionContext, Future}
 
 object TimerSpec {
   case class Result()
@@ -65,6 +67,16 @@ class TimerSpec extends FunSpec with OneInstancePerTest {
       verify(metric).time()
       verify(context).stop()
       wrapped.isDefinedAt("x") should be (false)
+    }
+
+    it("should measure a future") {
+      import ExecutionContext.Implicits.global
+      val f = timer.timeFuture(Future.successful("test"))
+      Thread.sleep(20L)
+
+      f.value.get.get should equal ("test")
+      verify(metric).time()
+      verify(context).stop()
     }
 
     it("correctly infers the type") {

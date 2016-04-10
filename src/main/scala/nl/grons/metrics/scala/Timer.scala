@@ -18,34 +18,79 @@ package nl.grons.metrics.scala
 
 import com.codahale.metrics.{Snapshot, Timer => DropwizardTimer}
 import java.util.concurrent.TimeUnit
+
+import scala.concurrent.{ExecutionContext, Future}
 import scala.concurrent.duration.FiniteDuration
 
 /**
- * A Scala facade class for [[DropwizardTimer]].
- *
- * Example usage:
- * {{{
- *   class Example(val db: Db) extends Instrumented {
- *     private[this] val loadTimer = metrics.timer("load")
- *
- *     def load(id: Long) = loadTimer.time {
- *       db.load(id)
- *     }
- *   }
- * }}}
- */
+  * A Scala facade class for [[DropwizardTimer]].
+  *
+  * Features:
+  * * measure the execution duration of a block of code with [[time()]]
+  * * measure the time until a future is completed with [[timeFuture()]]
+  * * add an execution duration measurement as a side effect to a partial function with [[timePF()]]
+  * * direct access to the underlying timer with [[update()]], [[timerContext()]], [[count]], [[max]], etc.
+  *
+  * Example usage:
+  * {{{
+  *   class Example(val db: Db) extends Instrumented {
+  *     private[this] val loadTimer = metrics.timer("load")
+  *
+  *     def load(id: Long) = loadTimer.time {
+  *       db.load(id)
+  *     }
+  *   }
+  * }}}
+  */
 class Timer(private[scala] val metric: DropwizardTimer) {
 
   /**
    * Runs f, recording its duration, and returns its result.
    */
   def time[A](f: => A): A = {
-    val ctx = metric.time
+    val ctx = metric.time()
     try {
       f
     } finally {
       ctx.stop
     }
+  }
+
+  /**
+    * Measures 'now' up to the moment that the given `future` completes, then updates this timer with the measurement.
+    *
+    * *Know what you measure*
+    *
+    * This method may measure more than is obvious. It measures:
+    * * the evaluation of the (by name) parameter `future`
+    * * in case the future is not yet completed: the delay until the constructed Future is scheduled in the
+    *   given `ExecutionContext`
+    * * in case the future is not yet completed: the actual execution of the Future
+    * * the time it takes to schedule stopping the timer
+    *
+    * To only measure the Future execution time, please use use a timer in the code that is executed inside the Future.
+    *
+    * Example usage:
+    * {{{
+    * class Example extends Instrumented {
+    *   private[this] loadTimer = metrics.timer("loading")
+    *
+    *   private def asyncFetchRows(): Future[Seq[Row]] = ...
+    *
+    *   def loadStuffEventually(): Future[Seq[Row]] = loadTimer.timeFuture { asyncFetchRows() }
+    * }
+    * }}}
+    *
+    * @param future the expression that results in a future
+    * @param context execution context
+    * @tparam A future result type
+    * @return the result of executing `future`
+    */
+  def timeFuture[A](future: => Future[A])(implicit context: ExecutionContext): Future[A] = {
+    val ctx = metric.time()
+    val f = future
+    f.onComplete(_ => ctx.stop())
+    f
   }
 
   /**
@@ -67,19 +112,18 @@ class Timer(private[scala] val metric: DropwizardTimer) {
    *  }
    * }}}
    */
-   def timePF[A,B](pf: PartialFunction[A,B]): PartialFunction[A,B] =
-     new PartialFunction[A,B] {
-       def apply(a: A): B = {
-           val ctx = timerContext()
-           try {
-             pf.apply(a)
-           } finally {
-             ctx.stop()
-           }
-       }
+  def timePF[A,B](pf: PartialFunction[A,B]): PartialFunction[A,B] = new PartialFunction[A,B] {
+    def apply(a: A): B = {
+        val ctx = metric.time()
+        try {
+          pf.apply(a)
+        } finally {
+          ctx.stop()
+        }
+    }
 
-       def isDefinedAt(a: A) = pf.isDefinedAt(a)
-     }
+    def isDefinedAt(a: A) = pf.isDefinedAt(a)
+  }
 
   /**
    * Adds a recorded duration.

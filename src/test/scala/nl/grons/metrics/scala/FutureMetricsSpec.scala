@@ -29,6 +29,7 @@ import com.codahale.metrics.Timer.Context
 import scala.concurrent.Promise
 import scala.concurrent.duration._
 
+//noinspection ScalaDeprecation
 @RunWith(classOf[JUnitRunner])
 class FutureMetricsSpec extends FunSpec with OneInstancePerTest with FutureMetrics with InstrumentedBuilder {
 

@@ -1,13 +1,13 @@
 // See crossrelease.sh for valid combinations of akkaVersion and crossScalaVersion.
 
-// Developed against 2.3.*, see crossrelease.sh for test/build versions.
+// Developed against 2.3.*, see crossrelease.sh for all tested and build versions.
 akkaVersion := "2.3.14"
 
 organization := "nl.grons"
 
 name := "metrics-scala"
 
-lazy val baseVersion = "3.5.4-snapshot"
+lazy val baseVersion = "3.5.4"
 
 version <<= akkaVersion { av =>
   val akkaVersion = if (av.nonEmpty) "_a" + av.split('.').take(2).mkString(".") else ""
@@ -19,7 +19,7 @@ description <<= (scalaVersion, akkaVersion) { (sv, av) =>
   "metrics-scala for " + akkaDescription + "Scala " + sbt.cross.CrossVersionUtil.binaryScalaVersion(sv)
 }
 
-// Developed against 2.10, see crossrelease.sh for test/build versions.
+// Developed against 2.10, see crossrelease.sh for all tested and build versions.
 scalaVersion := "2.10.6"
 
 crossScalaVersions := Seq("2.10.6", "2.11.8")

@@ -1,49 +1,80 @@
 ## Future support
 
-    Future support is available in all builds since metrics-scala 3.2.0 and in Akka builds since 3.0.1.
-
-The `FutureMetrics` trait supplies a pair of timer methods, both of which return a `Future[A]` where `A` is the parameterized type of the block passed.  Both expect an `ExecutionContext` to be in implicit scope.
-
-`FutureMetrics` can be mixed in with the `Instrumented` class (see [Manual](/docs/Manual.md)) as follows:
+Since metrics-scala 3.5.4 a future is timed as follows:
 
 ```scala
-object YourApplication { ... }
-trait Instrumented extends nl.grons.metrics.scala.InstrumentedBuilder with FutureMetrics {
-  val metricRegistry = YourApplication.metricRegistry
+class Example extends Instrumented {
+  private[this] val loading = metrics.timer("loading")
+
+  def asyncFetchRows(): Future[Seq[Row]] = ???
+
+  def loadStuff(): Future[Seq[Row]] = loading.timeFuture {
+    asyncFetchRows()
+  }
 }
 ```
 
-Alternatively, you can mixin `FutureMetrics` only with the classes that need Future support:
+*Know what you measure*
+
+Method `timeFuture` does not measure the execution time of the `future`, instead it measures wall clock time from
+the moment of calling until the future is completed. If the future was already executed, it will only measure how long
+it takes to schedule stopping the timer. If the future was not yet executed, it will measure the time it takes to
+schedule the future for execution in addition to the actual execution.
+
+If you only need to measure the execution time, then use a timer inside the future's execution. For example:
 
 ```scala
-class Example(db: Database) extends Instrumented with FutureMetrics {
-  ...
+class Example extends Instrumented {
+  private[this] val loading = metrics.timer("loading")
+
+  def fetchRows(): Seq[Row] = ???
+
+  def loadStuff(): Seq[Row] = Future {
+    loading.time {
+      fetchRows()
+    }
+  }
 }
 ```
 
+See also the scaladoc for `timeFuture` in [Timer](/src/main/scala/nl/grons/metrics/scala/Timer.scala).
 
-### Timed (Synchronous API)
+## Future support before version 3.5.4
 
-The first method `timed` is written to be used with a synchronous API and has the following signature:
+Since version 3.5.4 `FutureMetrics` has been deprecated.
 
-```scala
-def timed[A](block: => A)(implicit ec: ExecutionContext): Future[A]
-```
-
-This executes the provided block in the background using the provided `ExecutionContext`, timing the execution of the block. It immediately returns the `Future[A]` to the caller.
-
-### Timing (Asynchronous API), from version 3.2.0
-
-The second method `timing` is written to be used with an asynchronous API and has the following signature:
+For method `FutureMetrics.timing` please rewrite your code as follows:
 
 ```scala
-def timing[A](future: => Future[A])(implicit ec: ExecutionContext): Future[A]
+// Before:
+class Example extends Instrumented with FutureMetrics {
+  timing("someMetricName") { ... some future ... }
+}
+
+// After:
+class Example extends Instrumented {
+  val someTimer = metrics.timer("someMetricName")
+  someTimer.timeFuture { ... some future ... }
+}
 ```
 
-This starts a timer when called. The timer stops when the given future completes.
+For method `FutureMetrics.timed` please rewrite your code as follows:
 
-An important point is that the timer does not measure the exact execution time of the `future`, unlike `timed`. The future might not have been scheduled, or it could have been completed the moment `timing` is called. The `onComplete` listener also needs to be scheduled. If you need exact timings, please make sure to use a timer inside the future's execution.
+```scala
+// Before:
+class Example extends Instrumented with FutureMetrics {
+  timed("someMetricName") { ... some action ... }
+}
 
-Please see the scaladoc in [FutureMetrics](/src/main/scala/nl/grons/metrics/scala/FutureMetrics.scala).
+// After:
+class Example extends Instrumented {
+  private[this] val someTimer = metrics.timer("someMetricName")
+  Future {
+    someTimer.time { ... some action ... }
+  }
+}
+```
+
+For versions before version 3.5.4: see the scaladoc in `FutureMetrics`.
 
 Previous: [Health check support](/docs/HealthCheckManual.md) Up: [Manual](/docs/Manual.md) Next: [Instrumenting Actors](/docs/Actors.md)
