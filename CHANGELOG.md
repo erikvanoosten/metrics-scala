@@ -3,7 +3,8 @@ v3.5.4: Apr 2016
 
 * Removed double class from metric name (#75), reported by Per Rovegård (@provegard). Thanks Per!
 * Improved metric names for metrics in nested classes and in anonymous sub-classes.
-* Added `Timer.timeFuture`, deprecated class `FutureMetrics`. Fixes #68 for real.
+* _Deprecated_ class `FutureMetrics`.
+* Added `Timer.timeFuture`. This fixes #68 for real, thanks to  @maciej for the thought seed.
 * Akka 2.3 bumped to 2.3.15.
 
 v3.5.3: Mar 2016
