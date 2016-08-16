@@ -88,7 +88,13 @@ class Timer(private[scala] val metric: DropwizardTimer) {
     */
   def timeFuture[A](future: => Future[A])(implicit context: ExecutionContext): Future[A] = {
     val ctx = metric.time()
-    val f = future
+    val f = try {
+      future
+    } catch {
+      case ex: Throwable =>
+        ctx.stop()
+        throw ex
+    }
     f.onComplete(_ => ctx.stop())
     f
   }

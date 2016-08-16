@@ -79,6 +79,18 @@ class TimerSpec extends FunSpec with OneInstancePerTest {
       verify(context).stop()
     }
 
+    it("should measure a future closure which errors") {
+      import ExecutionContext.Implicits.global
+      val error = new Exception
+      val caught = intercept[Exception] {
+        timer.timeFuture(throw error)
+      }
+      caught should equal (error)
+
+      verify(metric).time()
+      verify(context).stop()
+    }
+
     it("correctly infers the type") {
       val someString = "someString"
       val timed = timer.time(myFunc(someString))
