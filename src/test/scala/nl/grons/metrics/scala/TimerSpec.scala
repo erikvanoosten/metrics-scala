@@ -83,7 +83,7 @@ class TimerSpec extends FunSpec with OneInstancePerTest {
       import ExecutionContext.Implicits.global
       val error = new Exception
       val caught = intercept[Exception] {
-        timer.timeFuture(throw error)
+        timer.timeFuture { throw error }
       }
       caught should equal (error)
 
