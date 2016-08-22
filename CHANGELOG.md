@@ -1,3 +1,8 @@
+Next version
+============
+
+* Measure also when the value-by-name parameter of `timeFuture` throws (#78) by @Slakah. Thanks JCollier!
+
 v3.5.4: Apr 2016
 ================
 
