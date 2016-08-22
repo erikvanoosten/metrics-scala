@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.concurrent.duration.FiniteDuration
+import scala.util.control.NonFatal
 
 /**
   * A Scala facade class for [[DropwizardTimer]].
@@ -88,7 +89,13 @@ class Timer(private[scala] val metric: DropwizardTimer) {
     */
   def timeFuture[A](future: => Future[A])(implicit context: ExecutionContext): Future[A] = {
     val ctx = metric.time()
-    val f = future
+    val f = try {
+      future
+    } catch {
+      case NonFatal(ex) =>
+        ctx.stop()
+        throw ex
+    }
     f.onComplete(_ => ctx.stop())
     f
   }
