@@ -46,6 +46,8 @@ class Example(db: Database) extends Instrumented {
 }
 ```
 
+If you are working on a Dropwizard 1.0.0+ application, you can use the provided `DefaultInstrumented` rather than building your own `Instrumented` trait. `DefaultInstrumented` discovers the Dropwizard app's registry via `com.codahale.metrics.SharedMetricRegistries`.
+
 For more detailed information see the [manual](docs/Manual.md). For more information on Metrics-core 3.x, please see the [documentation](https://dropwizard.github.io/metrics/3.1.0/).
 
 See the [change log](CHANGELOG.md) for API changes compared to the 2.x versions.
