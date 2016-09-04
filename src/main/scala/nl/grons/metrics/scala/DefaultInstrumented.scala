@@ -21,10 +21,22 @@ import com.codahale.metrics.SharedMetricRegistries
 /**
   * A mixin trait for creating a class that publishes metrics to the "default" registry.
   *
-  * This is a useful default for Dropwizard 1.0.0+ applications where
-  * the Dropwizard environment publishes its built-in metrics registry as "default".
+  * This follows the Dropwizard 1.0.0+ application convention of storing the metric registry to
+  * `com.codahale.metrics.SharedMetricRegistries` under the name `"default"`.
+  *
+  * After mixing in this trait, metrics can be defined. For example:
+  * {{{
+  * class Example(db: Database) extends DefaultInstrumented {
+  *   private[this] val loading = metrics.timer("loading")
+  *
+  *   def loadStuff(): Seq[Row] = loading.time {
+  *     db.fetchRows()
+  *   }
+  * }
+  * }}}
+  *
+  * See [[InstrumentedBuilder]] for instruction on overriding the metric base name or using hdrhistograms.
   */
-
 trait DefaultInstrumented extends InstrumentedBuilder {
   if (!SharedMetricRegistries.names().contains("default")) {
     throw new IllegalStateException("No registry named \"default\" found in SharedMetricRegistries")

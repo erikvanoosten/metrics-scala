@@ -22,7 +22,9 @@ with the help of [@scullxbones](https://github.com/scullxbones).
 
 ### Usage
 
-Metrics-scala provides an easy way to create metrics and health checks in Scala. Metrics-core requires an application wide `MetricRegistry`. Create an **`Instrumented`** trait that refers to that registry and extends the `InstrumentedBuilder` trait.
+Metrics-scala provides an easy way to create metrics and health checks in Scala. Metrics-core requires an application
+wide `MetricRegistry`. Create an **`Instrumented`** trait that refers to that registry and extends the
+`InstrumentedBuilder` trait.
 
 ```scala
 object YourApplication {
@@ -33,6 +35,12 @@ trait Instrumented extends nl.grons.metrics.scala.InstrumentedBuilder {
   val metricRegistry = YourApplication.metricRegistry
 }
 ```
+
+TODO: set correct version number:
+
+Starting from version 3.5.5 (3.6.0??) it is possible to use the build-in `nl.grons.metrics.scala.DefaultInstrumented`
+instead of rolling your own. It uses the Dropwizard 1.0.0+ application convention of storing the metric registry in the
+`SharedMetricRegistries`.
 
 Now you can create metrics by using the `metrics` metrics builder.
 
@@ -45,8 +53,6 @@ class Example(db: Database) extends Instrumented {
   }
 }
 ```
-
-If you are working on a Dropwizard 1.0.0+ application, you can use the provided `DefaultInstrumented` rather than building your own `Instrumented` trait. `DefaultInstrumented` discovers the Dropwizard app's registry via `com.codahale.metrics.SharedMetricRegistries`.
 
 For more detailed information see the [manual](docs/Manual.md). For more information on Metrics-core 3.x, please see the [documentation](https://dropwizard.github.io/metrics/3.1.0/).
 
