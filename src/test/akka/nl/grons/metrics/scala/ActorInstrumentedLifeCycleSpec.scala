@@ -19,17 +19,23 @@ package nl.grons.metrics.scala
 import akka.actor.{Actor, ActorSystem, Props}
 import akka.testkit._
 import com.codahale.metrics._
+import com.typesafe.config.ConfigFactory
+import nl.grons.metrics.scala.ActorInstrumentedLifeCycleSpec._
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.{BeforeAndAfterAll, FunSpecLike, Matchers}
 
 import scala.concurrent.Promise
+import scala.collection.JavaConverters._
 
 object ActorInstrumentedLifeCycleSpec {
 
-  val MetricRegistry = new com.codahale.metrics.MetricRegistry()
+  // Don't log all those intentional exceptions
+  val NonLoggingActorSystem = ActorSystem("lifecycle-spec", ConfigFactory.parseMap(Map("akka.loglevel" -> "OFF").asJava))
+
+  val TestMetricRegistry = new com.codahale.metrics.MetricRegistry()
 
   trait Instrumented extends InstrumentedBuilder {
-    val metricRegistry = MetricRegistry
+    val metricRegistry = TestMetricRegistry
   }
 
   class ExampleActor(restarted: Promise[Boolean]) extends Actor with Instrumented with ActorInstrumentedLifeCycle {
@@ -60,16 +66,14 @@ object ActorInstrumentedLifeCycleSpec {
   }
 }
 
-class ActorInstrumentedLifeCycleSpec extends TestKit(ActorSystem("lifecycle-spec")) with FunSpecLike with ImplicitSender with Matchers with ScalaFutures with BeforeAndAfterAll {
-  import ActorInstrumentedLifeCycleSpec._
-  import collection.JavaConverters._
+class ActorInstrumentedLifeCycleSpec extends TestKit(NonLoggingActorSystem) with FunSpecLike with ImplicitSender with Matchers with ScalaFutures with BeforeAndAfterAll {
 
   def report = {
     case class NameFilter(prefix: String) extends MetricFilter {
       override def matches(name: String, metric: Metric): Boolean = name.startsWith(prefix)
     }
 
-    MetricRegistry
+    TestMetricRegistry
       .getGauges(NameFilter("nl.grons.metrics.scala")).asScala
       .headOption
       .map {case (_,g) => g.getValue}
