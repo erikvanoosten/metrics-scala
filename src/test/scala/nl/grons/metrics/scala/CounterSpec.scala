@@ -18,13 +18,10 @@ package nl.grons.metrics.scala
 
 import org.mockito.Mockito.{when, verify}
 import org.scalatest.FunSpec
-import org.scalatest.mock.MockitoSugar._
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.mockito.MockitoSugar._
 import org.scalatest.Matchers._
 import org.scalatest.OneInstancePerTest
 
-@RunWith(classOf[JUnitRunner])
 class CounterSpec extends FunSpec with OneInstancePerTest {
   describe("A counter") {
     val metric = mock[com.codahale.metrics.Counter]

@@ -17,12 +17,9 @@
 package nl.grons.metrics.scala
 
 import com.codahale.metrics.SharedMetricRegistries
-import org.junit.runner.RunWith
 import org.scalatest.{BeforeAndAfter, FunSpec}
 import org.scalatest.Matchers._
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class DefaultInstrumentedSpec extends FunSpec with BeforeAndAfter {
 
   before {

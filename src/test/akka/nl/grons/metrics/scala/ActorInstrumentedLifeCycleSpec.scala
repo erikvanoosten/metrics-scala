@@ -19,9 +19,7 @@ package nl.grons.metrics.scala
 import akka.actor.{Actor, ActorSystem, Props}
 import akka.testkit._
 import com.codahale.metrics._
-import org.junit.runner.RunWith
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.junit.JUnitRunner
 import org.scalatest.{BeforeAndAfterAll, FunSpecLike, Matchers}
 
 import scala.concurrent.Promise
@@ -62,7 +60,6 @@ object ActorInstrumentedLifeCycleSpec {
   }
 }
 
-@RunWith(classOf[JUnitRunner])
 class ActorInstrumentedLifeCycleSpec extends TestKit(ActorSystem("lifecycle-spec")) with FunSpecLike with ImplicitSender with Matchers with ScalaFutures with BeforeAndAfterAll {
   import ActorInstrumentedLifeCycleSpec._
   import collection.JavaConverters._

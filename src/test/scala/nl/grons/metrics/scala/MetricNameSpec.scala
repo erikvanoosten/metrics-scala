@@ -17,11 +17,8 @@
 package nl.grons.metrics.scala
 
 import org.scalatest.Matchers._
-import org.junit.runner.RunWith
 import org.scalatest.FunSpec
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class MetricNameSpec extends FunSpec {
 
   describe("MetricName object") {

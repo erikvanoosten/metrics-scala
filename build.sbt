@@ -1,3 +1,6 @@
+
+lazy val baseVersion = "3.5.5-snapshot"
+
 // See crossrelease.sh for valid combinations of akkaVersion and crossScalaVersion.
 
 // Developed against 2.3.*, see crossrelease.sh for all tested and build versions.
@@ -7,16 +10,15 @@ organization := "nl.grons"
 
 name := "metrics-scala"
 
-lazy val baseVersion = "3.5.5-snapshot"
-
-version <<= akkaVersion { av =>
-  val akkaVersion = if (av.nonEmpty) "_a" + av.split('.').take(2).mkString(".") else ""
-  baseVersion + akkaVersion
+version := {
+  val av = akkaVersion.value
+  baseVersion + (if (av.nonEmpty) "_a" + av.split('.').take(2).mkString(".") else "")
 }
 
-description <<= (scalaVersion, akkaVersion) { (sv, av) =>
+description := {
+  val av = akkaVersion.value
   val akkaDescription = if (av.nonEmpty) "Akka " + av +" and " else ""
-  "metrics-scala for " + akkaDescription + "Scala " + sbt.cross.CrossVersionUtil.binaryScalaVersion(sv)
+  "metrics-scala for " + akkaDescription + "Scala " + sbt.cross.CrossVersionUtil.binaryScalaVersion(scalaVersion.value)
 }
 
 // Developed against 2.10, see crossrelease.sh for all tested and build versions.
@@ -30,39 +32,36 @@ resolvers ++= Seq(
   "Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository"
 )
 
-libraryDependencies <++= (scalaVersion) { sv =>
-  Seq(
-    "io.dropwizard.metrics" % "metrics-core" % "3.1.2",
-    "io.dropwizard.metrics" % "metrics-healthchecks" % "3.1.2",
-    "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0" % "optional",
-    // Override version that hdrhistogram-metrics-reservoir depends on:
-    "org.hdrhistogram" % "HdrHistogram" % "2.1.6" % "optional",
-    "junit" % "junit" % "4.11" % "test",
-    "org.scalatest" %% "scalatest" % "2.2.5" % "test",
-    // Override version that scalatest depends on:
-    "org.scala-lang" % "scala-reflect" % sv % "test",
-    "org.mockito" % "mockito-all" % "1.10.19" % "test"
-  )
-}
+libraryDependencies ++= Seq(
+  "io.dropwizard.metrics" % "metrics-core" % "3.1.2",
+  "io.dropwizard.metrics" % "metrics-healthchecks" % "3.1.2",
+  "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0" % "optional",
+  // Override version that hdrhistogram-metrics-reservoir depends on:
+  "org.hdrhistogram" % "HdrHistogram" % "2.1.9" % "optional",
+  "org.scalatest" %% "scalatest" % "3.0.0" % "test",
+  "org.mockito" % "mockito-all" % "1.10.19" % "test"
+)
 
-libraryDependencies <++= (akkaVersion) { av =>
+libraryDependencies ++= {
+  val av = akkaVersion.value
   if (av.nonEmpty)
     Seq(
       "com.typesafe.akka" %% "akka-actor" % av,
       "com.typesafe.akka" %% "akka-testkit" % av % "test"
     )
-  else
-    Seq()
+  else Seq.empty
 }
 
-unmanagedSourceDirectories in Compile <<= (unmanagedSourceDirectories in Compile, sourceDirectory in Compile, akkaVersion) { (sds: Seq[java.io.File], sd: java.io.File, av: String) =>
-  val extra = new java.io.File(sd, "akka")
-  (if (av.nonEmpty && extra.exists) Seq(extra) else Seq()) ++ sds
+unmanagedSourceDirectories in Compile ++= {
+  val av = akkaVersion.value
+  val extra = new java.io.File((sourceDirectory in Compile).value, "akka")
+  if (av.nonEmpty && extra.exists) Seq(extra) else Seq.empty
 }
 
-unmanagedSourceDirectories in Test <<= (unmanagedSourceDirectories in Test, sourceDirectory in Test, akkaVersion) { (sds: Seq[java.io.File], sd: java.io.File, av: String) =>
-  val extra = new java.io.File(sd, "akka")
-  (if (av.nonEmpty && extra.exists) Seq(extra) else Seq()) ++ sds
+unmanagedSourceDirectories in Test ++= {
+  val av: String = akkaVersion.value
+  val extra = new java.io.File((sourceDirectory in Test).value, "akka")
+  if (av.nonEmpty && extra.exists) Seq(extra) else Seq.empty
 }
 
 javacOptions ++= Seq("-Xmx512m", "-Xms128m", "-Xss10m", "-source", "1.6", "-target", "1.6")

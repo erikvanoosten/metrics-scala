@@ -18,14 +18,11 @@ package nl.grons.metrics.scala
 
 import akka.actor.{Actor, ActorSystem}
 import com.codahale.metrics.{Metric, MetricFilter, MetricRegistry}
-import org.junit.runner.RunWith
 import org.scalatest.Matchers._
-import org.scalatest.junit.JUnitRunner
 import org.scalatest.{FunSpec, OneInstancePerTest}
 
 import scala.collection.JavaConverters._
 
-@RunWith(classOf[JUnitRunner])
 class ActorMetricsSpec extends FunSpec with OneInstancePerTest {
   import ActorMetricsSpec._
   import akka.testkit.TestActorRef

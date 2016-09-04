@@ -18,18 +18,15 @@ package nl.grons.metrics.scala
 
 import com.codahale.metrics.health.HealthCheck.Result
 import com.codahale.metrics.health.{HealthCheck, HealthCheckRegistry}
-import org.junit.runner.RunWith
 import org.mockito.Mockito.{verify, when}
 import org.scalatest.FunSpec
 import org.scalatest.Matchers._
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.mock.MockitoSugar._
+import org.scalatest.mockito.MockitoSugar._
 import scala.concurrent.{Future, TimeoutException}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.{DurationInt, FiniteDuration}
 import scala.util.Try
 
-@RunWith(classOf[JUnitRunner])
 class HealthCheckSpec extends FunSpec {
 
   describe("healthCheck factory method") {

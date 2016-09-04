@@ -19,12 +19,9 @@ package nl.grons.metrics.scala
 import org.mockito.Mockito.when
 import org.scalatest.OneInstancePerTest
 import org.scalatest.Matchers._
-import org.scalatest.mock.MockitoSugar._
+import org.scalatest.mockito.MockitoSugar._
 import org.scalatest.FunSpec
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class GaugeSpec extends FunSpec with OneInstancePerTest {
   describe("A gauge") {
     val metric = mock[com.codahale.metrics.Gauge[Int]]

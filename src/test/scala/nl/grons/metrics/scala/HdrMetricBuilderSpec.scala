@@ -17,12 +17,9 @@
 package nl.grons.metrics.scala
 
 import com.codahale.metrics.MetricRegistry
-import org.junit.runner.RunWith
 import org.scalatest.Matchers._
-import org.scalatest.junit.JUnitRunner
 import org.scalatest.{FunSpec, OneInstancePerTest}
 
-@RunWith(classOf[JUnitRunner])
 class HdrMetricBuilderSpec extends FunSpec with OneInstancePerTest {
   private val testMetricRegistry = new MetricRegistry()
 

@@ -17,14 +17,11 @@
 package nl.grons.metrics.scala
 
 import org.mockito.Mockito.verify
-import org.scalatest.mock.MockitoSugar._
+import org.scalatest.mockito.MockitoSugar._
 import org.scalatest.Matchers._
-import org.junit.runner.RunWith
 import org.scalatest.FunSpec
-import org.scalatest.junit.JUnitRunner
 import org.scalatest.OneInstancePerTest
 
-@RunWith(classOf[JUnitRunner])
 class MeterSpec extends FunSpec with OneInstancePerTest {
   describe("A meter") {
     val metric = mock[com.codahale.metrics.Meter]

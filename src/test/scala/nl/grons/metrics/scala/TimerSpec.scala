@@ -19,10 +19,8 @@ package nl.grons.metrics.scala
 import org.mockito.Mockito.{verify, when}
 import org.scalatest.OneInstancePerTest
 import org.scalatest.Matchers._
-import org.scalatest.mock.MockitoSugar._
+import org.scalatest.mockito.MockitoSugar._
 import org.scalatest.FunSpec
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 import java.util.concurrent.TimeUnit
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -36,7 +34,6 @@ object TimerSpec {
 
 }
 
-@RunWith(classOf[JUnitRunner])
 class TimerSpec extends FunSpec with OneInstancePerTest {
 
   import TimerSpec._

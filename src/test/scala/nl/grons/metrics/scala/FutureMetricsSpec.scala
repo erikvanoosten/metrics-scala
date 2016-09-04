@@ -19,18 +19,15 @@ package nl.grons.metrics.scala
 import org.mockito.Mockito.verify
 import org.scalatest.OneInstancePerTest
 import org.scalatest.Matchers._
-import org.scalatest.mock.MockitoSugar._
+import org.scalatest.mockito.MockitoSugar._
 import org.scalatest.FunSpec
 import scala.concurrent.ExecutionContext
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 import scala.concurrent.Await
 import com.codahale.metrics.Timer.Context
 import scala.concurrent.Promise
 import scala.concurrent.duration._
 
 //noinspection ScalaDeprecation
-@RunWith(classOf[JUnitRunner])
 class FutureMetricsSpec extends FunSpec with OneInstancePerTest with FutureMetrics with InstrumentedBuilder {
 
   val metricRegistry = null

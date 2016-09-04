@@ -5,9 +5,9 @@ import org.mockito.Matchers.same
 import org.mockito.Mockito.when
 import org.scalatest.FunSpec
 import org.scalatest.Matchers._
-import org.scalatest.mock.MockitoSugar
+import org.scalatest.mockito.MockitoSugar._
 
-class ImplicitsSpec extends FunSpec with MockitoSugar {
+class ImplicitsSpec extends FunSpec {
 
   describe("Implicits") {
     it("brings the implicit conversion functionToMetricFilter into scope") {

@@ -17,14 +17,11 @@
 package nl.grons.metrics.scala
 
 import org.scalatest.FunSpec
-import org.scalatest.mock.MockitoSugar._
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.mockito.MockitoSugar._
 import org.scalatest.OneInstancePerTest
 import com.codahale.metrics.MetricRegistry
 import org.mockito.Mockito.verify
 
-@RunWith(classOf[JUnitRunner])
 class InstrumentedBuilderSpec extends FunSpec with OneInstancePerTest {
 
   describe("InstrumentedBuilder") {
