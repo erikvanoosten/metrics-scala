@@ -40,7 +40,10 @@ import com.codahale.metrics.MetricRegistry
  * }
  * }}}
  *
- * It is also possible to override the metric base name. For example:
+ * As an alternative to your own `Instrumented` as above, it is possible to use [[DefaultInstrumented]] instead.
+ *
+ * By default metric names are prefixed with the name of the current class. You can override this metric base name.
+ * For example:
  * {{{
  * class Example(db: Database) extends Instrumented {
  *   override lazy val metricBaseName = MetricName("Overridden.Base.Name")

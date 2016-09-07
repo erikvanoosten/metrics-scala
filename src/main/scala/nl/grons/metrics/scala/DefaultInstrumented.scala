@@ -17,18 +17,25 @@
 package nl.grons.metrics.scala
 
 import com.codahale.metrics.SharedMetricRegistries
+import com.codahale.metrics.health.SharedHealthCheckRegistries
 
 /**
-  * A mixin trait for creating a class that publishes metrics to the "default" registry.
+  * A mixin trait for creating a class that publishes metrics and health checks to the "default" registries.
   *
   * This follows the Dropwizard 1.0.0+ application convention of storing the metric registry to
-  * `com.codahale.metrics.SharedMetricRegistries` under the name `"default"`.
+  * [[SharedMetricRegistries]] under the name `"default"`. This was extended with storing the health check registry to
+  * [[SharedHealthCheckRegistries]] under the same name.
   *
-  * After mixing in this trait, metrics can be defined. For example:
+  * After mixing in this trait, metrics and health checks can be defined. For example:
   * {{{
   * class Example(db: Database) extends DefaultInstrumented {
+  *   // Define a health check:
+  *   healthCheck("alive") { workerThreadIsActive() }
+  *
+  *   // Define a timer metric:
   *   private[this] val loading = metrics.timer("loading")
   *
+  *   // Use the timer metric:
   *   def loadStuff(): Seq[Row] = loading.time {
   *     db.fetchRows()
   *   }
@@ -36,10 +43,9 @@ import com.codahale.metrics.SharedMetricRegistries
   * }}}
   *
   * See [[InstrumentedBuilder]] for instruction on overriding the metric base name or using hdrhistograms.
+  * See [[CheckedBuilder]] for instructions on overriding the timeout for [[scala.concurrent.Future]] executions.
   */
-trait DefaultInstrumented extends InstrumentedBuilder {
-  if (!SharedMetricRegistries.names().contains("default")) {
-    throw new IllegalStateException("No registry named \"default\" found in SharedMetricRegistries")
-  }
+trait DefaultInstrumented extends InstrumentedBuilder with CheckedBuilder {
   val metricRegistry = SharedMetricRegistries.getOrCreate("default")
+  val registry = SharedHealthCheckRegistries.getOrCreate("default")
 }

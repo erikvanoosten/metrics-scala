@@ -40,11 +40,11 @@ trait CheckedBuilder extends BaseBuilder {
    *   val healthCheckRegistry = new com.codahale.metrics.health.HealthCheckRegistry()
    * }
    * trait Checked extends CheckedBuilder {
-   *   val healthCheckRegistry = Application.healthCheckRegistry
+   *   val registry = Application.healthCheckRegistry
    * }
    *
-   * class Example(db: Database) extends Checked {
-   *   private[this] val databaseCheck = healthCheck("database") { db.isConnected }
+   * class ExampleWorker extends Checked {
+   *   healthCheck("alive") { workerThreadIsActive() }
    * }
    * }}}
    *
@@ -66,17 +66,17 @@ trait CheckedBuilder extends BaseBuilder {
    *
    * It is also possible to override the health check base name. For example:
    * {{{
-   * class Example(db: Database) extends Checked {
+   * class ExampleWorker extends Checked {
    *   override lazy val metricBaseName = MetricName("Overridden.Base.Name")
-   *   private[this] val databaseCheck = healthCheck("database") { db.isConnected }
+   *   healthCheck("alive") { workerThreadIsActive() }
    * }
    * }}}
    *
    * To change the timeout for [[Future]] execution, set an implicit duration:
    * {{{
-   * class Example(db: Database) extends Checked {
+   * class ExampleWorker extends Checked {
    *   implicit private val timeout = 10.seconds
-   *   private[this] val databaseCheck = healthCheck("database")(Future { db.isConnected })
+   *   healthCheck("alive")(Future { workerThreadIsActive() })
    * }
    * }}}
    *

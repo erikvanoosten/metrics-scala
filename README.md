@@ -9,6 +9,8 @@ Initially this project started out as a line for line copy of the Metrics-scala 
 scala versions. Metrics dropped the scala module in version 3.0.0 and this project continued separately
 with the help of [@scullxbones](https://github.com/scullxbones).
 
+We strive for long term stability, correctness, an easy to use API and full documentation (in that order).
+
 ### Contents
 
 * Usage
@@ -22,41 +24,30 @@ with the help of [@scullxbones](https://github.com/scullxbones).
 
 ### Usage
 
-Metrics-scala provides an easy way to create metrics and health checks in Scala. Metrics-core requires an application
-wide `MetricRegistry`. Create an **`Instrumented`** trait that refers to that registry and extends the
-`InstrumentedBuilder` trait.
+Metrics-scala provides an easy way to create _metrics_ and _health checks_ in Scala. Since version 3.5.5 creating
+metrics and health checks is as easy as extending
+[DefaultInstrumented](/src/main/scala/nl/grons/metrics/scala/DefaultInstrumented.scala) and using the `metrics` and
+`healthCheck` builders:
 
 ```scala
-object YourApplication {
-  /** The application wide metrics registry. */
-  val metricRegistry = new com.codahale.metrics.MetricRegistry()
-}
-trait Instrumented extends nl.grons.metrics.scala.InstrumentedBuilder {
-  val metricRegistry = YourApplication.metricRegistry
-}
-```
+class Example(db: Database) extends nl.grons.metrics.scala.DefaultInstrumented {
+  // Define a health check
+  healthCheck("alive") { workerThreadIsActive() }
 
-TODO: set correct version number:
-
-Starting from version 3.5.5 (3.6.0??) it is possible to use the build-in `nl.grons.metrics.scala.DefaultInstrumented`
-instead of rolling your own. It uses the Dropwizard 1.0.0+ application convention of storing the metric registry in the
-`SharedMetricRegistries`.
-
-Now you can create metrics by using the `metrics` metrics builder.
-
-```scala
-class Example(db: Database) extends Instrumented {
+  // Define a timer metric
   private[this] val loading = metrics.timer("loading")
 
+  // Use timer metric
   def loadStuff(): Seq[Row] = loading.time {
     db.fetchRows()
   }
 }
 ```
 
-For more detailed information see the [manual](docs/Manual.md). For more information on Metrics-core 3.x, please see the [documentation](https://dropwizard.github.io/metrics/3.1.0/).
+For more detailed information see the [manual](docs/Manual.md). For more information on Metrics-core 3.x, please see
+the [documentation](https://dropwizard.github.io/metrics/3.1.0/).
 
-See the [change log](CHANGELOG.md) for API changes compared to the 2.x versions.
+See also the [change log](CHANGELOG.md) for improvements and API changes.
 
 ### Features
 
@@ -71,7 +62,8 @@ See the [change log](CHANGELOG.md) for API changes compared to the 2.x versions.
 
 ## Available versions (abbreviated)
 
-This table shows the most relevant versions of metrics-scala. For the full list see [all available versions](docs/AvailableVersions.md).
+This table shows the most relevant versions of metrics-scala. For the full list see
+[all available versions](docs/AvailableVersions.md).
 
 <table border="0" cellpadding="2" cellspacing="2">
   <tbody>
@@ -121,11 +113,15 @@ This table shows the most relevant versions of metrics-scala. For the full list 
   </tbody>
 </table>
 
-If you need another version mix please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), or sent an email to the [metrics mailing list](http://groups.google.com/group/metrics-user).
+If you need another version mix please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), or sent
+an email to the [metrics mailing list](http://groups.google.com/group/metrics-user).
 
-Note: If Akka has a newer minor-version, you can use that instead of the version metrics-scala was build against. (If you use Akka 2.4, you can use the build for Akka 2.3 as Akka 2.4 is binary compatible with Akka 2.3.)
+Note: If Akka has a newer minor-version, you can use that instead of the version metrics-scala was build against. (If
+you use Akka 2.4, you can use the build for Akka 2.3 as Akka 2.4 is binary compatible with Akka 2.3.)
 
-(*) Hdr is an optional dependency. The first number is the version of `"org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir"`, the second the version of `"org.hdrhistogram" % "HdrHistogram"`. See also [hdrhistogram manual page](/docs/Hdrhistogram.md).
+(*) Hdr is an optional dependency. The first number is the version of
+`"org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir"`, the second the version of
+`"org.hdrhistogram" % "HdrHistogram"`. See also [hdrhistogram manual page](/docs/Hdrhistogram.md).
 
 ## Download
 
@@ -151,9 +147,9 @@ To use hdrhistogram additional dependencies are needed. See the [hdrhistogram ma
 
 ## Support
 
-If you find a bug, please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), better yet: send a pull request.
-For questions, please sent an email to the [metrics mailing list](http://groups.google.com/group/metrics-user).
-
+If you find a bug, please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), better yet: send a
+pull request. For questions, please sent an email to the
+[metrics mailing list](http://groups.google.com/group/metrics-user).
 
 ### License
 

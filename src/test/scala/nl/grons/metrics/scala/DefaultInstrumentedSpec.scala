@@ -17,25 +17,19 @@
 package nl.grons.metrics.scala
 
 import com.codahale.metrics.SharedMetricRegistries
-import org.scalatest.{BeforeAndAfter, FunSpec}
+import com.codahale.metrics.health.SharedHealthCheckRegistries
+import org.scalatest.FunSpec
 import org.scalatest.Matchers._
 
-class DefaultInstrumentedSpec extends FunSpec with BeforeAndAfter {
-
-  before {
-    SharedMetricRegistries.clear()
-  }
+class DefaultInstrumentedSpec extends FunSpec {
 
   describe("DefaultInstrumented") {
-    it("throws if no default registry exists on construction") {
-      intercept[IllegalStateException] {
-        new DefaultInstrumented {}
-      }
-    }
-    it("has the expected metricRegistry") {
-      val defaultRegistry = SharedMetricRegistries.getOrCreate("default")
+    it("has the expected metricRegistry and health check registry") {
+      val defaultMetricRegistry = SharedMetricRegistries.getOrCreate("default")
+      val defaultHealthCheckRegistry = SharedHealthCheckRegistries.getOrCreate("default")
       val instrumented = new DefaultInstrumented {}
-      instrumented.metricRegistry should be theSameInstanceAs defaultRegistry
+      instrumented.metricRegistry should be theSameInstanceAs defaultMetricRegistry
+      instrumented.registry should be theSameInstanceAs defaultHealthCheckRegistry
     }
   }
 

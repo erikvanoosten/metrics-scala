@@ -11,11 +11,45 @@ Other manual pages:
 
 ## 1 minute introduction
 
-Metrics-scala provides an easy way to create metrics in Scala. It builds on the metrics-core library.
+Metrics-scala provides an easy way to create _metrics_ and _health checks_ in Scala. It builds on Dropwizard's
+metrics-core and metrics-healthchecks java libraries.
+
+Since version 3.5.5 you simply extend [DefaultInstrumented](/src/main/scala/nl/grons/metrics/scala/DefaultInstrumented.scala)
+and then use the `metrics` and `healthCheck` builders:
+
+```scala
+class Example(db: Database) extends nl.grons.metrics.scala.DefaultInstrumented {
+  // Define a health check
+  healthCheck("alive") { workerThreadIsActive() }
+
+  // Define a timer metric
+  private[this] val loading = metrics.timer("loading")
+
+  // Use timer metric
+  def loadStuff(): Seq[Row] = loading.time {
+    db.fetchRows()
+  }
+}
+```
+
+NOTE: In the rest of the documentation you will see `Instrumented` instead of `DefaultInstrumented`.
+
+There are Scala wrappers for each metric type: [gauge](#gauges), [counter](#counters), [histogram](#histograms),
+[meter](#meters) and [timer](#timers). These are described below.
+
+*Health check* support is described further at [Health check support](/docs/HealthCheckManual.md).
+
+There are also helper methods to instrument [Futures](/docs/Futures.md) and [Actors](/docs/Actors.md).
+
+For more information on (JMX) reporters and other aspects of Metrics 3.x, please see the Java api in the
+[Metrics documentation](http://metrics.codahale.com).
+
+## Version 3.5.4 and earlier
 
 Metrics-core requires metrics to be registered in an application wide `MetricRegistry`. Metrics-scala hides use of it,
 but you do need to create an `Instrumented` trait that refers to that registry. Your `Instrumented` needs to extends
-`InstrumentedBuilder`. (See also [About Instrumented](#about-instrumented) below.)
+[InstrumentedBuilder](/src/main/scala/nl/grons/metrics/scala/InstrumentedBuilder.scala).
+(See also [About Instrumented](#about-instrumented-and-defaultinstrumented) below.)
 
 ```scala
 object YourApplication {
@@ -39,15 +73,7 @@ class Example(db: Database) extends Instrumented {
 }
 ```
 
-There are Scala wrappers for each metric type: [gauge](#gauges), [counter](#counters), [histogram](#histograms),
-[meter](#meters) and [timer](#timers). These are described below.
-
-*Health check* support is described at [Health check support](/docs/HealthCheckManual.md).
-
-There are also helper methods to instrument [Futures](/docs/Futures.md) and [Actors](/docs/Actors.md).
-
-For more information on (JMX) reporters and other aspects of Metrics 3.x, please see the Java api in the
-[Metrics documentation](http://metrics.codahale.com).
+To add health check support using your own `Instrumented` see [Health check support](/docs/HealthCheckManual.md).
 
 ## Gauges
 
@@ -130,23 +156,37 @@ val resultCounts: Histogram = metrics.histogram("result-counts")
 resultCounts += results.size()
 ```
 
-`Histogram` metrics allow you to measure not just easy things like the min, mean, max, and standard deviation of values, but also [quantiles](http://en.wikipedia.org/wiki/Quantile) like the median or 95th percentile.
+`Histogram` metrics allow you to measure not just easy things like the min, mean, max, and standard deviation of values,
+but also [quantiles](http://en.wikipedia.org/wiki/Quantile) like the median or 95th percentile.
 
-Traditionally, the way the median (or any other quantile) is calculated is to take the entire data set, sort it, and take the value in the middle (or 1% from the end, for the 99th percentile). This works for small data sets, or batch processing systems, but not for high-throughput, low-latency services.
+Traditionally, the way the median (or any other quantile) is calculated is to take the entire data set, sort it, and
+take the value in the middle (or 1% from the end, for the 99th percentile). This works for small data sets, or batch
+processing systems, but not for high-throughput, low-latency services.
 
-The solution for this is to sample the data as it goes through. By maintaining a small, manageable reservoir which is statistically representative of the data stream as a whole, we can quickly and easily calculate quantiles which are valid approximations of the actual quantiles. This technique is called *reservoir sampling*.
+The solution for this is to sample the data as it goes through. By maintaining a small, manageable reservoir which is
+statistically representative of the data stream as a whole, we can quickly and easily calculate quantiles which are
+valid approximations of the actual quantiles. This technique is called *reservoir sampling*.
 
 Metrics provides a number of different `Reservoir` implementations, each of which is useful.
 
 ### Uniform Reservoirs
 
-A histogram with a uniform reservoir produces quantiles which are valid for the entirely of the histogram’s lifetime. It will return a median value, for example, which is the median of all the values the histogram has ever been updated with. It does this by using an algorithm called [Vitter’s R](http://www.cs.umd.edu/~samir/498/vitter.pdf), which randomly selects values for the reservoir with linearly-decreasing probability.
+A histogram with a uniform reservoir produces quantiles which are valid for the entirely of the histogram’s lifetime. It
+will return a median value, for example, which is the median of all the values the histogram has ever been updated with.
+It does this by using an algorithm called [Vitter’s R](http://www.cs.umd.edu/~samir/498/vitter.pdf), which randomly
+selects values for the reservoir with linearly-decreasing probability.
 
-Use a uniform histogram when you’re interested in long-term measurements. Don’t use one where you’d want to know if the distribution of the underlying data stream has changed recently.
+Use a uniform histogram when you’re interested in long-term measurements. Don’t use one where you’d want to know if the
+distribution of the underlying data stream has changed recently.
 
 ### Exponentially Decaying Reservoirs
 
-A histogram with an exponentially decaying reservoir produces quantiles which are representative of (roughly) the last five minutes of data. It does so by using a [forward-decaying priority reservoir](http://dimacs.rutgers.edu/~graham/pubs/papers/fwddecay.pdf) with an exponential weighting towards newer data. Unlike the uniform reservoir, an exponentially decaying reservoir represents recent data, allowing you to know very quickly if the distribution of the data has changed. Timers use histograms with exponentially decaying reservoirs by default.
+A histogram with an exponentially decaying reservoir produces quantiles which are representative of (roughly) the last
+five minutes of data. It does so by using a
+[forward-decaying priority reservoir](http://dimacs.rutgers.edu/~graham/pubs/papers/fwddecay.pdf) with an exponential
+weighting towards newer data. Unlike the uniform reservoir, an exponentially decaying reservoir represents recent data,
+allowing you to know very quickly if the distribution of the data has changed. Timers use histograms with exponentially
+decaying reservoirs by default.
 
 ### Sliding Window Reservoirs
 
@@ -154,9 +194,12 @@ A histogram with a sliding window reservoir produces quantiles which are represe
 
 ### Sliding Time Window Reservoirs
 
-A histogram with a sliding time window reservoir produces quantiles which are strictly representative of the past `N` seconds (or other time period).
+A histogram with a sliding time window reservoir produces quantiles which are strictly representative of the past `N`
+seconds (or other time period).
 
-** Warning**: While `SlidingTimeWindowReservoir` is easier to understand than `ExponentiallyDecayingReservoir`, it is not bounded in size, so using it to sample a high-frequency process can require a significant amount of memory. Because it records every measurement, it’s also the slowest reservoir type.
+** Warning**: While `SlidingTimeWindowReservoir` is easier to understand than `ExponentiallyDecayingReservoir`, it is
+not bounded in size, so using it to sample a high-frequency process can require a significant amount of memory. Because
+it records every measurement, it’s also the slowest reservoir type.
 
 TODO: show how to use a different reservoir in a histogram.
 
@@ -172,11 +215,16 @@ getRequests.mark(requests.size())
 
 This meter measures the number of `requests` (second parameter) per second.
 
-Meters measure the rate of the events in a few different ways. The mean rate is the average rate of events. It’s generally useful for trivia, but as it represents the total rate for your application’s entire lifetime (e.g., the total number of requests handled, divided by the number of seconds the process has been running), it doesn’t offer a sense of recency. Luckily, meters also record three different *exponentially-weighted moving average* rates: the 1-, 5-, and 15-minute moving averages. Just like the Unix load averages visible in uptime or top.
+Meters measure the rate of the events in a few different ways. The mean rate is the average rate of events. It’s
+generally useful for trivia, but as it represents the total rate for your application’s entire lifetime (e.g., the total
+number of requests handled, divided by the number of seconds the process has been running), it doesn’t offer a sense of
+recency. Luckily, meters also record three different *exponentially-weighted moving average* rates: the 1-, 5-, and
+15-minute moving averages. Just like the Unix load averages visible in uptime or top.
 
 ### Metering exceptions of partial functions
 
-Metrics-scala allows you to convert any partial function into another partial function that meters exceptions during its invocations. See the scaladoc of [Meter.exceptionMarkerPF](/src/main/scala/nl/grons/metrics/scala/Meter.scala#L90).
+Metrics-scala allows you to convert any partial function into another partial function that meters exceptions during its
+invocations. See the scaladoc of [Meter.exceptionMarkerPF](/src/main/scala/nl/grons/metrics/scala/Meter.scala#L90).
 
 Partial function support is available since metrics-scala v3.0.1.
 
@@ -192,11 +240,13 @@ timer.time {
 }
 ```
 
-**Note**: Elapsed times for its events are measured internally in nanoseconds, using Java’s high-precision `System.nanoTime()` method. Its precision and accuracy vary depending on operating system and hardware.
+**Note**: Elapsed times for its events are measured internally in nanoseconds, using Java’s high-precision
+`System.nanoTime()` method. Its precision and accuracy vary depending on operating system and hardware.
 
 ### Timing partial functions
 
-Metrics-scala allows you to convert any partial function into another partial function that times each invocation. See the scaladoc of [Timer.timePF](/src/main/scala/nl/grons/metrics/scala/Timer.scala#L69).
+Metrics-scala allows you to convert any partial function into another partial function that times each invocation. See
+the scaladoc of [Timer.timePF](/src/main/scala/nl/grons/metrics/scala/Timer.scala#L69).
 
 Partial function support is available since metrics-scala v3.0.1.
 
@@ -211,7 +261,8 @@ The metric name is build from:
 * *Name:* A short name describing the metric’s purpose (e.g., `session-count`).
 * *Scope:* An optional name describing the metric’s scope. Useful for when you have multiple instances of a class.
 
-The factory methods `metrics.gauge`, `metrics.counter`, `metrics.histogram`, `metrics.meter` and `metrics.timer` all accept a `scope` argument. Be default the scope is not used.
+The factory methods `metrics.gauge`, `metrics.counter`, `metrics.histogram`, `metrics.meter` and `metrics.timer` all
+accept a `scope` argument. Be default the scope is not used.
 
 Since 3.1.0 the *metric base name* can be overridden. For example by using `Instrumented` as follows:
 
@@ -222,10 +273,19 @@ class Example extends Instrumented {
 }
 ```
 
-## About `Instrumented`
+## About `Instrumented` and `DefaultInstrumented`
 
-Although all Metrics-scala documentation refers to the `Instrumented` trait (as created in the introduction above), you are free to chose the name, or in fact not to use it at all. It is also possible to directly extend `InstrumentedBuilder` and provide an implementation of `metricRegistry` in every class.
+Although all Metrics-scala documentation refers to the `Instrumented` trait (as created in the introduction above), you
+are free to chose the name, or in fact not to use it at all. It is possible to use the provided
+[DefaultInstrumented](/src/main/scala/nl/grons/metrics/scala/DefaultInstrumented.scala) (since 3.5.5), or to
+directly extend `InstrumentedBuilder` and provide an implementation of `metricRegistry` in every class.
 
-If health checks are also needed, you can combine `Instrumented` with the `Checked` trait. See [Checked and Instrumented](/docs/HealthCheckManual.md#about-checked-and-instrumented).
+`DefaultInstrumented` uses the Dropwizard 1.0.0+ application convention of storing the metric registry in metric-core's
+`SharedMetricRegistries` under the name `"default"`. It extends this by also stores a health check registry in the
+metric-healthcheck's `SharedHealthCheckRegistries` under the same name.
+
+If health checks are also needed, you can combine `Instrumented` with the `Checked` trait. See
+[Checked and Instrumented](/docs/HealthCheckManual.md#about-checked-and-instrumented). `DefaultInstrumented` already
+does this.
 
 Next: [Health check support](/docs/HealthCheckManual.md)
