@@ -1,5 +1,5 @@
 
-lazy val baseVersion = "3.5.5"
+lazy val baseVersion = "3.5.6-snapshot"
 
 // See crossrelease.sh for valid combinations of akkaVersion and crossScalaVersion.
 
