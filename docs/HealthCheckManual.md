@@ -142,4 +142,4 @@ trait Instrumented extends InstrumentedBuilder with CheckedBuilder {
 
 This variant of `Instrumented` supports both building metrics and health checks.
 
-Previous: [Manual](/docs/Manual.md) Up: [Manual](/docs/Manual.md) Next: [Instrumenting Futures](/docs/Futures.md)
+Previous: [Manual](Manual.md) Up: [Manual](Manual.md) Next: [Instrumenting Futures](Futures.md)

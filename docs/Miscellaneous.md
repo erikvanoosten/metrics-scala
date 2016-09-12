@@ -15,4 +15,4 @@ or a tad more explicit:
     YourApplication.metricRegistry.getCounters(functionToMetricFilter((name, _) => name.startsWith("foo")))
 
 
-Previous: [Hdrhistogram](/docs/Hdrhistogram.md) Up: [Manual](/docs/Manual.md)
+Previous: [Hdrhistogram](Hdrhistogram.md) Up: [Manual](Manual.md)

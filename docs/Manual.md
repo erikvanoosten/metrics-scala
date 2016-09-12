@@ -2,11 +2,11 @@
 
 Other manual pages:
 
-* [Health check support](/docs/HealthCheckManual.md)
-* [Instrumenting Futures](/docs/Futures.md)
-* [Instrumenting Actors](/docs/Actors.md)
-* [Hdrhistogram](/docs/Hdrhistogram.md)
-* [Miscellaneous](/docs/Miscellaneous.md)
+* [Health check support](HealthCheckManual.md)
+* [Instrumenting Futures](Futures.md)
+* [Instrumenting Actors](Actors.md)
+* [Hdrhistogram](Hdrhistogram.md)
+* [Miscellaneous](Miscellaneous.md)
 * [Dropwizard metrics documentation](https://dropwizard.github.io/metrics)
 
 ## 1 minute introduction
@@ -37,9 +37,9 @@ NOTE: In the rest of the documentation you will see `Instrumented` instead of `D
 There are Scala wrappers for each metric type: [gauge](#gauges), [counter](#counters), [histogram](#histograms),
 [meter](#meters) and [timer](#timers). These are described below.
 
-*Health check* support is described further at [Health check support](/docs/HealthCheckManual.md).
+*Health check* support is described further at [Health check support](HealthCheckManual.md).
 
-There are also helper methods to instrument [Futures](/docs/Futures.md) and [Actors](/docs/Actors.md).
+There are also helper methods to instrument [Futures](Futures.md) and [Actors](Actors.md).
 
 For more information on (JMX) reporters and other aspects of Metrics 3.x, please see the Java api in the
 [Metrics documentation](http://metrics.codahale.com).
@@ -73,7 +73,7 @@ class Example(db: Database) extends Instrumented {
 }
 ```
 
-To add health check support using your own `Instrumented` see [Health check support](/docs/HealthCheckManual.md).
+To add health check support using your own `Instrumented` see [Health check support](HealthCheckManual.md).
 
 ## Gauges
 
@@ -92,7 +92,7 @@ This will create a new gauge named `com.example.proj.auth.SessionStore.cache-evi
 of evictions from the cache.
 
 Note: when a Gauge is created from an Actor with restart behavior, trait `ActorInstrumentedLifeCycle` should also be
-mixed in. See [Instrumenting Actors](/docs/Actors.md) for more information.
+mixed in. See [Instrumenting Actors](Actors.md) for more information.
 
 ## Cached gauges
 
@@ -285,7 +285,7 @@ directly extend `InstrumentedBuilder` and provide an implementation of `metricRe
 metric-healthcheck's `SharedHealthCheckRegistries` under the same name.
 
 If health checks are also needed, you can combine `Instrumented` with the `Checked` trait. See
-[Checked and Instrumented](/docs/HealthCheckManual.md#about-checked-and-instrumented). `DefaultInstrumented` already
+[Checked and Instrumented](HealthCheckManual.md#about-checked-and-instrumented). `DefaultInstrumented` already
 does this.
 
-Next: [Health check support](/docs/HealthCheckManual.md)
+Next: [Health check support](HealthCheckManual.md)

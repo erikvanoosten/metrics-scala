@@ -77,4 +77,4 @@ class Example extends Instrumented {
 
 For versions before version 3.5.4: see the scaladoc in `FutureMetrics`.
 
-Previous: [Health check support](/docs/HealthCheckManual.md) Up: [Manual](/docs/Manual.md) Next: [Instrumenting Actors](/docs/Actors.md)
+Previous: [Health check support](HealthCheckManual.md) Up: [Manual](Manual.md) Next: [Instrumenting Actors](Actors.md)
