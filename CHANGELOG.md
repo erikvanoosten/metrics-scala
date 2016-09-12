@@ -1,5 +1,5 @@
-Next version
-============
+v3.5.5: Sep 2016
+================
 
 * Measure also when the value-by-name parameter of `timeFuture` throws (#78) by @Slakah. Thanks JCollier!
 * Introduces `DefaultInstrumented`, a great convenience introduced by @jklukas (#80). Good idea Jeff!
