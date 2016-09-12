@@ -87,28 +87,28 @@ This table shows the most relevant versions of metrics-scala. For the full list 
       <td valign="top"></td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v354-apr-2016">3.5.4</a></td>
+      <td valign="top"><a href="CHANGELOG.md#v355-sep-2016">3.5.5</a></td>
       <td valign="top">3.1.2</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">1.1.0/2.1.6</td>
+      <td valign="top">1.1.0/2.1.9</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v354-apr-2016">3.5.4_a2.2</a></td>
+      <td valign="top"><a href="CHANGELOG.md#v355-sep-2016">3.5.5_a2.2</a></td>
       <td valign="top">3.1.2</td>
       <td valign="top">2.2.5</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
-      <td valign="top">1.1.0/2.1.6</td>
+      <td valign="top">1.1.0/2.1.9</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v354-apr-2016">3.5.4_a2.3</a></td>
+      <td valign="top"><a href="CHANGELOG.md#v355-sep-2016">3.5.5_a2.3</a></td>
       <td valign="top">3.1.2</td>
       <td valign="top">2.3.15 / 2.4.x</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">1.1.0/2.1.6</td>
+      <td valign="top">1.1.0/2.1.9</td>
     </tr>
   </tbody>
 </table>
@@ -127,7 +127,7 @@ you use Akka 2.4, you can use the build for Akka 2.3 as Akka 2.4 is binary compa
 
 SBT:
 ```
-libraryDependencies += "nl.grons" %% "metrics-scala" % "3.5.4_a2.3"
+libraryDependencies += "nl.grons" %% "metrics-scala" % "3.5.5_a2.3"
 ```
 
 Maven:
@@ -139,7 +139,7 @@ Maven:
 <dependency>
     <groupId>nl.grons</groupId>
     <artifactId>metrics-scala_${scala.dep.version}</artifactId>
-    <version>3.5.4_a2.3</version>
+    <version>3.5.5_a2.3</version>
 </dependency>
 ```
 

@@ -3,6 +3,7 @@ v3.5.5: Sep 2016
 
 * Measure also when the value-by-name parameter of `timeFuture` throws (#78) by @Slakah. Thanks JCollier!
 * Introduces `DefaultInstrumented`, a great convenience introduced by @jklukas (#80). Good idea Jeff!
+* Bumped optional HdrHistogram dependency from 2.1.6 to 2.1.9.
 
 v3.5.4: Apr 2016
 ================
