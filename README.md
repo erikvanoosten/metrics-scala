@@ -14,8 +14,8 @@ We strive for long term stability, correctness, an easy to use API and full docu
 ### Contents
 
 * Usage
-* [Manual](docs/Manual.md)
-* [Manual (version 2.x)](docs/Manual_2x.md)
+* [Manual](/erikvanoosten/metrics-scala/blob/master/docs/Manual.md)
+* [Manual (version 2.x)](/erikvanoosten/metrics-scala/blob/master/docs/Manual_2x.md)
 * Features
 * Available versions
 * Download
@@ -44,7 +44,7 @@ class Example(db: Database) extends nl.grons.metrics.scala.DefaultInstrumented {
 }
 ```
 
-For more detailed information see the [manual](docs/Manual.md). For more information on Metrics-core 3.x, please see
+For more detailed information see the [manual](/erikvanoosten/metrics-scala/blob/master/docs/Manual.md). For more information on Metrics-core 3.x, please see
 the [documentation](https://dropwizard.github.io/metrics/3.1.0/).
 
 See also the [change log](CHANGELOG.md) for improvements and API changes.
@@ -63,7 +63,7 @@ See also the [change log](CHANGELOG.md) for improvements and API changes.
 ## Available versions (abbreviated)
 
 This table shows the most relevant versions of metrics-scala. For the full list see
-[all available versions](docs/AvailableVersions.md).
+[all available versions](/erikvanoosten/metrics-scala/blob/master/docs/AvailableVersions.md).
 
 <table border="0" cellpadding="2" cellspacing="2">
   <tbody>
