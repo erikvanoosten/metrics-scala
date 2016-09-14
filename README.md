@@ -21,7 +21,7 @@ We strive for long term stability, correctness, an easy to use API and full docu
 * Download
 * Support
 * License
-* [![Javadocs](https://www.javadoc.io/badge/nl.grons/metrics-scala.svg?color=brightgreen&label=scaladoc)](https://www.javadoc.io/doc/nl.grons/metrics-scala)
+* [![Scaladocs](https://www.javadoc.io/badge/nl.grons/metrics-scala_2.11.svg?color=brightgreen&label=scaladoc)](https://www.javadoc.io/doc/nl.grons/metrics-scala_2.11)
 
 ### Usage
 
