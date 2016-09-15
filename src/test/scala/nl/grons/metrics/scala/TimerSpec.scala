@@ -23,6 +23,8 @@ import org.scalatest.mockito.MockitoSugar._
 import org.scalatest.FunSpec
 import java.util.concurrent.TimeUnit
 
+import org.scalatest.concurrent.Eventually
+
 import scala.concurrent.{ExecutionContext, Future}
 
 object TimerSpec {
@@ -69,7 +71,8 @@ class TimerSpec extends FunSpec with OneInstancePerTest {
     it("should measure a future") {
       import ExecutionContext.Implicits.global
       val f = timer.timeFuture(Future.successful("test"))
-      Thread.sleep(20L)
+
+      Eventually.eventually { verify(context).stop() }
 
       f.value.get.get should equal ("test")
       verify(metric).time()
