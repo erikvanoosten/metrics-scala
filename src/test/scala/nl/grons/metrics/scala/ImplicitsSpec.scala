@@ -10,14 +10,14 @@ import org.scalatest.mockito.MockitoSugar._
 class ImplicitsSpec extends FunSpec {
 
   describe("Implicits") {
-    it("brings the implicit conversion functionToMetricFilter into scope", DisableScala212) {
+    it("brings the implicit conversion functionToMetricFilter into scope", LT_Scala212) {
       // sanity check:
       """val metricFilter: MetricFilter = (_: String, _: Metric) => true""" shouldNot compile
       // actual test:
       """import Implicits._
          val metricFilter: MetricFilter = (_: String, _: Metric) => true""" should compile
     }
-    it("is not required in Scala 2.12", EnableScala212) {
+    it("is not required in Scala 2.12", GE_Scala212) {
       // Implicit conversion is not required because SAM support is available in Scala 2.12:
       """val metricFilter: MetricFilter = (_: String, _: Metric) => true""" should compile
     }

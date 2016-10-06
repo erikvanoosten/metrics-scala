@@ -27,7 +27,7 @@ description := {
   "metrics-scala for " + akkaDescription + "Scala " + sbt.cross.CrossVersionUtil.binaryScalaVersion(scalaVersion.value)
 }
 
-// Developed against 2.10, see crossrelease.sh for all tested and build versions.
+// Developed against 2.11, see crossrelease.sh for all tested and build versions.
 scalaVersion := "2.11.8"
 
 crossScalaVersions := Seq("2.10.6", "2.11.8", "2.12.0-RC1")
@@ -76,9 +76,11 @@ javaOptions ++= Seq("-Xmx512m", "-Djava.awt.headless=true")
 
 scalacOptions ++= Seq("-deprecation", "-unchecked")
 
-testOptions in Test <+= (scalaVersion) map {
-  case v if v.startsWith("2.12") => Tests.Argument("-l", "disable_scala2.12")
-  case _ => Tests.Argument("-l", "enable_scala2.12")
+testOptions in Test += {
+  scalaVersion.value match {
+    case v if v.startsWith("2.12") => Tests.Argument("-l", "<scala2.12")
+    case _ => Tests.Argument("-l", ">=scala2.12")
+  }
 }
 
 publishTo := {
