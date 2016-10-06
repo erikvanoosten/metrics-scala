@@ -78,7 +78,7 @@ This table shows the most relevant versions of metrics-scala. For the full list 
     <tr>
       <td valign="top">2.10</td>
       <td valign="top">2.11</td>
-      <td valign="top">2.12.0-RC1</td>
+      <td valign="top">2.12.0-RC1(**)</td>
     </tr>
     <tr>
       <td valign="top">2.1.5</td>
@@ -131,14 +131,14 @@ This table shows the most relevant versions of metrics-scala. For the full list 
 If you need another version mix please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), or sent
 an email to the [metrics mailing list](http://groups.google.com/group/metrics-user).
 
-The 2.12.0-RC1 version is only supported until Scala 2.12 is out for real.
-
 Note: If Akka has a newer minor-version, you can use that instead of the version metrics-scala was build against. (If
 you use Akka 2.4, you can use the build for Akka 2.3 as Akka 2.4 is binary compatible with Akka 2.3.)
 
 (*) Hdr is an optional dependency. The first number is the version of
 `"org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir"`, the second the version of
 `"org.hdrhistogram" % "HdrHistogram"`. See also [hdrhistogram manual page](/docs/Hdrhistogram.md).
+
+(**) The 2.12.0-RC1 version is only supported until Scala 2.12 is out for real.
 
 ## Download
 
