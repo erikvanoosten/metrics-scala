@@ -1,10 +1,16 @@
+import sbt.Keys._
 
 lazy val baseVersion = "3.5.6-snapshot"
 
 // See crossrelease.sh for valid combinations of akkaVersion and crossScalaVersion.
 
 // Developed against 2.3.*, see crossrelease.sh for all tested and build versions.
-akkaVersion := "2.3.14"
+akkaVersion := {
+  scalaVersion.value match {
+    case v if v.startsWith("2.12") => "2.4.11"
+    case _ => "2.3.14"
+  }
+}
 
 organization := "nl.grons"
 
@@ -21,10 +27,10 @@ description := {
   "metrics-scala for " + akkaDescription + "Scala " + sbt.cross.CrossVersionUtil.binaryScalaVersion(scalaVersion.value)
 }
 
-// Developed against 2.10, see crossrelease.sh for all tested and build versions.
-scalaVersion := "2.10.6"
+// Developed against 2.11, see crossrelease.sh for all tested and build versions.
+scalaVersion := "2.11.8"
 
-crossScalaVersions := Seq("2.10.6", "2.11.8")
+crossScalaVersions := Seq("2.10.6", "2.11.8", "2.12.0-RC1")
 
 crossVersion := CrossVersion.binary
 
@@ -69,6 +75,13 @@ javacOptions ++= Seq("-Xmx512m", "-Xms128m", "-Xss10m", "-source", "1.6", "-targ
 javaOptions ++= Seq("-Xmx512m", "-Djava.awt.headless=true")
 
 scalacOptions ++= Seq("-deprecation", "-unchecked")
+
+testOptions in Test += {
+  scalaVersion.value match {
+    case v if v.startsWith("2.12") => Tests.Argument("-l", "<scala2.12")
+    case _ => Tests.Argument("-l", ">=scala2.12")
+  }
+}
 
 publishTo := {
   val nexus = "https://oss.sonatype.org/"
