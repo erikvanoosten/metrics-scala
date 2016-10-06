@@ -5,6 +5,7 @@ v3.5.5: Sep 2016
 * Introduces `DefaultInstrumented`, a great convenience introduced by @jklukas (#80). Good idea Jeff!
 * Bumped optional HdrHistogram dependency from 2.1.6 to 2.1.9.
 * Released for 2.12.0-RC1 and akka 2.4.11. This version is only supported until Scala 2.12 is out.
+  This release was not possible without the work of @takezoe. Thanks Naoki!
 
 v3.5.4: Apr 2016
 ================
