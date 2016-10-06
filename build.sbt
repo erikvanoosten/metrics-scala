@@ -1,10 +1,9 @@
-
 lazy val baseVersion = "3.5.6-snapshot"
 
 // See crossrelease.sh for valid combinations of akkaVersion and crossScalaVersion.
 
 // Developed against 2.3.*, see crossrelease.sh for all tested and build versions.
-akkaVersion := "2.3.14"
+akkaVersion := "2.4.11"
 
 organization := "nl.grons"
 
@@ -22,9 +21,9 @@ description := {
 }
 
 // Developed against 2.10, see crossrelease.sh for all tested and build versions.
-scalaVersion := "2.10.6"
+scalaVersion := "2.11.8"
 
-crossScalaVersions := Seq("2.10.6", "2.11.8")
+crossScalaVersions := Seq("2.11.8", "2.12.0-RC1")
 
 crossVersion := CrossVersion.binary
 
