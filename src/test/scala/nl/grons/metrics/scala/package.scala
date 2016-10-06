@@ -16,9 +16,15 @@
 
 package nl.grons.metrics
 
+import org.scalatest.Tag
+
 package object scala {
   /**
    * Used in [[nl.grons.metrics.scala.MetricNameSpec]].
    */
   val ref: MetricName = MetricName(this.getClass)
+
+  object EnableScala212 extends Tag("enable_scala2.12")
+  object DisableScala212 extends Tag("disable_scala2.12")
+
 }
