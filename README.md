@@ -72,17 +72,19 @@ This table shows the most relevant versions of metrics-scala. For the full list 
       <td valign="top" rowspan="2">Metrics-<br>scala<br>version</td>
       <td valign="top" rowspan="2">Metrics-<br>core<br>version</td>
       <td valign="top" rowspan="2">Akka<br>version</td>
-      <td colspan="2" rowspan="1" valign="top">Scala version</td>
+      <td colspan="3" rowspan="1" valign="top">Scala version</td>
       <td rowspan="2" valign="top">Hdr<br>version (*)</td>
     </tr>
     <tr>
       <td valign="top">2.10</td>
       <td valign="top">2.11</td>
+      <td valign="top">2.12.0-RC1</td>
     </tr>
     <tr>
       <td valign="top">2.1.5</td>
       <td valign="top">2.1.5</td>
       <td valign="top"></td>
+      <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
@@ -93,6 +95,7 @@ This table shows the most relevant versions of metrics-scala. For the full list 
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top">1.1.0/2.1.9</td>
     </tr>
     <tr>
@@ -101,6 +104,7 @@ This table shows the most relevant versions of metrics-scala. For the full list 
       <td valign="top">2.2.5</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">1.1.0/2.1.9</td>
     </tr>
     <tr>
@@ -108,6 +112,16 @@ This table shows the most relevant versions of metrics-scala. For the full list 
       <td valign="top">3.1.2</td>
       <td valign="top">2.3.15 / 2.4.x</td>
       <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">1.1.0/2.1.9</td>
+    </tr>
+    <tr>
+      <td valign="top"><a href="CHANGELOG.md#v355-sep-2016">3.5.5_a2.4</a></td>
+      <td valign="top">3.1.2</td>
+      <td valign="top">2.4.11</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">1.1.0/2.1.9</td>
     </tr>
