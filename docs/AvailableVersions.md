@@ -19,7 +19,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top">2.9<br>.3</td>
       <td valign="top">2.10.x</td>
       <td valign="top">2.11.x</td>
-      <td valign="top">2.12.0-RC1</td>
+      <td valign="top">2.12.0-RC1<br>(*5)</td>
     </tr>
     <tr>
       <td valign="top">2.1.2</td>
@@ -837,3 +837,5 @@ To do this you can fix the Akka version in your project's build configuration.
 
 The first number is the version of `"org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir"`, the second
 the version of `"org.hdrhistogram" % "HdrHistogram"`. Both can probably be upgraded to a later (minor) release.
+
+(*5) The 2.12.0-RC1 version is only supported until Scala 2.12 is out for real.
