@@ -17,9 +17,14 @@ class ImplicitsSpec extends FunSpec {
       """import Implicits._
          val metricFilter: MetricFilter = (_: String, _: Metric) => true""" should compile
     }
-    it("is not required in Scala 2.12", GE_Scala212) {
-      // Implicit conversion is not required because SAM support is available in Scala 2.12:
+
+    it("is not required in Scala 2.12 and later because of SAM support", GE_Scala212) {
       """val metricFilter: MetricFilter = (_: String, _: Metric) => true""" should compile
+    }
+
+    it("still works in Scala 2.12 and later", GE_Scala212) {
+      """import Implicits._
+         val metricFilter: MetricFilter = (_: String, _: Metric) => true""" should compile
     }
   }
 

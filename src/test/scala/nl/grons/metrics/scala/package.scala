@@ -19,12 +19,13 @@ package nl.grons.metrics
 import org.scalatest.Tag
 
 package object scala {
+
+  object GE_Scala212 extends Tag(">=scala2.12")
+  object LT_Scala212 extends Tag("<scala2.12")
+
   /**
    * Used in [[nl.grons.metrics.scala.MetricNameSpec]].
    */
   val ref: MetricName = MetricName(this.getClass)
-
-  object GE_Scala212 extends Tag(">=scala2.12")
-  object LT_Scala212 extends Tag("<scala2.12")
 
 }
