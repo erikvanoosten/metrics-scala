@@ -131,6 +131,8 @@ This table shows the most relevant versions of metrics-scala. For the full list 
 If you need another version mix please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), or sent
 an email to the [metrics mailing list](http://groups.google.com/group/metrics-user).
 
+The 2.12.0-RC1 version is only supported until Scala 2.12 is out for real.
+
 Note: If Akka has a newer minor-version, you can use that instead of the version metrics-scala was build against. (If
 you use Akka 2.4, you can use the build for Akka 2.3 as Akka 2.4 is binary compatible with Akka 2.3.)
 

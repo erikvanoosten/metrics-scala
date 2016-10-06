@@ -13,10 +13,10 @@ This table contains all available versions of metrics-scala.
       <td valign="top" rowspan="2">Hdr<br>version (****)</td>
     </tr>
     <tr>
-      <td valign="top">2.9.1</td>
-      <td valign="top">2.9.1-1</td>
-      <td valign="top">2.9.2</td>
-      <td valign="top">2.9.3</td>
+      <td valign="top">2.9<br>.1</td>
+      <td valign="top">2.9<br>.1-1</td>
+      <td valign="top">2.9<br>.2</td>
+      <td valign="top">2.9<br>.3</td>
       <td valign="top">2.10.x</td>
       <td valign="top">2.11.x</td>
       <td valign="top">2.12.0-RC1</td>
