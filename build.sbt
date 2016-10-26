@@ -30,7 +30,7 @@ description := {
 // Developed against 2.11, see crossrelease.sh for all tested and build versions.
 scalaVersion := "2.11.8"
 
-crossScalaVersions := Seq("2.10.6", "2.11.8", "2.12.0-RC1")
+crossScalaVersions := Seq("2.10.6", "2.11.8", "2.12.0-RC2")
 
 crossVersion := CrossVersion.binary
 
@@ -70,7 +70,13 @@ unmanagedSourceDirectories in Test ++= {
   if (av.nonEmpty && extra.exists) Seq(extra) else Seq.empty
 }
 
-javacOptions ++= Seq("-Xmx512m", "-Xms128m", "-Xss10m", "-source", "1.6", "-target", "1.6")
+javacOptions ++= {
+  val javaTarget = scalaVersion.value match {
+    case v if v.startsWith("2.12") => Seq.empty[String]
+    case _ => Seq("-target", "1.6")
+  }
+  Seq("-Xmx512m", "-Xms128m", "-Xss10m") ++ javaTarget
+}
 
 javaOptions ++= Seq("-Xmx512m", "-Djava.awt.headless=true")
 
