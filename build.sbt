@@ -8,7 +8,7 @@ description <<= (scalaVersion) { sv =>
   "metrics-scala for Scala " + sbt.cross.CrossVersionUtil.binaryScalaVersion(sv)
 }
 
-scalaVersion := "2.11.0"
+scalaVersion := "2.12.0"
 
 // crossScalaVersions := Seq("2.9.1", "2.9.1-1", "2.9.2" /*, "2.10.0" */)
 
