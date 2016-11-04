@@ -119,7 +119,7 @@ This table shows the most relevant versions of metrics-scala. For the full list 
     <tr>
       <td valign="top"><a href="CHANGELOG.md#v355-sep-2016">3.5.5_a2.4</a></td>
       <td valign="top">3.1.2</td>
-      <td valign="top">2.4.11</td>
+      <td valign="top">2.4.12</td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>

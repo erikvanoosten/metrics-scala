@@ -804,7 +804,7 @@ This table contains all available versions of metrics-scala.
     <tr>
       <td valign="top">3.5.5_a2.4</td>
       <td valign="top">3.1.2</td>
-      <td valign="top">2.4.11</td>
+      <td valign="top">2.4.12</td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
