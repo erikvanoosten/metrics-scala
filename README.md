@@ -78,7 +78,7 @@ This table shows the most relevant versions of metrics-scala. For the full list 
     <tr>
       <td valign="top">2.10</td>
       <td valign="top">2.11</td>
-      <td valign="top">2.12.0-RC2(**)</td>
+      <td valign="top">2.12</td>
     </tr>
     <tr>
       <td valign="top">2.1.5</td>
@@ -131,32 +131,31 @@ This table shows the most relevant versions of metrics-scala. For the full list 
 If you need another version mix please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), or sent
 an email to the [metrics mailing list](http://groups.google.com/group/metrics-user).
 
-Note: If Akka has a newer minor-version, you can use that instead of the version metrics-scala was build against. (If
-you use Akka 2.4, you can use the build for Akka 2.3 as Akka 2.4 is binary compatible with Akka 2.3.)
+Note: If Akka has a newer minor-version, you can use that instead of the version metrics-scala was build against. (In
+addition, if you want to use Akka 2.4 with scala 2.10 and 2.11, you use the build for Akka 2.3 as Akka 2.4 is binary
+compatible with Akka 2.3.)
 
 (*) Hdr is an optional dependency. The first number is the version of
 `"org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir"`, the second the version of
 `"org.hdrhistogram" % "HdrHistogram"`. See also [hdrhistogram manual page](/docs/Hdrhistogram.md).
 
-(**) The 2.12.0-RC2 version is only supported until the next Scala 2.12 is out.
-
 ## Download
 
 SBT:
 ```
-libraryDependencies += "nl.grons" %% "metrics-scala" % "3.5.5_a2.3"
+libraryDependencies += "nl.grons" %% "metrics-scala" % "3.5.5_a2.4"
 ```
 
 Maven:
 ```
 <properties>
-    <scala.version>2.11.0</scala.version>
-    <scala.dep.version>2.11</scala.dep.version>
+    <scala.version>2.12.0</scala.version>
+    <scala.dep.version>2.12</scala.dep.version>
 </properties>
 <dependency>
     <groupId>nl.grons</groupId>
     <artifactId>metrics-scala_${scala.dep.version}</artifactId>
-    <version>3.5.5_a2.3</version>
+    <version>3.5.5_a2.4</version>
 </dependency>
 ```
 
