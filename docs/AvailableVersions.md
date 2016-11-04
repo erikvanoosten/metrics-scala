@@ -70,7 +70,7 @@ This table contains all available versions of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top"></td>
+      <td valign="top">✓</td>
       <td valign="top"></td>
     </tr>
     <tr>

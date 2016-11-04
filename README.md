@@ -86,7 +86,7 @@ This table shows the most relevant versions of metrics-scala. For the full list 
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top"></td>
+      <td valign="top">✓</td>
       <td valign="top"></td>
     </tr>
     <tr>
