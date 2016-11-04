@@ -4,10 +4,10 @@ v3.5.5: Sep 2016
 * Measure also when the value-by-name parameter of `timeFuture` throws (#78) by @Slakah. Thanks JCollier!
 * Introduces `DefaultInstrumented`, a great convenience introduced by @jklukas (#80). Good idea Jeff!
 * Bumped optional HdrHistogram dependency from 2.1.6 to 2.1.9.
-* (2016-10-06) Released for 2.12.0-RC1 and akka 2.4.11 (no longer supported).
+* (2016-10-06) Released for scala 2.12.0-RC1 and akka 2.4.11 (no longer supported).
   This release was not possible without the work of @takezoe (#83). Thanks Naoki!
-* (2016-10-26) Released for 2.12.0-RC2 and akka 2.4.11. This version is only supported until the next scala 2.12
-  version is out.
+* (2016-10-26) Released for scala 2.12.0-RC2 and akka 2.4.11 (no longer supported).
+* (2016-11-04) Released for scala 2.12.0 and akka 2.4.12.
 
 v3.5.4: Apr 2016
 ================
