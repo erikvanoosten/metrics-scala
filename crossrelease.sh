@@ -5,7 +5,14 @@ DEFAULT_COMMAND=publish-signed
 
 CMD=${1:-$DEFAULT_COMMAND}
 
+VERSION="$(grep baseVersion build.sbt | head -n 1 | grep -o '".*"' | sed 's/"//g' | tr '[a-z]' '[A-Z]')"
+echo "Version: $VERSION"
+
 if [ $CMD == $DEFAULT_COMMAND ]; then
+  if [[ $VERSION == *SNAPSHOT* ]]; then
+    echo "Don't publish SNAPSHOTS!"
+    exit 1
+  fi
   echo 'Did you tag already?'
   sleep 1
 fi
