@@ -4,6 +4,7 @@ scala:
   - 2.11.8
   - 2.10.6
 jdk:
-  - oraclejdk7
-  - openjdk7
+# Scala 2.12 only works on java 8 :(
+#  - oraclejdk7
+#  - openjdk7
   - oraclejdk8
