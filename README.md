@@ -150,11 +150,10 @@ Maven:
 ```
 <properties>
     <scala.version>2.12.0</scala.version>
-    <scala.dep.version>2.12</scala.dep.version>
 </properties>
 <dependency>
     <groupId>nl.grons</groupId>
-    <artifactId>metrics-scala_${scala.dep.version}</artifactId>
+    <artifactId>metrics-scala_${scala.compat.version}</artifactId>
     <version>3.5.5_a2.4</version>
 </dependency>
 ```
