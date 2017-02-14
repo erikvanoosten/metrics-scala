@@ -21,7 +21,7 @@ We strive for long term stability, correctness, an easy to use API and full docu
 * Download
 * Support
 * License
-* [![Scaladocs](https://www.javadoc.io/badge/nl.grons/metrics-scala_2.11.svg?color=brightgreen&label=Scaladocs)](https://www.javadoc.io/doc/nl.grons/metrics-scala_2.11/3.5.5_a2.3)
+* [![Scaladocs](https://www.javadoc.io/badge/nl.grons/metrics-scala_2.11.svg?color=brightgreen&label=Scaladocs)](https://static.javadoc.io/nl.grons/metrics-scala_2.11/3.5.5_a2.3/nl/grons/metrics/scala/InstrumentedBuilder.html)
 
 ### Usage
 
