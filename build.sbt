@@ -1,6 +1,6 @@
 import sbt.Keys._
 
-lazy val baseVersion = "3.5.6-snapshot"
+lazy val baseVersion = "3.5.6"
 
 // See crossrelease.sh for valid combinations of akkaVersion and crossScalaVersion.
 

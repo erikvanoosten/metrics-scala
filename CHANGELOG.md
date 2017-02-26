@@ -1,3 +1,9 @@
+v3.5.6: Feb 2017
+================
+
+* Version bumps: Metrics-core 3.1.2 -> 3.2.0, Scala 2.12.0 -> 2.12.1, Akka 2.3.15 -> 2.3.16 and 2.4.14 -> 2.4.17.
+* Dropped Akka 2.2 support.
+
 v3.5.5: Sep 2016
 ================
 
