@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2016 Erik van Oosten
+ * Copyright (c) 2013-2017 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,18 +16,24 @@
 
 package nl.grons.metrics.scala
 
+import java.text.SimpleDateFormat
+
 import com.codahale.metrics.health.HealthCheck.Result
 import com.codahale.metrics.health.{HealthCheck, HealthCheckRegistry}
 import org.mockito.Mockito.{verify, when}
+import org.scalactic.Equality
 import org.scalatest.FunSpec
 import org.scalatest.Matchers._
 import org.scalatest.mockito.MockitoSugar._
+
 import scala.concurrent.{Future, TimeoutException}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.{DurationInt, FiniteDuration}
+import scala.language.implicitConversions
 import scala.util.Try
 
 class HealthCheckSpec extends FunSpec {
+  implicit private val resultWithApproximateTimestampEquality = HealthCheckResultWithApproximateTimestampEquality
 
   describe("healthCheck factory method") {
     it ("registers the created checker") {
@@ -40,89 +46,89 @@ class HealthCheckSpec extends FunSpec {
       val mockChecker = mock[SimpleChecker]
       when(mockChecker.check()).thenReturn(true, false, true, false)
       val check = newCheckOwner.createCheckerHealthCheck(mockChecker)
-      check.execute() should be (Result.healthy())
-      check.execute() should be (Result.unhealthy("FAIL"))
-      check.execute() should be (Result.healthy())
-      check.execute() should be (Result.unhealthy("FAIL"))
+      check.execute() should equal(Result.healthy())
+      check.execute() should equal(Result.unhealthy("FAIL"))
+      check.execute() should equal(Result.healthy())
+      check.execute() should equal(Result.unhealthy("FAIL"))
     }
 
     it("supports Boolean checker returning true") {
       val check = newCheckOwner.createBooleanHealthCheck { true }
-      check.execute() should be (Result.healthy())
+      check.execute() should equal(Result.healthy())
     }
 
     it("supports Boolean checker returning false") {
       val check = newCheckOwner.createBooleanHealthCheck { false }
-      check.execute() should be (Result.unhealthy("FAIL"))
+      check.execute() should equal(Result.unhealthy("FAIL"))
     }
 
     it("supports Boolean checker returning true implicitly") {
       val check = newCheckOwner.createImplicitBooleanHealthCheck { Success }
-      check.execute() should be (Result.healthy())
+      check.execute() should equal(Result.healthy())
     }
 
     it("supports Boolean checker returning false implicitly") {
       val check = newCheckOwner.createImplicitBooleanHealthCheck { Failure }
-      check.execute() should be (Result.unhealthy("FAIL"))
+      check.execute() should equal(Result.unhealthy("FAIL"))
     }
 
     it("supports Try checker returning Success[Long]") {
       val check = newCheckOwner.createTryHealthCheck { Try(123L) }
-      check.execute() should be (Result.healthy("123"))
+      check.execute() should equal(Result.healthy("123"))
     }
 
     it("supports Try checker returning Success(Unit)") {
       val check = newCheckOwner.createTryHealthCheck { Try(()) }
-      check.execute() should be (Result.healthy())
+      check.execute() should equal(Result.healthy())
     }
 
     it("supports Try checker returning Success(null)") {
       val check = newCheckOwner.createTryHealthCheck { Try[String](null) }
-      check.execute() should be (Result.healthy("null"))
+      check.execute() should equal(Result.healthy("null"))
     }
 
     it("supports Try checker returning Failure") {
       val exception: IllegalArgumentException = new IllegalArgumentException()
       val check = newCheckOwner.createTryHealthCheck { Try(throw exception) }
-      check.execute() should be (Result.unhealthy(exception))
+      check.execute() should equal(Result.unhealthy(exception))
     }
 
     it("supports Either checker returning Right[Long]") {
       val check = newCheckOwner.createEitherHealthCheck { Right(123L) }
-      check.execute() should be (Result.healthy("123"))
+      check.execute() should equal(Result.healthy("123"))
     }
 
     it("supports Either checker returning Left[Boolean]") {
       val check = newCheckOwner.createEitherHealthCheck { Left(true) }
-      check.execute() should be (Result.unhealthy("true"))
+      check.execute() should equal(Result.unhealthy("true"))
     }
 
     it("supports Either checker returning Right[String]") {
       val check = newCheckOwner.createEitherHealthCheck { Right("I am alright") }
-      check.execute() should be (Result.healthy("I am alright"))
+      check.execute() should equal(Result.healthy("I am alright"))
     }
 
     it("supports Either checker returning Left[String]") {
       val check = newCheckOwner.createEitherHealthCheck { Left("Oops, I am not fine") }
-      check.execute() should be (Result.unhealthy("Oops, I am not fine"))
+      check.execute() should equal(Result.unhealthy("Oops, I am not fine"))
     }
 
     it("supports Either checker returning Left[Throwable]") {
       val exception: IllegalArgumentException = new IllegalArgumentException()
       val check = newCheckOwner.createEitherHealthCheck { Left(exception) }
-      check.execute() should be (Result.unhealthy(exception))
+      check.execute() should equal(Result.unhealthy(exception))
     }
 
     it("supports Result checker returning Result unchanged") {
       val result = Result.healthy()
       val check = newCheckOwner.createResultHealthCheck { result }
-      check.execute() should be theSameInstanceAs (result)
+      check.execute() should be theSameInstanceAs result
     }
 
     it("supports checker throwing an exception") {
       val exception: IllegalArgumentException = new IllegalArgumentException()
       val check = newCheckOwner.createThrowingHealthCheck(exception)
-      check.execute() should be (Result.unhealthy(exception))
+      check.execute() should equal(Result.unhealthy(exception))
     }
 
     it("supports override of metric base name") {
@@ -140,9 +146,9 @@ class HealthCheckSpec extends FunSpec {
       }
 
       val check = newCheckOwner.createUnitHealthCheckWithSideEffect(sideEffect)
-      check.execute() should be (Result.healthy())
+      check.execute() should equal(Result.healthy())
       counter should be (1)
-      check.execute() should be (Result.healthy())
+      check.execute() should equal(Result.healthy())
       counter should be (2)
     }
 
@@ -155,9 +161,9 @@ class HealthCheckSpec extends FunSpec {
       }
 
       val check = newCheckOwner.createUnitHealthCheckWithSideEffect(sideEffect)
-      check.execute() should be (Result.unhealthy(checkerFailure))
+      check.execute() should equal(Result.unhealthy(checkerFailure))
       counter should be (1)
-      check.execute() should be (Result.unhealthy(checkerFailure))
+      check.execute() should equal(Result.unhealthy(checkerFailure))
       counter should be (2)
     }
 
@@ -166,7 +172,7 @@ class HealthCheckSpec extends FunSpec {
         Thread.sleep(50)
         123L
       })
-      check.execute() should be (Result.healthy("123"))
+      check.execute() should equal(Result.healthy("123"))
     }
 
     it("supports Future checker returning a Failure(exception)") {
@@ -175,7 +181,7 @@ class HealthCheckSpec extends FunSpec {
         Thread.sleep(50)
         throw exception
       })
-      check.execute() should be (Result.unhealthy(exception))
+      check.execute() should equal(Result.unhealthy(exception))
     }
 
     it("supports Future checker not returning in time") {
@@ -191,6 +197,25 @@ class HealthCheckSpec extends FunSpec {
 
   private val newCheckOwner = new CheckOwner()
 
+}
+
+/**
+  * [[HealthCheck.Result]] equality for testing purposes:
+  * * the timestamp may be off a little bit
+  * * the error must be the same instance
+  * * details are not checked
+  */
+private object HealthCheckResultWithApproximateTimestampEquality extends Equality[Result] {
+  private def timestampInMillis(result: Result): Long = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX").parse(result.getTimestamp).getTime
+
+  def areEqual(a: Result, b: Any): Boolean = b match {
+    case r: Result =>
+      a.isHealthy == r.isHealthy &&
+        (a.getError eq r.getError) &&
+        a.getMessage === r.getMessage &&
+        timestampInMillis(a) === timestampInMillis(r) +- 200L
+    case _ => false
+  }
 }
 
 private trait SimpleChecker {

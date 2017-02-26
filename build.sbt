@@ -45,7 +45,8 @@ libraryDependencies ++= Seq(
   // Override version that hdrhistogram-metrics-reservoir depends on:
   "org.hdrhistogram" % "HdrHistogram" % "2.1.9" % "optional",
   "org.scalatest" %% "scalatest" % "3.0.0" % "test",
-  "org.mockito" % "mockito-all" % "1.10.19" % "test"
+  "org.mockito" % "mockito-all" % "1.10.19" % "test",
+  "org.slf4j" % "slf4j-simple" % "1.7.22" % "test"
 )
 
 libraryDependencies ++= {
