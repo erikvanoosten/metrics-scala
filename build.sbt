@@ -4,11 +4,11 @@ lazy val baseVersion = "3.5.6-snapshot"
 
 // See crossrelease.sh for valid combinations of akkaVersion and crossScalaVersion.
 
-// Developed against 2.3.*, see crossrelease.sh for all tested and build versions.
+// Developed against 2.3.* (2.4.* for scala 2.12), see crossrelease.sh for all tested and build versions.
 akkaVersion := {
   scalaVersion.value match {
-    case v if v.startsWith("2.12") => "2.4.14"
-    case _ => "2.3.14"
+    case v if v.startsWith("2.12") => "2.4.17"
+    case _ => "2.3.16"
   }
 }
 
@@ -30,7 +30,7 @@ description := {
 // Developed against 2.11, see crossrelease.sh for all tested and build versions.
 scalaVersion := "2.11.8"
 
-crossScalaVersions := Seq("2.10.6", "2.11.8", "2.12.0")
+crossScalaVersions := Seq("2.10.6", "2.11.8", "2.12.1")
 
 crossVersion := CrossVersion.binary
 
@@ -39,8 +39,8 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "io.dropwizard.metrics" % "metrics-core" % "3.1.2",
-  "io.dropwizard.metrics" % "metrics-healthchecks" % "3.1.2",
+  "io.dropwizard.metrics" % "metrics-core" % "3.2.0",
+  "io.dropwizard.metrics" % "metrics-healthchecks" % "3.2.0",
   "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0" % "optional",
   // Override version that hdrhistogram-metrics-reservoir depends on:
   "org.hdrhistogram" % "HdrHistogram" % "2.1.9" % "optional",
