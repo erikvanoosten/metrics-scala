@@ -15,12 +15,8 @@ addons:
   hosts:
     - scala-logging
   hostname: scala-logging
-before_install:
-  - sudo add-apt-repository -y ppa:openjdk-r/ppa
-  - sudo apt-get -qq update
-  - sudo apt-get install -y openjdk-8-jdk
-  - sudo update-java-alternatives -s java-1.8.0-openjdk-amd64
 sudo: required
+dist: trusty
 before_script:
   - jdk_switcher use $JDK
 matrix:
