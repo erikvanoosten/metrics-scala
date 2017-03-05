@@ -4,12 +4,10 @@ scala:
   - 2.11.8
   - 2.10.6
 env:
-- JDK=oraclejdk8
-- JDK=openjdk8
-- JDK=oraclejdk7
-- JDK=openjdk7
-- JDK=oraclejdk6
-- JDK=openjdk6
+  - JDK=oraclejdk8
+  - JDK=openjdk8
+  - JDK=oraclejdk7
+  - JDK=openjdk7
 addons:
   # https://github.com/travis-ci/travis-ci/issues/5227#issuecomment-165131913
   hosts:
@@ -26,7 +24,3 @@ matrix:
       env: JDK=oraclejdk7
     - scala: 2.12.1
       env: JDK=openjdk7
-    - scala: 2.12.1
-      env: JDK=oraclejdk6
-    - scala: 2.12.1
-      env: JDK=openjdk6
