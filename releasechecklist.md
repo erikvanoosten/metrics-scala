@@ -5,7 +5,7 @@
 5. Push changes, e.g.`git commit -m 'Releasing 3.x.x'`
 6. Set tag `git tag version-3.x.x`
 7. `./crossrelease.sh`
-8. `git push --tags`
+8. `git push` && `git push --tags`
 9. Change version in build.sbt, append `-snapshot`.
 10. Login to Sonatype's Nexus, close and release the staging repository.
 11. Update version in `README.md`
