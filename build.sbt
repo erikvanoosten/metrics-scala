@@ -1,6 +1,6 @@
 import sbt.Keys._
 
-lazy val baseVersion = "3.5.7-snapshot"
+lazy val baseVersion = "3.5.7"
 
 // See crossrelease.sh for valid combinations of akkaVersion and crossScalaVersion.
 
@@ -39,8 +39,8 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "io.dropwizard.metrics" % "metrics-core" % "3.2.0",
-  "io.dropwizard.metrics" % "metrics-healthchecks" % "3.2.0",
+  "io.dropwizard.metrics" % "metrics-core" % "3.2.2",
+  "io.dropwizard.metrics" % "metrics-healthchecks" % "3.2.2",
   "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0" % "optional",
   // Override version that hdrhistogram-metrics-reservoir depends on:
   "org.hdrhistogram" % "HdrHistogram" % "2.1.9" % "optional",

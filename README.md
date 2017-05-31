@@ -91,8 +91,8 @@ This table shows the most relevant versions of metrics-scala. For the full list 
       <td valign="top"></td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v356-feb-2017">3.5.6</a></td>
-      <td valign="top">3.2.0</td>
+      <td valign="top"><a href="CHANGELOG.md#v357-jun-2017">3.5.7</a></td>
+      <td valign="top">3.2.2</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -100,18 +100,18 @@ This table shows the most relevant versions of metrics-scala. For the full list 
       <td valign="top">1.1.0/2.1.9</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v356-feb-2017">3.5.6_a2.3</a></td>
-      <td valign="top">3.2.0</td>
-      <td valign="top">2.3.15 / 2.4.x</td>
+      <td valign="top"><a href="CHANGELOG.md#v357-jun-2017">3.5.7_a2.3</a></td>
+      <td valign="top">3.2.2</td>
+      <td valign="top">2.3.16 / 2.4.x / 2.5.x</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top">1.1.0/2.1.9</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v356-feb-2017">3.5.6_a2.4</a></td>
-      <td valign="top">3.2.0</td>
-      <td valign="top">2.4.12</td>
+      <td valign="top"><a href="CHANGELOG.md#v357-jun-2017">3.5.7_a2.4</a></td>
+      <td valign="top">3.2.2</td>
+      <td valign="top">2.4.18 / 2.5.x</td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
@@ -123,9 +123,8 @@ This table shows the most relevant versions of metrics-scala. For the full list 
 If you need another version mix please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), or sent
 an email to the [metrics mailing list](http://groups.google.com/group/metrics-user).
 
-Note: If Akka has a newer minor-version, you can use that instead of the version metrics-scala was build against. (In
-addition, if you want to use Akka 2.4 with scala 2.10 and 2.11, you use the build for Akka 2.3 as Akka 2.4 is binary
-compatible with Akka 2.3.)
+Akka 2.4 is binary compatible with Akka 2.3, and Akka 2.5 is binary compatible with Akka 2.4. Therefore you can freely
+use a metrics-scala build that was compiled against an older Akka version.
 
 (*) Hdr is an optional dependency. The first number is the version of
 `"org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir"`, the second the version of
@@ -135,7 +134,7 @@ compatible with Akka 2.3.)
 
 SBT:
 ```
-libraryDependencies += "nl.grons" %% "metrics-scala" % "3.5.6_a2.4"
+libraryDependencies += "nl.grons" %% "metrics-scala" % "3.5.7_a2.4"
 ```
 
 Maven:
@@ -147,7 +146,7 @@ Maven:
 <dependency>
     <groupId>nl.grons</groupId>
     <artifactId>metrics-scala_${scala.compat.version}</artifactId>
-    <version>3.5.6_a2.4</version>
+    <version>3.5.7_a2.4</version>
 </dependency>
 ```
 

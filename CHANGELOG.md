@@ -1,3 +1,9 @@
+v3.5.7: Jun 2017
+================
+
+* A performance optimization for dynamically created HDR metrics, a fine contribution by @truemped and @otrosien (#90) 
+* Version bumps: Metrics-core 3.2.0 -> 3.2.2, Scala 2.12.1 -> 2.12.2, Scala 2.11.8 -> 2.11.11, Akka 2.4.17 -> 2.4.18
+
 v3.5.6: Feb 2017
 ================
 
