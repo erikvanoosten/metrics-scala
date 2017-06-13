@@ -30,7 +30,7 @@ description := {
 // Developed against 2.11, see crossrelease.sh for all tested and build versions.
 scalaVersion := "2.11.8"
 
-crossScalaVersions := Seq("2.10.6", "2.11.8", "2.12.1")
+crossScalaVersions := Seq("2.10.6", "2.11.11", "2.12.2")
 
 crossVersion := CrossVersion.binary
 
@@ -44,9 +44,9 @@ libraryDependencies ++= Seq(
   "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0" % "optional",
   // Override version that hdrhistogram-metrics-reservoir depends on:
   "org.hdrhistogram" % "HdrHistogram" % "2.1.9" % "optional",
-  "org.scalatest" %% "scalatest" % "3.0.0" % "test",
+  "org.scalatest" %% "scalatest" % "3.0.3" % "test",
   "org.mockito" % "mockito-all" % "1.10.19" % "test",
-  "org.slf4j" % "slf4j-simple" % "1.7.22" % "test"
+  "org.slf4j" % "slf4j-simple" % "1.7.25" % "test"
 )
 
 libraryDependencies ++= {
