@@ -64,18 +64,22 @@ class HdrMetricBuilder(
     val metricName = metricNameFor(name, scope)
     val histogram = metricFactory(createHdrReservoir())
 
-    if (registry.getNames.contains(metricName)) {
+    def getMetricFromRegistryByName(metricName: String) = {
       val existingMetric = registry.getMetrics.get(metricName)
       if (!classTag[M].runtimeClass.isInstance(existingMetric)) {
-        val existingMetricTye = existingMetric.getClass.getSimpleName
+        val existingMetricType = existingMetric.getClass.getSimpleName
         val expectedMetricType = classTag[M].runtimeClass.getSimpleName
-        throw new IllegalArgumentException(
-          s"Already existing metric '$metricName' is of type $existingMetricTye, expected a $expectedMetricType")
+        throw new IllegalArgumentException(s"Already existing metric '$metricName' is of type $existingMetricType, expected a $expectedMetricType")
       }
       existingMetric.asInstanceOf[M]
-    } else {
-      registry.register(metricName, histogram)
     }
+
+    if (registry.getNames.contains(metricName))
+      getMetricFromRegistryByName(metricName)
+    else // 'register' throws if the metric already exist, in that case catch the error and get the metrics from the registry manually.
+      try { registry.register(metricName, histogram)}
+      catch { case _: IllegalArgumentException => getMetricFromRegistryByName(metricName) }
+
   }
 
   private def createHdrReservoir(): Reservoir =
