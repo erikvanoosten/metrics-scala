@@ -1,3 +1,8 @@
+v3.5.8: Jun 2017
+================
+
+* Regression from 3.5.7: fixed a race condition in creating dynamically created HDR metrics, thanks go to @agourlay (#91) 
+
 v3.5.7: Jun 2017
 ================
 
