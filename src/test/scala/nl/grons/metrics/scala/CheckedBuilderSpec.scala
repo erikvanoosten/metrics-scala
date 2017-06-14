@@ -26,7 +26,7 @@ import org.scalatest.FunSpec
 import org.scalatest.Matchers._
 import org.scalatest.mockito.MockitoSugar._
 
-import scala.concurrent.{Future, TimeoutException}
+import scala.concurrent.{Future, Promise, TimeoutException}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.{DurationInt, FiniteDuration}
 import scala.language.implicitConversions
@@ -185,10 +185,8 @@ class HealthCheckSpec extends FunSpec {
     }
 
     it("supports Future checker not returning in time") {
-      val check = newCheckOwner.createFutureHealthCheck(10.milliseconds)(Future {
-        Thread.sleep(1000)
-        123L
-      })
+      val hopelessFuture = Promise().future
+      val check = newCheckOwner.createFutureHealthCheck(10.milliseconds)(hopelessFuture)
       val checkResult = check.execute()
       checkResult.isHealthy should be (false)
       checkResult.getError shouldBe a[TimeoutException]
