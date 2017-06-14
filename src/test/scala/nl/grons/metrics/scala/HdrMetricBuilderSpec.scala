@@ -18,9 +18,11 @@ package nl.grons.metrics.scala
 
 import com.codahale.metrics.MetricRegistry
 import org.scalatest.Matchers._
-import org.scalatest.{FunSpec, OneInstancePerTest}
+import org.scalatest.{AsyncFunSpec, FunSpec, Inspectors, OneInstancePerTest}
 
-class HdrMetricBuilderSpec extends FunSpec with OneInstancePerTest {
+import scala.concurrent.{ExecutionContext, Future}
+
+class HdrMetricBuilderSpec extends AsyncFunSpec with OneInstancePerTest with Inspectors {
   private val testMetricRegistry = new MetricRegistry()
 
   private trait Instrumented extends InstrumentedBuilder {
@@ -76,6 +78,15 @@ class HdrMetricBuilderSpec extends FunSpec with OneInstancePerTest {
       val histogram1 = underTest.createHistogram("test.histogram")
       val histogram2 = underTest.createHistogram("test.histogram")
       histogram1.metric should be theSameInstanceAs(histogram2.metric)
+    }
+
+    it("allows identical histograms to be 'created' concurrently") {
+      implicit val ec = ExecutionContext.global
+      val histogramsF = List.fill(30)(Future{ underTest.createHistogram("test.histogram")} )
+      Future.sequence(histogramsF).map{ histograms =>
+        val head = histograms.head
+        forAll (histograms) { h => head.metric should be theSameInstanceAs(h.metric) }
+      }
     }
 
     it ("gives IllegalArgumentException when second creation is of different type") {
