@@ -74,12 +74,23 @@ class HdrMetricBuilder(
       existingMetric.asInstanceOf[M]
     }
 
-    if (registry.getNames.contains(metricName))
+    // Although we recommend avoiding dynamic metric creation, it can not always be avoided. The following code
+    // is a bit convoluted so it performs well for dynamically created metrics. See #90 and #91.
+    //
+    // 'registry.register' throws an exception when the metric already exist. The exception handling was seen to
+    // be slower then upfront checking. Therefore, we first check if the metric already exists. However, due to
+    // racing, we still need to handle the case where a metric already exists.
+    //
+    if (registry.getNames.contains(metricName)) {
       getMetricFromRegistryByName(metricName)
-    else // 'register' throws if the metric already exist, in that case catch the error and get the metrics from the registry manually.
-      try { registry.register(metricName, histogram)}
-      catch { case _: IllegalArgumentException => getMetricFromRegistryByName(metricName) }
-
+    } else {
+      try {
+        registry.register(metricName, histogram)
+      } catch {
+        case _: IllegalArgumentException =>
+          getMetricFromRegistryByName(metricName)
+      }
+    }
   }
 
   private def createHdrReservoir(): Reservoir =

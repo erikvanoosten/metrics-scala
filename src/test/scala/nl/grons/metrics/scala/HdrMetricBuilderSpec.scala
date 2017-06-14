@@ -16,11 +16,14 @@
 
 package nl.grons.metrics.scala
 
+import java.util.concurrent.{CountDownLatch, Executors}
+
 import com.codahale.metrics.MetricRegistry
 import org.scalatest.Matchers._
-import org.scalatest.{AsyncFunSpec, FunSpec, Inspectors, OneInstancePerTest}
+import org.scalatest.{AsyncFunSpec, Inspectors, OneInstancePerTest}
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{Await, ExecutionContext, Future}
+import scala.concurrent.duration._
 
 class HdrMetricBuilderSpec extends AsyncFunSpec with OneInstancePerTest with Inspectors {
   private val testMetricRegistry = new MetricRegistry()
@@ -71,21 +74,34 @@ class HdrMetricBuilderSpec extends AsyncFunSpec with OneInstancePerTest with Ins
     it("allows a timer to be 'created' twice") {
       val timer1 = underTest.createTimer("test.timer")
       val timer2 = underTest.createTimer("test.timer")
-      timer1.metric should be theSameInstanceAs(timer2.metric)
+      timer1.metric should be theSameInstanceAs timer2.metric
     }
 
     it("allows a histogram to be 'created' twice") {
       val histogram1 = underTest.createHistogram("test.histogram")
       val histogram2 = underTest.createHistogram("test.histogram")
-      histogram1.metric should be theSameInstanceAs(histogram2.metric)
+      histogram1.metric should be theSameInstanceAs histogram2.metric
     }
 
     it("allows identical histograms to be 'created' concurrently") {
-      implicit val ec = ExecutionContext.global
-      val histogramsF = List.fill(30)(Future{ underTest.createHistogram("test.histogram")} )
-      Future.sequence(histogramsF).map{ histograms =>
+      assume(Runtime.getRuntime.availableProcessors() > 1, "Can not test concurrency on a single CPU system")
+      val threadCount = Math.min(Runtime.getRuntime.availableProcessors() * 100, 400)
+      val executorService = Executors.newFixedThreadPool(threadCount)
+      implicit val ec = ExecutionContext.fromExecutor(executorService)
+      try {
+        val latch = new CountDownLatch(1)
+        val histogramsF = List.fill(threadCount) {
+          Future {
+            latch.await()
+            underTest.createHistogram("test.concurrency")
+          }
+        }
+        latch.countDown()
+        val histograms = Await.result(Future.sequence(histogramsF), 10.seconds)
         val head = histograms.head
-        forAll (histograms) { h => head.metric should be theSameInstanceAs(h.metric) }
+        forAll(histograms)(_.metric should be theSameInstanceAs head.metric)
+      } finally {
+        executorService.shutdownNow()
       }
     }
 
