@@ -108,7 +108,7 @@ class HdrMetricBuilderSpec extends AsyncFunSpec with OneInstancePerTest with Ins
     it ("gives IllegalArgumentException when second creation is of different type") {
       underTest.createTimer("test.metric")
       val thrown = the [IllegalArgumentException] thrownBy underTest.createHistogram("test.metric")
-      thrown.getMessage should equal ("Already existing metric 'nl.grons.metrics.scala.HdrMetricBuilderSpec.UnderTest.test.metric' is of type Timer, expected a Histogram")
+      thrown.getMessage should equal ("nl.grons.metrics.scala.HdrMetricBuilderSpec.UnderTest.test.metric is already used for a different type of metric")
     }
 
     it("defines a timer with non-resetting reservoir") {

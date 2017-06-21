@@ -16,9 +16,8 @@
 
 package nl.grons.metrics.scala
 
-import com.codahale.metrics.{Histogram => DropwizardHistogram, Metric => DropwizardMetric, MetricRegistry, Reservoir, Timer => DropwizardTimer}
+import com.codahale.metrics.{MetricRegistry, Reservoir, Histogram => DropwizardHistogram, Timer => DropwizardTimer}
 import org.mpierce.metrics.reservoir.hdrhistogram.{HdrHistogramReservoir, HdrHistogramResetOnSnapshotReservoir}
-import scala.reflect.{ClassTag, classTag}
 
 /**
  * An alternative metric builder that creates [[Histogram]]s and [[Timer]]s with
@@ -45,7 +44,10 @@ class HdrMetricBuilder(
    * @param scope the scope of the histogram or null for no scope
    */
   override def histogram(name: String, scope: String): Histogram =
-    new Histogram(createOrGetMetric[DropwizardHistogram](name, scope, r => new DropwizardHistogram(r)))
+    new Histogram(
+      registry.histogram(
+        metricNameFor(name, scope),
+        SimpleMetricSupplier(new DropwizardHistogram(createHdrReservoir()))))
 
   /**
    * Creates a new timer metric with a [[Reservoir]] from the HdrHistogram library.
@@ -54,44 +56,10 @@ class HdrMetricBuilder(
    * @param scope the scope of the timer or null for no scope
    */
   override def timer(name: String, scope: String): Timer =
-    new Timer(createOrGetMetric[DropwizardTimer](name, scope, r => new DropwizardTimer(r)))
-
-  private def createOrGetMetric[M <: DropwizardMetric : ClassTag](
-    name: String,
-    scope: String,
-    metricFactory: Reservoir => M
-  ): M = {
-    val metricName = metricNameFor(name, scope)
-    val histogram = metricFactory(createHdrReservoir())
-
-    def getMetricFromRegistryByName(metricName: String) = {
-      val existingMetric = registry.getMetrics.get(metricName)
-      if (!classTag[M].runtimeClass.isInstance(existingMetric)) {
-        val existingMetricType = existingMetric.getClass.getSimpleName
-        val expectedMetricType = classTag[M].runtimeClass.getSimpleName
-        throw new IllegalArgumentException(s"Already existing metric '$metricName' is of type $existingMetricType, expected a $expectedMetricType")
-      }
-      existingMetric.asInstanceOf[M]
-    }
-
-    // Although we recommend avoiding dynamic metric creation, it can not always be avoided. The following code
-    // is a bit convoluted so it performs well for dynamically created metrics. See #90 and #91.
-    //
-    // 'registry.register' throws an exception when the metric already exist. The exception handling was seen to
-    // be slower then upfront checking. Therefore, we first check if the metric already exists. However, due to
-    // racing, we still need to handle the case where a metric already exists.
-    //
-    if (registry.getNames.contains(metricName)) {
-      getMetricFromRegistryByName(metricName)
-    } else {
-      try {
-        registry.register(metricName, histogram)
-      } catch {
-        case _: IllegalArgumentException =>
-          getMetricFromRegistryByName(metricName)
-      }
-    }
-  }
+    new Timer(
+      registry.timer(
+        metricNameFor(name, scope),
+        SimpleMetricSupplier(new DropwizardTimer(createHdrReservoir()))))
 
   private def createHdrReservoir(): Reservoir =
     if (resetAtSnapshot) new HdrHistogramResetOnSnapshotReservoir() else new HdrHistogramReservoir()
