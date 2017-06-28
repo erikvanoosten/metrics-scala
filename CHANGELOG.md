@@ -1,3 +1,9 @@
+v3.5.9: Jun 2017
+================
+
+* Further performance improvement for creating dynamically created HDR metrics, thanks to the very attentive
+  @OlegIlyenko (and again @agourlay) (#92)
+
 v3.5.8: Jun 2017
 ================
 
