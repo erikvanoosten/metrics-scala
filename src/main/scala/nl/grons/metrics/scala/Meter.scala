@@ -98,7 +98,7 @@ class Meter(metric: DropwizardMeter) {
           }
         }
 
-        def isDefinedAt(a: A) = pf.isDefinedAt(a)
+        def isDefinedAt(a: A): Boolean = pf.isDefinedAt(a)
       }
   }
 

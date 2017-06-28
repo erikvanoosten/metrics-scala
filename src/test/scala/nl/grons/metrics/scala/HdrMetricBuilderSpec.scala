@@ -30,12 +30,12 @@ class HdrMetricBuilderSpec extends AsyncFunSpec with OneInstancePerTest with Ins
 
   private trait Instrumented extends InstrumentedBuilder {
     override lazy protected val metricBuilder = new HdrMetricBuilder(metricBaseName, metricRegistry, resetAtSnapshot = false)
-    val metricRegistry = testMetricRegistry
+    val metricRegistry: MetricRegistry = testMetricRegistry
   }
 
   private trait InstrumentedWithReset extends InstrumentedBuilder {
     override lazy protected val metricBuilder = new HdrMetricBuilder(metricBaseName, metricRegistry, resetAtSnapshot = true)
-    val metricRegistry = testMetricRegistry
+    val metricRegistry: MetricRegistry = testMetricRegistry
   }
 
   private class UnderTest extends Instrumented {

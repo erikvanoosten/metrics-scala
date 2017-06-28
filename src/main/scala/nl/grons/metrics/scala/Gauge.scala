@@ -20,7 +20,7 @@ import com.codahale.metrics.{Gauge => DropwizardGauge}
 
 object Gauge {
   def apply[A](f: => A) = new Gauge[A](new DropwizardGauge[A] {
-    def getValue = f
+    def getValue: A = f
   })
 }
 

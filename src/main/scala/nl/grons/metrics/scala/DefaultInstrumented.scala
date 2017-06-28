@@ -16,8 +16,8 @@
 
 package nl.grons.metrics.scala
 
-import com.codahale.metrics.SharedMetricRegistries
-import com.codahale.metrics.health.SharedHealthCheckRegistries
+import com.codahale.metrics.{MetricRegistry, SharedMetricRegistries}
+import com.codahale.metrics.health.{HealthCheckRegistry, SharedHealthCheckRegistries}
 
 /**
   * A mixin trait for creating a class that publishes metrics and health checks to the "default" registries.
@@ -46,6 +46,6 @@ import com.codahale.metrics.health.SharedHealthCheckRegistries
   * See [[CheckedBuilder]] for instructions on overriding the timeout for [[scala.concurrent.Future]] executions.
   */
 trait DefaultInstrumented extends InstrumentedBuilder with CheckedBuilder {
-  val metricRegistry = SharedMetricRegistries.getOrCreate("default")
-  val registry = SharedHealthCheckRegistries.getOrCreate("default")
+  val metricRegistry: MetricRegistry = SharedMetricRegistries.getOrCreate("default")
+  val registry: HealthCheckRegistry = SharedHealthCheckRegistries.getOrCreate("default")
 }

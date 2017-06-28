@@ -129,7 +129,7 @@ class Timer(private[scala] val metric: DropwizardTimer) {
         }
     }
 
-    def isDefinedAt(a: A) = pf.isDefinedAt(a)
+    def isDefinedAt(a: A): Boolean = pf.isDefinedAt(a)
   }
 
   /**
