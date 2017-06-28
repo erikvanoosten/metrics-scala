@@ -17,6 +17,7 @@
 package nl.grons.metrics.scala
 
 import com.codahale.metrics.{MetricRegistry, Reservoir, Histogram => DropwizardHistogram, Timer => DropwizardTimer}
+import nl.grons.metrics.scala.Implicits._
 import org.mpierce.metrics.reservoir.hdrhistogram.{HdrHistogramReservoir, HdrHistogramResetOnSnapshotReservoir}
 
 /**
@@ -47,7 +48,7 @@ class HdrMetricBuilder(
     new Histogram(
       registry.histogram(
         metricNameFor(name, scope),
-        SimpleMetricSupplier(new DropwizardHistogram(createHdrReservoir()))))
+        () => new DropwizardHistogram(createHdrReservoir())))
 
   /**
    * Creates a new timer metric with a [[Reservoir]] from the HdrHistogram library.
@@ -59,7 +60,7 @@ class HdrMetricBuilder(
     new Timer(
       registry.timer(
         metricNameFor(name, scope),
-        SimpleMetricSupplier(new DropwizardTimer(createHdrReservoir()))))
+        () => new DropwizardTimer(createHdrReservoir())))
 
   private def createHdrReservoir(): Reservoir =
     if (resetAtSnapshot) new HdrHistogramResetOnSnapshotReservoir() else new HdrHistogramReservoir()
