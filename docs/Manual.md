@@ -42,7 +42,7 @@ There are Scala wrappers for each metric type: [gauge](#gauges), [counter](#coun
 There are also helper methods to instrument [Futures](Futures.md) and [Actors](Actors.md).
 
 For more information on (JMX) reporters and other aspects of Metrics 3.x, please see the Java api in the
-[Metrics documentation](http://metrics.codahale.com).
+[Metrics documentation](http://metrics.dropwizard.io).
 
 ## Version 3.5.4 and earlier
 
