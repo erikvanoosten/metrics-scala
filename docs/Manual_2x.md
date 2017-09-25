@@ -24,7 +24,7 @@ There are Scala wrappers for each metric type: `gauge`, `counter`, `histogram`, 
 
 There is no special support for Health Checks, JMX or other Reporters. For more information on these please see the Metrics 2.x
 [documentation in the Way Back Machine](http://web.archive.org/web/20120925003800/http://metrics.codahale.com/manual/core/)
-or read it directly from [Metrics 2.2.0 git branch](https://github.com/codahale/metrics/tree/v2.2.0/docs/source/manual).
+or read it directly from [Metrics 2.2.0 manual](http://metrics.dropwizard.io/2.2.0/manual/).
 
 # Gauges
 

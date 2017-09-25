@@ -977,7 +977,7 @@ If you need another version mix please open an [issue](https://github.com/erikva
 
 (*) Only the versions 2.1.4 and 2.1.5 support OSGI.
 
-(**) Metrics-core 2.2.0 has a small [bug](https://github.com/codahale/metrics/issues/318) that makes it inconvenient to use JMX.
+(**) Metrics-core 2.2.0 has a small [bug](https://github.com/dropwizard/metrics/issues/318) that makes it inconvenient to use JMX.
 
 (***) Metrics-scala `3.0.1`, `3.0.2` and `3.0.3` erroneously depend on Akka `[2.2,)`.
 When Akka came with pre-releases of 2.3 this wont work (2.2 and 2.3 are not binary compatible).
