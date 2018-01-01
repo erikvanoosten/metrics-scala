@@ -1,13 +1,13 @@
 import sbt.Keys._
 
-lazy val baseVersion = "3.5.9"
+lazy val baseVersion = "4.0.0"
 
 // See crossrelease.sh for valid combinations of akkaVersion and crossScalaVersion.
 
 // Developed against 2.3.* (2.4.* for scala 2.12), see crossrelease.sh for all tested and build versions.
 akkaVersion := {
   scalaVersion.value match {
-    case v if v.startsWith("2.12") => "2.4.17"
+    case v if v.startsWith("2.12") => "2.4.20"
     case _ => "2.3.16"
   }
 }
@@ -28,9 +28,9 @@ description := {
 }
 
 // Developed against 2.11, see crossrelease.sh for all tested and build versions.
-scalaVersion := "2.11.8"
+scalaVersion := "2.11.12"
 
-crossScalaVersions := Seq("2.10.6", "2.11.11", "2.12.2")
+crossScalaVersions := Seq("2.11.12", "2.12.4")
 
 crossVersion := CrossVersion.binary
 
@@ -39,12 +39,13 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "io.dropwizard.metrics" % "metrics-core" % "3.2.2",
-  "io.dropwizard.metrics" % "metrics-healthchecks" % "3.2.2",
+  "io.dropwizard.metrics" % "metrics-core" % "4.0.0",
+  "io.dropwizard.metrics" % "metrics-healthchecks" % "4.0.0",
   "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0" % "optional",
   // Override version that hdrhistogram-metrics-reservoir depends on:
   "org.hdrhistogram" % "HdrHistogram" % "2.1.9" % "optional",
-  "org.scalatest" %% "scalatest" % "3.0.3" % "test",
+
+  "org.scalatest" %% "scalatest" % "3.0.4" % "test",
   "org.mockito" % "mockito-all" % "1.10.19" % "test",
   "org.slf4j" % "slf4j-simple" % "1.7.25" % "test"
 )
@@ -71,13 +72,7 @@ unmanagedSourceDirectories in Test ++= {
   if (av.nonEmpty && extra.exists) Seq(extra) else Seq.empty
 }
 
-javacOptions ++= {
-  val javaTarget = scalaVersion.value match {
-    case v if v.startsWith("2.12") => Seq.empty[String]
-    case _ => Seq("-target", "1.6")
-  }
-  Seq("-Xmx512m", "-Xms128m", "-Xss10m") ++ javaTarget
-}
+javacOptions ++= Seq("-Xmx512m", "-Xms128m", "-Xss10m")
 
 javaOptions ++= Seq("-Xmx512m", "-Djava.awt.headless=true")
 
