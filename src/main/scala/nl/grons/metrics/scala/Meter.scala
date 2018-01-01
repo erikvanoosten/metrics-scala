@@ -102,10 +102,6 @@ class Meter(metric: DropwizardMeter) {
       }
   }
 
-  @deprecated("please use exceptionMarkerPF", since = "3.0.2")
-  @inline
-  def exceptionMarkerPartialFunction = exceptionMarkerPF
-
   /**
    * Marks the occurrence of an event.
    */
