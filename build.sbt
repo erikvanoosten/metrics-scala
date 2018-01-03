@@ -5,6 +5,8 @@ lazy val baseVersion = "4.0.0"
 // See crossrelease.sh for valid combinations of akkaVersion and crossScalaVersion.
 
 // Developed against 2.4.*, see crossrelease.sh for all tested and build versions.
+lazy val akkaVersion = settingKey[String]("Version of Akka compiled against")
+
 akkaVersion := "2.4.20"
 
 organization := "nl.grons"
@@ -19,7 +21,7 @@ version := {
 description := {
   val av = akkaVersion.value
   val akkaDescription = if (av.nonEmpty) "Akka " + av +" and " else ""
-  "metrics-scala for " + akkaDescription + "Scala " + sbt.cross.CrossVersionUtil.binaryScalaVersion(scalaVersion.value)
+  "metrics-scala for " + akkaDescription + "Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value)
 }
 
 // Developed against 2.11, see crossrelease.sh for all tested and build versions.
