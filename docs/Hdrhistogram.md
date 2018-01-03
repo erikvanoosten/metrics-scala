@@ -49,4 +49,4 @@ to Dropwizard's default exponentially decaying reservoir.
 See [this article](http://taint.org/2014/01/16/145944a.html) for more information.
 
 
-Previous: [Instrumenting Actors](Actors.md) Up: [Manual](Manual.md) Next: [Miscellaneous](Miscellaneous.md)
+Previous: [Testing](Testing.md) Up: [Manual](Manual.md) Next: [Miscellaneous](Miscellaneous.md)

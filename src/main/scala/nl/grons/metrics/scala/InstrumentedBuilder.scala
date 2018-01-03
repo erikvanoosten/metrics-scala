@@ -77,5 +77,5 @@ trait InstrumentedBuilder extends BaseBuilder {
   /**
    * The MetricRegistry where created metrics are registered.
    */
-  val metricRegistry: MetricRegistry
+  def metricRegistry: MetricRegistry
 }

@@ -5,6 +5,7 @@ Other manual pages:
 * [Health check support](HealthCheckManual.md)
 * [Instrumenting Futures](Futures.md)
 * [Instrumenting Actors](Actors.md)
+* [Testing](Testing.md)
 * [Hdrhistogram](Hdrhistogram.md)
 * [Miscellaneous](Miscellaneous.md)
 * [Dropwizard metrics documentation](https://dropwizard.github.io/metrics)

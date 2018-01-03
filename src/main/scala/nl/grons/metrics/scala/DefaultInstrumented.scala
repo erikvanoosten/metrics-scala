@@ -46,6 +46,6 @@ import com.codahale.metrics.health.{HealthCheckRegistry, SharedHealthCheckRegist
   * See [[CheckedBuilder]] for instructions on overriding the timeout for [[scala.concurrent.Future]] executions.
   */
 trait DefaultInstrumented extends InstrumentedBuilder with CheckedBuilder {
-  val metricRegistry: MetricRegistry = SharedMetricRegistries.getOrCreate("default")
-  val registry: HealthCheckRegistry = SharedHealthCheckRegistries.getOrCreate("default")
+  lazy val metricRegistry: MetricRegistry = SharedMetricRegistries.getOrCreate("default")
+  lazy val registry: HealthCheckRegistry = SharedHealthCheckRegistries.getOrCreate("default")
 }

@@ -41,7 +41,7 @@ See also the scaladoc for `timeFuture` in [Timer](/src/main/scala/nl/grons/metri
 
 ## Future support before version 3.5.4
 
-Since version 3.5.4 `FutureMetrics` has been deprecated.
+Since version 3.5.4 `FutureMetrics` has been deprecated. It was removed in 4.0.0.
 
 For method `FutureMetrics.timing` please rewrite your code as follows:
 

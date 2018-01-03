@@ -28,7 +28,7 @@ trait CheckedBuilder extends BaseBuilder {
   /**
    * The [[com.codahale.metrics.health.HealthCheckRegistry]] where created metrics are registered.
    */
-  val registry: HealthCheckRegistry
+  def registry: HealthCheckRegistry
 
   /**
    * Converts a code block to a [[com.codahale.metrics.health.HealthCheck]] and registers it.
@@ -78,7 +78,11 @@ trait CheckedBuilder extends BaseBuilder {
    *   implicit private val timeout = 10.seconds
    *   healthCheck("alive")(Future { workerThreadIsActive() })
    * }
-   * }}}
+   *
+   * NOTE: only one health check can be registered under a name (including the base name which is derived from the
+   * class name by default). Any subsequent health check registrations will be ignored. This happens for example
+   * when a class that defines a health check is instantiated multiple times. This metrics-core behavior might be
+   * changed with https://github.com/dropwizard/metrics/issues/1245.
    *
    * @param name the name of the health check
    * @param unhealthyMessage the unhealthy message for checkers that return `false`, defaults to `"Health check failed"`
