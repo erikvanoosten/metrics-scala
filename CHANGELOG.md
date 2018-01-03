@@ -11,6 +11,7 @@ v4.0.0: Jan 2018 (Draft)
 * Akka support moved to a separate library: `"nl.grons" %% "metrics-akka_a2.4" % "4.0.0"`
 * Hdr support moved to a separate library: `"nl.grons" %% "metrics-hdr" % "4.0.0"`
 * Added trait `FreshRegistry` to ease unit testing of components with gauges (see documentation).
+* Upgraded sbt from 0.13 to 1.0.
 
 v3.5.9: Jun 2017
 ================
