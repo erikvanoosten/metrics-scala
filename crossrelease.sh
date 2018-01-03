@@ -17,7 +17,6 @@ if [ $CMD == $DEFAULT_COMMAND ]; then
   sleep 1
 fi
 
-sbt '; set akkaVersion := "";       set crossScalaVersions := Seq("2.11.11", "2.12.2")' +$CMD \
-    '; set akkaVersion := "2.3.16"; set crossScalaVersions := Seq("2.11.11")' +$CMD \
+sbt '; set akkaVersion := "";       set crossScalaVersions := Seq("2.11.11", "2.12.4")' +$CMD \
     '; set akkaVersion := "2.4.20"; set crossScalaVersions := Seq("2.12.4")' +$CMD
 #    '; set akkaVersion := "2.5.8"; set crossScalaVersions := Seq("2.12.4")' +$CMD

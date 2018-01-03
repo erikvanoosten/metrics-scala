@@ -4,13 +4,8 @@ lazy val baseVersion = "4.0.0"
 
 // See crossrelease.sh for valid combinations of akkaVersion and crossScalaVersion.
 
-// Developed against 2.3.* (2.4.* for scala 2.12), see crossrelease.sh for all tested and build versions.
-akkaVersion := {
-  scalaVersion.value match {
-    case v if v.startsWith("2.12") => "2.4.20"
-    case _ => "2.3.16"
-  }
-}
+// Developed against 2.4.*, see crossrelease.sh for all tested and build versions.
+akkaVersion := "2.4.20"
 
 organization := "nl.grons"
 
