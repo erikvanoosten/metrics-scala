@@ -1,94 +1,94 @@
-import sbt.Keys._
-
-lazy val baseVersion = "4.0.0"
-
-// See crossrelease.sh for valid combinations of akkaVersion and crossScalaVersion.
-
-// Developed against 2.4.*, see crossrelease.sh for all tested and build versions.
-lazy val akkaVersion = settingKey[String]("Version of Akka compiled against")
-
-akkaVersion := "2.4.20"
-
-organization := "nl.grons"
-
-name := "metrics-scala"
-
-version := {
-  val av = akkaVersion.value
-  baseVersion + (if (av.nonEmpty) "_a" + av.split('.').take(2).mkString(".") else "")
-}
-
-description := {
-  val av = akkaVersion.value
-  val akkaDescription = if (av.nonEmpty) "Akka " + av +" and " else ""
-  "metrics-scala for " + akkaDescription + "Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value)
-}
-
-// Developed against 2.11, see crossrelease.sh for all tested and build versions.
-scalaVersion := "2.11.12"
-
-crossScalaVersions := Seq("2.11.12", "2.12.4")
-
-crossVersion := CrossVersion.binary
-
-resolvers ++= Seq(
-  "Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository"
-)
-
-libraryDependencies ++= Seq(
-  "io.dropwizard.metrics" % "metrics-core" % "4.0.1",
-  "io.dropwizard.metrics" % "metrics-healthchecks" % "4.0.1",
-  "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0" % "optional",
-  // Override version that hdrhistogram-metrics-reservoir depends on:
-  "org.hdrhistogram" % "HdrHistogram" % "2.1.9" % "optional",
-
-  "org.scalatest" %% "scalatest" % "3.0.4" % "test",
-  "org.mockito" % "mockito-all" % "1.10.19" % "test",
-  "org.slf4j" % "slf4j-simple" % "1.7.25" % "test"
-)
-
-libraryDependencies ++= {
-  val av = akkaVersion.value
-  if (av.nonEmpty)
-    Seq(
-      "com.typesafe.akka" %% "akka-actor" % av,
-      "com.typesafe.akka" %% "akka-testkit" % av % "test"
-    )
-  else Seq.empty
-}
-
-unmanagedSourceDirectories in Compile ++= {
-  val av = akkaVersion.value
-  val extra = new java.io.File((sourceDirectory in Compile).value, "akka")
-  if (av.nonEmpty && extra.exists) Seq(extra) else Seq.empty
-}
-
-unmanagedSourceDirectories in Test ++= {
-  val av: String = akkaVersion.value
-  val extra = new java.io.File((sourceDirectory in Test).value, "akka")
-  if (av.nonEmpty && extra.exists) Seq(extra) else Seq.empty
-}
-
-javacOptions ++= Seq("-Xmx512m", "-Xms128m", "-Xss10m")
-
-javaOptions ++= Seq("-Xmx512m", "-Djava.awt.headless=true")
-
-scalacOptions ++= Seq("-deprecation", "-unchecked")
-
-testOptions in Test += {
-  scalaVersion.value match {
-    case v if v.startsWith("2.12") => Tests.Argument("-l", "<scala2.12")
-    case _ => Tests.Argument("-l", ">=scala2.12")
+lazy val commonSettings = Seq(
+  organization := "nl.grons",
+  scalaVersion := "2.12.4",
+  crossVersion := CrossVersion.binary,
+  libraryDependencies ++= Seq(
+    "org.scalatest" %% "scalatest" % "3.0.4" % "test",
+    "org.mockito" % "mockito-all" % "1.10.19" % "test",
+    "org.slf4j" % "slf4j-simple" % "1.7.25" % "test"
+  ),
+  fork := true,
+  testOptions in Test += {
+    scalaVersion.value match {
+      case v if v.startsWith("2.12") => Tests.Argument("-l", "<scala2.12")
+      case _ => Tests.Argument("-l", ">=scala2.12")
+    }
+  },
+  javacOptions ++= Seq("-target", "1.8", "-J-Xmx512m", "-J-Xms128m", "-J-Xss10m"),
+  javaOptions ++= Seq("-Xmx512m", "-Djava.awt.headless=true"),
+  scalacOptions ++= Seq("-deprecation", "-unchecked"),
+  publishTo := {
+    val nexus = "https://oss.sonatype.org/"
+    if (version.value.trim.endsWith("SNAPSHOT"))
+      Some("snapshots" at nexus + "content/repositories/snapshots")
+    else
+      Some("releases"  at nexus + "service/local/staging/deploy/maven2")
   }
-}
+)
 
-publishTo := {
-  val nexus = "https://oss.sonatype.org/"
-  if (version.value.trim.endsWith("SNAPSHOT"))
-    Some("snapshots" at nexus + "content/repositories/snapshots")
-  else
-    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-}
+lazy val root = (project in file("."))
+  .aggregate(metricsScala, metricsScalaHdr, metricsAkka24, metricsAkka25)
+  .settings(
+    publishArtifact := false,
+    name := "metrics-scala-root"
+  )
+
+lazy val metricsScala = (project in file("metrics-scala"))
+  .settings(
+    commonSettings,
+    crossScalaVersions := Seq("2.11.12", "2.12.4"),
+    name := "metrics-scala",
+    description := "metrics-scala for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
+    libraryDependencies ++= Seq(
+      "io.dropwizard.metrics" % "metrics-core" % "4.0.1",
+      "io.dropwizard.metrics" % "metrics-healthchecks" % "4.0.1",
+      "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0" % "optional",
+      // Override version that hdrhistogram-metrics-reservoir depends on:
+      "org.hdrhistogram" % "HdrHistogram" % "2.1.9" % "optional"
+    )
+  )
+
+lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
+  .dependsOn(metricsScala)
+  .settings(
+    commonSettings,
+    crossScalaVersions := Seq("2.11.12", "2.12.4"),
+    name := "metrics-scala-hdr",
+    description := "metrics-scala-hdr for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
+    libraryDependencies ++= Seq(
+      "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0",
+      // Override version that hdrhistogram-metrics-reservoir depends on:
+      "org.hdrhistogram" % "HdrHistogram" % "2.1.9"
+    )
+  )
+
+lazy val metricsAkka24 = (project in file("metrics-akka-2.4"))
+  .dependsOn(metricsScala)
+  .settings(
+    commonSettings,
+    crossScalaVersions := Seq("2.11.12", "2.12.4"),
+    name := "metrics-akka_a24",
+    description := "metrics-scala for Akka 2.4 and 2.5 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
+    libraryDependencies ++= Seq(
+      "com.typesafe.akka" %% "akka-actor" % "2.4.20",
+      "com.typesafe.akka" %% "akka-testkit" % "2.4.20" % "test"
+    ),
+    sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src"
+  )
+
+lazy val metricsAkka25 = (project in file("metrics-akka-2.5"))
+  .dependsOn(metricsScala)
+  .settings(
+    commonSettings,
+    crossScalaVersions := Seq("2.12.4"),
+    name := "metrics-akka_a25",
+    description := "metrics-scala for Akka 2.5 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
+    libraryDependencies ++= Seq(
+      "com.typesafe.akka" %% "akka-actor" % "2.5.8",
+      "com.typesafe.akka" %% "akka-testkit" % "2.5.8" % "test"
+    ),
+    sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src"
+  )
 
 credentials += Credentials(Path.userHome / ".sbt" / "sonatype.credentials")
 

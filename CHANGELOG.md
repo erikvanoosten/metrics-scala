@@ -1,18 +1,19 @@
 v4.0.0: Jan 2018 (Draft)
 ========================
 
-* _Not_ binary compatible with 3.x. However, version 4.0.0 is source compatible with 3.x. This means that you all
+* _Not_ binary compatible with 3.x. However, version 4.0.0 is fully source compatible with 3.x. This means that all
   your code (including libraries) must be compiled against either 3.x or 4.x, a mix will fail at run-time. You can
-  however recompile your code (again including libraries) against 4.x without changes.
+  however recompile your code (again including libraries) against 4.x without any changes.
+* Added trait `FreshRegistries`, `FreshMetricRegistry` and `FreshHealthCheckRegistry` to enable testing that metrics
+  are collected. Furthermore it eases unit testing of components that define gauges or health checks
+  (see documentation).
 * Using dropwizard-metrics 4.0.1, only targeting Java 8 and later.
 * Bumped Scala and Akka to latest minor versions. 
 * Dropped support for Scala 2.10 and Akka 2.3.
-* Removed deprecated trait `FutureMetrics` and method `Meter.exceptionMarkerPartialFunction`.
-* Akka support moved to a separate library: `"nl.grons" %% "metrics-akka_a2.4" % "4.0.0"`
-* Hdr support moved to a separate library: `"nl.grons" %% "metrics-hdr" % "4.0.0"`
-* Added trait `FreshRegistries`, `FreshMetricRegistry` and `FreshHealthCheckRegistry` to enable testing metric
-  collection and ease unit testing of components with gauges (see documentation).
-* Upgraded sbt from 0.13 to 1.0.
+* Removed deprecations. (Trait `FutureMetrics` and method `Meter.exceptionMarkerPartialFunction`.)
+* Akka support moved to a separate library: `"nl.grons" %% "metrics-akka_a24"` and `"nl.grons" %% "metrics-akka_a25"`
+* Hdr support moved to a separate library: `"nl.grons" %% "metrics-scala-hdr"`
+* Upgraded sbt from 0.13 to 1.0. Complete cross build can not be done with a single sbt invocation.
 
 v3.5.9: Jun 2017
 ================
