@@ -36,8 +36,8 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "io.dropwizard.metrics" % "metrics-core" % "4.0.0",
-  "io.dropwizard.metrics" % "metrics-healthchecks" % "4.0.0",
+  "io.dropwizard.metrics" % "metrics-core" % "4.0.1",
+  "io.dropwizard.metrics" % "metrics-healthchecks" % "4.0.1",
   "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0" % "optional",
   // Override version that hdrhistogram-metrics-reservoir depends on:
   "org.hdrhistogram" % "HdrHistogram" % "2.1.9" % "optional",
