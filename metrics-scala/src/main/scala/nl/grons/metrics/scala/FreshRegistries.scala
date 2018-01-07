@@ -26,9 +26,7 @@ import com.codahale.metrics.health.HealthCheckRegistry
   * are needed. Unfortunately the metrics registry doesn't allow registering a gauge under the same name twice.
   * This is not a problem when a new registry is used for each instance.
   *
-  * The same should be the case for health checks. 'Should' because currently health check registries ignore duplicate
-  * registrations even though maybe it should not. This may change when
-  * https://github.com/dropwizard/metrics/issues/1245 is accepted.
+  * The same is the case for health checks (since dropwizard-metrics 4.1).
   *
   * *Example*
   *
