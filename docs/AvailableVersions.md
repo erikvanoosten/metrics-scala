@@ -7,8 +7,7 @@ The following artifacts are available:
 * *metrics4-akka*: support for measuring Akka actors
 * *metrics4-hdr*: adds support for [HdrHistogram](http://www.hdrhistogram.org/) to increase the accuracy of histograms 
 
-The table shows the available artifacts of metrics-scala. For the full list, including those targeting older Scala and
-Akka versions see [all available versions](/docs/AvailableVersions.md).
+The table shows the available artifacts of metrics-scala in the versions 4.x.
 
 <table border="0" cellpadding="2" cellspacing="2">
   <tbody>
