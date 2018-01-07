@@ -62,7 +62,7 @@ lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
     )
   )
 
-lazy val metricsAkka24 = (project in file("metrics-akka-2.4"))
+lazy val metricsAkka24 = (project in file("metrics-akka-24"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
@@ -76,7 +76,7 @@ lazy val metricsAkka24 = (project in file("metrics-akka-2.4"))
     sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src"
   )
 
-lazy val metricsAkka25 = (project in file("metrics-akka-2.5"))
+lazy val metricsAkka25 = (project in file("metrics-akka-25"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
