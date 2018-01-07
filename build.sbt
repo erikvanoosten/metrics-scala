@@ -26,22 +26,14 @@ lazy val commonSettings = Seq(
   publishArtifact in Test := false,
   pomIncludeRepository := { _ => false },
   licenses := Seq("Apache 2" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
-  pomExtra := (
-    <url>https://github.com/erikvanoosten/metrics-scala</url>
-    <scm>
-      <url>git@github.com:erikvanoosten/metrics-scala.git</url>
-      <connection>scm:git:git@github.com:erikvanoosten/metrics-scala.git</connection>
-    </scm>
-    <developers>
-      <developer>
-        <name>Erik van Oosten</name>
-        <url>http://day-to-day-stuff.blogspot.com/</url>
-      </developer>
-      <developer>
-        <name>Brian Scully</name>
-        <url>https://github.com/scullxbones/</url>
-      </developer>
-    </developers>
+  homepage := Some(url("https://github.com/erikvanoosten/metrics-scala")),
+  scmInfo := Some(ScmInfo(
+    url("https://github.com/erikvanoosten/metrics-scala"),
+    "scm:git:git@github.com:erikvanoosten/metrics-scala.git"
+  )),
+  developers := List(
+    Developer(id="erikvanoosten", name="Erik van Oosten", email="-", url=url("https://github.com/erikvanoosten")),
+    Developer(id="scullxbones", name="Brian Scully", email="-", url=url("https://github.com/scullxbones"))
   )
 )
 
@@ -50,6 +42,8 @@ lazy val root = (project in file("."))
   .settings(
     publishArtifact := false,
     skip in publish := true,
+    publish := {},
+    publishLocal := {},
     name := "metrics-scala-root"
   )
 
