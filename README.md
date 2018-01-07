@@ -64,13 +64,19 @@ See also the [change log](CHANGELOG.md) for improvements and API changes.
 
 ## Available artifacts (abbreviated)
 
-This table shows the available artifacts of metrics-scala. For the full list, including those targeting older Scala and
+The following artifacts are available:
+
+* *metrics-scala*: adds a nice Scala API to Dropwizard Metrics
+* *metrics-akka*: support for measuring Akka actors
+* *metrics-hdr*: adds support for [HdrHistogram](http://www.hdrhistogram.org/) to increase the accuracy of histograms 
+
+The table shows the available artifacts of metrics-scala. For the full list, including those targeting older Scala and
 Akka versions see [all available versions](/docs/AvailableVersions.md).
 
 <table border="0" cellpadding="2" cellspacing="2">
   <tbody>
     <tr>
-      <td valign="top" rowspan="2">Name</td>
+      <td valign="top" rowspan="2">Artifact name</td>
       <td valign="top" rowspan="1" colspan="2">Scala version</td>
       <td valign="top" rowspan="1" colspan="2">Akka version</td>
       <td valign="top" rowspan="2">Build against</td>
@@ -87,7 +93,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
-      <td valign="top">Dropwizard 4.0.1</td>
+      <td valign="top">Dropwizard-metrics 4.0.1</td>
     </tr>
     <tr>
       <td valign="top">metrics-akka_24</td>
@@ -161,7 +167,7 @@ Maven:
 
 ## Download 2.x and 3.x
 
-In the 2.x and 3.x versions you depend on a single artifact. Different versions target a different Akka/Scala
+In the 2.x and 3.x versions you depend on a single artifact. Different versions target different Akka/Scala
 combinations. See [all available versions](/docs/AvailableVersions.md) to select the appropriate version.
 
 Here are examples for metrics-scala 3.5.9 and Akka 2.4 (and Scala 2.12 in the Maven example):
