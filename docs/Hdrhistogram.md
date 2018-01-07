@@ -7,7 +7,17 @@ is used to bridge the two worlds.
 
 Use these 2 steps to start using hdrhistogram:
 
-### Step 1: Add dependency
+### Step 1: Add dependency (version 4.x)
+
+Include the `metrics-scala-hdr` artifact in your build. For SBT use:
+
+```
+libraryDependencies += "nl.grons" %% "metrics-scala-hdr" % "4.0.0"
+```
+
+See the [README](/README.md) to see which version(s) you can use.
+
+### Step 1: Add dependency (version 3.x)
 
 As hdrhistogram-metrics-reservoir is an optional dependency of metrics-scala, you need to include it in your build.
 See [mvnrepository](http://mvnrepository.com/artifact/org.mpierce.metrics.reservoir/hdrhistogram-metrics-reservoir/1.1.0)
