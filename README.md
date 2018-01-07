@@ -129,7 +129,7 @@ See also [hdrhistogram manual page](/docs/Hdrhistogram.md).
 ## Migrating from 3.x to 4.x
 
 Migrating from 3.x to 4.x is simply a matter of replacing the package from `nl.grons.metrics` to `nl.grons.metrics4`,
-and recompiling to code.
+and recompiling the code.
 
 ## Download 4.x
 
