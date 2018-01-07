@@ -28,7 +28,7 @@ We strive for long term stability, correctness, an easy to use API and full docu
 
 Metrics-scala provides an easy way to create _metrics_ and _health checks_ in Scala. Since version 3.5.5 creating
 metrics and health checks is as easy as extending
-[DefaultInstrumented](/metrics-scala/src/main/scala/nl.grons.metrics4/scala/DefaultInstrumented.scala) and using the
+[DefaultInstrumented](/metrics-scala/src/main/scala/nl/grons/metrics4/scala/DefaultInstrumented.scala) and using the
 `metrics` and `healthCheck` builders:
 
 ```scala
