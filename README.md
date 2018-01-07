@@ -71,24 +71,22 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
   <tbody>
     <tr>
       <td valign="top" rowspan="2">Name</td>
-      <td colspan="2" rowspan="1" valign="top">Scala version</td>
-      <td colspan="2" rowspan="1" valign="top">Akka version</td>
-      <td rowspan="2" valign="top">Build against</td>
+      <td valign="top" rowspan="1" colspan="2">Scala version</td>
+      <td valign="top" rowspan="1" colspan="2">Akka version</td>
+      <td valign="top" rowspan="2">Build against</td>
     </tr>
     <tr>
       <td valign="top">2.11</td>
       <td valign="top">2.12</td>
-    </tr>
-    <tr>
       <td valign="top">2.4</td>
       <td valign="top">2.5</td>
     </tr>
     <tr>
       <td valign="top">metrics-scala</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">Dropwizard 4.0.1</td>
     </tr>
     <tr>
@@ -109,10 +107,10 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
     </tr>
     <tr>
       <td valign="top">metrics-scala-hdr</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">Hdr 1.1.0/2.1.9 (*)</td>
     </tr>
   </tbody>
