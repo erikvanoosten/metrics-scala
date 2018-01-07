@@ -4,7 +4,7 @@
 
 Since 3.5.1 you can write a `com.codahale.metrics.MetricFilter` as a regular Scala functions. Start with
 
-    import nl.grons.metrics.scala.Implicits._
+    import nl.grons.metrics4.scala.Implicits._
 
 Then wherever you need a `MetricFilter` you can write a function of type `(String, Metric) => Boolean`. E.g.:
 

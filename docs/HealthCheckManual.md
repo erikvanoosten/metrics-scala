@@ -5,11 +5,11 @@ Metrics also has the ability to centralize your service’s health checks with t
 ## Health check setup in version 3.5.5 and later
 
 Since version 3.5.5 you can simply extend
-[DefaultInstrumented](/src/main/scala/nl/grons/metrics/scala/DefaultInstrumented.scala) to get access to the
+[DefaultInstrumented](/src/main/scala/nl.grons.metrics4/scala/DefaultInstrumented.scala) to get access to the
 `healthCheck` builder:
 
 ```scala
-class ExampleWorker extends nl.grons.metrics.scala.DefaultInstrumented {
+class ExampleWorker extends nl.grons.metrics4.scala.DefaultInstrumented {
   healthCheck("alive") { workerThreadIsActive() }
 }
 ```
@@ -27,7 +27,7 @@ object YourApplication {
   /** The application wide health check registry. */
   val healthChecksRegistry = new com.codahale.metrics.health.HealthCheckRegistry()
 }
-trait Checked extends nl.grons.metrics.scala.CheckedBuilder {
+trait Checked extends nl.grons.metrics4.scala.CheckedBuilder {
   val registry = YourApplication.healthChecksRegistry
 }
 ```
@@ -56,7 +56,7 @@ The code block may also return a `Try` (version 3.2.0 and later), a `Unit` or `F
 `Either` or a `com.codahale.metrics.health.HealthCheck.Result`. In these cases the `unhealthyMessage` parameter is
 always ignored.
 
-For more details see the scaladoc in [CheckedBuilder](/src/main/scala/nl/grons/metrics/scala/CheckedBuilder.scala).
+For more details see the scaladoc in [CheckedBuilder](/src/main/scala/nl.grons.metrics4/scala/CheckedBuilder.scala).
 
 ### Warning for version 3.4.x and earlier
 
@@ -105,7 +105,7 @@ The health check name is build from:
 Since 3.1.0 the *metric base name* can be overridden. For example by using `Checked` as follows:
 
 ```scala
-import nl.grons.metrics.scala._
+import nl.grons.metrics4.scala._
 
 class Example extends Checked {
   override lazy val metricBaseName = MetricName("Overridden.Base.Name")
@@ -124,7 +124,7 @@ There is also opportunity to combine your `Instrumented` and `Checked` in a sing
 `DefaultInstrumented` does):
 
 ```scala
-import nl.grons.metrics.scala._
+import nl.grons.metrics4.scala._
 
 object YourApplication {
   /** The application wide metrics registry. */

@@ -44,14 +44,14 @@ lazy val root = (project in file("."))
     skip in publish := true,
     publish := {},
     publishLocal := {},
-    name := "metrics-scala-root"
+    name := "metrics4-scala-root"
   )
 
 lazy val metricsScala = (project in file("metrics-scala"))
   .settings(
     commonSettings,
     crossScalaVersions := Seq("2.11.12", "2.12.4"),
-    name := "metrics-scala",
+    name := "metrics4-scala",
     description := "metrics-scala for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
       "io.dropwizard.metrics" % "metrics-core" % "4.0.1",
@@ -64,7 +64,7 @@ lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
   .settings(
     commonSettings,
     crossScalaVersions := Seq("2.11.12", "2.12.4"),
-    name := "metrics-scala-hdr",
+    name := "metrics4-scala-hdr",
     description := "metrics-scala-hdr for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
       "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0",
@@ -78,7 +78,7 @@ lazy val metricsAkka24 = (project in file("metrics-akka-24"))
   .settings(
     commonSettings,
     crossScalaVersions := Seq("2.11.12", "2.12.4"),
-    name := "metrics-akka_a24",
+    name := "metrics4-akka_a24",
     description := "metrics-scala for Akka 2.4 and 2.5 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
       "com.typesafe.akka" %% "akka-actor" % "2.4.20",
@@ -92,7 +92,7 @@ lazy val metricsAkka25 = (project in file("metrics-akka-25"))
   .settings(
     commonSettings,
     crossScalaVersions := Seq("2.12.4"),
-    name := "metrics-akka_a25",
+    name := "metrics4-akka_a25",
     description := "metrics-scala for Akka 2.5 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
       "com.typesafe.akka" %% "akka-actor" % "2.5.8",

@@ -39,7 +39,7 @@ object YourApplication {
   val metricRegistry = new com.codahale.metrics.MetricRegistry()
 }
 
-trait Instrumented extends nl.grons.metrics.scala.InstrumentedBuilder {
+trait Instrumented extends nl.grons.metrics4.scala.InstrumentedBuilder {
   override lazy protected val metricBuilder = new HdrMetricBuilder(metricBaseName, metricRegistry, resetAtSnapshot = false)
   val metricRegistry = YourApplication.metricRegistry
 }

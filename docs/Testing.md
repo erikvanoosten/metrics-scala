@@ -11,7 +11,7 @@ the same name.
 Here is an example. The service class `Example` defines a gauge:
 
 ```scala
-class Example(db: Database) extends nl.grons.metrics.scala.DefaultInstrumented {
+class Example(db: Database) extends nl.grons.metrics4.scala.DefaultInstrumented {
   // Define a gauge with a static name
   metrics.gauge("aGauge") { db.rowCount() }
 }
@@ -20,7 +20,7 @@ class Example(db: Database) extends nl.grons.metrics.scala.DefaultInstrumented {
 The unit tests contain the following:
 
 ```scala
-  import nl.grons.metrics.scala.FreshRegistries
+  import nl.grons.metrics4.scala.FreshRegistries
   val db = new Database
   val example1 = new Example(db)
   val example2 = new Example(db)   // BOOM!
@@ -40,7 +40,7 @@ a singleton in production, this is a bit awkward.
 The solution is to mixin `FreshRegistries`, but only in the unit tests:
 
 ```scala
-  import nl.grons.metrics.scala.FreshRegistries
+  import nl.grons.metrics4.scala.FreshRegistries
   val db = new Database
   val example1 = new Example(db) with FreshRegistries
   val example2 = new Example(db) with FreshRegistries   // not a problem because a different metrics registry is used
@@ -55,7 +55,7 @@ Another advantage of using `FreshRegistries` in unit tests is that it becomes po
 is working as expected without any interference from other tests. For example:
 
 ```scala
-class Example extends nl.grons.metrics.scala.DefaultInstrumented {
+class Example extends nl.grons.metrics4.scala.DefaultInstrumented {
   private val aCounter = metrics.counter("aCounter")
 
   def doSomething(): Unit = { aCounter += 1 } 

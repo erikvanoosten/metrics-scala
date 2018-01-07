@@ -10,16 +10,18 @@ Other manual pages:
 * [Miscellaneous](Miscellaneous.md)
 * [Dropwizard metrics documentation](https://dropwizard.github.io/metrics)
 
+**NOTE: version 3.x uses package `nl.grons.metrics` instead of `nl.grons.metrics4`.**
+
 ## 1 minute introduction
 
 Metrics-scala provides an easy way to create _metrics_ and _health checks_ in Scala. It builds on Dropwizard's
 metrics-core and metrics-healthchecks java libraries.
 
-Since version 3.5.5 you simply extend [DefaultInstrumented](/src/main/scala/nl/grons/metrics/scala/DefaultInstrumented.scala)
+Since version 3.5.5 you simply extend [DefaultInstrumented](/src/main/scala/nl.grons.metrics4/scala/DefaultInstrumented.scala)
 and then use the `metrics` and `healthCheck` builders:
 
 ```scala
-class Example(db: Database) extends nl.grons.metrics.scala.DefaultInstrumented {
+class Example(db: Database) extends nl.grons.metrics4.scala.DefaultInstrumented {
   // Define a health check
   healthCheck("alive") { workerThreadIsActive() }
 
@@ -49,7 +51,7 @@ For more information on (JMX) reporters and other aspects of Metrics 3.x, please
 
 Metrics-core requires metrics to be registered in an application wide `MetricRegistry`. Metrics-scala hides use of it,
 but you do need to create an `Instrumented` trait that refers to that registry. Your `Instrumented` needs to extends
-[InstrumentedBuilder](/src/main/scala/nl/grons/metrics/scala/InstrumentedBuilder.scala).
+[InstrumentedBuilder](/src/main/scala/nl.grons.metrics4/scala/InstrumentedBuilder.scala).
 (See also [About Instrumented](#about-instrumented-and-defaultinstrumented) below.)
 
 ```scala
@@ -57,7 +59,7 @@ object YourApplication {
   /** The application wide metrics registry. */
   val metricRegistry = new com.codahale.metrics.MetricRegistry()
 }
-trait Instrumented extends nl.grons.metrics.scala.InstrumentedBuilder {
+trait Instrumented extends nl.grons.metrics4.scala.InstrumentedBuilder {
   val metricRegistry = YourApplication.metricRegistry
 }
 ```
@@ -225,7 +227,7 @@ recency. Luckily, meters also record three different *exponentially-weighted mov
 ### Metering exceptions of partial functions
 
 Metrics-scala allows you to convert any partial function into another partial function that meters exceptions during its
-invocations. See the scaladoc of [Meter.exceptionMarkerPF](/src/main/scala/nl/grons/metrics/scala/Meter.scala#L90).
+invocations. See the scaladoc of [Meter.exceptionMarkerPF](/src/main/scala/nl.grons.metrics4/scala/Meter.scala#L90).
 
 Partial function support is available since metrics-scala v3.0.1.
 
@@ -247,7 +249,7 @@ timer.time {
 ### Timing partial functions
 
 Metrics-scala allows you to convert any partial function into another partial function that times each invocation. See
-the scaladoc of [Timer.timePF](/src/main/scala/nl/grons/metrics/scala/Timer.scala#L69).
+the scaladoc of [Timer.timePF](/src/main/scala/nl.grons.metrics4/scala/Timer.scala#L69).
 
 Partial function support is available since metrics-scala v3.0.1.
 
@@ -278,7 +280,7 @@ class Example extends Instrumented {
 
 Although all Metrics-scala documentation refers to the `Instrumented` trait (as created in the introduction above), you
 are free to chose the name, or in fact not to use it at all. It is possible to use the provided
-[DefaultInstrumented](/src/main/scala/nl/grons/metrics/scala/DefaultInstrumented.scala) (since 3.5.5), or to
+[DefaultInstrumented](/src/main/scala/nl.grons.metrics4/scala/DefaultInstrumented.scala) (since 3.5.5), or to
 directly extend `InstrumentedBuilder` and provide an implementation of `metricRegistry` in every class.
 
 `DefaultInstrumented` uses the Dropwizard 1.0.0+ application convention of storing the metric registry in metric-core's

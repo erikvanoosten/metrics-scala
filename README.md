@@ -28,11 +28,11 @@ We strive for long term stability, correctness, an easy to use API and full docu
 
 Metrics-scala provides an easy way to create _metrics_ and _health checks_ in Scala. Since version 3.5.5 creating
 metrics and health checks is as easy as extending
-[DefaultInstrumented](/metrics-scala/src/main/scala/nl/grons/metrics/scala/DefaultInstrumented.scala) and using the
+[DefaultInstrumented](/metrics-scala/src/main/scala/nl.grons.metrics4/scala/DefaultInstrumented.scala) and using the
 `metrics` and `healthCheck` builders:
 
 ```scala
-class Example(db: Database) extends nl.grons.metrics.scala.DefaultInstrumented {
+class Example(db: Database) extends nl.grons.metrics4.scala.DefaultInstrumented {
   // Define a health check
   healthCheck("alive") { workerThreadIsActive() }
 
@@ -66,9 +66,9 @@ See also the [change log](CHANGELOG.md) for improvements and API changes.
 
 The following artifacts are available:
 
-* *metrics-scala*: adds a nice Scala API to Dropwizard Metrics
-* *metrics-akka*: support for measuring Akka actors
-* *metrics-hdr*: adds support for [HdrHistogram](http://www.hdrhistogram.org/) to increase the accuracy of histograms 
+* *metrics4-scala*: adds a nice Scala API to Dropwizard Metrics
+* *metrics4-akka*: support for measuring Akka actors
+* *metrics4-hdr*: adds support for [HdrHistogram](http://www.hdrhistogram.org/) to increase the accuracy of histograms 
 
 The table shows the available artifacts of metrics-scala. For the full list, including those targeting older Scala and
 Akka versions see [all available versions](/docs/AvailableVersions.md).
@@ -88,7 +88,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">2.5</td>
     </tr>
     <tr>
-      <td valign="top">metrics-scala</td>
+      <td valign="top">metrics4-scala</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
@@ -96,7 +96,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">Dropwizard-metrics 4.0.1</td>
     </tr>
     <tr>
-      <td valign="top">metrics-akka_24</td>
+      <td valign="top">metrics4-akka_24</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -104,7 +104,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">Akka 2.4.20</td>
     </tr>
     <tr>
-      <td valign="top">metrics-akka_25</td>
+      <td valign="top">metrics4-akka_25</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
@@ -112,7 +112,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">Akka 2.5.8</td>
     </tr>
     <tr>
-      <td valign="top">metrics-scala-hdr</td>
+      <td valign="top">metrics4-scala-hdr</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
@@ -126,18 +126,21 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
 the second the version of `"org.hdrhistogram" % "HdrHistogram"`.
 See also [hdrhistogram manual page](/docs/Hdrhistogram.md).
 
+## Migrating from 3.x to 4.x
+
+Migrating from 3.x to 4.x is simply a matter of replacing the package from `nl.grons.metrics` to `nl.grons.metrics4`,
+and recompiling to code.
+
 ## Download 4.x
 
-*WARNING*: Metrics-scala 4.x is NOT binary compatible with 3.x and earlier. It is however fully source compatible.
-
-<a href="CHANGELOG.md#v400-jan-2018">Release notes for 4.0.0.</a>
+<a href="CHANGELOG.md#v401-jan-2018">Release notes for 4.0.1.</a>
 
 SBT:
 ```
 libraryDependencies ++= Seq(
-  "nl.grons" %% "metrics-scala" % "4.0.0",
-  "nl.grons" %% "metrics-akka_24" % "4.0.0",
-  "nl.grons" %% "metrics-scala-hdr" % "4.0.0"
+  "nl.grons" %% "metrics4-scala" % "4.0.1",
+  "nl.grons" %% "metrics4-akka_24" % "4.0.1",
+  "nl.grons" %% "metrics4-scala-hdr" % "4.0.1"
 )
 ```
 
@@ -146,21 +149,21 @@ Maven:
 <properties>
     <scala.version>2.12.1</scala.version>
     <scala.compat.version>2.12</scala.compat.version>
-    <metrics.scala.version>4.0.0</metrics.scala.version>
+    <metrics.scala.version>4.0.1</metrics.scala.version>
 </properties>
 <dependency>
     <groupId>nl.grons</groupId>
-    <artifactId>metrics-scala_${scala.compat.version}</artifactId>
+    <artifactId>metrics4-scala_${scala.compat.version}</artifactId>
     <version>${metrics.scala.version}</version>
 </dependency>
 <dependency>
     <groupId>nl.grons</groupId>
-    <artifactId>metrics-akka_24_${scala.compat.version}</artifactId>
+    <artifactId>metrics4-akka_24_${scala.compat.version}</artifactId>
     <version>${metrics.scala.version}</version>
 </dependency>
 <dependency>
     <groupId>nl.grons</groupId>
-    <artifactId>metrics-scala-hdr_${scala.compat.version}</artifactId>
+    <artifactId>metrics4-scala-hdr_${scala.compat.version}</artifactId>
     <version>${metrics.scala.version}</version>
 </dependency>
 ```

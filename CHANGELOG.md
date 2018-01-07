@@ -1,9 +1,8 @@
-v4.0.0: Jan 2018
+v4.0.1: Jan 2018
 ================
 
-* _Not_ binary compatible with 3.x. However, version 4.0.0 is fully source compatible with 3.x. This means that all
-  your code (including libraries) must be compiled against either 3.x or 4.x, a mix will fail at run-time. You can
-  however recompile your code (again including libraries) against 4.x without any changes.
+* All code moved to the package `nl.grons.metrics4.scala` to prevent clashes with version 3.x. Except for the package
+  name change, `v4.0.1` is fully source compatible with `v3.5.9`.
 * Added trait `FreshRegistries`, `FreshMetricRegistry` and `FreshHealthCheckRegistry` to enable testing that metrics
   are collected. Furthermore it eases unit testing of components that define gauges or health checks
   (see documentation).
@@ -11,9 +10,14 @@ v4.0.0: Jan 2018
 * Bumped Scala and Akka to latest minor versions. 
 * Dropped support for Scala 2.10 and Akka 2.3.
 * Removed deprecations. (Trait `FutureMetrics` and method `Meter.exceptionMarkerPartialFunction`.)
-* Akka support moved to a separate library: `"nl.grons" %% "metrics-akka_a24"` and `"nl.grons" %% "metrics-akka_a25"`
-* Hdr support moved to a separate library: `"nl.grons" %% "metrics-scala-hdr"`
+* Akka support moved to a separate library: `"nl.grons" %% "metrics4-akka_a24"` and `"nl.grons" %% "metrics4-akka_a25"`
+* Hdr support moved to a separate library: `"nl.grons" %% "metrics4-scala-hdr"`
 * Upgraded sbt from 0.13 to 1.0. Complete cross build can not be done with a single sbt invocation.
+
+v4.0.0: Jan 2018
+================
+
+v4.0.0 was released but should not be used as it is not compatible with v3.x.
 
 v3.5.9: Jun 2017
 ================
