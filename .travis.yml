@@ -1,16 +1,10 @@
 language: scala
-scala:
-  - 2.12.4
-  - 2.11.11
 env:
   - JDK=oraclejdk8
   - JDK=openjdk8
-addons:
-  # https://github.com/travis-ci/travis-ci/issues/5227#issuecomment-165131913
-  hosts:
-    - scala-logging
-  hostname: scala-logging
 sudo: required
 dist: trusty
 before_script:
   - jdk_switcher use $JDK
+script:
+  - sbt +test
