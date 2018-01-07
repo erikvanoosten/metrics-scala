@@ -1,5 +1,5 @@
-v4.0.0: Jan 2018 (Draft)
-========================
+v4.0.0: Jan 2018
+================
 
 * _Not_ binary compatible with 3.x. However, version 4.0.0 is fully source compatible with 3.x. This means that all
   your code (including libraries) must be compiled against either 3.x or 4.x, a mix will fail at run-time. You can

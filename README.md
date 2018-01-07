@@ -11,19 +11,13 @@ with the help of [@scullxbones](https://github.com/scullxbones).
 
 We strive for long term stability, correctness, an easy to use API and full documentation (in that order).
 
-Version 4.0.0 (developed in the `v4.0.0-development` branch) will see some changes:
-
-* Drop support for scala 2.10
-* Require Java 8
-* Akka and Hdr support move to a separate module
-
 ### Contents
 
 * Usage
 * [Manual](/docs/Manual.md)
 * [Manual (version 2.x)](/docs/Manual_2x.md)
 * Features
-* Available versions
+* Available artifacts
 * Download
 * Support
 * License
@@ -34,8 +28,8 @@ Version 4.0.0 (developed in the `v4.0.0-development` branch) will see some chang
 
 Metrics-scala provides an easy way to create _metrics_ and _health checks_ in Scala. Since version 3.5.5 creating
 metrics and health checks is as easy as extending
-[DefaultInstrumented](/src/main/scala/nl/grons/metrics/scala/DefaultInstrumented.scala) and using the `metrics` and
-`healthCheck` builders:
+[DefaultInstrumented](/metrics-scala/src/main/scala/nl/grons/metrics/scala/DefaultInstrumented.scala) and using the
+`metrics` and `healthCheck` builders:
 
 ```scala
 class Example(db: Database) extends nl.grons.metrics.scala.DefaultInstrumented {
@@ -52,8 +46,8 @@ class Example(db: Database) extends nl.grons.metrics.scala.DefaultInstrumented {
 }
 ```
 
-For more detailed information see the [manual](/docs/Manual.md). For more information on Metrics-core 3.x, please see
-the [documentation](https://dropwizard.github.io/metrics/3.1.0/).
+For more detailed information see the [manual](/docs/Manual.md). For more information on Dropwizard-metrics 4.x, please
+see the [documentation](http://metrics.dropwizard.io/4.0.0/).
 
 See also the [change log](CHANGELOG.md) for improvements and API changes.
 
@@ -68,75 +62,111 @@ See also the [change log](CHANGELOG.md) for improvements and API changes.
 * Future support.
 * [Hdrhistogram](http://hdrhistogram.org/) support.
 
-## Available versions (abbreviated)
+## Available artifacts (abbreviated)
 
-This table shows the most relevant versions of metrics-scala. For the full list see
-[all available versions](/docs/AvailableVersions.md).
+This table shows the available artifacts of metrics-scala. For the full list, including those targeting older Scala and
+Akka versions see [all available versions](/docs/AvailableVersions.md).
 
 <table border="0" cellpadding="2" cellspacing="2">
   <tbody>
     <tr>
-      <td valign="top" rowspan="2">Metrics-<br>scala<br>version</td>
-      <td valign="top" rowspan="2">Metrics-<br>core<br>version</td>
-      <td valign="top" rowspan="2">Akka<br>version</td>
-      <td colspan="3" rowspan="1" valign="top">Scala version</td>
-      <td rowspan="2" valign="top">Hdr<br>version (*)</td>
+      <td valign="top" rowspan="2">Name</td>
+      <td colspan="2" rowspan="1" valign="top">Scala version</td>
+      <td colspan="2" rowspan="1" valign="top">Akka version</td>
+      <td rowspan="2" valign="top">Build against</td>
     </tr>
     <tr>
-      <td valign="top">2.10</td>
       <td valign="top">2.11</td>
       <td valign="top">2.12</td>
     </tr>
     <tr>
-      <td valign="top">2.1.5</td>
-      <td valign="top">2.1.5</td>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
+      <td valign="top">2.4</td>
+      <td valign="top">2.5</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v359-jun-2017">3.5.9</a></td>
-      <td valign="top">3.2.2</td>
+      <td valign="top">metrics-scala</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">1.1.0/2.1.9</td>
+      <td valign="top">Dropwizard 4.0.1</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v359-jun-2017">3.5.9_a2.3</a></td>
-      <td valign="top">3.2.2</td>
-      <td valign="top">2.3.16 / 2.4.x / 2.5.x</td>
+      <td valign="top">metrics-akka_24</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top"></td>
-      <td valign="top">1.1.0/2.1.9</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">Akka 2.4.20</td>
     </tr>
     <tr>
-      <td valign="top"><a href="CHANGELOG.md#v359-jun-2017">3.5.9_a2.4</a></td>
-      <td valign="top">3.2.2</td>
-      <td valign="top">2.4.18 / 2.5.x</td>
+      <td valign="top">metrics-akka_25</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">Akka 2.5.8</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics-scala-hdr</td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
-      <td valign="top">1.1.0/2.1.9</td>
+      <td valign="top">✓</td>
+      <td valign="top">Hdr 1.1.0/2.1.9 (*)</td>
     </tr>
   </tbody>
 </table>
 
-If you need another version mix please open an [issue](https://github.com/erikvanoosten/metrics-scala/issues), or sent
-an email to the [metrics mailing list](http://groups.google.com/group/metrics-user).
+(*) The first number is the version of `"org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir"`,
+the second the version of `"org.hdrhistogram" % "HdrHistogram"`.
+See also [hdrhistogram manual page](/docs/Hdrhistogram.md).
 
-Akka 2.4 is binary compatible with Akka 2.3, and Akka 2.5 is binary compatible with Akka 2.4. Therefore you can freely
-use a metrics-scala build that was compiled against an older Akka version.
+## Download 4.x
 
-(*) Hdr is an optional dependency. The first number is the version of
-`"org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir"`, the second the version of
-`"org.hdrhistogram" % "HdrHistogram"`. See also [hdrhistogram manual page](/docs/Hdrhistogram.md).
+*WARNING*: Metrics-scala 4.x is NOT binary compatible with 3.x and earlier. It is however fully source compatible.
 
-## Download
+<a href="CHANGELOG.md#v400-jan-2018">Release notes for 4.0.0.</a>
+
+SBT:
+```
+libraryDependencies ++= Seq(
+  "nl.grons" %% "metrics-scala" % "4.0.0",
+  "nl.grons" %% "metrics-akka_24" % "4.0.0",
+  "nl.grons" %% "metrics-scala-hdr" % "4.0.0"
+)
+```
+
+Maven:
+```
+<properties>
+    <scala.version>2.12.1</scala.version>
+    <scala.compat.version>2.12</scala.compat.version>
+    <metrics.scala.version>4.0.0</metrics.scala.version>
+</properties>
+<dependency>
+    <groupId>nl.grons</groupId>
+    <artifactId>metrics-scala_${scala.compat.version}</artifactId>
+    <version>${metrics.scala.version}</version>
+</dependency>
+<dependency>
+    <groupId>nl.grons</groupId>
+    <artifactId>metrics-akka_24_${scala.compat.version}</artifactId>
+    <version>${metrics.scala.version}</version>
+</dependency>
+<dependency>
+    <groupId>nl.grons</groupId>
+    <artifactId>metrics-scala-hdr_${scala.compat.version}</artifactId>
+    <version>${metrics.scala.version}</version>
+</dependency>
+```
+
+## Download 2.x and 3.x
+
+In the 2.x and 3.x versions you depend on a single artifact. Different versions target a different Akka/Scala
+combinations. See [all available versions](/docs/AvailableVersions.md) to select the appropriate version.
+
+Here are examples for metrics-scala 3.5.9 and Akka 2.4 (and Scala 2.12 in the Maven example):
 
 SBT:
 ```
