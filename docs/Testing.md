@@ -5,9 +5,10 @@
 ### Fresh registries
 
 During unit testing it is common to many times instantiate the service class that is being tested. This is a problem
-if your service has a gauge; you can not register multiple gauges under the same name.
+if your service defines a gauge or a health check (see note at bottom); you can not register multiple of those under
+the same name.
 
-Example. The service class `Example`
+Here is an example. The service class `Example` defines a gauge:
 
 ```scala
 class Example(db: Database) extends nl.grons.metrics.scala.DefaultInstrumented {
@@ -16,7 +17,7 @@ class Example(db: Database) extends nl.grons.metrics.scala.DefaultInstrumented {
 }
 ```
 
-and the following unit test fragment:
+The unit tests contain the following:
 
 ```scala
   import nl.grons.metrics.scala.FreshRegistries
@@ -25,7 +26,7 @@ and the following unit test fragment:
   val example2 = new Example(db)   // BOOM!
 ```
 
-leads to something like:
+This leads to something like:
 
 ```
 java.lang.IllegalArgumentException: A metric named com.domain.app.Example.aGauge already exists
@@ -33,8 +34,8 @@ java.lang.IllegalArgumentException: A metric named com.domain.app.Example.aGauge
 	....
 ```
 
-You can solve this problem by forcing each gauge to have a different name. This is often awkward as in production
-code the service class is a singleton.
+You can solve this problem by forcing each gauge/health check to have a different name. When the service class is
+a singleton in production, this is a bit awkward.
 
 The solution is to mixin `FreshRegistries`, but only in the unit tests:
 
@@ -48,18 +49,14 @@ The solution is to mixin `FreshRegistries`, but only in the unit tests:
 Trait `FreshRegistries` makes sure that each instance of `Example` gets a new *fresh* metrics registry. It does the
 same for the health check registry.
 
-*Side note* The problem with gauges should probably also be a problem with health checks. However, currently health
-check registries simply ignore duplicate registrations even though maybe they should not. This may change when
-https://github.com/dropwizard/metrics/issues/1245 is accepted.
-
-### Testing metrics
+### Testing metrics and health checks
 
 Another advantage of using `FreshRegistries` in unit tests is that it becomes possible to test that metric collection
 is working as expected without any interference from other tests. For example:
 
 ```scala
 class Example extends nl.grons.metrics.scala.DefaultInstrumented {
-  val aCounter = metrics.counter("aCounter")
+  private val aCounter = metrics.counter("aCounter")
 
   def doSomething(): Unit = { aCounter += 1 } 
 }
@@ -82,6 +79,11 @@ Extended trait        | Used for      | Fresh registry trait
 `InstrumentedBuilder` | metrics       | `FreshMetricRegistry`
 `CheckedBuilder`      | health checks | `FreshHealthCheckRegistry`
 *both*                | *both*        | `FreshRegistries`
+
+
+(*) Note: Before dropwizard-metrics 4.1 registering a health check under an existing name is a no-op. This means that
+without the `FreshRegistries` your unit test will not fail, but you will not be able to test the behavior of your
+health checks.
 
 
 Previous: [Instrumenting Actors](Actors.md) Up: [Manual](Manual.md) Next: [Hdrhistogram](Hdrhistogram.md)
