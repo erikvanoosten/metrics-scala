@@ -23,7 +23,28 @@ lazy val commonSettings = Seq(
       Some("snapshots" at nexus + "content/repositories/snapshots")
     else
       Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-  }
+  },
+  publishMavenStyle := true,
+  publishArtifact in Test := false,
+  pomIncludeRepository := { _ => false },
+  licenses := Seq("Apache 2" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
+  pomExtra := (
+    <url>https://github.com/erikvanoosten/metrics-scala</url>
+    <scm>
+      <url>git@github.com:erikvanoosten/metrics-scala.git</url>
+      <connection>scm:git:git@github.com:erikvanoosten/metrics-scala.git</connection>
+    </scm>
+    <developers>
+      <developer>
+        <name>Erik van Oosten</name>
+        <url>http://day-to-day-stuff.blogspot.com/</url>
+      </developer>
+      <developer>
+        <name>Brian Scully</name>
+        <url>https://github.com/scullxbones/</url>
+      </developer>
+    </developers>
+  )
 )
 
 lazy val root = (project in file("."))
@@ -41,10 +62,7 @@ lazy val metricsScala = (project in file("metrics-scala"))
     description := "metrics-scala for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
       "io.dropwizard.metrics" % "metrics-core" % "4.0.1",
-      "io.dropwizard.metrics" % "metrics-healthchecks" % "4.0.1",
-      "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0" % "optional",
-      // Override version that hdrhistogram-metrics-reservoir depends on:
-      "org.hdrhistogram" % "HdrHistogram" % "2.1.9" % "optional"
+      "io.dropwizard.metrics" % "metrics-healthchecks" % "4.0.1"
     )
   )
 
@@ -91,29 +109,3 @@ lazy val metricsAkka25 = (project in file("metrics-akka-25"))
   )
 
 credentials += Credentials(Path.userHome / ".sbt" / "sonatype.credentials")
-
-publishMavenStyle := true
-
-publishArtifact in Test := false
-
-pomIncludeRepository := { _ => false }
-
-licenses := Seq("Apache 2" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
-
-pomExtra := (
-  <url>https://github.com/erikvanoosten/metrics-scala</url>
-  <scm>
-    <url>git@github.com:erikvanoosten/metrics-scala.git</url>
-    <connection>scm:git:git@github.com:erikvanoosten/metrics-scala.git</connection>
-  </scm>
-  <developers>
-    <developer>
-      <name>Erik van Oosten</name>
-      <url>http://day-to-day-stuff.blogspot.com/</url>
-    </developer>
-    <developer>
-      <name>Brian Scully</name>
-      <url>https://github.com/scullxbones/</url>
-    </developer>
-  </developers>
-)
