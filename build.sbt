@@ -17,15 +17,6 @@ lazy val commonSettings = Seq(
   javacOptions ++= Seq("-target", "1.8", "-J-Xmx512m", "-J-Xms128m", "-J-Xss10m"),
   javaOptions ++= Seq("-Xmx512m", "-Djava.awt.headless=true"),
   scalacOptions ++= Seq("-deprecation", "-unchecked"),
-  publishTo := {
-    val nexus = "https://oss.sonatype.org/"
-    if (version.value.trim.endsWith("SNAPSHOT"))
-      Some("snapshots" at nexus + "content/repositories/snapshots")
-    else
-      Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-  },
-  publishMavenStyle := true,
-  publishArtifact in Test := false,
   pomIncludeRepository := { _ => false },
   licenses := Seq("Apache 2" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
   pomExtra := (
@@ -109,3 +100,15 @@ lazy val metricsAkka25 = (project in file("metrics-akka-25"))
   )
 
 credentials += Credentials(Path.userHome / ".sbt" / "sonatype.credentials")
+
+publishTo := {
+  val nexus = "https://oss.sonatype.org/"
+  if (version.value.trim.endsWith("SNAPSHOT"))
+    Some("snapshots" at nexus + "content/repositories/snapshots")
+  else
+    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+}
+
+publishMavenStyle := true
+
+publishArtifact in Test := false

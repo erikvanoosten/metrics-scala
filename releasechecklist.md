@@ -5,6 +5,7 @@
 4. Run `sbt ';+clean;+test;+package`
 5. Push changes, e.g.`git commit -m 'Releasing 4.x.x'`
 6. Set tag `git tag v3.x.x`
+6. Optionally test signed publishing with `./crossrelease.sh publishLocalSigned` 
 7. `./crossrelease.sh`
 8. `git push` && `git push --tags`
 9. Login to Sonatype's Nexus, close and release the staging repository.

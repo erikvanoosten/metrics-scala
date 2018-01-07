@@ -1,7 +1,7 @@
 #!/bin/bash
 # Does a full cross build of all scala/akka versions.
 
-DEFAULT_COMMAND=publish-signed
+DEFAULT_COMMAND=publishSigned
 
 CMD=${1:-$DEFAULT_COMMAND}
 
