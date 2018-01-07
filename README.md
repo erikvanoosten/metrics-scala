@@ -11,6 +11,12 @@ with the help of [@scullxbones](https://github.com/scullxbones).
 
 We strive for long term stability, correctness, an easy to use API and full documentation (in that order).
 
+Version 4.0.0 (developed in the `v4.0.0-development` branch) will see some changes:
+
+* Drop support for scala 2.10
+* Require Java 8
+* Akka and Hdr support move to a separate module
+
 ### Contents
 
 * Usage
