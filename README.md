@@ -21,8 +21,8 @@ We strive for long term stability, correctness, an easy to use API and full docu
 * Download
 * Support
 * License
-* [![Scaladocs](https://www.javadoc.io/badge/nl.grons/metrics4-scala_2.12.svg?color=brightgreen&label=Scaladocs)](https://static.javadoc.io/nl.grons/metrics4-scala_2.12/4.0.1/nl/grons/metrics4/scala/DefaultInstrumented.html)
-  [![Scaladocs](https://www.javadoc.io/badge/nl.grons/metrics-scala_2.12.svg?color=brightgreen&label=Scaladocs)](https://static.javadoc.io/nl.grons/metrics-scala_2.12/3.5.9_a2.4/nl/grons/metrics/scala/DefaultInstrumented.html)
+* [![Scaladocs](https://www.javadoc.io/badge/nl.grons/metrics4-scala_2.12.svg?color=brightgreen&label=Scaladocs)](https://www.javadoc.io/page/nl.grons/metrics4-scala_2.12/latest/nl/grons/metrics4/scala/DefaultInstrumented.html)
+  [![Scaladocs](https://img.shields.io/badge/javadoc-3.5.9-brightgreen.svg?color=brightgreen&label=Scaladocs)](https://www.javadoc.io/page/nl.grons/metrics-scala_2.12/3.5.9_a2.4/nl/grons/metrics/scala/DefaultInstrumented.html)
 * Travis: [![build status](https://travis-ci.org/erikvanoosten/metrics-scala.svg?branch=master)](https://travis-ci.org/erikvanoosten/metrics-scala)
 
 ### Usage
