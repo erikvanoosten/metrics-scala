@@ -8,7 +8,7 @@ lazy val commonSettings = Seq(
     "org.slf4j" % "slf4j-simple" % "1.7.25" % "test"
   ),
   fork := true,
-  testOptions in Test += {
+  Test / testOptions += {
     scalaVersion.value match {
       case v if v.startsWith("2.12") => Tests.Argument("-l", "<scala2.12")
       case _ => Tests.Argument("-l", ">=scala2.12")
@@ -23,7 +23,7 @@ lazy val commonSettings = Seq(
     else Opts.resolver.sonatypeStaging
   ),
   publishMavenStyle := true,
-  publishArtifact in Test := false,
+  Test / publishArtifact := false,
   pomIncludeRepository := { _ => false },
   licenses := Seq("Apache 2" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
   homepage := Some(url("https://github.com/erikvanoosten/metrics-scala")),
@@ -32,8 +32,8 @@ lazy val commonSettings = Seq(
     "scm:git:git@github.com:erikvanoosten/metrics-scala.git"
   )),
   developers := List(
-    Developer(id="erikvanoosten", name="Erik van Oosten", email="-", url=url("https://github.com/erikvanoosten")),
-    Developer(id="scullxbones", name="Brian Scully", email="-", url=url("https://github.com/scullxbones"))
+    Developer(id="erikvanoosten", name="Erik van Oosten", email="", url=url("https://github.com/erikvanoosten")),
+    Developer(id="scullxbones", name="Brian Scully", email="", url=url("https://github.com/scullxbones"))
   )
 )
 
@@ -41,7 +41,7 @@ lazy val root = (project in file("."))
   .aggregate(metricsScala, metricsScalaHdr, metricsAkka24, metricsAkka25)
   .settings(
     publishArtifact := false,
-    skip in publish := true,
+    publish / skip := true,
     publish := {},
     publishLocal := {},
     name := "metrics4-scala-root"
