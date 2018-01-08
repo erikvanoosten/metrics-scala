@@ -131,6 +131,8 @@ See also [hdrhistogram manual page](/docs/Hdrhistogram.md).
 Migrating from 3.x to 4.x is simply a matter of replacing the package from `nl.grons.metrics` to `nl.grons.metrics4`,
 and recompiling the code.
 
+Metrics-scala 3.x and metrics-scala 4.x can be used at the same time on top of either Dropwizard Metrics 3.x or 4.x.
+
 ## Download 4.x
 
 <a href="CHANGELOG.md#v401-jan-2018">Release notes for 4.0.1.</a>
