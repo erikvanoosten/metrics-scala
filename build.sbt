@@ -56,7 +56,8 @@ lazy val metricsScala = (project in file("metrics-scala"))
     libraryDependencies ++= Seq(
       "io.dropwizard.metrics" % "metrics-core" % "4.0.1",
       "io.dropwizard.metrics" % "metrics-healthchecks" % "4.0.1"
-    )
+    ),
+    mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-scala" % "4.0.1")
   )
 
 lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
@@ -70,7 +71,8 @@ lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
       "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0",
       // Override version that hdrhistogram-metrics-reservoir depends on:
       "org.hdrhistogram" % "HdrHistogram" % "2.1.9"
-    )
+    ),
+    mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-scala-hdr" % "4.0.1")
   )
 
 lazy val metricsAkka24 = (project in file("metrics-akka-24"))
@@ -84,7 +86,8 @@ lazy val metricsAkka24 = (project in file("metrics-akka-24"))
       "com.typesafe.akka" %% "akka-actor" % "2.4.20",
       "com.typesafe.akka" %% "akka-testkit" % "2.4.20" % "test"
     ),
-    sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src"
+    sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
+    mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-akka_a24" % "4.0.1")
   )
 
 lazy val metricsAkka25 = (project in file("metrics-akka-25"))
@@ -98,5 +101,6 @@ lazy val metricsAkka25 = (project in file("metrics-akka-25"))
       "com.typesafe.akka" %% "akka-actor" % "2.5.8",
       "com.typesafe.akka" %% "akka-testkit" % "2.5.8" % "test"
     ),
-    sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src"
+    sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
+    mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-akka_a25" % "4.0.1")
   )
