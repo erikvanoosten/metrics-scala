@@ -142,7 +142,7 @@ SBT:
 ```
 libraryDependencies ++= Seq(
   "nl.grons" %% "metrics4-scala" % "4.0.1",
-  "nl.grons" %% "metrics4-akka_24" % "4.0.1",
+  "nl.grons" %% "metrics4-akka_a24" % "4.0.1",
   "nl.grons" %% "metrics4-scala-hdr" % "4.0.1"
 )
 ```
@@ -161,7 +161,7 @@ Maven:
 </dependency>
 <dependency>
     <groupId>nl.grons</groupId>
-    <artifactId>metrics4-akka_24_${scala.compat.version}</artifactId>
+    <artifactId>metrics4-akka_a24_${scala.compat.version}</artifactId>
     <version>${metrics.scala.version}</version>
 </dependency>
 <dependency>
