@@ -97,7 +97,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">Dropwizard-metrics 4.0.1</td>
     </tr>
     <tr>
-      <td valign="top">metrics4-akka_24</td>
+      <td valign="top">metrics4-akka_a24</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -105,7 +105,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">Akka 2.4.20</td>
     </tr>
     <tr>
-      <td valign="top">metrics4-akka_25</td>
+      <td valign="top">metrics4-akka_a25</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
