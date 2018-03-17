@@ -9,10 +9,8 @@ lazy val commonSettings = Seq(
   ),
   fork := true,
   Test / testOptions += {
-    scalaVersion.value match {
-      case v if v.startsWith("2.12") => Tests.Argument("-l", "<scala2.12")
-      case _ => Tests.Argument("-l", ">=scala2.12")
-    }
+    if (before212(scalaVersion.value)) Tests.Argument("-l", "<scala2.12")
+    else Tests.Argument("-l", ">=scala2.12")
   },
   javacOptions ++= Seq("-target", "1.8", "-J-Xmx512m", "-J-Xms128m", "-J-Xss10m"),
   javaOptions ++= Seq("-Xmx512m", "-Djava.awt.headless=true"),
@@ -104,3 +102,7 @@ lazy val metricsAkka25 = (project in file("metrics-akka-25"))
     sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
     mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-akka_a25" % "4.0.1")
   )
+
+def before212(scalaVersion: String): Boolean = {
+  scalaVersion.startsWith("2.") && scalaVersion.split('.')(1).toInt < 12
+}
