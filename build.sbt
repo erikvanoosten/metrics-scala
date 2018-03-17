@@ -9,8 +9,9 @@ lazy val commonSettings = Seq(
   ),
   fork := true,
   Test / testOptions += {
-    if (before212(scalaVersion.value)) Tests.Argument("-l", "<scala2.12")
-    else Tests.Argument("-l", ">=scala2.12")
+    // Exclude tests based on scala version:
+    if (before212(scalaVersion.value)) Tests.Argument("-l", ">=scala2.12")
+    else Tests.Argument("-l", "<scala2.12")
   },
   javacOptions ++= Seq("-target", "1.8", "-J-Xmx512m", "-J-Xms128m", "-J-Xss10m"),
   javaOptions ++= Seq("-Xmx512m", "-Djava.awt.headless=true"),
