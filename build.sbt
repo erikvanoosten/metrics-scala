@@ -104,6 +104,5 @@ lazy val metricsAkka25 = (project in file("metrics-akka-25"))
     mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-akka_a25" % "4.0.1")
   )
 
-def before212(scalaVersion: String): Boolean = {
-  scalaVersion.startsWith("2.") && scalaVersion.split('.')(1).toInt < 12
-}
+// 2.11.x are the only pre-2.12 scala versions that are used in this build
+def before212(scalaVersion: String): Boolean = scalaVersion.startsWith("2.11.")
