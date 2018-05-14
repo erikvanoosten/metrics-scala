@@ -1,3 +1,9 @@
+v5.0.0: planned
+===============
+
+* Breaking code changes. See migration guide.
+... TODO ...
+
 v4.0.2: planned
 ===============
 
