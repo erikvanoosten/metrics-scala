@@ -1,7 +1,7 @@
 package nl.grons.metrics5.scala
 
 import io.dropwizard.metrics5.MetricRegistry.MetricSupplier
-import io.dropwizard.metrics5.{Metric, MetricFilter, MetricName => DropwizardMetricName}
+import io.dropwizard.metrics5.{Metric, MetricFilter, MetricName}
 import org.mockito.Mockito.when
 import org.scalatest.FunSpec
 import org.scalatest.Matchers._
@@ -22,7 +22,9 @@ class ImplicitsSpec extends FunSpec {
     }
 
     it("is not required in Scala 2.12 and later because of SAM support", GE_Scala212) {
-      """val metricFilter: MetricFilter = (_: String, _: Metric) => true""" should compile
+      // The following test is no longer relevant/valid because of a change in the MetricFilter signature:
+      // """val metricFilter: MetricFilter = (_: String, _: Metric) => true""" should compile
+
       """val metricSupplier: MetricSupplier[Metric] = () => new Metric {}""" should compile
     }
 
@@ -38,7 +40,7 @@ class ImplicitsSpec extends FunSpec {
     it("creates a MetricFilter that passes arguments to the function and returns function result unchanged") {
       val f = mock[(String, Metric) => Boolean]
       val dummyName = "dummy"
-      val dummyMetricName = DropwizardMetricName.build(dummyName)
+      val dummyMetricName = MetricName.build(dummyName)
       val dummyMetric = new Metric {}
       when(f.apply(dummyName, dummyMetric)).thenReturn(true, false)
       val metricFilter: MetricFilter = Implicits.functionToMetricFilter(f)
