@@ -1,6 +1,6 @@
 lazy val commonSettings = Seq(
   organization := "nl.grons",
-  scalaVersion := "2.12.6",
+  scalaVersion := "2.12.4",
   crossVersion := CrossVersion.binary,
   libraryDependencies ++= Seq(
     "org.scalatest" %% "scalatest" % "3.0.4" % "test",
@@ -15,7 +15,7 @@ lazy val commonSettings = Seq(
   },
   javacOptions ++= Seq("-target", "1.8", "-J-Xmx512m", "-J-Xms128m", "-J-Xss10m"),
   javaOptions ++= Seq("-Xmx512m", "-Djava.awt.headless=true"),
-  scalacOptions ++= Seq("-target:jvm-1.8", "-deprecation", "-unchecked"),
+  scalacOptions ++= Seq("-deprecation", "-unchecked"),
   credentials += Credentials(Path.userHome / ".sbt" / "sonatype.credentials"),
   publishTo := Some(
     if (isSnapshot.value) Opts.resolver.sonatypeSnapshots
@@ -37,73 +37,71 @@ lazy val commonSettings = Seq(
 )
 
 lazy val root = (project in file("."))
-  .aggregate(metricsScala, /* metricsScalaHdr, */ metricsAkka24, metricsAkka25)
+  .aggregate(metricsScala, metricsScalaHdr, metricsAkka24, metricsAkka25)
   .settings(
     publishArtifact := false,
     publish / skip := true,
     publish := {},
     publishLocal := {},
-    name := "metrics5-scala-root"
+    name := "metrics4-scala-root"
   )
 
 lazy val metricsScala = (project in file("metrics-scala"))
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("2.11.12", "2.12.6"),
-    name := "metrics5-scala",
+    crossScalaVersions := Seq("2.11.12", "2.12.4"),
+    name := "metrics4-scala",
     description := "metrics-scala for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
-      "io.dropwizard.metrics5" % "metrics-core" % "5.0.0-rc2",
-      "io.dropwizard.metrics5" % "metrics-healthchecks" % "5.0.0-rc2"
-    )
-//    mimaPreviousArtifacts := Set("nl.grons" %% "metrics5-scala" % "5.0.0")
+      "io.dropwizard.metrics" % "metrics-core" % "4.0.1",
+      "io.dropwizard.metrics" % "metrics-healthchecks" % "4.0.1"
+    ),
+    mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-scala" % "4.0.1")
   )
 
-// Disabled until a Dropwizard 5 compatible version of hdrhistogram-metrics-reservoir was released.
-//
-//lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
-//  .dependsOn(metricsScala)
-//  .settings(
-//    commonSettings,
-//    crossScalaVersions := Seq("2.11.12", "2.12.6"),
-//    name := "metrics5-scala-hdr",
-//    description := "metrics-scala-hdr for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
-//    libraryDependencies ++= Seq(
-//      "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0",
-//      // Override version that hdrhistogram-metrics-reservoir depends on:
-//      "org.hdrhistogram" % "HdrHistogram" % "2.1.9"
-//    )
-////    mimaPreviousArtifacts := Set("nl.grons" %% "metrics5-scala-hdr" % "5.0.0")
-//  )
+lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
+  .dependsOn(metricsScala)
+  .settings(
+    commonSettings,
+    crossScalaVersions := Seq("2.11.12", "2.12.4"),
+    name := "metrics4-scala-hdr",
+    description := "metrics-scala-hdr for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
+    libraryDependencies ++= Seq(
+      "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0",
+      // Override version that hdrhistogram-metrics-reservoir depends on:
+      "org.hdrhistogram" % "HdrHistogram" % "2.1.9"
+    ),
+    mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-scala-hdr" % "4.0.1")
+  )
 
 lazy val metricsAkka24 = (project in file("metrics-akka-24"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("2.11.12", "2.12.6"),
-    name := "metrics5-akka_a24",
+    crossScalaVersions := Seq("2.11.12", "2.12.4"),
+    name := "metrics4-akka_a24",
     description := "metrics-scala for Akka 2.4 and 2.5 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
       "com.typesafe.akka" %% "akka-actor" % "2.4.20",
       "com.typesafe.akka" %% "akka-testkit" % "2.4.20" % "test"
     ),
-    sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src"
-//    mimaPreviousArtifacts := Set("nl.grons" %% "metrics5-akka_a24" % "5.0.0")
+    sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
+    mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-akka_a24" % "4.0.1")
   )
 
 lazy val metricsAkka25 = (project in file("metrics-akka-25"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("2.12.6"),
-    name := "metrics5-akka_a25",
+    crossScalaVersions := Seq("2.12.4"),
+    name := "metrics4-akka_a25",
     description := "metrics-scala for Akka 2.5 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
-      "com.typesafe.akka" %% "akka-actor" % "2.5.12",
-      "com.typesafe.akka" %% "akka-testkit" % "2.5.12" % "test"
+      "com.typesafe.akka" %% "akka-actor" % "2.5.8",
+      "com.typesafe.akka" %% "akka-testkit" % "2.5.8" % "test"
     ),
-    sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src"
-//    mimaPreviousArtifacts := Set("nl.grons" %% "metrics5-akka_a25" % "5.0.0")
+    sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
+    mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-akka_a25" % "4.0.1")
   )
 
 // 2.11.x are the only pre-2.12 scala versions that are used in this build
