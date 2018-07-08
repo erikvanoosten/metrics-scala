@@ -132,11 +132,15 @@ See also [hdrhistogram manual page](/docs/Hdrhistogram.md).
 Migrating from 3.x to 4.x is simply a matter of replacing the package from `nl.grons.metrics` to `nl.grons.metrics4`,
 and recompiling the code.
 
-Metrics-scala 3.x and metrics-scala 4.x can be used at the same time on top of either Dropwizard Metrics 3.x or 4.x.
+Metrics-scala 3.x and metrics-scala 4.x can be used at the same time on top of either Dropwizard Metrics 3.x or 4.x
+(excluding Dropwizard metrics 4.0.0).
 
 ## Download 4.x
 
 <a href="CHANGELOG.md#v401-jan-2018">Release notes for 4.0.1.</a>
+
+WARNING: `"nl.grons" %% "metrics-scala" % "4.0.0"` was accidentally released as well. Do not use it as it will give
+binary compatibility problems. Instead use `"nl.grons" %% "metrics4-scala" % "4.0.1"` as described below.
 
 SBT:
 ```
@@ -197,6 +201,12 @@ Maven:
 ```
 
 To use hdrhistogram additional dependencies are needed. See the [hdrhistogram manual page](/docs/Hdrhistogram.md).
+
+## Dropwizard 5.x
+
+Dropwizard metrics 5.x has been in RC state for some time now. Metrics-scala support for it can be
+found in the `metrics5-dev` branch. This will be released as soon as Dropwizard metrics and hdrhistogram have a
+non-RC 5.x release.
 
 ## Support
 
