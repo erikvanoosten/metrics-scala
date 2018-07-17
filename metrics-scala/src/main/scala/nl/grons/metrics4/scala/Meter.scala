@@ -105,14 +105,14 @@ class Meter(metric: DropwizardMeter) {
   /**
    * Marks the occurrence of an event.
    */
-  def mark() {
+  def mark(): Unit = {
     metric.mark()
   }
 
   /**
    * Marks the occurrence of a given number of events.
    */
-  def mark(count: Long) {
+  def mark(count: Long): Unit = {
     metric.mark(count)
   }
 

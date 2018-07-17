@@ -38,7 +38,7 @@ class MetricBuilderSpec extends FunSpec with OneInstancePerTest {
     val histogram: Histogram = metrics.histogram("histo")
     val meter: Meter = metrics.meter("meter", "testscope")
 
-    def waitFor100Ms() {
+    def waitFor100Ms(): Unit = {
       timer.time {
         Thread.sleep(100L)
       }
@@ -53,11 +53,11 @@ class MetricBuilderSpec extends FunSpec with OneInstancePerTest {
       42
     }
 
-    def incr() { counter += 1 }
+    def incr(): Unit = { counter += 1 }
 
-    def meterPlusEleven() { meter.mark(11) }
+    def meterPlusEleven(): Unit = { meter.mark(11) }
 
-    def histogramPlusOne() { histogram += 1 }
+    def histogramPlusOne(): Unit = { histogram += 1 }
   }
 
   describe("Metrics configuration dsl") {

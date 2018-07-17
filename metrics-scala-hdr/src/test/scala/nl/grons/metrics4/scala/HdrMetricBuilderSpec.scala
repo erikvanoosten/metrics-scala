@@ -51,7 +51,7 @@ class HdrMetricBuilderSpec extends AsyncFunSpec with OneInstancePerTest with Ins
     val histogram: Histogram = metrics.histogram("histo")
   }
 
-  def waitFor100Ms(timer: Timer) {
+  def waitFor100Ms(timer: Timer): Unit = {
     timer.time {
       Thread.sleep(100L)
     }

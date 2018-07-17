@@ -27,14 +27,14 @@ class Histogram(private[scala] val metric: DropwizardHistogram) {
   /**
    * Adds the recorded value to the histogram sample.
    */
-  def +=(value: Long) {
+  def +=(value: Long): Unit = {
     metric.update(value)
   }
 
   /**
    * Adds the recorded value to the histogram sample.
    */
-  def +=(value: Int) {
+  def +=(value: Int): Unit = {
     metric.update(value)
   }
 
