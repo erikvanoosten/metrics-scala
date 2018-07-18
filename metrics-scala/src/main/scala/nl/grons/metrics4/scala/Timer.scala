@@ -135,14 +135,14 @@ class Timer(private[scala] val metric: DropwizardTimer) {
   /**
    * Adds a recorded duration.
    */
-  def update(duration: FiniteDuration) {
+  def update(duration: FiniteDuration): Unit = {
     metric.update(duration.length, duration.unit)
   }
 
   /**
    * Adds a recorded duration.
    */
-  def update(duration: Long, unit: TimeUnit) {
+  def update(duration: Long, unit: TimeUnit): Unit = {
     metric.update(duration, unit)
   }
 

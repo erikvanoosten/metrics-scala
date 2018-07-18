@@ -52,28 +52,28 @@ class Counter(metric: DropwizardCounter) {
   /**
    * Increments this counter by `delta`.
    */
-  def +=(delta: Long) {
+  def +=(delta: Long): Unit = {
     metric.inc(delta)
   }
 
   /**
    * Decrements this counter by `delta`.
    */
-  def -=(delta: Long) {
+  def -=(delta: Long): Unit = {
     metric.dec(delta)
   }
 
   /**
    * Increments this counter by `delta` (defaults to `1`).
    */
-  def inc(delta: Long = 1) {
+  def inc(delta: Long = 1): Unit = {
     metric.inc(delta)
   }
 
   /**
    * Decrements this counter by `delta` (defaults to `1`).
    */
-  def dec(delta: Long = 1) {
+  def dec(delta: Long = 1): Unit = {
     metric.dec(delta)
   }
 
