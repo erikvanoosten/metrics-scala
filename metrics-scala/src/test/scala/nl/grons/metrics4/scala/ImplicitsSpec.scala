@@ -2,7 +2,7 @@ package nl.grons.metrics4.scala
 
 import com.codahale.metrics.MetricRegistry.MetricSupplier
 import com.codahale.metrics.{Metric, MetricFilter}
-import org.mockito.Matchers.same
+import org.mockito.ArgumentMatchers.same
 import org.mockito.Mockito.when
 import org.scalatest.FunSpec
 import org.scalatest.Matchers._
