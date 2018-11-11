@@ -3,7 +3,7 @@ lazy val commonSettings = Seq(
   scalaVersion := "2.12.7",
   crossVersion := CrossVersion.binary,
   libraryDependencies ++= Seq(
-    "org.scalatest" %% "scalatest" % "3.0.4" % "test",
+    "org.scalatest" %% "scalatest" % "3.0.5" % "test",
     "org.mockito" % "mockito-core" % "2.23.0" % "test",
     "org.slf4j" % "slf4j-simple" % "1.7.25" % "test"
   ),
@@ -53,8 +53,8 @@ lazy val metricsScala = (project in file("metrics-scala"))
     name := "metrics4-scala",
     description := "metrics-scala for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
-      "io.dropwizard.metrics" % "metrics-core" % "4.0.1",
-      "io.dropwizard.metrics" % "metrics-healthchecks" % "4.0.1"
+      "io.dropwizard.metrics" % "metrics-core" % "4.0.3",
+      "io.dropwizard.metrics" % "metrics-healthchecks" % "4.0.3"
     ),
     mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-scala" % "4.0.1")
   )
@@ -69,7 +69,7 @@ lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
     libraryDependencies ++= Seq(
       "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0",
       // Override version that hdrhistogram-metrics-reservoir depends on:
-      "org.hdrhistogram" % "HdrHistogram" % "2.1.9"
+      "org.hdrhistogram" % "HdrHistogram" % "2.1.10"
     ),
     mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-scala-hdr" % "4.0.1")
   )
