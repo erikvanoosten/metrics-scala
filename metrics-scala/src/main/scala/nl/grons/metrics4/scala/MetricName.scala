@@ -18,8 +18,6 @@ package nl.grons.metrics4.scala
 
 import java.util.regex.Pattern
 
-import org.apache.commons.lang3.StringUtils
-
 object MetricName {
 
   // Example weird class name: TestContext$$anonfun$2$$anonfun$apply$TestObject$2$
@@ -34,7 +32,7 @@ object MetricName {
       StringUtils.replace(_: String, "$apply", "."),
       dollarDigitsPattern.matcher(_: String).replaceAll("."),
       StringUtils.replace(_: String, ".package.", "."),
-      normalizeDots(_: String)
+      StringUtils.normalizeDots(_: String)
     )
   }
 
@@ -62,34 +60,6 @@ object MetricName {
 
   private def removeScalaParts(s: String): String = classNameFilters.reduce(_ andThen _)(s)
 
-  private def normalizeDots(s: String): String = {
-    val scratchpad = s.toCharArray
-
-    var pos, newPos = 0
-    var currentChar = ' '
-    var inDots = false
-
-    while (pos < scratchpad.length) {
-      currentChar = scratchpad(pos)
-      if (currentChar != '.') {
-        scratchpad(newPos) = currentChar
-        inDots = false
-        newPos += 1
-      } else if (!inDots) {
-        scratchpad(newPos) = '.'
-        inDots = true
-        newPos += 1
-      }
-      pos += 1
-    }
-
-    if (scratchpad(newPos - 1) == '.') {
-      newPos -= 1
-    }
-    val offset = if (scratchpad(0) == '.') 1 else 0
-
-    new String(scratchpad, offset, newPos)
-  }
 }
 
 /**
@@ -112,8 +82,7 @@ class MetricName private (val name: String) {
 
     val sb = new StringBuilder(name)
     names.view
-      .filter(_ != null)
-      .filter(_.nonEmpty)
+      .filterNot(StringUtils.isEmpty)
       .foreach { newNamePart =>
         sb.append('.')
         sb.append(newNamePart)
