@@ -16,7 +16,25 @@
 
 package nl.grons.metrics4.scala
 
+import java.util.regex.Pattern
+
 object MetricName {
+
+  // Example weird class name: TestContext$$anonfun$2$$anonfun$apply$TestObject$2$
+  // Anonymous subclass example: ActorMetricsSpec$$anonfun$2$$anonfun$apply$mcV$sp$4$$anonfun$8$$anon$1
+  private val classNameFilters = {
+    // Note: extracted here to compile the pattern only once.
+    val dollarDigitsPattern = Pattern.compile("""\$\d*""")
+    Seq(
+      StringUtils.replace(_: String, "$$anonfun", "."),
+      StringUtils.replace(_: String, "$$anon", ".anon"),
+      StringUtils.replace(_: String, "$mcV$sp", "."),
+      StringUtils.replace(_: String, "$apply", "."),
+      dollarDigitsPattern.matcher(_: String).replaceAll("."),
+      StringUtils.replace(_: String, ".package.", "."),
+      StringUtils.collapseDots(_: String)
+    ).reduce(_ andThen _)
+  }
 
   /**
    * Create a metrics name from a [[Class]].
@@ -31,16 +49,6 @@ object MetricName {
   def apply(metricOwner: Class[_], names: String*): MetricName =
     new MetricName(removeScalaParts(metricOwner.getName)).append(names: _*)
 
-  // Example weird class name: TestContext$$anonfun$2$$anonfun$apply$TestObject$2$
-  // Anonymous subclass example: ActorMetricsSpec$$anonfun$2$$anonfun$apply$mcV$sp$4$$anonfun$8$$anon$1
-  private def removeScalaParts(s: String) =
-    s.replaceAllLiterally("$$anonfun", ".")
-     .replaceAllLiterally("$$anon", ".anon")
-     .replaceAllLiterally("$mcV$sp", ".")
-     .replaceAllLiterally("$apply", ".")
-     .replaceAll("""\$\d*""", ".")
-     .replaceAllLiterally(".package.", ".")
-
   /**
    * Directly create a metrics name from a [[String]].
    *
@@ -49,6 +57,9 @@ object MetricName {
    * @return a metric (base)name
    */
   def apply(name: String, names: String*): MetricName = new MetricName(name).append(names: _*)
+
+  private def removeScalaParts(s: String): String = classNameFilters(s)
+
 }
 
 /**
@@ -64,6 +75,18 @@ class MetricName private (val name: String) {
    * @param names the name parts to append, `null`s are filtered out
    * @return the extended metric name
    */
-  def append(names: String*): MetricName =
-    new MetricName((name.split('.') ++ names.filter(_ != null)).filter(_.nonEmpty).mkString("."))
+  def append(names: String*): MetricName = {
+    if (names.isEmpty) {
+      return this
+    }
+
+    val sb = new StringBuilder(name)
+    names.view
+      .filter(n => n != null && n.nonEmpty)
+      .foreach { newNamePart =>
+        sb.append('.')
+        sb.append(newNamePart)
+      }
+    new MetricName(sb.toString())
+  }
 }
