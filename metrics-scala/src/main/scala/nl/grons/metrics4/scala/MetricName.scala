@@ -82,8 +82,7 @@ class MetricName private (val name: String) {
 
     val sb = new StringBuilder(name)
     names.view
-      .filter(_ != null)
-      .filter(_.nonEmpty)
+      .filter(n => n != null && n.nonEmpty)
       .foreach { newNamePart =>
         sb.append('.')
         sb.append(newNamePart)
