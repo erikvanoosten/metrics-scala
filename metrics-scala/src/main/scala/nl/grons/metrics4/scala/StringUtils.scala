@@ -34,7 +34,7 @@ private object StringUtils {
     }
     val offset = if (scratchpad(0) == '.') 1 else 0
 
-    new String(scratchpad, offset, newPos)
+    new String(scratchpad, offset, newPos - offset)
   }
 
   /**
