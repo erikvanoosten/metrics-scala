@@ -48,16 +48,8 @@ class StringUtilsSpec extends FunSpec {
   }
 
   describe("replace") {
-    it("doesn't replace anything in null Strings") {
-      StringUtils.replace(null, "foo", "bar") should equal (null)
-    }
-
     it("doesn't replace anything in empty Strings") {
       StringUtils.replace("", "foo", "bar") should equal ("")
-    }
-
-    it("doesn't replace null") {
-      StringUtils.replace("foo", null, "bar") should equal ("foo")
     }
 
     it("doesn't replace empty String") {
@@ -77,17 +69,4 @@ class StringUtilsSpec extends FunSpec {
     }
   }
 
-  describe("isEmpty") {
-    it("recognizes nulls as empty") {
-      StringUtils.isEmpty(null) should be (true)
-    }
-
-    it("recognizes empty String as empty") {
-      StringUtils.isEmpty("") should be (true)
-    }
-
-    it("recognizes non-empty String as not empty") {
-      StringUtils.isEmpty("foo") should be (false)
-    }
-  }
 }

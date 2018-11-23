@@ -62,7 +62,7 @@ private object StringUtils {
     * @return a [[String]] with all occurrences of `searchString` replaced with `replacement`
     */
   def replace(text: String, searchString: String, replacement: String): String =  {
-    if (isEmpty(text) || isEmpty(searchString) || replacement == null) {
+    if (text.isEmpty || searchString.isEmpty) {
       return text
     }
 
@@ -86,16 +86,6 @@ private object StringUtils {
     }
     sb.append(text.substring(start))
     sb.toString
-  }
-
-  /**
-    * Determine if given [[String]] is `null` or has length equal to 0.
-    *
-    * @param s the [[String]] to check
-    * @return a [[Boolean]], true iff `s` is null or has length equal to 0.
-    */
-  def isEmpty(s: String): Boolean = {
-    s == null || s.length == 0
   }
 
 }
