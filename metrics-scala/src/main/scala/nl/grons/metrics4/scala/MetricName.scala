@@ -32,8 +32,8 @@ object MetricName {
       StringUtils.replace(_: String, "$apply", "."),
       dollarDigitsPattern.matcher(_: String).replaceAll("."),
       StringUtils.replace(_: String, ".package.", "."),
-      StringUtils.normalizeDots(_: String)
-    )
+      StringUtils.collapseDots(_: String)
+    ).reduce(_ andThen _)
   }
 
   /**
@@ -58,7 +58,7 @@ object MetricName {
    */
   def apply(name: String, names: String*): MetricName = new MetricName(name).append(names: _*)
 
-  private def removeScalaParts(s: String): String = classNameFilters.reduce(_ andThen _)(s)
+  private def removeScalaParts(s: String): String = classNameFilters(s)
 
 }
 

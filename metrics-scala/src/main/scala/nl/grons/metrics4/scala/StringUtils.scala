@@ -3,15 +3,12 @@ package nl.grons.metrics4.scala
 private object StringUtils {
 
   /**
-    * Normalize dots and return the resulting [[String]].
-    *
-    * Normalizing dots means collapsing all adjacent occurrences of '.' to a single
-    * character and stripping leading and trailing '.'.
+    * Collapse adjacent dots, strip leading and trailing dot and return the resulting [[String]].
     *
     * @param s the [[String]] to normalize
     * @return a normalized [[String]]
     */
-  def normalizeDots(s: String): String = {
+  def collapseDots(s: String): String = {
     val scratchpad = s.toCharArray
 
     var pos, newPos = 0
