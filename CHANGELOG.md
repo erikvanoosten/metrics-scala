@@ -1,7 +1,10 @@
-v4.0.2: planned
+v4.0.2: planned for Nov 2018
 ===============
 
+* Drastic performance improvements for metric name generation. This is especially important for dynamically generated
+  metric names. This improvement was authored by Filip Ochnik (@filipochnik). Thanks Filip! (#117)
 * Upgraded sbt from 1.0.4 to 1.1.0.
+* Lots of dependency upgrades (thanks to Scala Stuward).
 
 v4.0.1: Jan 2018
 ================
