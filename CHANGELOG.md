@@ -3,8 +3,10 @@ v4.0.2: planned for Nov 2018
 
 * Drastic performance improvements for metric name generation. This is especially important for dynamically generated
   metric names. This improvement was authored by Filip Ochnik (@filipochnik). Thanks Filip! (#117)
-* Upgraded sbt from 1.0.4 to 1.1.0.
-* Lots of dependency upgrades (thanks to Scala Stuward).
+* Compiles against Scala 2.13 betas, metrics-scala is now part of the Scala community build.
+* Lots of dependency updates (also thanks to Scala Steward): Dropwizard metrics 4.0.1 -> 4.0.3, Akka 2.5.8 -> 2.5.18,
+  HdrHistogram 2.1.9 -> 2.1.10, Scala 2.12.4 -> 2.12.7, Scalatest 3.0.4 -> 3.0.5, Mockito 1.10.19 -> 2.23.0. 
+* Upgraded sbt from 1.0.4 to 1.2.6.
 
 v4.0.1: Jan 2018
 ================

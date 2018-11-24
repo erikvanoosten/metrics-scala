@@ -7,7 +7,7 @@ This is the Scala API for [Dropwizard's Metrics](https://github.com/dropwizard/m
 
 Initially this project started out as a line for line copy of the Metrics-scala module, released for multiple
 scala versions. Metrics dropped the scala module in version 3.0.0 and this project continued separately
-with the help of [@scullxbones](https://github.com/scullxbones).
+with the help of [@scullxbones](https://github.com/scullxbones) and many other contributors.
 
 We strive for long term stability, correctness, an easy to use API and full documentation (in that order).
 
@@ -139,8 +139,8 @@ Metrics-scala 3.x and metrics-scala 4.x can be used at the same time on top of e
 
 <a href="CHANGELOG.md#v401-jan-2018">Release notes for 4.0.1.</a>
 
-WARNING: `"nl.grons" %% "metrics-scala" % "4.0.0"` was accidentally released as well. Do not use it as it will give
-binary compatibility problems. Instead use `"nl.grons" %% "metrics4-scala" % "4.0.1"` as described below.
+WARNING: `nl.grons:metrics-scala:4.0.0` was accidentally released as well. *Do not use it* as it will give
+binary compatibility problems. Instead use `"nl.grons" %% "metrics4-scala" % "4.0.1"` or later as described below.
 
 SBT:
 ```
