@@ -16,6 +16,8 @@
 
 package nl.grons.metrics5.scala
 
+import java.util.regex.Pattern
+
 import io.dropwizard.metrics5.MetricName
 
 object MetricBaseName {
@@ -39,15 +41,18 @@ object MetricBaseName {
 
   // Example weird class name: TestContext$$anonfun$2$$anonfun$apply$TestObject$2$
   // Anonymous subclass example: ActorMetricsSpec$$anonfun$2$$anonfun$apply$mcV$sp$4$$anonfun$8$$anon$1
-  private def removeScalaParts(s: String) =
-    s.replaceAllLiterally("$$anonfun", ".")
-      .replaceAllLiterally("$$anon", ".anon")
-      .replaceAllLiterally("$mcV$sp", ".")
-      .replaceAllLiterally("$apply", ".")
-      .replaceAll("""\$\d*""", ".")
-      .replaceAllLiterally(".package.", ".")
-      .split('.')
-      .filter(_.nonEmpty)
-      .mkString(".")
+  private val removeScalaParts = {
+    // Note: extracted here to compile the pattern only once.
+    val dollarDigitsPattern = Pattern.compile("""\$\d*""")
+    Seq(
+      StringUtils.replace(_: String, "$$anonfun", "."),
+      StringUtils.replace(_: String, "$$anon", ".anon"),
+      StringUtils.replace(_: String, "$mcV$sp", "."),
+      StringUtils.replace(_: String, "$apply", "."),
+      dollarDigitsPattern.matcher(_: String).replaceAll("."),
+      StringUtils.replace(_: String, ".package.", "."),
+      StringUtils.collapseDots(_: String)
+    ).reduce(_ andThen _)
+  }
 
 }
