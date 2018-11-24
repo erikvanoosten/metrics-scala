@@ -22,7 +22,7 @@ object MetricName {
 
   // Example weird class name: TestContext$$anonfun$2$$anonfun$apply$TestObject$2$
   // Anonymous subclass example: ActorMetricsSpec$$anonfun$2$$anonfun$apply$mcV$sp$4$$anonfun$8$$anon$1
-  private val classNameFilters = {
+  private val removeScalaParts = {
     // Note: extracted here to compile the pattern only once.
     val dollarDigitsPattern = Pattern.compile("""\$\d*""")
     Seq(
@@ -57,8 +57,6 @@ object MetricName {
    * @return a metric (base)name
    */
   def apply(name: String, names: String*): MetricName = new MetricName(name).append(names: _*)
-
-  private def removeScalaParts(s: String): String = classNameFilters(s)
 
 }
 

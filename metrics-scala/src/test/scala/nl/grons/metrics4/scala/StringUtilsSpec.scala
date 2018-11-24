@@ -52,10 +52,6 @@ class StringUtilsSpec extends FunSpec {
       StringUtils.replace("", "foo", "bar") should equal ("")
     }
 
-    it("doesn't replace empty String") {
-      StringUtils.replace("foo", "", "bar") should equal ("foo")
-    }
-
     it("replaces repeated occurrences") {
       StringUtils.replace("queued", "ue", "") should equal ("qd")
     }
@@ -66,6 +62,12 @@ class StringUtilsSpec extends FunSpec {
 
     it("can replace with a longer String") {
       StringUtils.replace("abXYab", "ab", "foobar") should equal ("foobarXYfoobar")
+    }
+
+    it("will not allow replacing an empty string") {
+      an[IllegalArgumentException] shouldBe thrownBy {
+        StringUtils.replace("abXYab", "", "a")
+      }
     }
   }
 

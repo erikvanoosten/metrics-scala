@@ -16,13 +16,17 @@
 
 package nl.grons.metrics4.scala
 
+/**
+  * Some highly optimized basic String manipulation functions, specialized for cleaning up
+  * class names so that they can function as metric name.
+  */
 private object StringUtils {
 
   /**
     * Collapse adjacent dots, strip leading and trailing dot and return the resulting [[String]].
     *
-    * @param s the [[String]] to normalize
-    * @return a normalized [[String]]
+    * @param s the [[String]] to collapse dots in
+    * @return a [[String]]
     */
   def collapseDots(s: String): String = {
     val scratchpad = s.toCharArray
@@ -57,14 +61,13 @@ private object StringUtils {
     * Replace all occurrences of `searchString` in `text` with `replacement`.
     *
     * @param text the [[String]] to perform the replacements in
-    * @param searchString the [[String]] that should be replaced
+    * @param searchString the [[String]] that should be replaced (not empty)
     * @param replacement the [[String]] that should be put in place of `searchString`
     * @return a [[String]] with all occurrences of `searchString` replaced with `replacement`
     */
   def replace(text: String, searchString: String, replacement: String): String =  {
-    if (text.isEmpty || searchString.isEmpty) {
-      return text
-    }
+    require(searchString.nonEmpty)
+    if (text.isEmpty) return text
 
     var start = 0
     var end = text.indexOf(searchString, start)
