@@ -1,5 +1,5 @@
-v4.0.2: planned for Nov 2018
-===============
+v4.0.2: Nov 2018
+================
 
 * Drastic performance improvements for metric name generation. This is especially important for dynamically generated
   metric names. This improvement was authored by Filip Ochnik (@filipochnik). Thanks Filip! (#117)

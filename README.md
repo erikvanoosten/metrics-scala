@@ -94,7 +94,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
-      <td valign="top">Dropwizard-metrics 4.0.1</td>
+      <td valign="top">Dropwizard-metrics 4.0.3</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a24</td>
@@ -110,7 +110,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
-      <td valign="top">Akka 2.5.8</td>
+      <td valign="top">Akka 2.5.18</td>
     </tr>
     <tr>
       <td valign="top">metrics4-scala-hdr</td>
@@ -118,7 +118,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
-      <td valign="top">Hdr 1.1.0/2.1.9 (*)</td>
+      <td valign="top">Hdr 1.1.0/2.1.10 (*)</td>
     </tr>
   </tbody>
 </table>
@@ -137,7 +137,7 @@ Metrics-scala 3.x and metrics-scala 4.x can be used at the same time on top of e
 
 ## Download 4.x
 
-<a href="CHANGELOG.md#v401-jan-2018">Release notes for 4.0.1.</a>
+<a href="CHANGELOG.md#v402-nov-2018">Release notes for 4.0.2.</a>
 
 WARNING: `nl.grons:metrics-scala:4.0.0` was accidentally released as well. *Do not use it* as it will give
 binary compatibility problems. Instead use `"nl.grons" %% "metrics4-scala" % "4.0.1"` or later as described below.
@@ -145,18 +145,18 @@ binary compatibility problems. Instead use `"nl.grons" %% "metrics4-scala" % "4.
 SBT:
 ```
 libraryDependencies ++= Seq(
-  "nl.grons" %% "metrics4-scala" % "4.0.1",
-  "nl.grons" %% "metrics4-akka_a24" % "4.0.1",
-  "nl.grons" %% "metrics4-scala-hdr" % "4.0.1"
+  "nl.grons" %% "metrics4-scala" % "4.0.2",
+  "nl.grons" %% "metrics4-akka_a24" % "4.0.2",
+  "nl.grons" %% "metrics4-scala-hdr" % "4.0.2"
 )
 ```
 
 Maven:
 ```
 <properties>
-    <scala.version>2.12.1</scala.version>
+    <scala.version>2.12.7</scala.version>
     <scala.compat.version>2.12</scala.compat.version>
-    <metrics.scala.version>4.0.1</metrics.scala.version>
+    <metrics.scala.version>4.0.2</metrics.scala.version>
 </properties>
 <dependency>
     <groupId>nl.grons</groupId>
@@ -190,7 +190,7 @@ libraryDependencies += "nl.grons" %% "metrics-scala" % "3.5.9_a2.4"
 Maven:
 ```
 <properties>
-    <scala.version>2.12.1</scala.version>
+    <scala.version>2.12.7</scala.version>
     <scala.compat.version>2.12</scala.compat.version>
 </properties>
 <dependency>

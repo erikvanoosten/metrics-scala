@@ -3,15 +3,16 @@ Available Versions 4.x
 
 The following artifacts are available:
 
-* *metrics4-scala*: adds a nice Scala API to Dropwizard Metrics
-* *metrics4-akka*: support for measuring Akka actors
-* *metrics4-hdr*: adds support for [HdrHistogram](http://www.hdrhistogram.org/) to increase the accuracy of histograms 
+* *nl.grons:metrics4-scala*: adds a nice Scala API to Dropwizard Metrics
+* *nl.grons:metrics4-akka*: support for measuring Akka actors
+* *nl.grons:metrics4-hdr*: adds support for [HdrHistogram](http://www.hdrhistogram.org/) to increase the accuracy of histograms 
 
-The table shows the available artifacts of metrics-scala in the versions 4.x.
+The table shows the available 4.x artifacts of metrics-scala.
 
 <table border="0" cellpadding="2" cellspacing="2">
   <tbody>
     <tr>
+      <td valign="top" rowspan="2">Metrics-<br>scala<br>version</td>
       <td valign="top" rowspan="2">Artifact name</td>
       <td valign="top" rowspan="1" colspan="2">Scala version</td>
       <td valign="top" rowspan="1" colspan="2">Akka version</td>
@@ -24,6 +25,40 @@ The table shows the available artifacts of metrics-scala in the versions 4.x.
       <td valign="top">2.5</td>
     </tr>
     <tr>
+      <td valign="top" rowspan="4"><a href="/CHANGELOG.md#v402-nov-2018">4.0.2</a></td>
+      <td valign="top">metrics4-scala</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">Dropwizard-metrics 4.0.3</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-akka_a24</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">Akka 2.4.20</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-akka_a25</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">Akka 2.5.18</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-scala-hdr</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">Hdr 1.1.0/2.1.10 (*)</td>
+    </tr>
+    <tr>
+      <td valign="top" rowspan="4"><a href="/CHANGELOG.md#v401-jan-2018">4.0.1</a></td>
       <td valign="top">metrics4-scala</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -57,6 +92,9 @@ The table shows the available artifacts of metrics-scala in the versions 4.x.
     </tr>
   </tbody>
 </table>
+
+WARNING: `nl.grons:metrics-scala:4.0.0` was accidentally released as well. *Do not use it* as it will give
+binary compatibility problems.
 
 (*) The first number is the version of `"org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir"`,
 the second the version of `"org.hdrhistogram" % "HdrHistogram"`.
