@@ -49,12 +49,13 @@ private object StringUtils {
       pos += 1
     }
 
-    if (scratchpad(newPos - 1) == '.') {
+    if (newPos > 1 && scratchpad(newPos - 1) == '.') {
       newPos -= 1
     }
-    val offset = if (scratchpad(0) == '.') 1 else 0
+    val offset = if (newPos > 0 && scratchpad(0) == '.') 1 else 0
 
-    new String(scratchpad, offset, newPos - offset)
+    if (offset == 0 && newPos == s.length) s
+    else new String(scratchpad, offset, newPos - offset)
   }
 
   /**

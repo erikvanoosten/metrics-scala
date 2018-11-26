@@ -42,8 +42,19 @@ class StringUtilsSpec extends FunSpec {
       StringUtils.collapseDots("foo....bar...baz") should equal ("foo.bar.baz")
     }
 
+    it("works on empty string") {
+      StringUtils.collapseDots("") should equal ("")
+    }
+
+    it("works on just dots") {
+      StringUtils.collapseDots(".") should equal ("")
+      StringUtils.collapseDots("..") should equal ("")
+      StringUtils.collapseDots(".....") should equal ("")
+    }
+
     it("doesn't modify an already valid String") {
-      StringUtils.collapseDots("foo.bar.baz") should equal ("foo.bar.baz")
+      val s = "foo.bar.baz"
+      StringUtils.collapseDots(s) should be theSameInstanceAs (s)
     }
   }
 
