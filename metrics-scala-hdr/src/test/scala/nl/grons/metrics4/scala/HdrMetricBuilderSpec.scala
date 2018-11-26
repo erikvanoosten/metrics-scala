@@ -40,6 +40,8 @@ class HdrMetricBuilderSpec extends AsyncFunSpec with OneInstancePerTest with Ins
 
   private class UnderTest extends Instrumented {
     val timer: Timer = metrics.timer("10ms")
+    //noinspection ScalaDeprecation
+    val timerWithScope: Timer = metrics.timer("10ms", "scope")
     val histogram: Histogram = metrics.histogram("histo")
 
     def createTimer(name: String): Timer = metrics.timer(name)
@@ -63,6 +65,11 @@ class HdrMetricBuilderSpec extends AsyncFunSpec with OneInstancePerTest with Ins
     it("defines a timer") {
       waitFor100Ms(underTest.timer)
       underTest.timer.max should be >= 80000000L
+    }
+
+    it("defines a timer with scope") {
+      waitFor100Ms(underTest.timerWithScope)
+      underTest.timerWithScope.max should be >= 80000000L
     }
 
     it("defines a histogram") {

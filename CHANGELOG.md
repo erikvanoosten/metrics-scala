@@ -1,3 +1,9 @@
+v4.0.3: Nov 2018
+================
+
+* Fixed an (unlikely to happen) off-by-one error introduced in v4.0.2.
+* Deprecated the `scope` parameter in the metric builder so that it can be removed in v5.0.0.
+
 v4.0.2: Nov 2018
 ================
 

@@ -36,6 +36,7 @@ class MetricBuilderSpec extends FunSpec with OneInstancePerTest {
     val cachedGauge: Gauge[Int] = metrics.cachedGauge("cached", 300 milliseconds)(expensiveValue)
     val counter: Counter = metrics.counter("1..2..3..4")
     val histogram: Histogram = metrics.histogram("histo")
+    //noinspection ScalaDeprecation
     val meter: Meter = metrics.meter("meter", "testscope")
 
     def waitFor100Ms(): Unit = {

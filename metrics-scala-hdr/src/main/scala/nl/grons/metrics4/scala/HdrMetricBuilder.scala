@@ -42,24 +42,22 @@ class HdrMetricBuilder(
    * Creates a new histogram metric with a [[Reservoir]] from the HdrHistogram library.
    *
    * @param name the name of the histogram
-   * @param scope the scope of the histogram or null for no scope
    */
-  override def histogram(name: String, scope: String): Histogram =
+  override def histogram(name: String): Histogram =
     new Histogram(
       registry.histogram(
-        metricNameFor(name, scope),
+        metricNameFor(name),
         () => new DropwizardHistogram(createHdrReservoir())))
 
   /**
    * Creates a new timer metric with a [[Reservoir]] from the HdrHistogram library.
    *
    * @param name the name of the timer
-   * @param scope the scope of the timer or null for no scope
    */
-  override def timer(name: String, scope: String): Timer =
+  override def timer(name: String): Timer =
     new Timer(
       registry.timer(
-        metricNameFor(name, scope),
+        metricNameFor(name),
         () => new DropwizardTimer(createHdrReservoir())))
 
   private def createHdrReservoir(): Reservoir =

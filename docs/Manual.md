@@ -262,10 +262,6 @@ The metric name is build from:
 
 * *Metric base name* By default this is set to the owner class name (e.g., `com.example.proj.auth.SessionStore`).
 * *Name:* A short name describing the metric’s purpose (e.g., `session-count`).
-* *Scope:* An optional name describing the metric’s scope. Useful for when you have multiple instances of a class.
-
-The factory methods `metrics.gauge`, `metrics.counter`, `metrics.histogram`, `metrics.meter` and `metrics.timer` all
-accept a `scope` argument. Be default the scope is not used.
 
 Since 3.1.0 the *metric base name* can be overridden. For example by using `Instrumented` as follows:
 
@@ -275,6 +271,11 @@ class Example extends Instrumented {
   ...
 }
 ```
+
+The factory methods `metrics.gauge`, `metrics.counter`, `metrics.histogram`, `metrics.meter` and `metrics.timer` also
+have a `scope` parameter. This parameter has been deprecated and will be removed in metrics-scala 5.0.0. If
+you find code that uses it, then refactor by concatenating `scope` to the `name` with a dot as separator.
+For example: `metrics.timer("name", "scope")` is 100% equivalent to `metrics.timer("name.scope")`.
 
 ## About `Instrumented` and `DefaultInstrumented`
 
