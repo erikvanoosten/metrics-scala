@@ -32,7 +32,7 @@ class FutureMetricsSpec extends FunSpec with OneInstancePerTest with FutureMetri
 
   val metricRegistry = null
   override def metrics = new MetricBuilder(null,null) {
-    override def timer(name: String, scope: String = null): Timer = mockTimer
+    override def timer(name: String): Timer = mockTimer
   }
 
   var timeCalled = false

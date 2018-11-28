@@ -1,7 +1,7 @@
 1. Double check documentation is up to date.
 2. Validate version in build.sbt
 3. Validate entry in CHANGELOG.md
-4. Run `./crossrelease.sh clean` and `./crossrelease.sh test`
+4. Run `./crossrelease.sh clean`, `./crossrelease.sh test` and `./crossrelease.sh mimaReportBinaryIssues`
 5. Push changes, e.g.`git commit -m 'Releasing 3.x.x'`
 6. Set tag `git tag version-3.x.x`
 7. `./crossrelease.sh`

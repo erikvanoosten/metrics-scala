@@ -1,6 +1,6 @@
 import sbt.Keys._
 
-lazy val baseVersion = "3.5.9"
+lazy val baseVersion = "3.5.10"
 
 // See crossrelease.sh for valid combinations of akkaVersion and crossScalaVersion.
 
@@ -125,3 +125,9 @@ pomExtra := (
     </developer>
   </developers>
 )
+
+mimaPreviousArtifacts := {
+  val av = akkaVersion.value
+  val version = "3.5.9" + (if (av.nonEmpty) "_a" + av.split('.').take(2).mkString(".") else "")
+  Set("nl.grons" %% "metrics-scala" % version)
+}
