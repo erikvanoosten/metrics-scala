@@ -180,11 +180,11 @@ Maven:
 In the 2.x and 3.x versions you depend on a single artifact. Different versions target different Akka/Scala
 combinations. See [all available versions](/docs/AvailableVersions.md) to select the appropriate version.
 
-Here are examples for metrics-scala 3.5.9 and Akka 2.4 (and Scala 2.12 in the Maven example):
+Here are examples for metrics-scala 3.5.10 and Akka 2.4 (and Scala 2.12 in the Maven example):
 
 SBT:
 ```
-libraryDependencies += "nl.grons" %% "metrics-scala" % "3.5.9_a2.4"
+libraryDependencies += "nl.grons" %% "metrics-scala" % "3.5.10_a2.4"
 ```
 
 Maven:
@@ -196,7 +196,7 @@ Maven:
 <dependency>
     <groupId>nl.grons</groupId>
     <artifactId>metrics-scala_${scala.compat.version}</artifactId>
-    <version>3.5.9_a2.4</version>
+    <version>3.5.10_a2.4</version>
 </dependency>
 ```
 
