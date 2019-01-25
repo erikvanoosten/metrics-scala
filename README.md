@@ -78,7 +78,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
   <tbody>
     <tr>
       <td valign="top" rowspan="2">Artifact name</td>
-      <td valign="top" rowspan="1" colspan="3">Scala version (*)</td>
+      <td valign="top" rowspan="1" colspan="3">Scala version</td>
       <td valign="top" rowspan="1" colspan="2">Akka version</td>
       <td valign="top" rowspan="2">Build against</td>
     </tr>
