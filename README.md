@@ -78,13 +78,14 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
   <tbody>
     <tr>
       <td valign="top" rowspan="2">Artifact name</td>
-      <td valign="top" rowspan="1" colspan="2">Scala version</td>
+      <td valign="top" rowspan="1" colspan="3">Scala version (*)</td>
       <td valign="top" rowspan="1" colspan="2">Akka version</td>
       <td valign="top" rowspan="2">Build against</td>
     </tr>
     <tr>
       <td valign="top">2.11</td>
       <td valign="top">2.12</td>
+      <td valign="top">2.13-M5 (*)</td>
       <td valign="top">2.4</td>
       <td valign="top">2.5</td>
     </tr>
@@ -92,14 +93,16 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">metrics4-scala</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
-      <td valign="top">Dropwizard-metrics 4.0.3</td>
+      <td valign="top">Dropwizard-metrics 4.0.4</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a24</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">Akka 2.4.20</td>
@@ -108,22 +111,26 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">metrics4-akka_a25</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
+      <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
-      <td valign="top">Akka 2.5.18</td>
+      <td valign="top">Akka 2.5.19</td>
     </tr>
     <tr>
       <td valign="top">metrics4-scala-hdr</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
-      <td valign="top">Hdr 1.1.0/2.1.10 (*)</td>
+      <td valign="top">Hdr 1.1.0/2.1.11 (**)</td>
     </tr>
   </tbody>
 </table>
 
-(*) The first number is the version of `"org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir"`,
+(*) Milestone versions are only supported until a non-milestone version is available.
+
+(**) The first number is the version of `"org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir"`,
 the second the version of `"org.hdrhistogram" % "HdrHistogram"`.
 See also [hdrhistogram manual page](/docs/Hdrhistogram.md).
 
@@ -137,7 +144,7 @@ Metrics-scala 3.x and metrics-scala 4.x can be used at the same time on top of e
 
 ## Download 4.x
 
-<a href="CHANGELOG.md#v403-nov-2018">Release notes for 4.0.3.</a>
+<a href="CHANGELOG.md#v404-jan-2019">Release notes for 4.0.4.</a>
 
 WARNING: `nl.grons:metrics-scala:4.0.0` was accidentally released as well. *Do not use it* as it will give
 binary compatibility problems. Instead use `"nl.grons" %% "metrics4-scala" % "4.0.1"` or later as described below.
@@ -145,9 +152,9 @@ binary compatibility problems. Instead use `"nl.grons" %% "metrics4-scala" % "4.
 SBT:
 ```
 libraryDependencies ++= Seq(
-  "nl.grons" %% "metrics4-scala" % "4.0.3",
-  "nl.grons" %% "metrics4-akka_a24" % "4.0.3",
-  "nl.grons" %% "metrics4-scala-hdr" % "4.0.3"
+  "nl.grons" %% "metrics4-scala" % "4.0.4",
+  "nl.grons" %% "metrics4-akka_a24" % "4.0.4",
+  "nl.grons" %% "metrics4-scala-hdr" % "4.0.4"
 )
 ```
 
@@ -156,7 +163,7 @@ Maven:
 <properties>
     <scala.version>2.12.7</scala.version>
     <scala.compat.version>2.12</scala.compat.version>
-    <metrics.scala.version>4.0.3</metrics.scala.version>
+    <metrics.scala.version>4.0.4</metrics.scala.version>
 </properties>
 <dependency>
     <groupId>nl.grons</groupId>

@@ -14,15 +14,53 @@ The table shows the available 4.x artifacts of metrics-scala.
     <tr>
       <td valign="top" rowspan="2">Metrics-<br>scala<br>version</td>
       <td valign="top" rowspan="2">Artifact name</td>
-      <td valign="top" rowspan="1" colspan="2">Scala version</td>
+      <td valign="top" rowspan="1" colspan="3">Scala version</td>
       <td valign="top" rowspan="1" colspan="2">Akka version</td>
       <td valign="top" rowspan="2">Build against</td>
     </tr>
     <tr>
       <td valign="top">2.11</td>
       <td valign="top">2.12</td>
+      <td valign="top">2.13-M5 (*)</td>
       <td valign="top">2.4</td>
       <td valign="top">2.5</td>
+    </tr>
+    <tr>
+      <td valign="top" rowspan="4"><a href="/CHANGELOG.md#v404-jan-2019">4.0.4</a></td>
+      <td valign="top">metrics4-scala</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">Dropwizard-metrics 4.0.5</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-akka_a24</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">Akka 2.4.20</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-akka_a25</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">Akka 2.5.19</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-scala-hdr</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">Hdr 1.1.0/2.1.11 (**)</td>
     </tr>
     <tr>
       <td valign="top" rowspan="4"><a href="/CHANGELOG.md#v403-nov-2018">4.0.3</a></td>
@@ -31,12 +69,14 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">Dropwizard-metrics 4.0.3</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a24</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">Akka 2.4.20</td>
@@ -45,6 +85,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">metrics4-akka_a25</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">Akka 2.5.18</td>
@@ -55,7 +96,8 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
-      <td valign="top">Hdr 1.1.0/2.1.10 (*)</td>
+      <td valign="top"></td>
+      <td valign="top">Hdr 1.1.0/2.1.10 (**)</td>
     </tr>
     <tr>
       <td valign="top" rowspan="4"><a href="/CHANGELOG.md#v402-nov-2018">4.0.2</a></td>
@@ -64,12 +106,14 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">Dropwizard-metrics 4.0.3</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a24</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">Akka 2.4.20</td>
@@ -78,6 +122,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">metrics4-akka_a25</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">Akka 2.5.18</td>
@@ -88,7 +133,8 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
-      <td valign="top">Hdr 1.1.0/2.1.10 (*)</td>
+      <td valign="top"></td>
+      <td valign="top">Hdr 1.1.0/2.1.10 (**)</td>
     </tr>
     <tr>
       <td valign="top" rowspan="4"><a href="/CHANGELOG.md#v401-jan-2018">4.0.1</a></td>
@@ -97,12 +143,14 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">Dropwizard-metrics 4.0.1</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a24</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">Akka 2.4.20</td>
@@ -111,6 +159,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">metrics4-akka_a25</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">Akka 2.5.8</td>
@@ -121,7 +170,8 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
-      <td valign="top">Hdr 1.1.0/2.1.9 (*)</td>
+      <td valign="top"></td>
+      <td valign="top">Hdr 1.1.0/2.1.9 (**)</td>
     </tr>
   </tbody>
 </table>
@@ -129,7 +179,9 @@ The table shows the available 4.x artifacts of metrics-scala.
 WARNING: `nl.grons:metrics-scala:4.0.0` was accidentally released as well. *Do not use it* as it will give
 binary compatibility problems.
 
-(*) The first number is the version of `"org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir"`,
+(*) Milestone versions are only supported until a non-milestone version is available.
+
+(**) The first number is the version of `"org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir"`,
 the second the version of `"org.hdrhistogram" % "HdrHistogram"`.
 
 
