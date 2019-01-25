@@ -85,7 +85,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
     <tr>
       <td valign="top">2.11</td>
       <td valign="top">2.12</td>
-      <td valign="top">2.13-M5 (*)</td>
+      <td valign="top">2.13.0-M5 (*)</td>
       <td valign="top">2.4</td>
       <td valign="top">2.5</td>
     </tr>
