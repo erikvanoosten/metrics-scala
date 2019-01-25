@@ -4,7 +4,7 @@ v4.0.4: Jan 2019
 * No code changes.
 * Updates: scala 2.12.7 -> 2.12.8, dropwizard metrics: 4.0.3 -> 4.0.5, HdrHistogram: 2.1.10 -> 2.1.11,
   Akka: 2.5.18 -> 2.5.19.
-* Added scala 2.13.0-M5. Note: this version is not supported.
+* Added scala 2.13.0-M5. Note: this version is only supported until 2.13 is available.
 
 v4.0.3: Nov 2018
 ================
