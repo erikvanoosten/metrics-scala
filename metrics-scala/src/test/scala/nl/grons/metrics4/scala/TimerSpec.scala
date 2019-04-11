@@ -21,6 +21,8 @@ import org.scalatest.OneInstancePerTest
 import org.scalatest.Matchers._
 import org.scalatest.mockito.MockitoSugar._
 import org.scalatest.FunSpec
+import org.scalatest.OptionValues._
+import org.scalatest.TryValues._
 import java.util.concurrent.TimeUnit
 
 import org.scalatest.concurrent.Eventually
@@ -74,7 +76,7 @@ class TimerSpec extends FunSpec with OneInstancePerTest {
 
       Eventually.eventually { verify(context).stop() }
 
-      f.value.get.get should equal ("test")
+      f.value.value.success.value should equal ("test")
       verify(metric).time()
       verify(context).stop()
     }
