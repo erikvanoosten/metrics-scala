@@ -22,6 +22,8 @@ import org.scalatest.FunSpec
 import com.codahale.metrics.MetricRegistry
 import scala.concurrent.duration._
 
+import scala.language.postfixOps
+
 class MetricBuilderSpec extends FunSpec with OneInstancePerTest {
 
   private val testMetricRegistry = new MetricRegistry()

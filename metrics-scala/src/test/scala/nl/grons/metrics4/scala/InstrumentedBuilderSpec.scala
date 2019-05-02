@@ -17,7 +17,7 @@
 package nl.grons.metrics4.scala
 
 import org.scalatest.FunSpec
-import org.scalatest.mockito.MockitoSugar._
+import org.scalatestplus.mockito.MockitoSugar._
 import org.scalatest.OneInstancePerTest
 import com.codahale.metrics.MetricRegistry
 import org.mockito.Mockito.verify

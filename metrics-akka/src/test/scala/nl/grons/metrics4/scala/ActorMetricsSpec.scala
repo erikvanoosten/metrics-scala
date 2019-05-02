@@ -159,7 +159,7 @@ object ActorMetricsSpec {
 
     private def storeMessage: Actor.Receive = { case message: String => messages += message }
 
-    def receive = storeMessage.andThen({
+    def receive: PartialFunction[Any,Unit] = storeMessage.andThen({
       case _ => throw new RuntimeException()
     })
   }

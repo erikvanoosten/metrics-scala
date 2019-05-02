@@ -24,7 +24,7 @@ import org.mockito.Mockito.{verify, when}
 import org.scalactic.Equality
 import org.scalatest.FunSpec
 import org.scalatest.Matchers._
-import org.scalatest.mockito.MockitoSugar._
+import org.scalatestplus.mockito.MockitoSugar._
 
 import scala.concurrent.{Future, Promise, TimeoutException}
 import scala.concurrent.ExecutionContext.Implicits.global

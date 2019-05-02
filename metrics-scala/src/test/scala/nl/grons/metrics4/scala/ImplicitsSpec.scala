@@ -6,7 +6,7 @@ import org.mockito.ArgumentMatchers.same
 import org.mockito.Mockito.when
 import org.scalatest.FunSpec
 import org.scalatest.Matchers._
-import org.scalatest.mockito.MockitoSugar._
+import org.scalatestplus.mockito.MockitoSugar._
 
 class ImplicitsSpec extends FunSpec {
 

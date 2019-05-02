@@ -19,7 +19,7 @@ package nl.grons.metrics4.scala
 import org.mockito.Mockito.{verify, when}
 import org.scalatest.OneInstancePerTest
 import org.scalatest.Matchers._
-import org.scalatest.mockito.MockitoSugar._
+import org.scalatestplus.mockito.MockitoSugar._
 import org.scalatest.FunSpec
 import org.scalatest.OptionValues._
 import org.scalatest.TryValues._
