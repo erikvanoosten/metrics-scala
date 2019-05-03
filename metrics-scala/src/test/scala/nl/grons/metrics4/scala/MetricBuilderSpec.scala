@@ -22,8 +22,6 @@ import org.scalatest.FunSpec
 import com.codahale.metrics.MetricRegistry
 import scala.concurrent.duration._
 
-import scala.language.postfixOps
-
 class MetricBuilderSpec extends FunSpec with OneInstancePerTest {
 
   private val testMetricRegistry = new MetricRegistry()
@@ -35,7 +33,7 @@ class MetricBuilderSpec extends FunSpec with OneInstancePerTest {
   private class UnderTest extends Instrumented {
     val timer: Timer = metrics.timer("10ms")
     val gauge: Gauge[Int] = metrics.gauge("the answer")(value)
-    val cachedGauge: Gauge[Int] = metrics.cachedGauge("cached", 300 milliseconds)(expensiveValue)
+    val cachedGauge: Gauge[Int] = metrics.cachedGauge("cached", 300.milliseconds)(expensiveValue)
     val counter: Counter = metrics.counter("1..2..3..4")
     val histogram: Histogram = metrics.histogram("histo")
     //noinspection ScalaDeprecation
