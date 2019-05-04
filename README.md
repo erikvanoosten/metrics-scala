@@ -86,8 +86,8 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">2.11</td>
       <td valign="top">2.12</td>
       <td valign="top">2.13.0-RC1 (*)</td>
-      <td valign="top">2.4</td>
       <td valign="top">2.5</td>
+      <td valign="top">2.4</td>
     </tr>
     <tr>
       <td valign="top">metrics4-scala</td>
@@ -103,8 +103,8 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top"></td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top">Akka 2.5.19</td>
     </tr>
     <tr>
