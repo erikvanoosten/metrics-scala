@@ -210,16 +210,20 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top">Hdr 1.1.0/2.1.9 (**)</td>
     </tr>
+    <tr>
+      <td valign="top">4.0.0</td>
+      <td valign="top" colspan="7">Do not use! (***)</td>
+    </tr>
   </tbody>
 </table>
-
-WARNING: `nl.grons:metrics-scala:4.0.0` was accidentally released as well. *Do not use it* as it will give
-binary compatibility problems.
 
 (*) Scala pre-releases are only supported till the next release of the same Scala major version.
 
 (**) The first number is the version of `"org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir"`,
 the second the version of `"org.hdrhistogram" % "HdrHistogram"`.
+
+(***) `nl.grons:metrics-scala:4.0.0` was accidentally released as well. *Do not use it* as it will give
+binary compatibility problems.
 
 
 Available Versions 2.x and 3.x
