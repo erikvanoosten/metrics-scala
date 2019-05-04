@@ -17,9 +17,9 @@
 package nl.grons.metrics4.scala
 
 import org.scalatest.Matchers._
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class StringUtilsSpec extends FunSpec {
+class StringUtilsSpec extends AnyFunSpec {
 
   describe("collapseDots") {
     it("strips leading dot") {

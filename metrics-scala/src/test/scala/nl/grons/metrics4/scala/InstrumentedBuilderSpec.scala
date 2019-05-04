@@ -16,19 +16,18 @@
 
 package nl.grons.metrics4.scala
 
-import org.scalatest.FunSpec
-import org.scalatest.mockito.MockitoSugar._
-import org.scalatest.OneInstancePerTest
 import com.codahale.metrics.MetricRegistry
-import org.mockito.Mockito.verify
+import org.mockito.IdiomaticMockito._
+import org.scalatest.OneInstancePerTest
+import org.scalatest.funspec.AnyFunSpec
 
-class InstrumentedBuilderSpec extends FunSpec with OneInstancePerTest {
+class InstrumentedBuilderSpec extends AnyFunSpec with OneInstancePerTest {
 
   describe("InstrumentedBuilder") {
     it("uses owner class as metric base name") {
       val metricOwner = new MetricOwner
       metricOwner.createCounter()
-      verify(metricOwner.metricRegistry).counter("nl.grons.metrics4.scala.InstrumentedBuilderSpec.MetricOwner.cnt")
+      metricOwner.metricRegistry.counter("nl.grons.metrics4.scala.InstrumentedBuilderSpec.MetricOwner.cnt") was called
     }
 
     it("supports overriding the metric base name") {
@@ -36,7 +35,7 @@ class InstrumentedBuilderSpec extends FunSpec with OneInstancePerTest {
         override lazy val metricBaseName: MetricName = MetricName("OverriddenBaseName")
       }
       metricOwner.createCounter()
-      verify(metricOwner.metricRegistry).counter("OverriddenBaseName.cnt")
+      metricOwner.metricRegistry.counter("OverriddenBaseName.cnt") was called
     }
   }
 

@@ -19,11 +19,12 @@ package nl.grons.metrics4.scala
 import akka.actor.{Actor, ActorSystem}
 import com.codahale.metrics.{Metric, MetricFilter, MetricRegistry}
 import org.scalatest.Matchers._
-import org.scalatest.{FunSpec, OneInstancePerTest}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.OneInstancePerTest
 
 import scala.collection.JavaConverters._
 
-class ActorMetricsSpec extends FunSpec with OneInstancePerTest {
+class ActorMetricsSpec extends AnyFunSpec with OneInstancePerTest {
   import ActorMetricsSpec._
   import akka.testkit.TestActorRef
 
@@ -145,13 +146,13 @@ object ActorMetricsSpec {
   val testMetricRegistry = new MetricRegistry()
 
   trait ActorMetricsSpecInstrumented extends InstrumentedBuilder {
-    val metricRegistry = testMetricRegistry
+    val metricRegistry: MetricRegistry = testMetricRegistry
   }
 
   class TestActor extends Actor with ActorMetricsSpecInstrumented {
     val messages = new scala.collection.mutable.ListBuffer[String]()
 
-    def receive = { case message: String => messages += message }
+    def receive: Actor.Receive = { case message: String => messages += message }
   }
 
   class ExceptionThrowingTestActor extends Actor with ActorMetricsSpecInstrumented {
@@ -159,7 +160,7 @@ object ActorMetricsSpec {
 
     private def storeMessage: Actor.Receive = { case message: String => messages += message }
 
-    def receive = storeMessage.andThen({
+    def receive: Actor.Receive = storeMessage.andThen({
       case _ => throw new RuntimeException()
     })
   }

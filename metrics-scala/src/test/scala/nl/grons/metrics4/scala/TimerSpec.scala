@@ -16,16 +16,15 @@
 
 package nl.grons.metrics4.scala
 
-import org.mockito.Mockito.{verify, when}
-import org.scalatest.OneInstancePerTest
-import org.scalatest.Matchers._
-import org.scalatest.mockito.MockitoSugar._
-import org.scalatest.FunSpec
-import org.scalatest.OptionValues._
-import org.scalatest.TryValues._
 import java.util.concurrent.TimeUnit
 
+import org.mockito.IdiomaticMockito._
+import org.scalatest.Matchers._
+import org.scalatest.OneInstancePerTest
+import org.scalatest.OptionValues._
+import org.scalatest.TryValues._
 import org.scalatest.concurrent.Eventually
+import org.scalatest.funspec.AnyFunSpec
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -38,7 +37,7 @@ object TimerSpec {
 
 }
 
-class TimerSpec extends FunSpec with OneInstancePerTest {
+class TimerSpec extends AnyFunSpec with OneInstancePerTest {
 
   import TimerSpec._
 
@@ -46,27 +45,27 @@ class TimerSpec extends FunSpec with OneInstancePerTest {
     val metric = mock[com.codahale.metrics.Timer]
     val timer = new Timer(metric)
     val context = mock[com.codahale.metrics.Timer.Context]
-    when(metric.time()).thenReturn(context)
+    metric.time() shouldReturn context
 
     it("times the passed closure") {
       timer.time { 1 }
 
-      verify(metric).time()
-      verify(context).stop()
+      metric.time() was called
+      context.stop() was called
     }
 
     it("updates the underlying metric") {
       timer.update(1L,TimeUnit.MILLISECONDS)
 
-      verify(metric).update(1L,TimeUnit.MILLISECONDS)
+      metric.update(1L,TimeUnit.MILLISECONDS)
     }
 
     it("should increment time execution of partial function") {
       val pf: PartialFunction[String,String] = { case "test" => "test" }
       val wrapped = timer.timePF(pf)
       wrapped("test") should equal ("test")
-      verify(metric).time()
-      verify(context).stop()
+      metric.time() was called
+      context.stop() was called
       wrapped.isDefinedAt("x") should be (false)
     }
 
@@ -74,11 +73,11 @@ class TimerSpec extends FunSpec with OneInstancePerTest {
       import ExecutionContext.Implicits.global
       val f = timer.timeFuture(Future.successful("test"))
 
-      Eventually.eventually { verify(context).stop() }
+      Eventually.eventually { context.stop() was called }
 
       f.value.value.success.value should equal ("test")
-      verify(metric).time()
-      verify(context).stop()
+      metric.time() was called
+      context.stop() was called
     }
 
     it("should measure a future closure which errors") {
@@ -89,8 +88,8 @@ class TimerSpec extends FunSpec with OneInstancePerTest {
       }
       caught should equal (error)
 
-      verify(metric).time()
-      verify(context).stop()
+      metric.time() was called
+      context.stop() was called
     }
 
     it("correctly infers the type") {

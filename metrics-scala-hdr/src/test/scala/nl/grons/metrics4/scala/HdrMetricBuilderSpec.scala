@@ -20,7 +20,8 @@ import java.util.concurrent.{CountDownLatch, Executors}
 
 import com.codahale.metrics.MetricRegistry
 import org.scalatest.Matchers._
-import org.scalatest.{AsyncFunSpec, Inspectors, OneInstancePerTest}
+import org.scalatest.funspec.AsyncFunSpec
+import org.scalatest.{Inspectors, OneInstancePerTest}
 
 import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.concurrent.duration._

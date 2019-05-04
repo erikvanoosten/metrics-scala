@@ -22,7 +22,8 @@ import com.codahale.metrics._
 import com.typesafe.config.ConfigFactory
 import nl.grons.metrics4.scala.ActorInstrumentedLifeCycleSpec._
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.{BeforeAndAfterAll, FunSpecLike, Matchers}
+import org.scalatest.funspec.AsyncFunSpecLike
+import org.scalatest.{BeforeAndAfterAll, Matchers}
 
 import scala.concurrent.Promise
 import scala.collection.JavaConverters._
@@ -35,7 +36,7 @@ object ActorInstrumentedLifeCycleSpec {
   val TestMetricRegistry = new com.codahale.metrics.MetricRegistry()
 
   trait Instrumented extends InstrumentedBuilder {
-    val metricRegistry = TestMetricRegistry
+    val metricRegistry: MetricRegistry = TestMetricRegistry
   }
 
   class ExampleActor(restarted: Promise[Boolean]) extends Actor with Instrumented with ActorInstrumentedLifeCycle {
@@ -47,28 +48,28 @@ object ActorInstrumentedLifeCycleSpec {
       counter
     }
 
-    override def preRestart(reason: Throwable, message: Option[Any]) = {
-      self ! 'prerestart
+    override def preRestart(reason: Throwable, message: Option[Any]): Unit = {
+      self ! Symbol("prerestart")
       super.preRestart(reason, message)
     }
 
-    def receive = {
-      case 'increment =>
+    def receive: Receive = {
+      case Symbol("increment") =>
         counter += 1
-      case 'get =>
+      case Symbol("get") =>
         sender ! counter
-      case 'error =>
+      case Symbol("error") =>
         throw new RuntimeException("BOOM!")
-      case 'prerestart =>
+      case Symbol("prerestart") =>
         restarted.success(true)
     }
 
   }
 }
 
-class ActorInstrumentedLifeCycleSpec extends TestKit(NonLoggingActorSystem) with FunSpecLike with ImplicitSender with Matchers with ScalaFutures with BeforeAndAfterAll {
+class ActorInstrumentedLifeCycleSpec extends TestKit(NonLoggingActorSystem) with AsyncFunSpecLike with ImplicitSender with Matchers with ScalaFutures with BeforeAndAfterAll {
 
-  def report = {
+  def report: Option[Any] = {
     case class NameFilter(prefix: String) extends MetricFilter {
       override def matches(name: String, metric: Metric): Boolean = name.startsWith(prefix)
     }
@@ -76,7 +77,7 @@ class ActorInstrumentedLifeCycleSpec extends TestKit(NonLoggingActorSystem) with
     TestMetricRegistry
       .getGauges(NameFilter("nl.grons.metrics4.scala")).asScala
       .headOption
-      .map {case (_,g) => g.getValue}
+      .map { case (_, g) => g.getValue }
   }
 
   describe("an actor with gauges needing lifecycle management") {
@@ -84,20 +85,20 @@ class ActorInstrumentedLifeCycleSpec extends TestKit(NonLoggingActorSystem) with
     val ar = system.actorOf(Props(new ExampleActor(restartedPromise)))
 
     it("correctly builds a gauge that reports the correct value") {
-      ar ! 'increment
-      ar ! 'increment
-      ar ! 'increment
-      ar ! 'get
+      ar ! Symbol("increment")
+      ar ! Symbol("increment")
+      ar ! Symbol("increment")
+      ar ! Symbol("get")
       expectMsg(3)
       report shouldBe Some(3)
     }
 
     it("rebuilds the gauge on actor restart") {
-      ar ! 'increment
-      ar ! 'increment
-      ar ! 'error
-      ar ! 'increment
-      ar ! 'get
+      ar ! Symbol("increment")
+      ar ! Symbol("increment")
+      ar ! Symbol("error")
+      ar ! Symbol("increment")
+      ar ! Symbol("get")
       expectMsg(1)
       whenReady(restartedPromise.future)(_ shouldBe true)
       report shouldBe Some(1)

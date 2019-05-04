@@ -1,14 +1,29 @@
+/*
+ * Copyright (c) 2013-2019 Erik van Oosten
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package nl.grons.metrics4.scala
 
 import com.codahale.metrics.MetricRegistry.MetricSupplier
 import com.codahale.metrics.{Metric, MetricFilter}
-import org.mockito.ArgumentMatchers.same
-import org.mockito.Mockito.when
-import org.scalatest.FunSpec
+import org.mockito.IdiomaticMockito._
+import org.mockito.ArgumentMatchersSugar.same
+import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.Matchers._
-import org.scalatest.mockito.MockitoSugar._
 
-class ImplicitsSpec extends FunSpec {
+class ImplicitsSpec extends AnyFunSpec {
 
   describe("Implicits") {
     it("brings the implicit conversion functionToMetricFilter into scope", LT_Scala212) {
@@ -40,7 +55,7 @@ class ImplicitsSpec extends FunSpec {
       val f = mock[(String, Metric) => Boolean]
       val dummyName = "dummy"
       val dummyMetric = new Metric {}
-      when(f.apply(same(dummyName), same(dummyMetric))).thenReturn(true, false)
+      f.apply(same(dummyName), same(dummyMetric)) shouldReturn true andThen false
       val metricFilter: MetricFilter = Implicits.functionToMetricFilter(f)
       metricFilter.matches(dummyName, dummyMetric) shouldBe true
       metricFilter.matches(dummyName, dummyMetric) shouldBe false
@@ -52,7 +67,7 @@ class ImplicitsSpec extends FunSpec {
       val f = mock[() => Metric]
       val dummyMetric1 = new Metric {}
       val dummyMetric2 = new Metric {}
-      when(f.apply()).thenReturn(dummyMetric1, dummyMetric2)
+      f.apply() shouldReturn dummyMetric1 andThen dummyMetric2
       val metricSupplier: MetricSupplier[Metric] = Implicits.functionToMetricSupplier(f)
       metricSupplier.newMetric() shouldBe theSameInstanceAs(dummyMetric1)
       metricSupplier.newMetric() shouldBe theSameInstanceAs(dummyMetric2)

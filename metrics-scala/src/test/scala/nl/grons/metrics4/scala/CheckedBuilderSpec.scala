@@ -20,11 +20,10 @@ import java.text.SimpleDateFormat
 
 import com.codahale.metrics.health.HealthCheck.Result
 import com.codahale.metrics.health.{HealthCheck, HealthCheckRegistry}
-import org.mockito.Mockito.{verify, when}
+import org.mockito.IdiomaticMockito._
 import org.scalactic.Equality
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.Matchers._
-import org.scalatest.mockito.MockitoSugar._
 
 import scala.concurrent.{Future, Promise, TimeoutException}
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -32,19 +31,19 @@ import scala.concurrent.duration.{DurationInt, FiniteDuration}
 import scala.language.implicitConversions
 import scala.util.Try
 
-class HealthCheckSpec extends FunSpec {
+class HealthCheckSpec extends AnyFunSpec {
   implicit private val resultWithApproximateTimestampEquality = HealthCheckResultWithApproximateTimestampEquality
 
   describe("healthCheck factory method") {
     it ("registers the created checker") {
       val checkOwner = newCheckOwner
       val check = checkOwner.createBooleanHealthCheck { true }
-      verify(checkOwner.registry).register("nl.grons.metrics4.scala.CheckOwner.test", check)
+      checkOwner.registry.register("nl.grons.metrics4.scala.CheckOwner.test", check) was called
     }
 
     it("build health checks that call the provided checker") {
       val mockChecker = mock[SimpleChecker]
-      when(mockChecker.check()).thenReturn(true, false, true, false)
+      mockChecker.check() shouldReturn true andThen false andThen true andThen false
       val check = newCheckOwner.createCheckerHealthCheck(mockChecker)
       check.execute() should equal(Result.healthy())
       check.execute() should equal(Result.unhealthy("FAIL"))
@@ -136,7 +135,7 @@ class HealthCheckSpec extends FunSpec {
         override lazy val metricBaseName: MetricName = MetricName("OverriddenMetricBaseName")
       }
       val check = checkOwner.createBooleanHealthCheck { true }
-      verify(checkOwner.registry).register("OverriddenMetricBaseName.test", check)
+      checkOwner.registry.register("OverriddenMetricBaseName.test", check)  was called
     }
 
     it("supports Unit checker with side-effects (healthy)") {

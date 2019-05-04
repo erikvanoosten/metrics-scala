@@ -16,41 +16,40 @@
 
 package nl.grons.metrics4.scala
 
-import org.mockito.Mockito.{when, verify}
-import org.scalatest.FunSpec
-import org.scalatest.mockito.MockitoSugar._
+import org.mockito.IdiomaticMockito._
 import org.scalatest.Matchers._
 import org.scalatest.OneInstancePerTest
+import org.scalatest.funspec.AnyFunSpec
 
-class CounterSpec extends FunSpec with OneInstancePerTest {
+class CounterSpec extends AnyFunSpec with OneInstancePerTest {
   describe("A counter") {
     val metric = mock[com.codahale.metrics.Counter]
     val counter = new Counter(metric)
 
     it("+= should increment the underlying metric by an arbitrary amount") {
       counter += 12
-      verify(metric).inc(12)
+      metric.inc(12) was called
     }
 
     it("-= should decrement the underlying metric by an arbitrary amount") {
       counter -= 12
-      verify(metric).dec(12)
+      metric.dec(12) was called
     }
 
     it("inc should increment the underlying metric by an arbitrary amount") {
       counter.inc(12)
-      verify(metric).inc(12)
+      metric.inc(12) was called
     }
 
     it("dec should decrement the underlying metric by an arbitrary amount") {
       counter.dec(12)
-      verify(metric).dec(12)
+      metric.dec(12) was called
     }
 
     it("getCount should consult the underlying counter for current count") {
-      when(metric.getCount).thenReturn(1L)
+      metric.getCount shouldReturn 1L
       counter.count should equal (1)
-      verify(metric).getCount
+      metric.getCount was called
     }
 
     describe("count") {
@@ -64,20 +63,20 @@ class CounterSpec extends FunSpec with OneInstancePerTest {
 
       it("should increment counter upon execution of partial function") {
         wrapped("test") should equal("test")
-        verify(metric).inc(1)
+        metric.inc(1) was called
       }
 
       it("should increment counter upon execution of undefined partial function") {
         a[MatchError] should be thrownBy wrapped("x")
-        verify(metric).inc(1)
+        metric.inc(1) was called
       }
     }
 
     it("countConcurrency should increment and decrement underlying counter upon execution of a function") {
       def dummyWork = 123
       val result = counter.countConcurrency(dummyWork)
-      verify(metric).inc(1)
-      verify(metric).dec(1)
+      metric.inc(1) was called
+      metric.dec(1) was called
       result should be (123)
     }
   }

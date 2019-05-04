@@ -17,9 +17,9 @@
 package nl.grons.metrics4.scala
 
 import org.scalatest.Matchers._
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class MetricNameSpec extends FunSpec {
+class MetricNameSpec extends AnyFunSpec {
 
   describe("MetricName object") {
     it("concatenates names with a period as separator") {

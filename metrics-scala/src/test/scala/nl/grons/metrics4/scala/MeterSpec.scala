@@ -16,13 +16,12 @@
 
 package nl.grons.metrics4.scala
 
-import org.mockito.Mockito.verify
-import org.scalatest.mockito.MockitoSugar._
+import org.mockito.IdiomaticMockito._
 import org.scalatest.Matchers._
-import org.scalatest.FunSpec
 import org.scalatest.OneInstancePerTest
+import org.scalatest.funspec.AnyFunSpec
 
-class MeterSpec extends FunSpec with OneInstancePerTest {
+class MeterSpec extends AnyFunSpec with OneInstancePerTest {
   describe("A meter") {
     val metric = mock[com.codahale.metrics.Meter]
     val meter = new Meter(metric)
@@ -30,26 +29,26 @@ class MeterSpec extends FunSpec with OneInstancePerTest {
     it("marks the underlying metric") {
       meter.mark()
 
-      verify(metric).mark()
+      metric.mark() was called
     }
 
     it("marks the underlying metric by an arbitrary amount") {
       meter.mark(12)
 
-      verify(metric).mark(12)
+      metric.mark(12) was called
     }
 
     it("increments meter on exception when exceptionMeter is used") {
       a [RuntimeException] should be thrownBy { meter.exceptionMarker( throw new RuntimeException() ) }
 
-      verify(metric).mark()
+      metric.mark() was called
     }
 
     it("should increment time execution of partial function") {
       val pf: PartialFunction[String,String] = { case "test" => throw new RuntimeException() }
       val wrapped = meter.exceptionMarkerPF(pf)
       a [RuntimeException] should be thrownBy { wrapped("test") }
-      verify(metric).mark()
+      metric.mark() was called
       wrapped.isDefinedAt("x") should be (false)
     }
   }

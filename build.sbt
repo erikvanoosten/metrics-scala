@@ -3,9 +3,9 @@ lazy val commonSettings = Seq(
   scalaVersion := "2.12.8",
   crossVersion := CrossVersion.binary,
   libraryDependencies ++= Seq(
-    "org.scalatest" %% "scalatest" % "3.1.0-SNAP7" % "test",
-    "org.mockito" % "mockito-core" % "2.27.0" % "test",
-    "org.slf4j" % "slf4j-simple" % "1.7.26" % "test"
+    "org.scalatest" %% "scalatest" % "3.1.0-SNAP9" % Test,
+    "org.mockito" %% "mockito-scala" % "1.3.1" % Test,
+    "org.slf4j" % "slf4j-simple" % "1.7.26" % Test
   ),
   fork := true,
   Test / testOptions += {
@@ -49,7 +49,7 @@ lazy val root = (project in file("."))
 lazy val metricsScala = (project in file("metrics-scala"))
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("2.11.12", "2.12.8", "2.13.0-M5"),
+    crossScalaVersions := Seq("2.11.12", "2.12.8", "2.13.0-RC1"),
     name := "metrics4-scala",
     description := "metrics-scala for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -63,7 +63,7 @@ lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("2.11.12", "2.12.8", "2.13.0-M5"),
+    crossScalaVersions := Seq("2.11.12", "2.12.8", "2.13.0-RC1"),
     name := "metrics4-scala-hdr",
     description := "metrics-scala-hdr for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -72,6 +72,21 @@ lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
       "org.hdrhistogram" % "HdrHistogram" % "2.1.11"
     ),
     mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-scala-hdr" % "4.0.1")
+  )
+
+lazy val metricsAkka25 = (project in file("metrics-akka-25"))
+  .dependsOn(metricsScala)
+  .settings(
+    commonSettings,
+    crossScalaVersions := Seq("2.12.8", "2.13.0-RC1"),
+    name := "metrics4-akka_a25",
+    description := "metrics-scala for Akka 2.5 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
+    libraryDependencies ++= Seq(
+      "com.typesafe.akka" %% "akka-actor" % "2.5.22",
+      "com.typesafe.akka" %% "akka-testkit" % "2.5.22" % Test
+    ),
+    sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
+    mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-akka_a25" % "4.0.1")
   )
 
 lazy val metricsAkka24 = (project in file("metrics-akka-24"))
@@ -83,25 +98,10 @@ lazy val metricsAkka24 = (project in file("metrics-akka-24"))
     description := "metrics-scala for Akka 2.4 and 2.5 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
       "com.typesafe.akka" %% "akka-actor" % "2.4.20",
-      "com.typesafe.akka" %% "akka-testkit" % "2.4.20" % "test"
+      "com.typesafe.akka" %% "akka-testkit" % "2.4.20" % Test
     ),
     sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
     mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-akka_a24" % "4.0.1")
-  )
-
-lazy val metricsAkka25 = (project in file("metrics-akka-25"))
-  .dependsOn(metricsScala)
-  .settings(
-    commonSettings,
-    crossScalaVersions := Seq("2.12.8", "2.13.0-M5"),
-    name := "metrics4-akka_a25",
-    description := "metrics-scala for Akka 2.5 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
-    libraryDependencies ++= Seq(
-      "com.typesafe.akka" %% "akka-actor" % "2.5.22",
-      "com.typesafe.akka" %% "akka-testkit" % "2.5.22" % "test"
-    ),
-    sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
-    mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-akka_a25" % "4.0.1")
   )
 
 // 2.11.x are the only pre-2.12 scala versions that are used in this build

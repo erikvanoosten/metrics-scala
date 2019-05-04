@@ -16,24 +16,23 @@
 
 package nl.grons.metrics4.scala
 
-import org.scalatest.FunSpec
-import org.scalatest.mockito.MockitoSugar._
-import org.scalatest.OneInstancePerTest
 import com.codahale.metrics.MetricRegistry
-import org.mockito.Mockito.verify
 import com.codahale.metrics.health.{HealthCheck, HealthCheckRegistry}
+import org.mockito.IdiomaticMockito._
+import org.scalatest.OneInstancePerTest
+import org.scalatest.funspec.AnyFunSpec
 
-class CombinedBuilderSpec extends FunSpec with OneInstancePerTest {
+class CombinedBuilderSpec extends AnyFunSpec with OneInstancePerTest {
 
   describe("InstrumentedBuilder combined with CheckedBuilder") {
     it("uses owner class as metric base name") {
       val combinedBuilder = new CombinedBuilder
 
       combinedBuilder.createCounter()
-      verify(combinedBuilder.metricRegistry).counter("nl.grons.metrics4.scala.CombinedBuilderSpec.CombinedBuilder.cnt")
+      combinedBuilder.metricRegistry.counter("nl.grons.metrics4.scala.CombinedBuilderSpec.CombinedBuilder.cnt") was called
 
       val check = combinedBuilder.createBooleanHealthCheck { true }
-      verify(combinedBuilder.registry).register("nl.grons.metrics4.scala.CombinedBuilderSpec.CombinedBuilder.test", check)
+      combinedBuilder.registry.register("nl.grons.metrics4.scala.CombinedBuilderSpec.CombinedBuilder.test", check) was called
     }
 
     it("supports overriding the metric base name") {
@@ -42,10 +41,10 @@ class CombinedBuilderSpec extends FunSpec with OneInstancePerTest {
       }
 
       combinedBuilder.createCounter()
-      verify(combinedBuilder.metricRegistry).counter("OverriddenBaseName.cnt")
+      combinedBuilder.metricRegistry.counter("OverriddenBaseName.cnt") was called
 
       val check = combinedBuilder.createBooleanHealthCheck { true }
-      verify(combinedBuilder.registry).register("OverriddenBaseName.test", check)
+      combinedBuilder.registry.register("OverriddenBaseName.test", check) was called
     }
   }
 

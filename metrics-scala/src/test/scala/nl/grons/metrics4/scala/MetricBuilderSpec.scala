@@ -18,22 +18,22 @@ package nl.grons.metrics4.scala
 
 import org.scalatest.Matchers._
 import org.scalatest.OneInstancePerTest
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 import com.codahale.metrics.MetricRegistry
 import scala.concurrent.duration._
 
-class MetricBuilderSpec extends FunSpec with OneInstancePerTest {
+class MetricBuilderSpec extends AnyFunSpec with OneInstancePerTest {
 
   private val testMetricRegistry = new MetricRegistry()
 
   private trait Instrumented extends InstrumentedBuilder {
-    val metricRegistry = testMetricRegistry
+    val metricRegistry: MetricRegistry = testMetricRegistry
   }
 
   private class UnderTest extends Instrumented {
     val timer: Timer = metrics.timer("10ms")
     val gauge: Gauge[Int] = metrics.gauge("the answer")(value)
-    val cachedGauge: Gauge[Int] = metrics.cachedGauge("cached", 300 milliseconds)(expensiveValue)
+    val cachedGauge: Gauge[Int] = metrics.cachedGauge("cached", 300.milliseconds)(expensiveValue)
     val counter: Counter = metrics.counter("1..2..3..4")
     val histogram: Histogram = metrics.histogram("histo")
     //noinspection ScalaDeprecation
@@ -49,7 +49,7 @@ class MetricBuilderSpec extends FunSpec with OneInstancePerTest {
 
     var expensiveValueInvocations = 0
 
-    def expensiveValue = {
+    def expensiveValue: Int = {
       expensiveValueInvocations += 1
       42
     }

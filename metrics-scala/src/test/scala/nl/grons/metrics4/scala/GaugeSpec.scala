@@ -16,13 +16,12 @@
 
 package nl.grons.metrics4.scala
 
-import org.mockito.Mockito.when
-import org.scalatest.OneInstancePerTest
+import org.mockito.IdiomaticMockito._
 import org.scalatest.Matchers._
-import org.scalatest.mockito.MockitoSugar._
-import org.scalatest.FunSpec
+import org.scalatest.OneInstancePerTest
+import org.scalatest.funspec.AnyFunSpec
 
-class GaugeSpec extends FunSpec with OneInstancePerTest {
+class GaugeSpec extends AnyFunSpec with OneInstancePerTest {
   describe("A gauge") {
     val metric = mock[com.codahale.metrics.Gauge[Int]]
     val gauge = new Gauge(metric)
@@ -34,7 +33,7 @@ class GaugeSpec extends FunSpec with OneInstancePerTest {
     }
 
     it("invokes getValue on underlying gauge") {
-      when(metric.getValue).thenReturn(1)
+      metric.getValue shouldReturn 1
 
       gauge.value should equal (1)
     }

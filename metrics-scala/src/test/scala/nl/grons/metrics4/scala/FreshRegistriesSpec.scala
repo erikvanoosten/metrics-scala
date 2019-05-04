@@ -18,10 +18,10 @@ package nl.grons.metrics4.scala
 
 import com.codahale.metrics.SharedMetricRegistries
 import com.codahale.metrics.health.SharedHealthCheckRegistries
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.Matchers._
 
-class FreshRegistriesSpec extends FunSpec {
+class FreshRegistriesSpec extends AnyFunSpec {
 
   describe(classOf[FreshRegistries].getSimpleName) {
     it("overrides the metric registry") {
