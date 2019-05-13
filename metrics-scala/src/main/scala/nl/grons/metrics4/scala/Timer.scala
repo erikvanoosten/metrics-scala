@@ -96,8 +96,10 @@ class Timer(private[scala] val metric: DropwizardTimer) {
         ctx.stop()
         throw ex
     }
-    f.onComplete(_ => ctx.stop())
-    f
+    f.map{ r =>
+      ctx.stop()
+      r
+    }
   }
 
   /**
