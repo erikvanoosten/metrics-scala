@@ -96,7 +96,7 @@ class Timer(private[scala] val metric: DropwizardTimer) {
         ctx.stop()
         throw ex
     }
-    f.map{ r =>
+    f.transform{ r =>
       ctx.stop()
       r
     }
