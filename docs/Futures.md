@@ -37,7 +37,7 @@ class Example extends Instrumented {
 }
 ```
 
-See also the scaladoc for `timeFuture` in [Timer](/src/main/scala/nl/grons/metrics4/scala/Timer.scala).
+See the scaladoc for `timeFuture` in [Timer](/src/main/scala/nl/grons/metrics4/scala/Timer.scala) for more gotchas.
 
 ## Future support before version 3.5.4
 
