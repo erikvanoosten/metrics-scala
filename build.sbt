@@ -3,8 +3,8 @@ lazy val commonSettings = Seq(
   scalaVersion := "2.12.8",
   crossVersion := CrossVersion.binary,
   libraryDependencies ++= Seq(
-    "org.scalatest" %% "scalatest" % "3.1.0-SNAP10" % Test,
-    "org.mockito" %% "mockito-scala" % "1.4.6" % Test,
+    "org.scalatest" %% "scalatest" % "3.1.0-SNAP12" % Test,
+    "org.mockito" %% "mockito-scala" % "1.5.2" % Test,
     "org.slf4j" % "slf4j-simple" % "1.7.26" % Test
   ),
   fork := true,
@@ -49,7 +49,7 @@ lazy val root = (project in file("."))
 lazy val metricsScala = (project in file("metrics-scala"))
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("2.11.12", "2.12.8", "2.13.0-RC1"),
+    crossScalaVersions := Seq("2.11.12", "2.12.8", "2.13.0-RC3"),
     name := "metrics4-scala",
     description := "metrics-scala for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -63,7 +63,7 @@ lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("2.11.12", "2.12.8", "2.13.0-RC1"),
+    crossScalaVersions := Seq("2.11.12", "2.12.8", "2.13.0-RC3"),
     name := "metrics4-scala-hdr",
     description := "metrics-scala-hdr for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -78,12 +78,12 @@ lazy val metricsAkka25 = (project in file("metrics-akka-25"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("2.12.8", "2.13.0-RC1"),
+    crossScalaVersions := Seq("2.12.8", "2.13.0-RC3"),
     name := "metrics4-akka_a25",
     description := "metrics-scala for Akka 2.5 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
-      "com.typesafe.akka" %% "akka-actor" % "2.5.22",
-      "com.typesafe.akka" %% "akka-testkit" % "2.5.22" % Test
+      "com.typesafe.akka" %% "akka-actor" % "2.5.23",
+      "com.typesafe.akka" %% "akka-testkit" % "2.5.23" % Test
     ),
     sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
     mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-akka_a25" % "4.0.1")

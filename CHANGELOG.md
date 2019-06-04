@@ -1,10 +1,18 @@
+v4.0.6: Jun 2019
+================
+
+* No code changes.
+* Scaladoc improvements.
+* Updates: metrics-core 4.0.5 -> 4.1.0, Akka: 2.5.22 -> 2.5.23.
+* Added scala 2.13.0-RC3. Note: 2.13.0-RC3 is only supported until the next 2.13 release.
+
 v4.0.5: May 2019
 ================
 
 * No code changes (except for tests).
 * Updates: Akka: 2.5.19 -> 2.5.22.
 * Tests now use mockito-scala instead of mockito.
-* Added scala 2.13.0-RC1 (dropped scala 2.13.0-M5). Note: 2.13.0-RC1 is only supported until the next pre-2.13 release.
+* Added scala 2.13.0-RC1. Note: 2.13.0-RC1 is no longer supported, please use v4.0.6 for scala 2.13.0-RC3.
 
 v4.0.4: Jan 2019
 ================
@@ -12,7 +20,7 @@ v4.0.4: Jan 2019
 * No code changes.
 * Updates: scala 2.12.7 -> 2.12.8, dropwizard metrics: 4.0.3 -> 4.0.5, HdrHistogram: 2.1.10 -> 2.1.11,
   Akka: 2.5.18 -> 2.5.19.
-* Added scala 2.13.0-M5. Note: 2.13.0-M5 is no longer supported, please use v4.0.5 for scala 2.13.0-RC1.
+* Added scala 2.13.0-M5. Note: 2.13.0-M5 is no longer supported, please use v4.0.6 for scala 2.13.0-RC3.
 
 v4.0.3: Nov 2018
 ================
