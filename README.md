@@ -85,7 +85,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
     <tr>
       <td valign="top">2.11</td>
       <td valign="top">2.12</td>
-      <td valign="top">2.13.0-RC3 (*)</td>
+      <td valign="top">2.13</td>
       <td valign="top">2.5</td>
       <td valign="top">2.4</td>
     </tr>
@@ -144,7 +144,7 @@ Metrics-scala 3.x and metrics-scala 4.x can be used at the same time on top of e
 
 ## Download 4.x
 
-<a href="CHANGELOG.md#v406-jun-2019">Release notes for 4.0.6.</a>
+<a href="CHANGELOG.md#v406-jun-2019">Release notes for 4.0.7.</a>
 
 WARNING: `nl.grons:metrics-scala:4.0.0` was accidentally released as well. *Do not use it* as it will give
 binary compatibility problems. Instead use `"nl.grons" %% "metrics4-scala" % "4.0.1"` or later as described below.
@@ -152,18 +152,18 @@ binary compatibility problems. Instead use `"nl.grons" %% "metrics4-scala" % "4.
 SBT:
 ```
 libraryDependencies ++= Seq(
-  "nl.grons" %% "metrics4-scala" % "4.0.6",
-  "nl.grons" %% "metrics4-akka_a24" % "4.0.6",
-  "nl.grons" %% "metrics4-scala-hdr" % "4.0.6"
+  "nl.grons" %% "metrics4-scala" % "4.0.7",
+  "nl.grons" %% "metrics4-akka_a24" % "4.0.7",
+  "nl.grons" %% "metrics4-scala-hdr" % "4.0.7"
 )
 ```
 
 Maven:
 ```
 <properties>
-    <scala.version>2.12.7</scala.version>
-    <scala.compat.version>2.12</scala.compat.version>
-    <metrics.scala.version>4.0.6</metrics.scala.version>
+    <scala.version>2.13.0</scala.version>
+    <scala.compat.version>2.13</scala.compat.version>
+    <metrics.scala.version>4.0.7</metrics.scala.version>
 </properties>
 <dependency>
     <groupId>nl.grons</groupId>

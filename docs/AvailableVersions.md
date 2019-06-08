@@ -21,12 +21,12 @@ The table shows the available 4.x artifacts of metrics-scala.
     <tr>
       <td valign="top">2.11</td>
       <td valign="top">2.12</td>
-      <td valign="top">2.13.0-RC3 (*)</td>
+      <td valign="top">2.13</td>
       <td valign="top">2.4</td>
       <td valign="top">2.5</td>
     </tr>
     <tr>
-      <td valign="top" rowspan="4"><a href="/CHANGELOG.md#v406-jun-2019">4.0.6</a></td>
+      <td valign="top" rowspan="4"><a href="/CHANGELOG.md#v407-jun-2019">4.0.7</a></td>
       <td valign="top">metrics4-scala</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -58,6 +58,43 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">Hdr 1.1.0/2.1.11 (**)</td>
+    </tr>
+    <tr>
+      <td valign="top" rowspan="4"><a href="/CHANGELOG.md#v406-jun-2019">4.0.6</a></td>
+      <td valign="top">metrics4-scala</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">Dropwizard-metrics 4.1.0</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-akka_a25</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">Akka 2.5.23</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-akka_a24</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">Akka 2.4.20</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-scala-hdr</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">Hdr 1.1.0/2.1.11 (**)</td>
