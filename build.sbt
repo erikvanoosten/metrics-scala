@@ -1,6 +1,6 @@
 lazy val commonSettings = Seq(
   organization := "nl.grons",
-  scalaVersion := "2.13.0",
+  scalaVersion := "2.12.8",
   crossVersion := CrossVersion.binary,
   libraryDependencies ++= Seq(
     "org.scalatest" %% "scalatest" % "3.1.0-SNAP13" % Test,
