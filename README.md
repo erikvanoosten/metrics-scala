@@ -144,7 +144,7 @@ Metrics-scala 3.x and metrics-scala 4.x can be used at the same time on top of e
 
 ## Download 4.x
 
-<a href="CHANGELOG.md#v406-jun-2019">Release notes for 4.0.7.</a>
+<a href="CHANGELOG.md#v407-jun-2019">Release notes for 4.0.7.</a>
 
 WARNING: `nl.grons:metrics-scala:4.0.0` was accidentally released as well. *Do not use it* as it will give
 binary compatibility problems. Instead use `"nl.grons" %% "metrics4-scala" % "4.0.1"` or later as described below.
