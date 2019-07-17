@@ -69,7 +69,7 @@ class Timer(private[scala] val metric: DropwizardTimer) {
     * * in case the future is not yet completed: the actual execution of the Future
     * * the time it takes to schedule stopping the timer
     *
-    * To only measure the Future execution time, please use use a timer in the code that is executed inside the Future.
+    * To only measure the Future execution time, please use a timer in the code that is executed inside the Future.
     *
     * The timer is stopped concurrently to the returned future. If you need to verify the timer's value in a unit test
     * you can use something like ScalaTest's `eventually`, or use a direct execution context.
