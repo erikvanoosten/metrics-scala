@@ -30,6 +30,10 @@ class MetricNameSpec extends AnyFunSpec {
       MetricName(classOf[MetricName], "part1", null, "part3").name should equal ("nl.grons.metrics4.scala.MetricName.part1.part3")
     }
 
+    it("skips empty strings") {
+      MetricName(classOf[MetricName], "part1", "", "part3").name should equal ("nl.grons.metrics4.scala.MetricName.part1.part3")
+    }
+
     it("supports closures") {
       val foo: String => MetricName = s => MetricName(this.getClass)
       foo("").name should equal ("nl.grons.metrics4.scala.MetricNameSpec")
@@ -63,6 +67,11 @@ class MetricNameSpec extends AnyFunSpec {
 
     it("skips nulls") {
       MetricName(classOf[MetricName]).append("part1", null, "part3").name should equal ("nl.grons.metrics4.scala.MetricName.part1.part3")
+    }
+
+    it("skips empty strings") {
+      MetricName("part0").append("part1", "", "part3").name should equal ("part0.part1.part3")
+      MetricName("").append("part1", "", "part3").name should equal ("part1.part3")
     }
   }
 }

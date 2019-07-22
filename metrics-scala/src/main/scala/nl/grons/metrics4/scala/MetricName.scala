@@ -43,7 +43,7 @@ object MetricName {
    * such as objects and closures.
    *
    * @param metricOwner the class that 'owns' the metric
-   * @param names the name parts to append, `null`s are filtered out
+   * @param names the name parts to append, empty strings and `null`s are ignored
    * @return a metric (base)name
    */
   def apply(metricOwner: Class[_], names: String*): MetricName =
@@ -53,7 +53,9 @@ object MetricName {
    * Directly create a metrics name from a [[String]].
    *
    * @param name the (base)name for the metric
-   * @param names the name parts to append, `null`s are filtered out
+   *   This should not be empty; not appending more names may lead to an -illegal- empty metric name.
+   *   However, for backward compatibility an empty name is allowed.
+   * @param names the name parts to append, empty strings and `null`s are ignored
    * @return a metric (base)name
    */
   def apply(name: String, names: String*): MetricName = new MetricName(name).append(names: _*)
@@ -70,7 +72,7 @@ class MetricName private (val name: String) {
   /**
    * Extend a metric name.
    *
-   * @param names the name parts to append, `null`s are filtered out
+   * @param names the name parts to append, empty strings and `null`s are ignored
    * @return the extended metric name
    */
   def append(names: String*): MetricName = {
@@ -82,7 +84,7 @@ class MetricName private (val name: String) {
     names.view
       .filter(n => n != null && n.nonEmpty)
       .foreach { newNamePart =>
-        sb.append('.')
+        if (sb.nonEmpty) sb.append('.')
         sb.append(newNamePart)
       }
     new MetricName(sb.toString())
