@@ -1,3 +1,10 @@
+v4.0.8: Jul 2019
+================
+
+* Restrored pre- #117 behavior: metric base name can be empty again. This fixes #162, many thanks
+  to @franzneubert0815 and @michaelarndt0423 for finding this regression.
+* Fixed typo in documentation. Thanks @eugenemedvediev!
+
 v4.0.7: Jun 2019
 ================
 
