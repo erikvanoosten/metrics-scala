@@ -5,7 +5,7 @@ lazy val commonSettings = Seq(
   libraryDependencies ++= Seq(
     "org.scalatest" %% "scalatest" % "3.1.0-SNAP13" % Test,
     "org.mockito" %% "mockito-scala" % "1.5.14" % Test,
-    "org.slf4j" % "slf4j-simple" % "1.7.26" % Test
+    "org.slf4j" % "slf4j-simple" % "1.7.28" % Test
   ),
   fork := true,
   Test / testOptions += {
@@ -82,8 +82,8 @@ lazy val metricsAkka25 = (project in file("metrics-akka-25"))
     name := "metrics4-akka_a25",
     description := "metrics-scala for Akka 2.5 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
-      "com.typesafe.akka" %% "akka-actor" % "2.5.23",
-      "com.typesafe.akka" %% "akka-testkit" % "2.5.23" % Test
+      "com.typesafe.akka" %% "akka-actor" % "2.5.24",
+      "com.typesafe.akka" %% "akka-testkit" % "2.5.24" % Test
     ),
     sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
     mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-akka_a25" % "4.0.1")
