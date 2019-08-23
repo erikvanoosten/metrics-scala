@@ -2,10 +2,10 @@ language: scala
 
 jdk:
 - openjdk8
-- oraclejdk8
 - oraclejdk11
 - openjdk10
 - openjdk11
+- openjdk12
 
 script:
 - sbt +test
