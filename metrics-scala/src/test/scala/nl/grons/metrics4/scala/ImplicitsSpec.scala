@@ -21,7 +21,8 @@ import com.codahale.metrics.{Metric, MetricFilter}
 import org.mockito.IdiomaticMockito._
 import org.mockito.ArgumentMatchersSugar.same
 import org.scalatest.funspec.AnyFunSpec
-import org.scalatest.Matchers._
+import matchers.should.Matchers._
+import org.scalatest.matchers
 
 class ImplicitsSpec extends AnyFunSpec {
 

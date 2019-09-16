@@ -23,13 +23,14 @@ import com.codahale.metrics.health.{HealthCheck, HealthCheckRegistry}
 import org.mockito.IdiomaticMockito._
 import org.scalactic.Equality
 import org.scalatest.funspec.AnyFunSpec
-import org.scalatest.Matchers._
+import matchers.should.Matchers._
 
 import scala.concurrent.{Future, Promise, TimeoutException}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.{DurationInt, FiniteDuration}
 import scala.language.implicitConversions
 import scala.util.Try
+import org.scalatest.matchers
 
 class HealthCheckSpec extends AnyFunSpec {
   implicit private val resultWithApproximateTimestampEquality = HealthCheckResultWithApproximateTimestampEquality

@@ -19,7 +19,7 @@ package nl.grons.metrics4.scala
 import java.util.concurrent.TimeUnit
 
 import org.mockito.IdiomaticMockito._
-import org.scalatest.Matchers._
+import matchers.should.Matchers._
 import org.scalatest.OneInstancePerTest
 import org.scalatest.OptionValues._
 import org.scalatest.TryValues._
@@ -27,6 +27,7 @@ import org.scalatest.concurrent.Eventually
 import org.scalatest.funspec.AnyFunSpec
 
 import scala.concurrent.{ExecutionContext, Future}
+import org.scalatest.matchers
 
 object TimerSpec {
   case class Result()

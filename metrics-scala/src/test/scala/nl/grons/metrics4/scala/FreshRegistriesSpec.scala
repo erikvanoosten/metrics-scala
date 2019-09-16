@@ -19,7 +19,8 @@ package nl.grons.metrics4.scala
 import com.codahale.metrics.SharedMetricRegistries
 import com.codahale.metrics.health.SharedHealthCheckRegistries
 import org.scalatest.funspec.AnyFunSpec
-import org.scalatest.Matchers._
+import matchers.should.Matchers._
+import org.scalatest.matchers
 
 class FreshRegistriesSpec extends AnyFunSpec {
 

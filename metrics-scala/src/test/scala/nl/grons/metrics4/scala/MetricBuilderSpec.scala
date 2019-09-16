@@ -16,11 +16,12 @@
 
 package nl.grons.metrics4.scala
 
-import org.scalatest.Matchers._
+import matchers.should.Matchers._
 import org.scalatest.OneInstancePerTest
 import org.scalatest.funspec.AnyFunSpec
 import com.codahale.metrics.MetricRegistry
 import scala.concurrent.duration._
+import org.scalatest.matchers
 
 class MetricBuilderSpec extends AnyFunSpec with OneInstancePerTest {
 

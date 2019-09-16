@@ -18,11 +18,12 @@ package nl.grons.metrics4.scala
 
 import akka.actor.{Actor, ActorSystem}
 import com.codahale.metrics.{Metric, MetricFilter, MetricRegistry}
-import org.scalatest.Matchers._
+import matchers.should.Matchers._
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.OneInstancePerTest
 
 import scala.collection.JavaConverters._
+import org.scalatest.matchers
 
 class ActorMetricsSpec extends AnyFunSpec with OneInstancePerTest {
   import ActorMetricsSpec._

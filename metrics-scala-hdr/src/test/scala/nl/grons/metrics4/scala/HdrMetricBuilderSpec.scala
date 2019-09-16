@@ -19,12 +19,13 @@ package nl.grons.metrics4.scala
 import java.util.concurrent.{CountDownLatch, Executors}
 
 import com.codahale.metrics.MetricRegistry
-import org.scalatest.Matchers._
+import matchers.should.Matchers._
 import org.scalatest.funspec.AsyncFunSpec
 import org.scalatest.{Inspectors, OneInstancePerTest}
 
 import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.concurrent.duration._
+import org.scalatest.matchers
 
 class HdrMetricBuilderSpec extends AsyncFunSpec with OneInstancePerTest with Inspectors {
   private val testMetricRegistry = new MetricRegistry()

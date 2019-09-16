@@ -17,9 +17,10 @@
 package nl.grons.metrics4.scala
 
 import org.mockito.IdiomaticMockito._
-import org.scalatest.Matchers._
+import matchers.should.Matchers._
 import org.scalatest.OneInstancePerTest
 import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers
 
 class GaugeSpec extends AnyFunSpec with OneInstancePerTest {
   describe("A gauge") {
