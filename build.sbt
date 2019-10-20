@@ -33,6 +33,8 @@ lazy val commonSettings = Seq(
   )
 )
 
+publishTo in ThisBuild := sonatypePublishTo.value
+
 lazy val root = (project in file("."))
   .aggregate(metricsScala, metricsScalaHdr, metricsAkka24, metricsAkka25)
   .settings(
@@ -40,7 +42,8 @@ lazy val root = (project in file("."))
     publish / skip := true,
     publish := {},
     publishLocal := {},
-    name := "metrics4-scala-root"
+    name := "metrics4-scala-root",
+    sonatypeProfileName := "nl.grons"
   )
 
 lazy val metricsScala = (project in file("metrics-scala"))
