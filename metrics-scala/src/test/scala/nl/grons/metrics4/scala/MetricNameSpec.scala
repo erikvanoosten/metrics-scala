@@ -16,8 +16,8 @@
 
 package nl.grons.metrics4.scala
 
-import org.scalatest.Matchers._
 import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers._
 
 class MetricNameSpec extends AnyFunSpec {
 

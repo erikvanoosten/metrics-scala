@@ -18,10 +18,10 @@ package nl.grons.metrics4.scala
 
 import com.codahale.metrics.MetricRegistry.MetricSupplier
 import com.codahale.metrics.{Metric, MetricFilter}
-import org.mockito.IdiomaticMockito._
 import org.mockito.ArgumentMatchersSugar.same
+import org.mockito.IdiomaticMockito._
 import org.scalatest.funspec.AnyFunSpec
-import org.scalatest.Matchers._
+import org.scalatest.matchers.should.Matchers._
 
 class ImplicitsSpec extends AnyFunSpec {
 

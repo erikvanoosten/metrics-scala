@@ -19,7 +19,7 @@ package nl.grons.metrics4.scala
 import com.codahale.metrics.SharedMetricRegistries
 import com.codahale.metrics.health.SharedHealthCheckRegistries
 import org.scalatest.funspec.AnyFunSpec
-import org.scalatest.Matchers._
+import org.scalatest.matchers.should.Matchers._
 
 class DefaultInstrumentedSpec extends AnyFunSpec {
 

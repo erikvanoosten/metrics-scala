@@ -17,9 +17,9 @@
 package nl.grons.metrics4.scala
 
 import org.mockito.IdiomaticMockito._
-import org.scalatest.Matchers._
 import org.scalatest.OneInstancePerTest
 import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers._
 
 class MeterSpec extends AnyFunSpec with OneInstancePerTest {
   describe("A meter") {
