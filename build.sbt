@@ -17,10 +17,7 @@ lazy val commonSettings = Seq(
   javaOptions ++= Seq("-Xmx512m", "-Djava.awt.headless=true"),
   scalacOptions ++= Seq("-target:jvm-1.8", "-deprecation", "-unchecked"),
   credentials += Credentials(Path.userHome / ".sbt" / "sonatype.credentials"),
-  publishTo := Some(
-    if (isSnapshot.value) Opts.resolver.sonatypeSnapshots
-    else Opts.resolver.sonatypeStaging
-  ),
+  publishTo := sonatypePublishToBundle.value,
   publishMavenStyle := true,
   Test / publishArtifact := false,
   pomIncludeRepository := { _ => false },
