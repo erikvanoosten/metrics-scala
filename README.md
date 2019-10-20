@@ -139,8 +139,9 @@ See also [hdrhistogram manual page](/docs/Hdrhistogram.md).
 Migrating from 3.x to 4.x is simply a matter of replacing the package from `nl.grons.metrics` to `nl.grons.metrics4`,
 and recompiling the code.
 
-Metrics-scala 3.x and metrics-scala 4.x can be used at the same time on top of either Dropwizard Metrics 3.x or 4.x
-(excluding Dropwizard metrics 4.0.0). Metrics4-scala-hdr can only be used on top of Dropwizard Metrics 4.x.
+Metrics-scala 3.x and metrics-scala 4.x can mostly be used at the same time on top of either
+Dropwizard Metrics 3.x or 4.x (excluding Dropwizard metrics 4.0.0). Unfortunately HDR support
+is not compatible over major Dropwizard version.
 
 ## Download 4.x
 
@@ -153,7 +154,7 @@ SBT:
 ```
 libraryDependencies ++= Seq(
   "nl.grons" %% "metrics4-scala" % "4.1.1",
-  "nl.grons" %% "metrics4-akka_a24" % "4.1.1",
+  "nl.grons" %% "metrics4-akka_a25" % "4.1.1",
   "nl.grons" %% "metrics4-scala-hdr" % "4.1.1"
 )
 ```
