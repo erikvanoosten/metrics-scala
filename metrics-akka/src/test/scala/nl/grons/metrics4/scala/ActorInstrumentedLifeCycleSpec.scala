@@ -21,12 +21,13 @@ import akka.testkit._
 import com.codahale.metrics._
 import com.typesafe.config.ConfigFactory
 import nl.grons.metrics4.scala.ActorInstrumentedLifeCycleSpec._
+import org.scalatest.BeforeAndAfterAll
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.funspec.AsyncFunSpecLike
-import org.scalatest.{BeforeAndAfterAll, Matchers}
+import org.scalatest.matchers.should.Matchers
 
-import scala.concurrent.Promise
 import scala.collection.JavaConverters._
+import scala.concurrent.Promise
 
 object ActorInstrumentedLifeCycleSpec {
 
