@@ -96,7 +96,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
-      <td valign="top">Dropwizard-metrics 4.1.0</td>
+      <td valign="top">Dropwizard-metrics 4.1.1</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a25</td>
@@ -105,7 +105,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
-      <td valign="top">Akka 2.5.23</td>
+      <td valign="top">Akka 2.5.26</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a24</td>
@@ -140,11 +140,11 @@ Migrating from 3.x to 4.x is simply a matter of replacing the package from `nl.g
 and recompiling the code.
 
 Metrics-scala 3.x and metrics-scala 4.x can be used at the same time on top of either Dropwizard Metrics 3.x or 4.x
-(excluding Dropwizard metrics 4.0.0).
+(excluding Dropwizard metrics 4.0.0). Metrics4-scala-hdr can only be used on top of Dropwizard Metrics 4.x.
 
 ## Download 4.x
 
-<a href="CHANGELOG.md#v408-jul-2019">Release notes for 4.0.8.</a>
+<a href="CHANGELOG.md#v411-oct-2019">Release notes for 4.1.1.</a>
 
 WARNING: `nl.grons:metrics-scala:4.0.0` was accidentally released as well. *Do not use it* as it will give
 binary compatibility problems. Instead use `"nl.grons" %% "metrics4-scala" % "4.0.1"` or later as described below.
@@ -152,9 +152,9 @@ binary compatibility problems. Instead use `"nl.grons" %% "metrics4-scala" % "4.
 SBT:
 ```
 libraryDependencies ++= Seq(
-  "nl.grons" %% "metrics4-scala" % "4.0.8",
-  "nl.grons" %% "metrics4-akka_a24" % "4.0.8",
-  "nl.grons" %% "metrics4-scala-hdr" % "4.0.8"
+  "nl.grons" %% "metrics4-scala" % "4.1.1",
+  "nl.grons" %% "metrics4-akka_a24" % "4.1.1",
+  "nl.grons" %% "metrics4-scala-hdr" % "4.1.1"
 )
 ```
 
@@ -163,7 +163,7 @@ Maven:
 <properties>
     <scala.version>2.13.0</scala.version>
     <scala.compat.version>2.13</scala.compat.version>
-    <metrics.scala.version>4.0.8</metrics.scala.version>
+    <metrics.scala.version>4.1.1</metrics.scala.version>
 </properties>
 <dependency>
     <groupId>nl.grons</groupId>
@@ -172,7 +172,7 @@ Maven:
 </dependency>
 <dependency>
     <groupId>nl.grons</groupId>
-    <artifactId>metrics4-akka_a24_${scala.compat.version}</artifactId>
+    <artifactId>metrics4-akka_a25_${scala.compat.version}</artifactId>
     <version>${metrics.scala.version}</version>
 </dependency>
 <dependency>
@@ -212,8 +212,8 @@ To use hdrhistogram additional dependencies are needed. See the [hdrhistogram ma
 ## Dropwizard 5.x
 
 Dropwizard metrics 5.x has been in RC state for some time now. Metrics-scala support for it can be
-found in the `metrics5-dev` branch. This will be released as soon as Dropwizard metrics and hdrhistogram have a
-non-RC 5.x release.
+found in the `metrics5-dev` branch. Since the master branch has since evolved considerably, the 5.x
+branch is not in a releasable state anymore.
 
 ## Support
 

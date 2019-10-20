@@ -1,3 +1,10 @@
+v4.1.1: Oct 2019
+================
+
+* Though a lot of plumbing is in flux, there were no code changes.
+* Bumped version number to match Dropwizard's version (this should have happened in June already).
+* Updates: metrics-core: 4.1.0 -> 4.1.1, Akka: 2.5.23 -> 2.5.26.
+
 v4.0.8: Jul 2019
 ================
 
