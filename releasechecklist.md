@@ -8,7 +8,7 @@
 6. Optionally test signed publishing with `./crossrelease.sh publishLocalSigned` 
 7. `./crossrelease.sh`
 8. `git push` && `git push --tags`
-9. Login to Sonatype's Nexus, close and release the staging repository.
+9. (Pre 4.1.1 only) Login to Sonatype's Nexus, close and release the staging repository.
 10. Update version in `README.md`
 11. Add version in `docs/AvailableVersions.md` and push again
 12. Check the documented links online.
