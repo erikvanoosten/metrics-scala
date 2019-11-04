@@ -97,6 +97,11 @@ of evictions from the cache.
 Note: when a Gauge is created from an Actor with restart behavior, trait `ActorInstrumentedLifeCycle` should also be
 mixed in. See [Instrumenting Actors](Actors.md) for more information.
 
+Note: if your application has some kind of restarting behavior and you want to re-register its gauges during the
+restart, you should invoke `metrics.unregisterGauges()` at the beginning of the restart. This will un-register all
+gauges that were registered from the current instance (or more precisely from the `MetricBuilder` instance which was
+created by the `Instrumented` trait). Trait `ActorInstrumentedLifeCycle` automates this for actors.
+
 ## Cached gauges
 
 (Available since metrics-scala 3.2.1.)
