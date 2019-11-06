@@ -82,8 +82,8 @@ lazy val metricsAkka25 = (project in file("metrics-akka-25"))
     name := "metrics4-akka_a25",
     description := "metrics-scala for Akka 2.5 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
-      "com.typesafe.akka" %% "akka-actor" % "2.5.26",
-      "com.typesafe.akka" %% "akka-testkit" % "2.5.26" % Test
+      "com.typesafe.akka" %% "akka-actor" % "2.6.0",
+      "com.typesafe.akka" %% "akka-testkit" % "2.6.0" % Test
     ),
     sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
     mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-akka_a25" % "4.0.1")
