@@ -79,13 +79,14 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
     <tr>
       <td valign="top" rowspan="2">Artifact name</td>
       <td valign="top" rowspan="1" colspan="3">Scala version</td>
-      <td valign="top" rowspan="1" colspan="2">Akka version</td>
+      <td valign="top" rowspan="1" colspan="3">Akka version</td>
       <td valign="top" rowspan="2">Build against</td>
     </tr>
     <tr>
-      <td valign="top">2.11</td>
-      <td valign="top">2.12</td>
       <td valign="top">2.13</td>
+      <td valign="top">2.12</td>
+      <td valign="top">2.11</td>
+      <td valign="top">2.6</td>
       <td valign="top">2.5</td>
       <td valign="top">2.4</td>
     </tr>
@@ -96,12 +97,14 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">Dropwizard-metrics 4.1.1</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a25</td>
-      <td valign="top"></td>
       <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
@@ -109,9 +112,10 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a24</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
       <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">Akka 2.4.20</td>
@@ -121,6 +125,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">Hdr 1.1.0/2.1.11 (**)</td>
