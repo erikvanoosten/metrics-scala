@@ -15,7 +15,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top" rowspan="2">Metrics-<br>scala<br>version</td>
       <td valign="top" rowspan="2">Artifact name</td>
       <td valign="top" rowspan="1" colspan="3">Scala version</td>
-      <td valign="top" rowspan="1" colspan="2">Akka version</td>
+      <td valign="top" rowspan="1" colspan="3">Akka version</td>
       <td valign="top" rowspan="2">Build against</td>
     </tr>
     <tr>
