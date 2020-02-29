@@ -1,6 +1,8 @@
 v4.1.4: Feb 2020
 ================
 
+⚠️ This is a security release.
+
 * No code changes.
 * Dropwizard 4.1.4 security upgrade (see https://github.com/dropwizard/metrics/releases/tag/v4.1.4).
 * Updates: metrics-core: 4.1.1 -> 4.1.4, HdrHistogram: 2.1.11 -> 2.1.12.
