@@ -25,7 +25,7 @@ class ZeroImplicitsSpec extends org.scalatest.FlatSpec with ZeroImplicits {
   it should "define a zero for all Scala types" in {
     implicitly[Zero[String]].zero shouldBe null
     implicitly[Zero[Boolean]].zero shouldBe false
-    implicitly[Zero[Char]].zero shouldBe '\0'
+    implicitly[Zero[Char]].zero shouldBe '\u0000'
     implicitly[Zero[Byte]].zero shouldBe 0
     implicitly[Zero[Int]].zero shouldBe 0
     implicitly[Zero[Long]].zero shouldBe 0L

@@ -35,7 +35,7 @@ trait ZeroImplicits {
   }
 
   implicit object CharZero extends Zero[Char] {
-    val zero: Char = '\0'
+    val zero: Char = '\u0000'
   }
 
   implicit object ByteZero extends Zero[Byte] {
