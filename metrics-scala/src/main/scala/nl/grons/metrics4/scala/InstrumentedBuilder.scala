@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2018 Erik van Oosten
+ * Copyright (c) 2013-2020 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,7 +66,7 @@ import com.codahale.metrics.MetricRegistry
  * See the [[https://github.com/erikvanoosten/metrics-scala/blob/master/docs/Hdrhistogram.md the manual]]
  * for more instructions on using hdrhistogram.
  */
-trait InstrumentedBuilder extends BaseBuilder {
+trait InstrumentedBuilder extends BaseBuilder with ZeroImplicits {
   protected lazy val metricBuilder = new MetricBuilder(metricBaseName, metricRegistry)
 
   /**

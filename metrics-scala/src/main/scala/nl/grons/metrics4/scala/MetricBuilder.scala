@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2018 Erik van Oosten
+ * Copyright (c) 2013-2020 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,9 +34,10 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) exte
    * Registers a new gauge metric.
    *
    * @param name the name of the gauge
+   * @param f a code block that calculates the current gauge value
    */
   def gauge[A](name: String)(f: => A): Gauge[A] = {
-    wrapDwGauge(metricNameFor(name), new DropwizardGauge[A] { def getValue: A = f })
+    registerAndWrapDwGauge(name, new DropwizardGauge[A] { def getValue: A = f })
   }
 
   /**
@@ -44,15 +45,50 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) exte
    *
    * @param name the name of the gauge
    * @param timeout the timeout
+   * @param f a code block that calculates the current gauge value
    */
   def cachedGauge[A](name: String, timeout: FiniteDuration)(f: => A): Gauge[A] = {
-    wrapDwGauge(metricNameFor(name), new DropwizardCachedGauge[A](timeout.length, timeout.unit) { def loadValue: A = f })
+    registerAndWrapDwGauge(
+      name,
+      new DropwizardCachedGauge[A](timeout.length, timeout.unit) { def loadValue: A = f }
+    )
   }
 
-  private def wrapDwGauge[A](name: String, dwGauge: DropwizardGauge[A]): Gauge[A] = {
-    registry.register(name, dwGauge)
-    gauges.getAndTransform(_ :+ dwGauge)
+  private def registerAndWrapDwGauge[A](name: String, dwGauge: DropwizardGauge[A]): Gauge[A] = {
+    registerDwGauge(name, dwGauge)
     new Gauge[A](dwGauge)
+  }
+
+  /**
+   * Registers a new gauge metric to which you can push values.
+   * The first value is zero (which is mostly `null` or `0` depending on `A`).
+   *
+   * @param name the name of the gauge
+   */
+  def pushGauge[A : Zero](name: String): PushGauge[A] = {
+    val pushGauge = new PushGauge[A](implicitly[Zero[A]].zero)
+    val dwGauge = new DropwizardGauge[A] { def getValue: A = pushGauge.value }
+    registerDwGauge(name, dwGauge)
+    pushGauge
+  }
+
+  /**
+   * Registers a new gauge metric to which you can push values.
+   * The value is reset to zero (which is mostly `null` or `0` depending on `A`) after the timeout.
+   *
+   * @param name the name of the gauge
+   * @param timeout the timeout
+   */
+  def pushGaugeWithTimeout[A : Zero](name: String, timeout: FiniteDuration): PushGaugeWithTimeout[A] = {
+    val pushGauge = new PushGaugeWithTimeout[A](timeout, implicitly[Zero[A]].zero)
+    val dwGauge = new DropwizardGauge[A] { def getValue: A = pushGauge.value }
+    registerDwGauge(name, dwGauge)
+    pushGauge
+  }
+
+  private def registerDwGauge[A](name: String, dwGauge: DropwizardGauge[A]): Unit = {
+    registry.register(metricNameFor(name), dwGauge)
+    gauges.getAndTransform(_ :+ dwGauge)
   }
 
   /**
