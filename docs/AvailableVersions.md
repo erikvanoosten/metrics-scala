@@ -1,4 +1,4 @@
-**You are looking at an outdated overview. [Current overview](/docs/AvailableVersions.md)**
+**You are looking at an outdated overview. [Current overview](/erikvanoosten/metrics-scala/tree/master/docs/AvailableVersions.md)**
 
 Available Versions
 ==================

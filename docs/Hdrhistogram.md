@@ -1,4 +1,4 @@
-**You are looking at the manual for version 3.x. [Manual for later versions](/docs/HdrHistogram.md)**
+**You are looking at the manual for version 3.x. [Manual for later versions](/erikvanoosten/metrics-scala/tree/master/docs/HdrHistogram.md)**
 
 ## Hdrhistogram
 

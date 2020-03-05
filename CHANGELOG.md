@@ -1,3 +1,5 @@
+**You are looking at the version 3.x maintenance branch.**
+
 v3.5.9: Jun 2017
 ================
 
