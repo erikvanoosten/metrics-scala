@@ -1,3 +1,5 @@
+**You are looking at the manual for version 3.x. [Manual for later versions](/docs/Futures.md)**
+
 ## Future support
 
 Since metrics-scala 3.5.4 a future is timed as follows:

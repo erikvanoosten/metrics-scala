@@ -1,3 +1,5 @@
+**You are looking at the manual for version 3.x. [Manual for later versions](/docs/HdrHistogram.md)**
+
 ## Hdrhistogram
 
 Since 3.4.0 metrics-scala makes it easy to use [hdrhistogram](http://hdrhistogram.org/). Hdrhistogram provides

@@ -1,3 +1,5 @@
+**You are looking at the version 3.x maintenance branch.**
+
 Metrics-Scala
 =============
 

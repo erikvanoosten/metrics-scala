@@ -1,3 +1,5 @@
+**You are looking at the manual for version 3.x. [Manual for later versions](/docs/Miscellaneous.md)**
+
 ## Miscellaneous
 
 ### Write `MetricFilter` as regular Scala function

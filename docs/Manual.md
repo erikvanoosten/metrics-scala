@@ -1,4 +1,6 @@
-# Manual
+**You are looking at the manual for version 3.x. [Manual for later versions](/docs/Manual.md)**
+
+# Manual (version 3.x)
 
 Other manual pages:
 

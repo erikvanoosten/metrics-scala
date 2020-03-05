@@ -1,4 +1,4 @@
-**WARNING:** This document applies to metrics-scala 2.x only. Please use [Usage](Manual.md) for metrics 3.x.
+**You are looking at the manual for version 2.x.**
 
 # Manual (version 2.x)
 

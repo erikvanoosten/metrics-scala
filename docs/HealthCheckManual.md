@@ -1,3 +1,5 @@
+**You are looking at the manual for version 3.x. [Manual for later versions](/docs/HealthCheckManual.md)**
+
 # Health Check support
 
 Metrics also has the ability to centralize your service’s health checks with the `metrics-healthchecks` module.

@@ -1,3 +1,5 @@
+**You are looking at the manual for version 3.x. [Manual for later versions](/docs/Actors.md)**
+
 ## Actor support
 
     Actor support is available since metrics-scala v3.0.1 but only in the Akka versions.
