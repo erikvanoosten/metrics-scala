@@ -37,7 +37,7 @@ class Example(db: Database) extends DefaultInstrumented {
 ```
 
 There are Scala wrappers for each metric type: [gauge](#gauges), [counter](#counters), [histogram](#histograms),
-[meter](#meters) and [timer](#timers). In addition you can use push gauges. These are described below.
+[meter](#meters) and [timer](#timers). In addition you can use push gauges. All these are described below.
 
 *Health check* support is described further at [Health check support](HealthCheckManual.md).
 
