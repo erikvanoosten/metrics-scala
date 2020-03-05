@@ -5,9 +5,7 @@ Metrics-Scala
 
 This is the Scala API for [Dropwizard's Metrics](https://github.com/dropwizard/metrics) library.
 
-Initially this project started out as a line for line copy of the Metrics-scala module, released for multiple
-scala versions. Metrics dropped the scala module in version 3.0.0 and this project continued separately
-with the help of [@scullxbones](https://github.com/scullxbones) and many other contributors.
+Our goal is to make it magically effortless to create Dropwizard metrics in Scala programs.
 
 We strive for long term stability, correctness, an easy to use API and full documentation (in that order).
 
@@ -21,7 +19,7 @@ We strive for long term stability, correctness, an easy to use API and full docu
 * Available artifacts
 * Download
 * Support
-* License
+* Legal stuff
 * [![Scaladocs](https://www.javadoc.io/badge/nl.grons/metrics4-scala_2.12.svg?color=brightgreen&label=Scaladocs)](https://www.javadoc.io/page/nl.grons/metrics4-scala_2.12/latest/nl/grons/metrics4/scala/DefaultInstrumented.html)
 * Travis: [![build status](https://travis-ci.org/erikvanoosten/metrics-scala.svg?branch=master)](https://travis-ci.org/erikvanoosten/metrics-scala)
 
@@ -61,6 +59,7 @@ See also the [change log](CHANGELOG.md) for improvements and API changes.
 * Derives proper metrics names for Scala objects and closures.
 * Actor support.
 * Future support.
+* Testing support.
 * [Hdrhistogram](http://hdrhistogram.org/) support.
 
 ## Available artifacts (abbreviated)
@@ -209,7 +208,11 @@ If you find a bug, please open an [issue](https://github.com/erikvanoosten/metri
 pull request. For questions, please sent an email to the
 [metrics mailing list](http://groups.google.com/group/metrics-user).
 
-### License
+### Legal stuff
+
+Initially this project started out as a line for line copy of the Metrics-scala module, released for multiple
+scala versions. Metrics dropped the scala module in version 3.0.0 and this project continued separately
+with the help of [@scullxbones](https://github.com/scullxbones) and many other contributors.
 
 Copyright (c) 2010-2012 Coda Hale, Yammer.com (before 3.0.0)
 
