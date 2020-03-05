@@ -61,12 +61,12 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) exte
 
   /**
    * Registers a new gauge metric to which you can push values.
-   * The first value is zero (which is mostly `null` or `0` depending on `A`).
    *
    * @param name the name of the gauge
+   * @param startValue the first value of the gauge, typically this is `0`, `0L` or `null`.
    */
-  def pushGauge[A : Zero](name: String): PushGauge[A] = {
-    val pushGauge = new PushGauge[A](implicitly[Zero[A]].zero)
+  def pushGauge[A](name: String, startValue: A): PushGauge[A] = {
+    val pushGauge = new PushGauge[A](startValue)
     val dwGauge = new DropwizardGauge[A] { def getValue: A = pushGauge.value }
     registerDwGauge(name, dwGauge)
     pushGauge
@@ -74,13 +74,14 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) exte
 
   /**
    * Registers a new gauge metric to which you can push values.
-   * The value is reset to zero (which is mostly `null` or `0` depending on `A`) after the timeout.
+   * The value is reset to `defaultValue` after the timeout.
    *
    * @param name the name of the gauge
+   * @param defaultValue the first and default value of the gauge, typically this is `0`, `0L` or `null`.
    * @param timeout the timeout
    */
-  def pushGaugeWithTimeout[A : Zero](name: String, timeout: FiniteDuration): PushGaugeWithTimeout[A] = {
-    val pushGauge = new PushGaugeWithTimeout[A](timeout, implicitly[Zero[A]].zero)
+  def pushGaugeWithTimeout[A](name: String, defaultValue: A, timeout: FiniteDuration): PushGaugeWithTimeout[A] = {
+    val pushGauge = new PushGaugeWithTimeout[A](timeout, defaultValue)
     val dwGauge = new DropwizardGauge[A] { def getValue: A = pushGauge.value }
     registerDwGauge(name, dwGauge)
     pushGauge

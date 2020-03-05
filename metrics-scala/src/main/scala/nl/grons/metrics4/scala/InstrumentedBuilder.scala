@@ -66,7 +66,7 @@ import com.codahale.metrics.MetricRegistry
  * See the [[https://github.com/erikvanoosten/metrics-scala/blob/master/docs/Hdrhistogram.md the manual]]
  * for more instructions on using hdrhistogram.
  */
-trait InstrumentedBuilder extends BaseBuilder with ZeroImplicits {
+trait InstrumentedBuilder extends BaseBuilder {
   protected lazy val metricBuilder = new MetricBuilder(metricBaseName, metricRegistry)
 
   /**
