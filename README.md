@@ -11,17 +11,17 @@ We strive for long term stability, correctness, an easy to use API and full docu
 
 ### Contents
 
-  * Usage
-  * [Manual](/docs/Manual.md)
-  * [Manual (version 3.x)](https://github.com/erikvanoosten/metrics-scala/blob/version-3.x-maintenance/docs/Manual.md)
-  * [Manual (version 2.x)](/docs/Manual_2x.md)
-  * Features
-  * Available artifacts
-  * Download
-  * Support
-  * Legal stuff
-  * [![Scaladocs](https://www.javadoc.io/badge/nl.grons/metrics4-scala_2.12.svg?color=brightgreen&label=Scaladocs)](https://www.javadoc.io/page/nl.grons/metrics4-scala_2.12/latest/nl/grons/metrics4/scala/DefaultInstrumented.html)
-  * Travis: [![build status](https://travis-ci.org/erikvanoosten/metrics-scala.svg?branch=master)](https://travis-ci.org/erikvanoosten/metrics-scala)
+* Usage
+* [Manual](/docs/Manual.md)
+* [Manual (version 3.x)](https://github.com/erikvanoosten/metrics-scala/blob/version-3.x-maintenance/docs/Manual.md)
+* [Manual (version 2.x)](/docs/Manual_2x.md)
+* Features
+* Available artifacts
+* Download
+* Support
+* Legal stuff
+* [![Scaladocs](https://www.javadoc.io/badge/nl.grons/metrics4-scala_2.12.svg?color=brightgreen&label=Scaladocs)](https://www.javadoc.io/page/nl.grons/metrics4-scala_2.12/latest/nl/grons/metrics4/scala/DefaultInstrumented.html)
+* Travis: [![build status](https://travis-ci.org/erikvanoosten/metrics-scala.svg?branch=master)](https://travis-ci.org/erikvanoosten/metrics-scala)
 
 ### Usage
 
@@ -52,23 +52,23 @@ See also the [change log](CHANGELOG.md) for improvements and API changes.
 
 ### Features
 
-  * Easy creation of all metrics types.
-  * Easy creation of Health Checks.
-  * Almost invisible syntax for using timers (see example above).
-  * Scala specific methods on metrics (e.g. `+=` on counters).
-  * Derives proper metrics names for Scala objects and closures.
-  * Actor support.
-  * Future support.
-  * Testing support.
-  * [Hdrhistogram](http://hdrhistogram.org/) support.
+* Easy creation of all metrics types.
+* Easy creation of Health Checks.
+* Almost invisible syntax for using timers (see example above).
+* Scala specific methods on metrics (e.g. `+=` on counters).
+* Derives proper metrics names for Scala objects and closures.
+* Actor support.
+* Future support.
+* Testing support.
+* [Hdrhistogram](http://hdrhistogram.org/) support.
 
 ## Available artifacts (abbreviated)
 
 The following artifacts are available:
 
-  * *metrics4-scala*: adds a nice Scala API to Dropwizard Metrics
-  * *metrics4-akka*: support for measuring Akka actors
-  * *metrics4-hdr*: adds support for [HdrHistogram](http://www.hdrhistogram.org/) to increase the accuracy of histograms 
+* *metrics4-scala*: adds a nice Scala API to Dropwizard Metrics
+* *metrics4-akka*: support for measuring Akka actors
+* *metrics4-hdr*: adds support for [HdrHistogram](http://www.hdrhistogram.org/) to increase the accuracy of histograms 
 
 The table shows the available artifacts of metrics-scala. For the full list, including those targeting older Scala and
 Akka versions see [all available versions](/docs/AvailableVersions.md).
