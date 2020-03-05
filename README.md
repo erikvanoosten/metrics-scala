@@ -15,6 +15,7 @@ We strive for long term stability, correctness, an easy to use API and full docu
 
 * Usage
 * [Manual](/docs/Manual.md)
+* [Manual (version 3.x)](https://github.com/erikvanoosten/metrics-scala/blob/version-3.x-maintenance/docs/Manual.md)
 * [Manual (version 2.x)](/docs/Manual_2x.md)
 * Features
 * Available artifacts
