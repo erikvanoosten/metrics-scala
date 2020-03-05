@@ -48,7 +48,7 @@ For more information on (JMX) reporters and other aspects of Metrics, please see
 
 ## Import
 
-All code examples in the manuals assume:
+All code examples assume:
 
 ```scala
 import nl.grons.metrics4.scala._
