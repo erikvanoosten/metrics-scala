@@ -25,7 +25,8 @@ Then create a trait `Instrumented` that overrides the metric builder:
 import nl.grons.metrics4.scala._
 
 trait Instrumented extends DefaultInstrumented {
-  override lazy protected val metricBuilder = new HdrMetricBuilder(metricBaseName, metricRegistry, resetAtSnapshot = false)
+  override lazy protected val metricBuilder =
+    new HdrMetricBuilder(metricBaseName, metricRegistry, resetAtSnapshot = false)
 }
 ```
 
