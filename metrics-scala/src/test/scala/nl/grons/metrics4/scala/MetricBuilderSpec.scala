@@ -35,8 +35,8 @@ class MetricBuilderSpec extends AnyFunSpec with OneInstancePerTest {
     val timer: Timer = metrics.timer("10ms")
     val gauge: Gauge[Int] = metrics.gauge("the answer")(value)
     val cachedGauge: Gauge[Int] = metrics.cachedGauge("cached", 300.milliseconds)(expensiveValue)
-    val pushGauge: PushGauge[Int] = metrics.pushGauge("push")
-    val pushGaugeWithTimeout: PushGaugeWithTimeout[Int] = metrics.pushGaugeWithTimeout("pushT", 300.millisecond)
+    val pushGauge: PushGauge[Int] = metrics.pushGauge("push", 0)
+    val pushGaugeWithTimeout: PushGaugeWithTimeout[Int] = metrics.pushGaugeWithTimeout("pushT", 0, 300.millisecond)
     val counter: Counter = metrics.counter("1..2..3..4")
     val histogram: Histogram = metrics.histogram("histo")
     //noinspection ScalaDeprecation
