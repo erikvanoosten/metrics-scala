@@ -10,6 +10,7 @@ Other manual pages:
 * [Hdrhistogram](Hdrhistogram.md)
 * [Miscellaneous](Miscellaneous.md)
 * [Dropwizard metrics documentation](https://dropwizard.github.io/metrics)
+* [![Scaladocs](https://img.shields.io/badge/javadoc-3.5.9-brightgreen.svg?color=brightgreen&label=Scaladocs)](https://www.javadoc.io/page/nl.grons/metrics-scala_2.12/3.5.9_a2.4/nl/grons/metrics/scala/DefaultInstrumented.html)
 
 ## 1 minute introduction
 
