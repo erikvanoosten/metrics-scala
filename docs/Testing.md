@@ -3,8 +3,7 @@
 ### Fresh registries
 
 During unit testing it is common to many times instantiate the service class that is being tested. This is a problem
-if your service defines a gauge or a health check (see note at bottom); you can not register multiple of those under
-the same name.
+if your service defines a gauge or a health check; you can not register multiple of those under the same name.
 
 Here is an example. The service class `Example` defines a gauge:
 
