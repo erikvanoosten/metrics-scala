@@ -24,7 +24,7 @@ import nl.grons.metrics4.scala.MoreImplicits.RichAtomicReference
 import _root_.scala.concurrent.duration.FiniteDuration
 
 /**
- * Builds and registering metrics.
+ * Builds and registers metrics.
  */
 class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) extends DeprecatedMetricBuilder {
 
@@ -33,8 +33,20 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) exte
   /**
    * Registers a new gauge metric.
    *
+   * Example:
+   * {{{
+   * import nl.grons.metrics4.scala._
+   * class SessionStore(cache: Cache) extends DefaultInstrumented {
+   *   // Defines the gauge.
+   *   metrics.gauge("cache-evictions") {
+   *     // Does a measurement.
+   *     cache.getEvictionsCount()
+   *   }
+   * }
+   * }}}
+   *
    * @param name the name of the gauge
-   * @param f a code block that calculates the current gauge value
+   * @param f a code block that does a measurement
    */
   def gauge[A](name: String)(f: => A): Gauge[A] = {
     registerAndWrapDwGauge(name, new DropwizardGauge[A] { def getValue: A = f })
@@ -43,9 +55,22 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) exte
   /**
    * Registers a new gauge metric that caches its value for a given duration.
    *
+   * Example:
+   * {{{
+   * import nl.grons.metrics4.scala._
+   * import scala.concurrent.duration._
+   * class UserRepository(db: Database) extends DefaultInstrumented {
+   *   // Defines the gauge.
+   *   metrics.cachedGauge("row-count", 5.minutes) {
+   *     // Does a measurement at most once every 5 minutes.
+   *     db.usersRowCount()
+   *   }
+   * }
+   * }}}
+   *
    * @param name the name of the gauge
    * @param timeout the timeout
-   * @param f a code block that calculates the current gauge value
+   * @param f a code block that does a measurement
    */
   def cachedGauge[A](name: String, timeout: FiniteDuration)(f: => A): Gauge[A] = {
     registerAndWrapDwGauge(
@@ -62,6 +87,22 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) exte
   /**
    * Registers a new gauge metric to which you can push values.
    *
+   * Example:
+   * {{{
+   * import nl.grons.metrics4.scala._
+   * class ExternalCacheUpdater extends DefaultInstrumented {
+   *   // Defines a push gauge
+   *   private val cachedItemsCount = metrics.pushGauge[Int]("cached.items.count", 0)
+   *
+   *   def updateExternalCache(): Unit = {
+   *     val items = fetchItemsFromDatabase()
+   *     pushItemsToExternalCache(items)
+   *     // Pushes a new measurement to the gauge.
+   *     cachedItemsCount.push(items.size)
+   *   }
+   * }
+   * }}}
+   *
    * @param name the name of the gauge
    * @param startValue the first value of the gauge, typically this is `0`, `0L` or `null`.
    */
@@ -74,10 +115,32 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) exte
 
   /**
    * Registers a new gauge metric to which you can push values.
-   * The value is reset to `defaultValue` after the timeout.
+   *
+   * The reported value is reset to `defaultValue` after the timeout.
+   *
+   * Example in which the last pushed measurement is reported for at most 10 minutes.
+   * {{{
+   * import nl.grons.metrics4.scala._
+   * import scala.concurrent.duration._
+   * class ExternalCacheUpdater extends DefaultInstrumented {
+   *   // Defines a push gauge
+   *   private val cachedItemsCount = metrics.pushGaugeWithTimeout[Int]("cached.items.count", 0, 10.minutes)
+   *
+   *   def updateExternalCache(): Unit = {
+   *     val items = fetchItemsFromDatabase()
+   *     pushItemsToExternalCache(items)
+   *     // Pushes a new measurement to the gauge.
+   *     cachedItemsCount.push(items.size)
+   *   }
+   * }
+   * }}}
+   *
+   * Note: Cleanup of old values happens only on read. In the absence of a metric reporter or other reader, the last
+   * pushed value will continue to take space on the heap. As most values are very small (e.g. an `Int`), this should
+   * not matter much.
    *
    * @param name the name of the gauge
-   * @param defaultValue the first and default value of the gauge, typically this is `0`, `0L` or `null`.
+   * @param defaultValue the first and default value of the gauge, typically this is 0`, `0L` or `null`.
    * @param timeout the timeout
    */
   def pushGaugeWithTimeout[A](name: String, defaultValue: A, timeout: FiniteDuration): PushGaugeWithTimeout[A] = {
