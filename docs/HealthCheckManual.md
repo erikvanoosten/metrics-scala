@@ -36,8 +36,8 @@ The owner class is the class that extends the `DefaultInstrumented` trait.
 
 The health check name is build from:
 
-  * *Metric base name* By default this is set to the owner class name (e.g., `com.example.proj.auth.SessionStore`).
-  * *Name:* A short name describing the health check (e.g., `alive`).
+* *Metric base name* By default this is set to the owner class name (e.g., `com.example.proj.auth.SessionStore`).
+* *Name:* A short name describing the health check (e.g., `alive`).
 
 The *metric base name* can be overridden as follows:
 

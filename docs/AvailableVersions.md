@@ -3,9 +3,9 @@ Available Versions 4.x
 
 The following artifacts are available:
 
-  * *nl.grons:metrics4-scala*: adds a nice Scala API to Dropwizard Metrics
-  * *nl.grons:metrics4-akka*: support for measuring Akka actors
-  * *nl.grons:metrics4-hdr*: adds support for [HdrHistogram](http://www.hdrhistogram.org/) to increase the accuracy of histograms 
+* *nl.grons:metrics4-scala*: adds a nice Scala API to Dropwizard Metrics
+* *nl.grons:metrics4-akka*: support for measuring Akka actors
+* *nl.grons:metrics4-hdr*: adds support for [HdrHistogram](http://www.hdrhistogram.org/) to increase the accuracy of histograms 
 
 The table shows the available 4.x artifacts of metrics-scala.
 

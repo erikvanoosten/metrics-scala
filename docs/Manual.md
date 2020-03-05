@@ -2,14 +2,14 @@
 
 Other manual pages:
 
-  * [Health check support](HealthCheckManual.md)
-  * [Instrumenting Futures](Futures.md)
-  * [Instrumenting Actors](Actors.md)
-  * [Testing](Testing.md)
-  * [Hdrhistogram](Hdrhistogram.md)
-  * [Miscellaneous](Miscellaneous.md)
-  * [Dropwizard metrics documentation](https://dropwizard.github.io/metrics)
-  * [![Scaladocs](https://www.javadoc.io/badge/nl.grons/metrics4-scala_2.12.svg?color=brightgreen&label=Scaladocs)](https://www.javadoc.io/page/nl.grons/metrics4-scala_2.12/latest/nl/grons/metrics4/scala/DefaultInstrumented.html)
+* [Health check support](HealthCheckManual.md)
+* [Instrumenting Futures](Futures.md)
+* [Instrumenting Actors](Actors.md)
+* [Testing](Testing.md)
+* [Hdrhistogram](Hdrhistogram.md)
+* [Miscellaneous](Miscellaneous.md)
+* [Dropwizard metrics documentation](https://dropwizard.github.io/metrics)
+* [![Scaladocs](https://www.javadoc.io/badge/nl.grons/metrics4-scala_2.12.svg?color=brightgreen&label=Scaladocs)](https://www.javadoc.io/page/nl.grons/metrics4-scala_2.12/latest/nl/grons/metrics4/scala/DefaultInstrumented.html)
 
 ## 1 minute introduction
 
@@ -223,8 +223,8 @@ The owner class is the class that extends the `DefaultInstrumented` trait.
 
 The metric name is build from:
 
-  * *Metric base name* By default this is set to the owner class name (e.g., `com.example.proj.auth.SessionStore`).
-  * *Name:* A short name describing the metric’s purpose (e.g., `session-count`).
+* *Metric base name* By default this is set to the owner class name (e.g., `com.example.proj.auth.SessionStore`).
+* *Name:* A short name describing the metric’s purpose (e.g., `session-count`).
 
 The *metric base name* can be overridden as follows:
 
