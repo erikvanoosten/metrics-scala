@@ -1,15 +1,13 @@
 ## Actor support
 
-    Actor support is available since metrics-scala v3.0.1 but only in the Akka versions.
-
 A number of [Stackable Traits](http://www.artima.com/scalazine/articles/stackable_trait_pattern.html) are available to
 quickly instrument actors.  In all cases, the actual actor implementation must be mixed in *prior* to these stackable
 traits.
 
-Usage follows a common pattern (the `Instrumented` trait is described earlier in the documentation):
+Usage follows a common pattern (the `DefaultInstrumented` trait is described earlier in the documentation):
 
 ```scala
-trait MyActor extends Actor with Instrumented {
+trait MyActor extends Actor with DefaultInstrumented {
   def receive = {
     case "foo" => sender() ! "bar"
     case "bar" =>
@@ -30,8 +28,6 @@ Getting the `IllegalArgumentException "A metric named some-gauge already exists"
 When an actor is restarted, gauges can not be created again under the same name in the same metric registry.
 By mixing in the `ActorInstrumentedLifeCycle` trait, all gauges created in this actor will be automatically
 unregistered before this actor restarts.
-
-    `ActorInstrumentedLifeCycle` is available since metrics-scala v3.5.3.
 
 ### Receive counter: `ReceiveCounterActor`
 

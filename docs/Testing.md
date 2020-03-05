@@ -1,12 +1,9 @@
 ## Testing
 
-(Available since metrics-scala 4.0.0.)
-
 ### Fresh registries
 
 During unit testing it is common to many times instantiate the service class that is being tested. This is a problem
-if your service defines a gauge or a health check (see note at bottom); you can not register multiple of those under
-the same name.
+if your service defines a gauge or a health check; you can not register multiple of those under the same name.
 
 Here is an example. The service class `Example` defines a gauge:
 
@@ -68,22 +65,5 @@ class Example extends nl.grons.metrics4.scala.DefaultInstrumented {
   example.doSomething()
   assert(example.metrics.counter("aCounter").count == 2)    // assert counter was updated correctly
 ```
-
-### Fresh registries for old style `Instrumented`
-
-If you are not using `DefaultInstrumented`, what you mix in depends on the traits your service class (indirectly)
-extends:
-
-Extended trait        | Used for      | Fresh registry trait
---------------------- | ------------- | -----------------------------
-`InstrumentedBuilder` | metrics       | `FreshMetricRegistry`
-`CheckedBuilder`      | health checks | `FreshHealthCheckRegistry`
-*both*                | *both*        | `FreshRegistries`
-
-
-(*) Note: Before dropwizard-metrics 4.1 registering a health check under an existing name is a no-op. This means that
-without the `FreshRegistries` your unit test will not fail, but you will not be able to test the behavior of your
-health checks.
-
 
 Previous: [Instrumenting Actors](Actors.md) Up: [Manual](Manual.md) Next: [Hdrhistogram](Hdrhistogram.md)

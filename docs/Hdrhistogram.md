@@ -1,47 +1,51 @@
 ## Hdrhistogram
 
-Since 3.4.0 metrics-scala makes it easy to use [hdrhistogram](http://hdrhistogram.org/). Hdrhistogram provides
+Metrics-scala makes it easy to use [hdrhistogram](http://hdrhistogram.org/). Hdrhistogram provides
 alternative high quality reservoir implementations which can be used in histograms and timers.
 [Hdrhistogram-metrics-reservoir](https://bitbucket.org/marshallpierce/hdrhistogram-metrics-reservoir)
 is used to bridge the two worlds.
 
-Use these 2 steps to start using hdrhistogram:
+Use these steps to start using hdrhistogram:
 
-### Step 1: Add dependency (version 4.x)
+### Step 1: Add dependency
 
-Include the `metrics-scala-hdr` artifact in your build. For SBT use:
-
-```
-libraryDependencies += "nl.grons" %% "metrics-scala-hdr" % "4.0.0"
-```
-
-See the [README](/README.md) to see which version(s) you can use.
-
-### Step 1: Add dependency (version 3.x)
-
-As hdrhistogram-metrics-reservoir is an optional dependency of metrics-scala, you need to include it in your build.
-See [mvnrepository](http://mvnrepository.com/artifact/org.mpierce.metrics.reservoir/hdrhistogram-metrics-reservoir/1.1.0)
-for instructions for your build tool. For SBT use:
+Include the `metrics4-scala-hdr` artifact in your build. For SBT use:
 
 ```
-libraryDependencies += "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0"
+libraryDependencies += "nl.grons" %% "metrics4-scala-hdr" % "4.1.4"
 ```
 
 See the [README](/README.md) to see which version(s) you can use.
 
 ### Step 2: override the metric builder
 
-Secondly you need to override the metric builder in your `Instrumented` class:
+Then create a trait `Instrumented` that overrides the metric builder:
 
 ```scala
-object YourApplication {
-  /** The application wide metrics registry. */
-  val metricRegistry = new com.codahale.metrics.MetricRegistry()
-}
+import nl.grons.metrics4.scala._
 
-trait Instrumented extends nl.grons.metrics4.scala.InstrumentedBuilder {
-  override lazy protected val metricBuilder = new HdrMetricBuilder(metricBaseName, metricRegistry, resetAtSnapshot = false)
-  val metricRegistry = YourApplication.metricRegistry
+trait Instrumented extends DefaultInstrumented {
+  override lazy protected val metricBuilder =
+    new HdrMetricBuilder(metricBaseName, metricRegistry, resetAtSnapshot = false)
+}
+```
+
+### Step 3: use
+
+Your application can now use the `Instrumented` trait instead of `DefaultInstrumented`. For example:
+
+```scala
+package com.example.proj
+import scala.concurrent.duration._
+
+class UserRepository(db: Database) extends Instrumented {
+  val resultCounts: Histogram = metrics.histogram("result-counts")
+
+  def users(): Seq[User] = {
+    val results = ???
+    resultCounts += results.size()
+    results
+  }
 }
 ```
 

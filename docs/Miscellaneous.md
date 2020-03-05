@@ -1,8 +1,11 @@
 ## Miscellaneous
 
-### Write `MetricFilter` as regular Scala function
+### Write `MetricFilter` as regular Scala function (Scala 2.11.4 and before)
 
-Since 3.5.1 you can write a `com.codahale.metrics.MetricFilter` as a regular Scala functions. Start with
+Since 2.11.5 Scala support SAM (Single Abstract Method) and these implicit conversions are not automatic. Just in
+case you are still on an older version:
+
+You can write a `com.codahale.metrics.MetricFilter` as a regular Scala functions. Start with
 
     import nl.grons.metrics4.scala.Implicits._
 

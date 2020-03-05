@@ -5,9 +5,7 @@ Metrics-Scala
 
 This is the Scala API for [Dropwizard's Metrics](https://github.com/dropwizard/metrics) library.
 
-Initially this project started out as a line for line copy of the Metrics-scala module, released for multiple
-scala versions. Metrics dropped the scala module in version 3.0.0 and this project continued separately
-with the help of [@scullxbones](https://github.com/scullxbones) and many other contributors.
+Our goal is to make it magically effortless to create Dropwizard metrics in Scala programs.
 
 We strive for long term stability, correctness, an easy to use API and full documentation (in that order).
 
@@ -15,19 +13,19 @@ We strive for long term stability, correctness, an easy to use API and full docu
 
 * Usage
 * [Manual](/docs/Manual.md)
+* [Manual (version 3.x)](https://github.com/erikvanoosten/metrics-scala/blob/version-3.x-maintenance/docs/Manual.md)
 * [Manual (version 2.x)](/docs/Manual_2x.md)
 * Features
 * Available artifacts
 * Download
 * Support
-* License
+* Legal stuff
 * [![Scaladocs](https://www.javadoc.io/badge/nl.grons/metrics4-scala_2.12.svg?color=brightgreen&label=Scaladocs)](https://www.javadoc.io/page/nl.grons/metrics4-scala_2.12/latest/nl/grons/metrics4/scala/DefaultInstrumented.html)
-  [![Scaladocs](https://img.shields.io/badge/javadoc-3.5.9-brightgreen.svg?color=brightgreen&label=Scaladocs)](https://www.javadoc.io/page/nl.grons/metrics-scala_2.12/3.5.9_a2.4/nl/grons/metrics/scala/DefaultInstrumented.html)
 * Travis: [![build status](https://travis-ci.org/erikvanoosten/metrics-scala.svg?branch=master)](https://travis-ci.org/erikvanoosten/metrics-scala)
 
 ### Usage
 
-Metrics-scala provides an easy way to create _metrics_ and _health checks_ in Scala. Since version 3.5.5 creating
+Metrics-scala provides an easy way to create _metrics_ and _health checks_ in Scala. Creating
 metrics and health checks is as easy as extending
 [DefaultInstrumented](/metrics-scala/src/main/scala/nl/grons/metrics4/scala/DefaultInstrumented.scala) and using the
 `metrics` and `healthCheck` builders:
@@ -61,6 +59,7 @@ See also the [change log](CHANGELOG.md) for improvements and API changes.
 * Derives proper metrics names for Scala objects and closures.
 * Actor support.
 * Future support.
+* Testing support.
 * [Hdrhistogram](http://hdrhistogram.org/) support.
 
 ## Available artifacts (abbreviated)
@@ -146,7 +145,7 @@ and recompiling the code.
 
 Metrics-scala 3.x and metrics-scala 4.x can mostly be used at the same time on top of either
 Dropwizard Metrics 3.x or 4.x (excluding Dropwizard metrics 4.0.0). Unfortunately HDR support
-is not compatible over major Dropwizard version.
+is not compatible over major Dropwizard versions.
 
 ## Download 4.x
 
@@ -188,32 +187,14 @@ Maven:
 </dependency>
 ```
 
-## Download 2.x and 3.x
+## Download 3.x
 
-In the 2.x and 3.x versions you depend on a single artifact. Different versions target different Akka/Scala
-combinations. See [all available versions](/docs/AvailableVersions.md) to select the appropriate version.
+See [README in the v3 maintenance branch](https://github.com/erikvanoosten/metrics-scala/tree/version-3.x-maintenance).
 
-Here are examples for metrics-scala 3.5.10 and Akka 2.4 (and Scala 2.12 in the Maven example):
+## Download 2.x
 
-SBT:
-```
-libraryDependencies += "nl.grons" %% "metrics-scala" % "3.5.10_a2.4"
-```
-
-Maven:
-```
-<properties>
-    <scala.version>2.12.7</scala.version>
-    <scala.compat.version>2.12</scala.compat.version>
-</properties>
-<dependency>
-    <groupId>nl.grons</groupId>
-    <artifactId>metrics-scala_${scala.compat.version}</artifactId>
-    <version>3.5.10_a2.4</version>
-</dependency>
-```
-
-To use hdrhistogram additional dependencies are needed. See the [hdrhistogram manual page](/docs/Hdrhistogram.md).
+The 2.x versions are no longer supported. Nevertheless, relevant information can be found in the
+[README in the v2 maintenance branch](https://github.com/erikvanoosten/metrics-scala/tree/metrics-scala-v2.1.5-maintenance).
 
 ## Dropwizard 5.x
 
@@ -227,7 +208,11 @@ If you find a bug, please open an [issue](https://github.com/erikvanoosten/metri
 pull request. For questions, please sent an email to the
 [metrics mailing list](http://groups.google.com/group/metrics-user).
 
-### License
+### Legal stuff
+
+Initially this project started out as a line for line copy of the Metrics-scala module, released for multiple
+scala versions. Metrics dropped the scala module in version 3.0.0 and this project continued separately
+with the help of [@scullxbones](https://github.com/scullxbones) and many other contributors.
 
 Copyright (c) 2010-2012 Coda Hale, Yammer.com (before 3.0.0)
 
