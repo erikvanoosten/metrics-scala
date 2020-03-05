@@ -9,19 +9,20 @@ Other manual pages:
 * [Hdrhistogram](Hdrhistogram.md)
 * [Miscellaneous](Miscellaneous.md)
 * [Dropwizard metrics documentation](https://dropwizard.github.io/metrics)
-
-**NOTE: version 3.x uses package `nl.grons.metrics` instead of `nl.grons.metrics4`.**
+* [![Scaladocs](https://www.javadoc.io/badge/nl.grons/metrics4-scala_2.12.svg?color=brightgreen&label=Scaladocs)](https://www.javadoc.io/page/nl.grons/metrics4-scala_2.12/latest/nl/grons/metrics4/scala/DefaultInstrumented.html)
 
 ## 1 minute introduction
 
 Metrics-scala provides an easy way to create _metrics_ and _health checks_ in Scala. It builds on Dropwizard's
 metrics-core and metrics-healthchecks java libraries.
 
-Since version 3.5.5 you simply extend [DefaultInstrumented](/src/main/scala/nl/grons/metrics4/scala/DefaultInstrumented.scala)
+Simply extend [DefaultInstrumented](/src/main/scala/nl/grons/metrics4/scala/DefaultInstrumented.scala)
 and then use the `metrics` and `healthCheck` builders:
 
 ```scala
-class Example(db: Database) extends nl.grons.metrics4.scala.DefaultInstrumented {
+import nl.grons.metrics4.scala.DefaultInstrumented
+
+class Example(db: Database) extends DefaultInstrumented {
   // Define a health check
   healthCheck("alive") { workerThreadIsActive() }
 
@@ -35,8 +36,6 @@ class Example(db: Database) extends nl.grons.metrics4.scala.DefaultInstrumented 
 }
 ```
 
-NOTE: In the rest of the documentation you will see `Instrumented` instead of `DefaultInstrumented`.
-
 There are Scala wrappers for each metric type: [gauge](#gauges), [counter](#counters), [histogram](#histograms),
 [meter](#meters) and [timer](#timers). These are described below.
 
@@ -44,39 +43,8 @@ There are Scala wrappers for each metric type: [gauge](#gauges), [counter](#coun
 
 There are also helper methods to instrument [Futures](Futures.md) and [Actors](Actors.md).
 
-For more information on (JMX) reporters and other aspects of Metrics 3.x, please see the Java api in the
+For more information on (JMX) reporters and other aspects of Metrics, please see the Java api in the
 [Metrics documentation](http://metrics.dropwizard.io).
-
-## Version 3.5.4 and earlier
-
-Metrics-core requires metrics to be registered in an application wide `MetricRegistry`. Metrics-scala hides use of it,
-but you do need to create an `Instrumented` trait that refers to that registry. Your `Instrumented` needs to extends
-[InstrumentedBuilder](/src/main/scala/nl/grons/metrics4/scala/InstrumentedBuilder.scala).
-(See also [About Instrumented](#about-instrumented-and-defaultinstrumented) below.)
-
-```scala
-object YourApplication {
-  /** The application wide metrics registry. */
-  val metricRegistry = new com.codahale.metrics.MetricRegistry()
-}
-trait Instrumented extends nl.grons.metrics4.scala.InstrumentedBuilder {
-  val metricRegistry = YourApplication.metricRegistry
-}
-```
-
-Now you can easily create metrics by using the `metrics` metrics builder:
-
-```scala
-class Example(db: Database) extends Instrumented {
-  private[this] val loading = metrics.timer("loading")
-
-  def loadStuff(): Seq[Row] = loading.time {
-    db.fetchRows()
-  }
-}
-```
-
-To add health check support using your own `Instrumented` see [Health check support](HealthCheckManual.md).
 
 ## Gauges
 
@@ -84,7 +52,10 @@ A gauge is the simplest metric type. It just returns a value. If, for example, y
 maintained by a third-party library, you can easily expose it by registering a Gauge instance which returns that value:
 
 ```scala
-class SessionStore(cache: Cache) extends Instrumented {
+package com.example.proj.auth
+import nl.grons.metrics4.scala.DefaultInstrumented
+
+class SessionStore(cache: Cache) extends DefaultInstrumented {
   metrics.gauge("cache-evictions") {
     cache.getEvictionsCount()
   }
@@ -100,19 +71,20 @@ mixed in. See [Instrumenting Actors](Actors.md) for more information.
 Note: if your application has some kind of restarting behavior and you want to re-register its gauges during the
 restart, you should invoke `metrics.unregisterGauges()` at the beginning of the restart. This will un-register all
 gauges that were registered from the current instance (or more precisely from the `MetricBuilder` instance which was
-created by the `Instrumented` trait). Trait `ActorInstrumentedLifeCycle` automates this for actors.
+created by the `DefaultInstrumented` trait). Trait `ActorInstrumentedLifeCycle` automates this for actors.
 
 ## Cached gauges
-
-(Available since metrics-scala 3.2.1.)
 
 In case the gauge method is expensive to calculate you can use a cached gauge. A cached gauge retains the calculated
 value for a given duration.
 
 ```scala
+package com.example.proj
+import nl.grons.metrics4.scala.DefaultInstrumented
 import scala.concurrent.duration._
-class UserRepository(db: Database) extends Instrumented {
-  metrics.cachedGauge("row-count", 5 minutes) {
+
+class UserRepository(db: Database) extends DefaultInstrumented {
+  metrics.cachedGauge("row-count", 5.minutes) {
     db.usersRowCount()
   }
 }
@@ -127,29 +99,19 @@ requested after these 5 minutes, the database query is executed again.
 A counter is a simple incrementing and decrementing 64-bit integer:
 
 ```scala
-val evictions: Counter = metrics.counter
+val evictions: Counter = metrics.counter("evictions")
 evictions += 1
 evictions -= 2
 ```
 
 All `Counter` metrics start out at 0.
 
-A common pattern is:
+## Concurrency counters
+
+Counters have build in support for counting the number of concurrently running tasks:
 
 ```scala
-val someWorkConcurrencyCounter: Counter = metrics.counter
-someWorkConcurrencyCounter += 1
-val result = try {
-  someWork()
-} finally {
-  someWorkConcurrencyCounter -= 1
-}
-```
-
-Since metrics-scala 3.5.1 this can be written as: 
-
-```scala
-val someWorkConcurrencyCounter: Counter = metrics.counter
+val someWorkConcurrencyCounter: Counter = metrics.counter("concurrency.counter")
 val result = someWorkConcurrencyCounter.countConcurrency {
   someWork()
 }
@@ -216,12 +178,12 @@ TODO: show how to use a different reservoir in a histogram.
 A meter measures the *rate* at which a set of events occur:
 
 ```scala
-val getRequests: Meter = metrics.meter("get-requests", "requests")
+val getRequests: Meter = metrics.meter("get-requests")
 getRequests.mark()
 getRequests.mark(requests.size())
 ```
 
-This meter measures the number of `requests` (second parameter) per second.
+This meter measures the number of 'getRequests' per second.
 
 Meters measure the rate of the events in a few different ways. The mean rate is the average rate of events. It’s
 generally useful for trivia, but as it represents the total rate for your application’s entire lifetime (e.g., the total
@@ -233,8 +195,6 @@ recency. Luckily, meters also record three different *exponentially-weighted mov
 
 Metrics-scala allows you to convert any partial function into another partial function that meters exceptions during its
 invocations. See the scaladoc of [Meter.exceptionMarkerPF](/src/main/scala/nl/grons/metrics4/scala/Meter.scala#L90).
-
-Partial function support is available since metrics-scala v3.0.1.
 
 ## Timers
 
@@ -256,23 +216,23 @@ timer.time {
 Metrics-scala allows you to convert any partial function into another partial function that times each invocation. See
 the scaladoc of [Timer.timePF](/src/main/scala/nl/grons/metrics4/scala/Timer.scala#L69).
 
-Partial function support is available since metrics-scala v3.0.1.
-
 ## Metric names and the metrics builder
 
 Each metric has a unique metric name. In metrics-scala the name starts with a name derived from the *owner class*.
-The owner class is the class that extends the `Instrumented` trait you defined earlier.
+The owner class is the class that extends the `DefaultInstrumented` trait.
 
 The metric name is build from:
 
 * *Metric base name* By default this is set to the owner class name (e.g., `com.example.proj.auth.SessionStore`).
 * *Name:* A short name describing the metric’s purpose (e.g., `session-count`).
 
-Since 3.1.0 the *metric base name* can be overridden. For example by using `Instrumented` as follows:
+The *metric base name* can be overridden as follows:
 
 ```scala
-class Example extends Instrumented {
-  override lazy val metricBaseName = MetricName("Overridden.Base.Name")
+import nl.grons.metrics4.scala.{DefaultInstrumented, MetricName}
+
+class Example extends DefaultInstrumented {
+  override lazy val metricBaseName = MetricName("overridden.base.name")
   ...
 }
 ```
@@ -282,19 +242,10 @@ have a `scope` parameter. This parameter has been deprecated and will be removed
 you find code that uses it, then refactor by concatenating `scope` to the `name` with a dot as separator.
 For example: `metrics.timer("name", "scope")` is 100% equivalent to `metrics.timer("name.scope")`.
 
-## About `Instrumented` and `DefaultInstrumented`
-
-Although all Metrics-scala documentation refers to the `Instrumented` trait (as created in the introduction above), you
-are free to chose the name, or in fact not to use it at all. It is possible to use the provided
-[DefaultInstrumented](/src/main/scala/nl/grons/metrics4/scala/DefaultInstrumented.scala) (since 3.5.5), or to
-directly extend `InstrumentedBuilder` and provide an implementation of `metricRegistry` in every class.
+## About `DefaultInstrumented`
 
 `DefaultInstrumented` uses the Dropwizard 1.0.0+ application convention of storing the metric registry in metric-core's
 `SharedMetricRegistries` under the name `"default"`. It extends this by also stores a health check registry in the
 metric-healthcheck's `SharedHealthCheckRegistries` under the same name.
-
-If health checks are also needed, you can combine `Instrumented` with the `Checked` trait. See
-[Checked and Instrumented](HealthCheckManual.md#about-checked-and-instrumented). `DefaultInstrumented` already
-does this.
 
 Next: [Health check support](HealthCheckManual.md)

@@ -23,12 +23,11 @@ We strive for long term stability, correctness, an easy to use API and full docu
 * Support
 * License
 * [![Scaladocs](https://www.javadoc.io/badge/nl.grons/metrics4-scala_2.12.svg?color=brightgreen&label=Scaladocs)](https://www.javadoc.io/page/nl.grons/metrics4-scala_2.12/latest/nl/grons/metrics4/scala/DefaultInstrumented.html)
-  [![Scaladocs](https://img.shields.io/badge/javadoc-3.5.9-brightgreen.svg?color=brightgreen&label=Scaladocs)](https://www.javadoc.io/page/nl.grons/metrics-scala_2.12/3.5.9_a2.4/nl/grons/metrics/scala/DefaultInstrumented.html)
 * Travis: [![build status](https://travis-ci.org/erikvanoosten/metrics-scala.svg?branch=master)](https://travis-ci.org/erikvanoosten/metrics-scala)
 
 ### Usage
 
-Metrics-scala provides an easy way to create _metrics_ and _health checks_ in Scala. Since version 3.5.5 creating
+Metrics-scala provides an easy way to create _metrics_ and _health checks_ in Scala. Creating
 metrics and health checks is as easy as extending
 [DefaultInstrumented](/metrics-scala/src/main/scala/nl/grons/metrics4/scala/DefaultInstrumented.scala) and using the
 `metrics` and `healthCheck` builders:
@@ -147,7 +146,7 @@ and recompiling the code.
 
 Metrics-scala 3.x and metrics-scala 4.x can mostly be used at the same time on top of either
 Dropwizard Metrics 3.x or 4.x (excluding Dropwizard metrics 4.0.0). Unfortunately HDR support
-is not compatible over major Dropwizard version.
+is not compatible over major Dropwizard versions.
 
 ## Download 4.x
 
@@ -189,32 +188,14 @@ Maven:
 </dependency>
 ```
 
-## Download 2.x and 3.x
+## Download 3.x
 
-In the 2.x and 3.x versions you depend on a single artifact. Different versions target different Akka/Scala
-combinations. See [all available versions](/docs/AvailableVersions.md) to select the appropriate version.
+See [README in the v3 maintenance branch](https://github.com/erikvanoosten/metrics-scala/tree/version-3.x-maintenance).
 
-Here are examples for metrics-scala 3.5.10 and Akka 2.4 (and Scala 2.12 in the Maven example):
+## Download 2.x
 
-SBT:
-```
-libraryDependencies += "nl.grons" %% "metrics-scala" % "3.5.10_a2.4"
-```
-
-Maven:
-```
-<properties>
-    <scala.version>2.12.7</scala.version>
-    <scala.compat.version>2.12</scala.compat.version>
-</properties>
-<dependency>
-    <groupId>nl.grons</groupId>
-    <artifactId>metrics-scala_${scala.compat.version}</artifactId>
-    <version>3.5.10_a2.4</version>
-</dependency>
-```
-
-To use hdrhistogram additional dependencies are needed. See the [hdrhistogram manual page](/docs/Hdrhistogram.md).
+The 2.x versions are no longer supported. Nevertheless, relevant information can be found in the
+[README in the v2 maintenance branch](https://github.com/erikvanoosten/metrics-scala/tree/metrics-scala-v2.1.5-maintenance).
 
 ## Dropwizard 5.x
 
