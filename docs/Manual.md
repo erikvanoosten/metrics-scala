@@ -8,6 +8,7 @@ Other manual pages:
 * [Testing](Testing.md)
 * [Hdrhistogram](Hdrhistogram.md)
 * [Miscellaneous](Miscellaneous.md)
+* [Zio](Zio.md)
 * [Dropwizard metrics documentation](https://dropwizard.github.io/metrics)
 * [![Scaladocs](https://www.javadoc.io/badge/nl.grons/metrics4-scala_2.12.svg?color=brightgreen&label=Scaladocs)](https://www.javadoc.io/page/nl.grons/metrics4-scala_2.12/latest/nl/grons/metrics4/scala/DefaultInstrumented.html)
 
