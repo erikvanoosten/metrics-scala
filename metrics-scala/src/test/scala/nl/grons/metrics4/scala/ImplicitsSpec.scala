@@ -19,7 +19,7 @@ package nl.grons.metrics4.scala
 import com.codahale.metrics.MetricRegistry.MetricSupplier
 import com.codahale.metrics.{Metric, MetricFilter}
 import org.mockito.ArgumentMatchersSugar.same
-import org.mockito.IdiomaticMockito._
+import org.mockito.MockitoSugar._
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers._
 
@@ -55,7 +55,7 @@ class ImplicitsSpec extends AnyFunSpec {
       val f = mock[(String, Metric) => Boolean]
       val dummyName = "dummy"
       val dummyMetric = new Metric {}
-      f.apply(same(dummyName), same(dummyMetric)) shouldReturn true andThen false
+      when(f.apply(same(dummyName), same(dummyMetric))).thenReturn(true, false)
       val metricFilter: MetricFilter = Implicits.functionToMetricFilter(f)
       metricFilter.matches(dummyName, dummyMetric) shouldBe true
       metricFilter.matches(dummyName, dummyMetric) shouldBe false
@@ -67,7 +67,7 @@ class ImplicitsSpec extends AnyFunSpec {
       val f = mock[() => Metric]
       val dummyMetric1 = new Metric {}
       val dummyMetric2 = new Metric {}
-      f.apply() shouldReturn dummyMetric1 andThen dummyMetric2
+      when(f.apply()).thenReturn(dummyMetric1, dummyMetric2)
       val metricSupplier: MetricSupplier[Metric] = Implicits.functionToMetricSupplier(f)
       metricSupplier.newMetric() shouldBe theSameInstanceAs(dummyMetric1)
       metricSupplier.newMetric() shouldBe theSameInstanceAs(dummyMetric2)

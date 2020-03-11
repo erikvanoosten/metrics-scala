@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat
 
 import com.codahale.metrics.health.HealthCheck.Result
 import com.codahale.metrics.health.{HealthCheck, HealthCheckRegistry}
-import org.mockito.IdiomaticMockito._
+import org.mockito.MockitoSugar._
 import org.scalactic.Equality
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers._
@@ -32,18 +32,19 @@ import scala.language.implicitConversions
 import scala.util.Try
 
 class HealthCheckSpec extends AnyFunSpec {
-  implicit private val resultWithApproximateTimestampEquality = HealthCheckResultWithApproximateTimestampEquality
+  implicit private val resultWithApproximateTimestampEquality: Equality[Result] =
+    HealthCheckResultWithApproximateTimestampEquality
 
   describe("healthCheck factory method") {
     it ("registers the created checker") {
       val checkOwner = newCheckOwner
       val check = checkOwner.createBooleanHealthCheck { true }
-      checkOwner.registry.register("nl.grons.metrics4.scala.CheckOwner.test", check) was called
+      verify(checkOwner.registry).register("nl.grons.metrics4.scala.CheckOwner.test", check)
     }
 
     it("build health checks that call the provided checker") {
       val mockChecker = mock[SimpleChecker]
-      mockChecker.check() shouldReturn true andThen false andThen true andThen false
+      when(mockChecker.check()).thenReturn(true, false, true, false)
       val check = newCheckOwner.createCheckerHealthCheck(mockChecker)
       check.execute() should equal(Result.healthy())
       check.execute() should equal(Result.unhealthy("FAIL"))
@@ -135,7 +136,7 @@ class HealthCheckSpec extends AnyFunSpec {
         override lazy val metricBaseName: MetricName = MetricName("OverriddenMetricBaseName")
       }
       val check = checkOwner.createBooleanHealthCheck { true }
-      checkOwner.registry.register("OverriddenMetricBaseName.test", check)  was called
+      verify(checkOwner.registry).register("OverriddenMetricBaseName.test", check)
     }
 
     it("supports Unit checker with side-effects (healthy)") {

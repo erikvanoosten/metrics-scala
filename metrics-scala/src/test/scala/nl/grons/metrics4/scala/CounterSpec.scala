@@ -16,68 +16,94 @@
 
 package nl.grons.metrics4.scala
 
-import org.mockito.IdiomaticMockito._
-import org.scalatest.OneInstancePerTest
+import org.mockito.MockitoSugar._
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers._
 
-class CounterSpec extends AnyFunSpec with OneInstancePerTest {
+class CounterSpec extends AnyFunSpec {
   describe("A counter") {
-    val metric = mock[com.codahale.metrics.Counter]
-    val counter = new Counter(metric)
 
     it("+= should increment the underlying metric by an arbitrary amount") {
-      counter += 12
-      metric.inc(12) was called
+      withMockCounter { case (mockDwCounter, counter) =>
+        counter += 10
+        verify(mockDwCounter).inc(10)
+      }
     }
 
     it("-= should decrement the underlying metric by an arbitrary amount") {
-      counter -= 12
-      metric.dec(12) was called
+      withMockCounter { case (mockDwCounter, counter) =>
+        counter -= 12
+        verify(mockDwCounter).dec(12)
+      }
     }
 
     it("inc should increment the underlying metric by an arbitrary amount") {
-      counter.inc(12)
-      metric.inc(12) was called
+      withMockCounter { case (mockDwCounter, counter) =>
+        counter.inc(14)
+        verify(mockDwCounter).inc(14)
+      }
     }
 
     it("dec should decrement the underlying metric by an arbitrary amount") {
-      counter.dec(12)
-      metric.dec(12) was called
+      withMockCounter { case (mockDwCounter, counter) =>
+        counter.dec(16)
+        verify(mockDwCounter).dec(16)
+      }
     }
 
     it("getCount should consult the underlying counter for current count") {
-      metric.getCount shouldReturn 1L
-      counter.count should equal (1)
-      metric.getCount was called
+      withMockCounter { case (mockDwCounter, counter) =>
+        when(mockDwCounter.getCount).thenReturn(1L)
+        counter.count should equal (1)
+        verify(mockDwCounter).getCount
+      }
     }
 
     describe("count") {
-      val pf: PartialFunction[String, String] = { case "test" => "test" }
-      val wrapped = counter.count(pf)
-
       it("should consult the wrapper partial function for isDefined") {
-        wrapped.isDefinedAt("test") should be(true)
-        wrapped.isDefinedAt("x") should be(false)
+        withWrappedPf { case (_, wrappedPf) =>
+          wrappedPf.isDefinedAt("test") should be(true)
+          wrappedPf.isDefinedAt("x") should be(false)
+        }
       }
 
       it("should increment counter upon execution of partial function") {
-        wrapped("test") should equal("test")
-        metric.inc(1) was called
+        withWrappedPf { case (mockDwCounter, wrappedPf) =>
+          wrappedPf("test") should equal("test")
+          verify(mockDwCounter).inc(1)
+        }
       }
 
       it("should increment counter upon execution of undefined partial function") {
-        a[MatchError] should be thrownBy wrapped("x")
-        metric.inc(1) was called
+        withWrappedPf { case (mockDwCounter, wrappedPf) =>
+          a[MatchError] should be thrownBy wrappedPf("x")
+          verify(mockDwCounter).inc(1)
+        }
       }
     }
 
     it("countConcurrency should increment and decrement underlying counter upon execution of a function") {
-      def dummyWork = 123
-      val result = counter.countConcurrency(dummyWork)
-      metric.inc(1) was called
-      metric.dec(1) was called
-      result should be (123)
+      withMockCounter { case (mockDwCounter, counter) =>
+        def dummyWork = 123
+        val result = counter.countConcurrency(dummyWork)
+        verify(mockDwCounter).inc(1)
+        verify(mockDwCounter).dec(1)
+        result should be (123)
+      }
+    }
+  }
+
+  private def withMockCounter[A](testCode: (com.codahale.metrics.Counter, Counter) => A): A = {
+    val mockDwCounter = mock[com.codahale.metrics.Counter]
+    val counter = new Counter(mockDwCounter)
+    testCode(mockDwCounter, counter)
+  }
+
+  private def withWrappedPf[A](testCode: (com.codahale.metrics.Counter, PartialFunction[String, String]) => A): A = {
+    withMockCounter { case (mockDwCounter, counter) =>
+      val pf: PartialFunction[String, String] = { case "test" => "test" }
+      val wrapped: PartialFunction[String, String] = counter.count(pf)
+      testCode(mockDwCounter, wrapped)
     }
   }
 }

@@ -16,7 +16,7 @@
 
 package nl.grons.metrics4.scala
 
-import org.mockito.IdiomaticMockito._
+import org.mockito.MockitoSugar._
 import org.scalatest.OneInstancePerTest
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers._
@@ -29,26 +29,26 @@ class MeterSpec extends AnyFunSpec with OneInstancePerTest {
     it("marks the underlying metric") {
       meter.mark()
 
-      metric.mark() was called
+      verify(metric).mark()
     }
 
     it("marks the underlying metric by an arbitrary amount") {
       meter.mark(12)
 
-      metric.mark(12) was called
+      verify(metric).mark(12)
     }
 
     it("increments meter on exception when exceptionMeter is used") {
       a [RuntimeException] should be thrownBy { meter.exceptionMarker( throw new RuntimeException() ) }
 
-      metric.mark() was called
+      verify(metric).mark()
     }
 
     it("should increment time execution of partial function") {
       val pf: PartialFunction[String,String] = { case "test" => throw new RuntimeException() }
       val wrapped = meter.exceptionMarkerPF(pf)
       a [RuntimeException] should be thrownBy { wrapped("test") }
-      metric.mark() was called
+      verify(metric).mark()
       wrapped.isDefinedAt("x") should be (false)
     }
   }

@@ -16,7 +16,7 @@
 
 package nl.grons.metrics4.scala
 
-import org.mockito.IdiomaticMockito._
+import org.mockito.MockitoSugar._
 import org.scalatest.OneInstancePerTest
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers._
@@ -29,19 +29,19 @@ class HistogramSpec extends AnyFunSpec with OneInstancePerTest {
     it("updates the underlying histogram with an int") {
       histogram += 12
 
-      metric.update(12) was called
+      verify(metric).update(12)
     }
 
     it("updates the underlying histogram with a long") {
       histogram += 12L
 
-      metric.update(12L) was called
+      verify(metric).update(12L)
     }
 
     it("retrieves a snapshot for statistics") {
       val snapshot = mock[com.codahale.metrics.Snapshot]
-      snapshot.getMax shouldReturn 1L
-      metric.getSnapshot shouldReturn snapshot
+      when(snapshot.getMax).thenReturn(1L)
+      when(metric.getSnapshot).thenReturn(snapshot)
 
       histogram.max should equal (1L)
     }

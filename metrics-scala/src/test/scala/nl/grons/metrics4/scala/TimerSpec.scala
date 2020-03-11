@@ -18,7 +18,7 @@ package nl.grons.metrics4.scala
 
 import java.util.concurrent.TimeUnit
 
-import org.mockito.IdiomaticMockito._
+import org.mockito.MockitoSugar._
 import org.scalatest.OneInstancePerTest
 import org.scalatest.OptionValues._
 import org.scalatest.TryValues._
@@ -45,13 +45,13 @@ class TimerSpec extends AnyFunSpec with OneInstancePerTest {
     val metric = mock[com.codahale.metrics.Timer]
     val timer = new Timer(metric)
     val context = mock[com.codahale.metrics.Timer.Context]
-    metric.time() shouldReturn context
+    when(metric.time()).thenReturn(context)
 
     it("times the passed closure") {
       timer.time { 1 }
 
-      metric.time() was called
-      context.stop() was called
+      verify(metric).time()
+      verify(context).stop()
     }
 
     it("updates the underlying metric") {
@@ -64,8 +64,8 @@ class TimerSpec extends AnyFunSpec with OneInstancePerTest {
       val pf: PartialFunction[String,String] = { case "test" => "test" }
       val wrapped = timer.timePF(pf)
       wrapped("test") should equal ("test")
-      metric.time() was called
-      context.stop() was called
+      verify(metric).time()
+      verify(context).stop()
       wrapped.isDefinedAt("x") should be (false)
     }
 
@@ -73,11 +73,11 @@ class TimerSpec extends AnyFunSpec with OneInstancePerTest {
       import ExecutionContext.Implicits.global
       val f = timer.timeFuture(Future.successful("test"))
 
-      Eventually.eventually { context.stop() was called }
+      Eventually.eventually { verify(context).stop() }
 
       f.value.value.success.value should equal ("test")
-      metric.time() was called
-      context.stop() was called
+      verify(metric).time()
+      verify(context).stop()
     }
 
     it("should measure a future closure which errors") {
@@ -88,8 +88,8 @@ class TimerSpec extends AnyFunSpec with OneInstancePerTest {
       }
       caught should equal (error)
 
-      metric.time() was called
-      context.stop() was called
+      verify(metric).time()
+      verify(context).stop()
     }
 
     it("correctly infers the type") {

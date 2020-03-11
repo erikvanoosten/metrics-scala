@@ -16,7 +16,7 @@
 
 package nl.grons.metrics4.scala
 
-import org.mockito.IdiomaticMockito._
+import org.mockito.MockitoSugar._
 import org.scalatest.OneInstancePerTest
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers._
@@ -33,7 +33,7 @@ class GaugeSpec extends AnyFunSpec with OneInstancePerTest {
     }
 
     it("invokes getValue on underlying gauge") {
-      metric.getValue shouldReturn 1
+      when(metric.getValue).thenReturn(1)
 
       gauge.value should equal (1)
     }

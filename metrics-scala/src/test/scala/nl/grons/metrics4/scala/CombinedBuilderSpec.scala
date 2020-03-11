@@ -18,7 +18,7 @@ package nl.grons.metrics4.scala
 
 import com.codahale.metrics.MetricRegistry
 import com.codahale.metrics.health.{HealthCheck, HealthCheckRegistry}
-import org.mockito.IdiomaticMockito._
+import org.mockito.MockitoSugar._
 import org.scalatest.OneInstancePerTest
 import org.scalatest.funspec.AnyFunSpec
 
@@ -29,10 +29,10 @@ class CombinedBuilderSpec extends AnyFunSpec with OneInstancePerTest {
       val combinedBuilder = new CombinedBuilder
 
       combinedBuilder.createCounter()
-      combinedBuilder.metricRegistry.counter("nl.grons.metrics4.scala.CombinedBuilderSpec.CombinedBuilder.cnt") was called
+      verify(combinedBuilder.metricRegistry).counter("nl.grons.metrics4.scala.CombinedBuilderSpec.CombinedBuilder.cnt")
 
       val check = combinedBuilder.createBooleanHealthCheck { true }
-      combinedBuilder.registry.register("nl.grons.metrics4.scala.CombinedBuilderSpec.CombinedBuilder.test", check) was called
+      verify(combinedBuilder.registry).register("nl.grons.metrics4.scala.CombinedBuilderSpec.CombinedBuilder.test", check)
     }
 
     it("supports overriding the metric base name") {
@@ -41,10 +41,10 @@ class CombinedBuilderSpec extends AnyFunSpec with OneInstancePerTest {
       }
 
       combinedBuilder.createCounter()
-      combinedBuilder.metricRegistry.counter("OverriddenBaseName.cnt") was called
+      verify(combinedBuilder.metricRegistry).counter("OverriddenBaseName.cnt")
 
       val check = combinedBuilder.createBooleanHealthCheck { true }
-      combinedBuilder.registry.register("OverriddenBaseName.test", check) was called
+      verify(combinedBuilder.registry).register("OverriddenBaseName.test", check)
     }
   }
 
