@@ -195,7 +195,7 @@ recency. Luckily, meters also record three different *exponentially-weighted mov
 ### Metering exceptions of partial functions
 
 Metrics-scala allows you to convert any partial function into another partial function that meters exceptions during its
-invocations. See the scaladoc of [Meter.exceptionMarkerPF](/src/main/scala/nl/grons/metrics4/scala/Meter.scala#L90).
+invocations. See the scaladoc of [Meter.exceptionMarkerPF](/metrics-scala/src/main/scala/nl/grons/metrics4/scala/Meter.scala#L90).
 
 ## Timers
 
@@ -215,7 +215,7 @@ timer.time {
 ### Timing partial functions
 
 Metrics-scala allows you to convert any partial function into another partial function that times each invocation. See
-the scaladoc of [Timer.timePF](/src/main/scala/nl/grons/metrics4/scala/Timer.scala#L69).
+the scaladoc of [Timer.timePF](/metrics-scala/src/main/scala/nl/grons/metrics4/scala/Timer.scala#L69).
 
 ## Metric names and the metrics builder
 
@@ -253,8 +253,8 @@ metric-healthcheck's `SharedHealthCheckRegistries` under the same name.
 
 If you wish to use a different metric registry or health check registry you can write a custom `Instrumented` trait.
 For metrics support the trait should extend
-[InstrumentedBuilder](/src/main/scala/nl/grons/metrics4/scala/InstrumentedBuilder.scala), for health check support
-the trait should extend [CheckedBuilder](/src/main/scala/nl/grons/metrics4/scala/CheckedBuilder.scala).
+[InstrumentedBuilder](/metrics-scala/src/main/scala/nl/grons/metrics4/scala/InstrumentedBuilder.scala), for health check support
+the trait should extend [CheckedBuilder](/metrics-scala/src/main/scala/nl/grons/metrics4/scala/CheckedBuilder.scala).
 
 Here is an example that supports both:
 
