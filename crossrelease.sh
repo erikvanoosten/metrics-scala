@@ -3,6 +3,9 @@
 
 DEFAULT_COMMAND="+publishSigned; sonatypeBundleRelease"
 
+# Assumes osx
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+
 VERSION="$(git describe --tags)"
 echo "Version: $VERSION"
 echo "Java: $(java -version 2>&1 | head -n1)"

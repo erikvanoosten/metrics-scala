@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2019 Erik van Oosten
+ * Copyright (c) 2013-2020 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,6 +35,8 @@ class MetricBuilderSpec extends AnyFunSpec with OneInstancePerTest {
     val timer: Timer = metrics.timer("10ms")
     val gauge: Gauge[Int] = metrics.gauge("the answer")(value)
     val cachedGauge: Gauge[Int] = metrics.cachedGauge("cached", 300.milliseconds)(expensiveValue)
+    val pushGauge: PushGauge[Int] = metrics.pushGauge("push", 0)
+    val pushGaugeWithTimeout: PushGaugeWithTimeout[Int] = metrics.pushGaugeWithTimeout("pushT", 0, 300.millisecond)
     val counter: Counter = metrics.counter("1..2..3..4")
     val histogram: Histogram = metrics.histogram("histo")
     //noinspection ScalaDeprecation
@@ -83,6 +85,24 @@ class MetricBuilderSpec extends AnyFunSpec with OneInstancePerTest {
       Thread.sleep(400L)
       underTest.cachedGauge.value should equal (42)
       underTest.expensiveValueInvocations should equal (2)
+    }
+
+    it("defines a push gauge") {
+      underTest.pushGauge.value should equal (0)
+      underTest.pushGauge.value = 42
+      underTest.pushGauge.value should equal (42)
+      underTest.pushGauge.push(84)
+      underTest.pushGauge.value should equal (84)
+    }
+
+    it("defines a push gauge with time out") {
+      underTest.pushGaugeWithTimeout.value should equal (0)
+      underTest.pushGaugeWithTimeout.value = 42
+      underTest.pushGaugeWithTimeout.value should equal (42)
+      Thread.sleep(400L)
+      underTest.pushGaugeWithTimeout.value should equal (0)
+      underTest.pushGaugeWithTimeout.push(84)
+      underTest.pushGaugeWithTimeout.value should equal (84)
     }
 
     it("defines a counter") {

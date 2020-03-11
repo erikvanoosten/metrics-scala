@@ -38,14 +38,23 @@ class Example(db: Database) extends DefaultInstrumented {
 ```
 
 There are Scala wrappers for each metric type: [gauge](#gauges), [counter](#counters), [histogram](#histograms),
-[meter](#meters) and [timer](#timers). These are described below.
+[meter](#meters) and [timer](#timers). In addition you can use push gauges. All these are described below.
 
 *Health check* support is described further at [Health check support](HealthCheckManual.md).
 
 There are also helper methods to instrument [Futures](Futures.md) and [Actors](Actors.md).
 
-For more information on (JMX) reporters and other aspects of Metrics, please see the Java api in the
-[Metrics documentation](http://metrics.dropwizard.io).
+For more information on (JMX) reporters and other aspects of Metrics, please see the
+[Dropwizard Metrics documentation](http://metrics.dropwizard.io).
+
+## Import
+
+All code examples assume:
+
+```scala
+import nl.grons.metrics4.scala._
+import scala.concurrent.duration._
+```
 
 ## Gauges
 
@@ -54,7 +63,6 @@ maintained by a third-party library, you can easily expose it by registering a G
 
 ```scala
 package com.example.proj.auth
-import nl.grons.metrics4.scala.DefaultInstrumented
 
 class SessionStore(cache: Cache) extends DefaultInstrumented {
   metrics.gauge("cache-evictions") {
@@ -66,7 +74,11 @@ class SessionStore(cache: Cache) extends DefaultInstrumented {
 This will create a new gauge named `com.example.proj.auth.SessionStore.cache-evictions` which will return the number
 of evictions from the cache.
 
-Note: when a Gauge is created from an Actor with restart behavior, trait `ActorInstrumentedLifeCycle` should also be
+Gauges can be used for values of any type. For example, a gauge of type `String` might give the top slowest database
+query (see [Top in rolling-metrics](https://github.com/vladimir-bukhtoyarov/rolling-metrics/blob/master/top.md)).
+Note that non-numeric gauges are ignored by some reporters (such as the Graphite reporter).
+
+When a Gauge is created from an Actor with restart behavior, trait `ActorInstrumentedLifeCycle` should also be
 mixed in. See [Instrumenting Actors](Actors.md) for more information.
 
 Note: if your application has some kind of restarting behavior and you want to re-register its gauges during the
@@ -81,8 +93,6 @@ value for a given duration.
 
 ```scala
 package com.example.proj
-import nl.grons.metrics4.scala.DefaultInstrumented
-import scala.concurrent.duration._
 
 class UserRepository(db: Database) extends DefaultInstrumented {
   metrics.cachedGauge("row-count", 5.minutes) {
@@ -94,6 +104,37 @@ class UserRepository(db: Database) extends DefaultInstrumented {
 This will create a new gauge named `com.example.proj.UserRepository.row-count` which will return the results of the
 database query. Once the value is retrieved, it will be retained for 5 minutes. Only when the gauge's value is
 requested after these 5 minutes, the database query is executed again.
+
+## Push gauges
+
+    Available since metrics-scala 4.1.5.
+
+Regular gauges pull their values by executing the given code block. Push gauges are gauges to which you can push
+new values as they become available.
+
+Example usage:
+
+```scala
+class ExternalCacheUpdater extends DefaultInstrumented {
+  // Defines a push gauge
+  private val cachedItemsCount = metrics.pushGauge[Int]("cached.items.count", 0)
+
+  def updateExternalCache(): Unit = {
+    val items = fetchItemsFromDatabase()
+    pushItemsToExternalCache(items)
+    cachedItemsCount.push(items.size)         // Pushes a new measurement to the gauge.
+  }
+}
+```
+
+Push gauges retain their value for ever. This may not always be desirable. For example, if the external cache in
+the code example above evicts items after 10 minutes, then the push gauge should not report measurements from more
+then 10 minutes ago. A push gauge with timeout fixes this:
+
+```scala
+// Defines a push gauge with timeout
+private val cachedItemsCount = metrics.pushGaugeWithTimeout[Int]("cached.items.count", 0, 10.minutes)
+```
 
 ## Counters
 
@@ -172,6 +213,14 @@ seconds (or other time period).
 not bounded in size, so using it to sample a high-frequency process can require a significant amount of memory. Because
 it records every measurement, it’s also the slowest reservoir type.
 
+**Hint**: Try to use the new optimised version of `SlidingTimeWindowReservoir` called `SlidingTimeWindowArrayReservoir`.
+It brings much lower memory overhead. Also it’s allocation/free patterns are different, so GC overhead is 60x-80x
+lower then `SlidingTimeWindowReservoir`. Now `SlidingTimeWindowArrayReservoir` is comparable with
+`ExponentiallyDecayingReservoir` in terms GC overhead and performance. As for required memory,
+`SlidingTimeWindowArrayReservoir` takes ~128 bits per stored measurement and you can simply calculate required amount
+of heap. For example: 10K measurements / sec with reservoir storing time of 1 minute will take
+10000 * 60 * 128 / 8 = 9600000 bytes ~ 9 megabytes.
+
 TODO: show how to use a different reservoir in a histogram.
 
 ## Meters
@@ -191,6 +240,8 @@ generally useful for trivia, but as it represents the total rate for your applic
 number of requests handled, divided by the number of seconds the process has been running), it doesn’t offer a sense of
 recency. Luckily, meters also record three different *exponentially-weighted moving average* rates: the 1-, 5-, and
 15-minute moving averages. Just like the Unix load averages visible in uptime or top.
+
+**Hint**: A meter is similar to the Unix load averages visible in `uptime` or `top`.
 
 ### Metering exceptions of partial functions
 
@@ -230,8 +281,6 @@ The metric name is build from:
 The *metric base name* can be overridden as follows:
 
 ```scala
-import nl.grons.metrics4.scala.{DefaultInstrumented, MetricName}
-
 class Example extends DefaultInstrumented {
   override lazy val metricBaseName = MetricName("overridden.base.name")
   ...
