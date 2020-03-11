@@ -12,7 +12,7 @@ Use these steps to start using hdrhistogram:
 Include the `metrics4-scala-hdr` artifact in your build. For SBT use:
 
 ```
-libraryDependencies += "nl.grons" %% "metrics4-scala-hdr" % "4.1.4"
+libraryDependencies += "nl.grons" %% "metrics4-scala-hdr" % "4.1.5"
 ```
 
 See the [README](/README.md) to see which version(s) you can use.

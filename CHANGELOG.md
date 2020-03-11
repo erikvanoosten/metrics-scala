@@ -1,3 +1,9 @@
+v4.1.5: Mar 2020
+================
+
+* New feature: push gauges.
+* Updates: metrics-core: 4.1.4 -> 4.1.5
+
 v4.1.4: Feb 2020
 ================
 
