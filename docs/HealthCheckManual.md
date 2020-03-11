@@ -29,6 +29,8 @@ always ignored.
 
 For more details see the scaladoc in [CheckedBuilder](/src/main/scala/nl/grons/metrics4/scala/CheckedBuilder.scala).
 
+See [custom registries](Manual.md#custom-registries) to see how how to configure a custom health check registry.
+
 ## Health check names
 
 Each health check has a unique name. In metrics-scala the name starts with a name derived from the *owner class*.

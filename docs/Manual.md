@@ -246,7 +246,33 @@ For example: `metrics.timer("name", "scope")` is 100% equivalent to `metrics.tim
 ## About `DefaultInstrumented`
 
 `DefaultInstrumented` uses the Dropwizard 1.0.0+ application convention of storing the metric registry in metric-core's
-`SharedMetricRegistries` under the name `"default"`. It extends this by also stores a health check registry in the
+`SharedMetricRegistries` under the name `"default"`. It extends this by also storing a health check registry in the
 metric-healthcheck's `SharedHealthCheckRegistries` under the same name.
+
+## Custom registries
+
+If you wish to use a different metric registry or health check registry you can write a custom `Instrumented` trait.
+For metrics support the trait should extend
+[InstrumentedBuilder](/src/main/scala/nl/grons/metrics/scala/InstrumentedBuilder.scala), for health check support
+the trait should extend [CheckedBuilder](/src/main/scala/nl/grons/metrics4/scala/CheckedBuilder.scala).
+
+Here is an example that supports both:
+
+```scala
+object YourApplication {
+  /** The application wide metrics registry. */
+  val metricRegistry = new com.codahale.metrics.MetricRegistry()
+  /** The application wide health check registry. */
+  val healthChecksRegistry = new com.codahale.metrics.health.HealthCheckRegistry()
+}
+
+import nl.grons.metrics.scala._
+trait Instrumented extends InstrumentedBuilder with CheckedBuilder {
+  val metricRegistry = YourApplication.metricRegistry
+  val registry = YourApplication.healthChecksRegistry
+}
+```
+
+Now use `Instrumented` in your code instead of `DefaultInstrumented`.
 
 Next: [Health check support](HealthCheckManual.md)
