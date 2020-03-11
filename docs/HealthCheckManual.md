@@ -4,7 +4,7 @@ Metrics also has the ability to centralize your service’s health checks with t
 
 ## Health check setup
 
-Simply extend [DefaultInstrumented](/src/main/scala/nl/grons/metrics4/scala/DefaultInstrumented.scala) to get access
+Simply extend [DefaultInstrumented](/metrics-scala/src/main/scala/nl/grons/metrics4/scala/DefaultInstrumented.scala) to get access
 to the `healthCheck` builder:
 
 ```scala
@@ -27,7 +27,9 @@ The code block may also return a `Try`, a `Unit`, a `Future`, an `Either` or a
 `com.codahale.metrics.health.HealthCheck.Result`. In these cases the `unhealthyMessage` parameter is
 always ignored.
 
-For more details see the scaladoc in [CheckedBuilder](/src/main/scala/nl/grons/metrics4/scala/CheckedBuilder.scala).
+For more details see the scaladoc in [CheckedBuilder](/metrics-scala/src/main/scala/nl/grons/metrics4/scala/CheckedBuilder.scala).
+
+See [custom registries](Manual.md#custom-registries) to see how how to configure a custom health check registry.
 
 ## Health check names
 

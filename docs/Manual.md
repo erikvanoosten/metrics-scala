@@ -8,6 +8,7 @@ Other manual pages:
 * [Testing](Testing.md)
 * [Hdrhistogram](Hdrhistogram.md)
 * [Miscellaneous](Miscellaneous.md)
+* [Zio](Zio.md)
 * [Dropwizard metrics documentation](https://dropwizard.github.io/metrics)
 * [![Scaladocs](https://www.javadoc.io/badge/nl.grons/metrics4-scala_2.12.svg?color=brightgreen&label=Scaladocs)](https://www.javadoc.io/page/nl.grons/metrics4-scala_2.12/latest/nl/grons/metrics4/scala/DefaultInstrumented.html)
 
@@ -16,7 +17,7 @@ Other manual pages:
 Metrics-scala provides an easy way to create _metrics_ and _health checks_ in Scala. It builds on Dropwizard's
 metrics-core and metrics-healthchecks java libraries.
 
-Simply extend [DefaultInstrumented](/src/main/scala/nl/grons/metrics4/scala/DefaultInstrumented.scala)
+Simply extend [DefaultInstrumented](/metrics-scala/src/main/scala/nl/grons/metrics4/scala/DefaultInstrumented.scala)
 and then use the `metrics` and `healthCheck` builders:
 
 ```scala
@@ -245,7 +246,7 @@ recency. Luckily, meters also record three different *exponentially-weighted mov
 ### Metering exceptions of partial functions
 
 Metrics-scala allows you to convert any partial function into another partial function that meters exceptions during its
-invocations. See the scaladoc of [Meter.exceptionMarkerPF](/src/main/scala/nl/grons/metrics4/scala/Meter.scala#L90).
+invocations. See the scaladoc of [Meter.exceptionMarkerPF](/metrics-scala/src/main/scala/nl/grons/metrics4/scala/Meter.scala#L90).
 
 ## Timers
 
@@ -265,7 +266,7 @@ timer.time {
 ### Timing partial functions
 
 Metrics-scala allows you to convert any partial function into another partial function that times each invocation. See
-the scaladoc of [Timer.timePF](/src/main/scala/nl/grons/metrics4/scala/Timer.scala#L69).
+the scaladoc of [Timer.timePF](/metrics-scala/src/main/scala/nl/grons/metrics4/scala/Timer.scala#L69).
 
 ## Metric names and the metrics builder
 
@@ -294,7 +295,33 @@ For example: `metrics.timer("name", "scope")` is 100% equivalent to `metrics.tim
 ## About `DefaultInstrumented`
 
 `DefaultInstrumented` uses the Dropwizard 1.0.0+ application convention of storing the metric registry in metric-core's
-`SharedMetricRegistries` under the name `"default"`. It extends this by also stores a health check registry in the
+`SharedMetricRegistries` under the name `"default"`. It extends this by also storing a health check registry in the
 metric-healthcheck's `SharedHealthCheckRegistries` under the same name.
+
+## Custom registries
+
+If you wish to use a different metric registry or health check registry you can write a custom `Instrumented` trait.
+For metrics support the trait should extend
+[InstrumentedBuilder](/metrics-scala/src/main/scala/nl/grons/metrics4/scala/InstrumentedBuilder.scala), for health check support
+the trait should extend [CheckedBuilder](/metrics-scala/src/main/scala/nl/grons/metrics4/scala/CheckedBuilder.scala).
+
+Here is an example that supports both:
+
+```scala
+object YourApplication {
+  /** The application wide metrics registry. */
+  val metricRegistry = new com.codahale.metrics.MetricRegistry()
+  /** The application wide health check registry. */
+  val healthChecksRegistry = new com.codahale.metrics.health.HealthCheckRegistry()
+}
+
+import nl.grons.metrics.scala._
+trait Instrumented extends InstrumentedBuilder with CheckedBuilder {
+  lazy val metricRegistry = YourApplication.metricRegistry
+  lazy val registry = YourApplication.healthChecksRegistry
+}
+```
+
+Now use `Instrumented` in your code instead of `DefaultInstrumented`.
 
 Next: [Health check support](HealthCheckManual.md)

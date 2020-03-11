@@ -37,6 +37,6 @@ class Example extends DefaultInstrumented {
 }
 ```
 
-See the scaladoc for `timeFuture` in [Timer](/src/main/scala/nl/grons/metrics4/scala/Timer.scala) for more gotchas.
+See the scaladoc for `timeFuture` in [Timer](/metrics-scala/src/main/scala/nl/grons/metrics4/scala/Timer.scala) for more gotchas.
 
 Previous: [Health check support](HealthCheckManual.md) Up: [Manual](Manual.md) Next: [Instrumenting Actors](Actors.md)
