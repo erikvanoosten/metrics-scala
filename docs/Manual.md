@@ -17,7 +17,7 @@ Other manual pages:
 Metrics-scala provides an easy way to create _metrics_ and _health checks_ in Scala. It builds on Dropwizard's
 metrics-core and metrics-healthchecks java libraries.
 
-Simply extend [DefaultInstrumented](/src/main/scala/nl/grons/metrics4/scala/DefaultInstrumented.scala)
+Simply extend [DefaultInstrumented](src/main/scala/nl/grons/metrics4/scala/DefaultInstrumented.scala)
 and then use the `metrics` and `healthCheck` builders:
 
 ```scala
