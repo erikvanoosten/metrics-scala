@@ -253,7 +253,7 @@ metric-healthcheck's `SharedHealthCheckRegistries` under the same name.
 
 If you wish to use a different metric registry or health check registry you can write a custom `Instrumented` trait.
 For metrics support the trait should extend
-[InstrumentedBuilder](/src/main/scala/nl/grons/metrics/scala/InstrumentedBuilder.scala), for health check support
+[InstrumentedBuilder](/src/main/scala/nl/grons/metrics4/scala/InstrumentedBuilder.scala), for health check support
 the trait should extend [CheckedBuilder](/src/main/scala/nl/grons/metrics4/scala/CheckedBuilder.scala).
 
 Here is an example that supports both:
@@ -268,8 +268,8 @@ object YourApplication {
 
 import nl.grons.metrics.scala._
 trait Instrumented extends InstrumentedBuilder with CheckedBuilder {
-  val metricRegistry = YourApplication.metricRegistry
-  val registry = YourApplication.healthChecksRegistry
+  lazy val metricRegistry = YourApplication.metricRegistry
+  lazy val registry = YourApplication.healthChecksRegistry
 }
 ```
 
