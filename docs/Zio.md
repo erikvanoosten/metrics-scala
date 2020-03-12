@@ -8,8 +8,8 @@ Create the following trait which makes an implicit conversion available:
 
 ```scala
 import java.util.concurrent.TimeUnit
-import nl.grons.metrics4.scala.{Counter, Timer}
-import zio._
+import nl.grons.metrics4.scala.{Counter, DefaultInstrumented, Timer}
+import zio.{ZIO, _}
 import zio.clock.Clock
 
 trait ZioInstrumented extends DefaultInstrumented {
