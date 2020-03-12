@@ -41,8 +41,14 @@ class Example extends ZioInstrumented {
   // Database.fetchRows() is of type ZIO[Database, E, Seq[Row]]
 
   def loadStuff(): ZIO[Database, E, Seq[Row]] =
-    Database.fetchRows() <* increaseCounter(metrics.counter("query.count"))
+    Database.fetchRows() <* increaseCounter(metrics.counter("query"))
 }
+```
+
+This counts whenever the database query succeeded. Alternatively, to also count failed queries do:
+
+```scala
+    Database.fetchRows() <& increaseCounter(metrics.counter("query"))
 ```
 
 ## Timers
