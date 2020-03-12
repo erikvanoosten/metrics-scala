@@ -14,8 +14,9 @@ import zio.clock.Clock
 
 trait ZioInstrumented extends DefaultInstrumented {
 
-  def increaseCounter(counter: Counter, delta: Int = 1): UIO[Unit] =
-    ZIO.effectTotal(counter += delta)
+  implicit class ZioCounter(counter: Counter) {
+    def increment(delta: Int = 1): UIO[Unit] = ZIO.effectTotal(counter += delta)
+  }
 
   implicit class ZioTime[R, E, A](task: ZIO[R, E, A]) {
     def time(timer: Timer): ZIO[R with Clock, E, A] = {
@@ -41,14 +42,14 @@ class Example extends ZioInstrumented {
   // Database.fetchRows() is of type ZIO[Database, E, Seq[Row]]
 
   def loadStuff(): ZIO[Database, E, Seq[Row]] =
-    Database.fetchRows() <* increaseCounter(metrics.counter("query"))
+    Database.fetchRows() <* metrics.counter("query").increment()
 }
 ```
 
 This counts whenever the database query succeeded. Alternatively, to also count failed queries do:
 
 ```scala
-    Database.fetchRows() <& increaseCounter(metrics.counter("query"))
+    Database.fetchRows() <& metrics.counter("query").increment()
 ```
 
 ## Timers
