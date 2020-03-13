@@ -14,10 +14,34 @@ import zio.clock.Clock
 
 trait ZioInstrumented extends DefaultInstrumented {
 
+  /**
+   * Allows the following syntax:
+   *
+   * {{{
+   *   val counter = metrics.counter("task")
+   *   val task: ZIO[R, E, A] = ???
+   *
+   *   // Count success only:
+   *   val task1: ZIO[R, E, A] = task <* counter.increment()
+   *   // Count success and failure:
+   *   val task2: ZIO[R, E, A] = task ensuring counter.increment()
+   * }}}
+   */
   implicit class ZioCounter(counter: Counter) {
     def increment(delta: Int = 1): UIO[Unit] = ZIO.effectTotal(counter += delta)
   }
 
+  /**
+   * Allows the following syntax:
+   *
+   * {{{
+   *   val timer = metrics.timer("task")
+   *   val task: ZIO[R, E, A] = ???
+   *
+   *   // A new task that also times `task`:
+   *   val timedTask: ZIO[R, E, A] = task.time(timer)
+   * }}}
+   */
   implicit class ZioTime[R, E, A](task: ZIO[R, E, A]) {
     def time(timer: Timer): ZIO[R with Clock, E, A] = {
       task
