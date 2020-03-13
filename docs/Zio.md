@@ -49,7 +49,7 @@ class Example extends ZioInstrumented {
 This counts whenever the database query succeeded. Alternatively, to also count failed queries do:
 
 ```scala
-    Database.fetchRows() <& metrics.counter("query").increment()
+    Database.fetchRows() ensuring metrics.counter("query").increment()
 ```
 
 ## Timers
