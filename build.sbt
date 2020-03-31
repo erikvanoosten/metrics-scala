@@ -83,8 +83,8 @@ lazy val metricsAkka25 = (project in file("metrics-akka-25"))
     libraryDependencies ++= Seq(
       // Stay on Akka 2.5 to guarantee backward compatibility:
       // scala-steward:off
-      "com.typesafe.akka" %% "akka-actor" % "2.5.26",
-      "com.typesafe.akka" %% "akka-testkit" % "2.5.26" % Test
+      "com.typesafe.akka" %% "akka-actor" % "2.5.30",
+      "com.typesafe.akka" %% "akka-testkit" % "2.5.30" % Test
       // scala-steward:on
     ),
     sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
