@@ -37,6 +37,7 @@ publishTo in ThisBuild := sonatypePublishTo.value
 lazy val root = (project in file("."))
   .aggregate(metricsScala, metricsScalaHdr, metricsAkka24, metricsAkka25)
   .settings(
+    crossScalaVersions := Nil,
     publishArtifact := false,
     publish / skip := true,
     publish := {},
