@@ -27,6 +27,47 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">2.6</td>
     </tr>
     <tr>
+      <td valign="top" rowspan="4"><a href="/CHANGELOG.md#v419-jun-2020">4.1.9</a></td>
+      <td valign="top">metrics4-scala</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">Dropwizard-metrics 4.1.9</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-akka_a25</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">Akka 2.5.31</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-akka_a24</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">Akka 2.4.20</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-scala-hdr</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">Hdr 1.1.0/2.1.12 (**)</td>
+    </tr>
+    <tr>
       <td valign="top" rowspan="4"><a href="/CHANGELOG.md#v415-mar-2020">4.1.5</a></td>
       <td valign="top">metrics4-scala</td>
       <td valign="top">✓</td>
