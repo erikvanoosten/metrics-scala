@@ -1,3 +1,9 @@
+v4.1.9: Jun 2020
+================
+
+* Documented how to use metrics-scala with ZIO.
+* Updates: metrics-core: 4.1.5 -> 4.1.9, Akka: 2.5.26 -> 2.5.31.
+
 v4.1.5: Mar 2020
 ================
 
