@@ -7,7 +7,7 @@ This is the Scala API for [Dropwizard's Metrics](https://github.com/dropwizard/m
 
 Our goal is to make it magically effortless to create Dropwizard metrics in Scala programs.
 
-We strive for long term stability, correctness, an easy to use API and full documentation (in that order).
+We strive for long term stability, correctness, an easy-to-use API and full documentation (in that order).
 
 ### Contents
 
@@ -189,18 +189,19 @@ Maven:
 
 ## Download 3.x
 
-See [README in the v3 maintenance branch](https://github.com/erikvanoosten/metrics-scala/tree/version-3.x-maintenance).
+The 3.x versions are no longer maintained. However, all information is still available in the
+[README in the v3 maintenance branch](https://github.com/erikvanoosten/metrics-scala/tree/version-3.x-maintenance).
 
 ## Download 2.x
 
-The 2.x versions are no longer supported. Nevertheless, relevant information can be found in the
+The 2.x versions are no longer maintained. Nevertheless, relevant information can be found in the
 [README in the v2 maintenance branch](https://github.com/erikvanoosten/metrics-scala/tree/metrics-scala-v2.1.5-maintenance).
 
 ## Dropwizard 5.x
 
-Dropwizard metrics 5.x has been in RC state for some time now. Metrics-scala support for it can be
-found in the `metrics5-dev` branch. Since the master branch has since evolved considerably, the 5.x
-branch is not in a releasable state anymore.
+Dropwizard metrics 5.x development has been paused. Metrics-scala support for it can be
+found in the `metrics5-dev` branch. Since the master branch has since evolved considerably,
+the 5.x branch is not in a releasable state anymore.
 
 ## Support
 
@@ -216,6 +217,6 @@ with the help of [@scullxbones](https://github.com/scullxbones) and many other c
 
 Copyright (c) 2010-2012 Coda Hale, Yammer.com (before 3.0.0)
 
-Copyright (c) 2013-2019 Erik van Oosten (3.0.0 and later)
+Copyright (c) 2013-2020 Erik van Oosten (3.0.0 and later)
 
 Published under Apache Software License 2.0, see [LICENSE](LICENSE)
