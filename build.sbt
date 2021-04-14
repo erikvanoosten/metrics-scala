@@ -67,7 +67,7 @@ lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
     name := "metrics4-scala-hdr",
     description := "metrics-scala-hdr for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
-      "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.0",
+      "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.3",
       // Override version that hdrhistogram-metrics-reservoir depends on:
       "org.hdrhistogram" % "HdrHistogram" % "2.1.12"
     ),
