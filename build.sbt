@@ -32,7 +32,7 @@ lazy val commonSettings = Seq(
   )
 )
 
-publishTo in ThisBuild := sonatypePublishTo.value
+ThisBuild / publishTo := sonatypePublishTo.value
 
 lazy val root = (project in file("."))
   .aggregate(metricsScala, metricsScalaHdr, metricsAkka24, metricsAkka25)

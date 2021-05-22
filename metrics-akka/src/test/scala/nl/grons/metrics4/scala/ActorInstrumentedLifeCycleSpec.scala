@@ -58,7 +58,7 @@ object ActorInstrumentedLifeCycleSpec {
       case Symbol("increment") =>
         counter += 1
       case Symbol("get") =>
-        sender ! counter
+        sender() ! counter
       case Symbol("error") =>
         throw new RuntimeException("BOOM!")
       case Symbol("prerestart") =>
@@ -106,7 +106,7 @@ class ActorInstrumentedLifeCycleSpec extends TestKit(NonLoggingActorSystem) with
     }
   }
 
-  override def afterAll: Unit = {
+  override def afterAll(): Unit = {
     TestKit.shutdownActorSystem(system)
   }
 }
