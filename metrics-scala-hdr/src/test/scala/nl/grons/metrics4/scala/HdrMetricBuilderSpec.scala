@@ -107,7 +107,7 @@ class HdrMetricBuilderSpec extends AsyncFunSpec with OneInstancePerTest with Ins
         latch.countDown()
         val histograms = Await.result(Future.sequence(histogramsF), 10.seconds)
         val head = histograms.head
-        forAll(histograms)(_.metric should be theSameInstanceAs head.metric)
+        assert(histograms.forall(_.metric eq head.metric))
       } finally {
         executorService.shutdownNow()
       }
