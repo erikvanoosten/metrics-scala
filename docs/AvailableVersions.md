@@ -715,7 +715,7 @@ The table shows the available 4.x artifacts of metrics-scala.
     </tr>
     <tr>
       <td valign="top">4.0.0</td>
-      <td valign="top" colspan="7">Do not use! (***)</td>
+      <td valign="top" colspan="9">Do not use! (***)</td>
     </tr>
   </tbody>
 </table>
