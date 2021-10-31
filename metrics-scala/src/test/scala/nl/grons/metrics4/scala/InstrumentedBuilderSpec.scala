@@ -17,8 +17,7 @@
 package nl.grons.metrics4.scala
 
 import com.codahale.metrics.MetricRegistry
-import org.mockito.ArgumentMatchers._
-import org.mockito.Mockito._
+import org.mockito.MockitoSugar._
 import org.scalatest.OneInstancePerTest
 import org.scalatest.funspec.AnyFunSpec
 
@@ -41,7 +40,7 @@ class InstrumentedBuilderSpec extends AnyFunSpec with OneInstancePerTest {
   }
 
   private class MetricOwner() extends InstrumentedBuilder {
-    val metricRegistry: MetricRegistry = mock(classOf[MetricRegistry])
+    val metricRegistry: MetricRegistry = mock[MetricRegistry]
 
     def createCounter(): Counter = metrics.counter("cnt")
   }
