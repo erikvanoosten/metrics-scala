@@ -1,3 +1,6 @@
+import sbt.Keys.scalaVersion
+import sbt.librarymanagement.{CrossVersion, ModuleID}
+
 lazy val commonSettings = Seq(
   organization := "nl.grons",
   scalaVersion := "2.12.8",
@@ -35,7 +38,7 @@ lazy val commonSettings = Seq(
 ThisBuild / publishTo := sonatypePublishTo.value
 
 lazy val root = (project in file("."))
-  .aggregate(metricsScala, metricsScalaHdr, metricsAkka24, metricsAkka25)
+  .aggregate(metricsScala, metricsScalaHdr, metricsAkka24, metricsAkka25, metricsAkka26)
   .settings(
     crossScalaVersions := Nil,
     publishArtifact := false,
@@ -56,8 +59,8 @@ lazy val metricsScala = (project in file("metrics-scala"))
       "io.dropwizard.metrics" % "metrics-core" % "4.2.7",
       "io.dropwizard.metrics" % "metrics-healthchecks" % "4.2.7"
     ),
-    mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-scala" % "4.0.1")
-  )
+    mimaPreviousArtifacts := mimaPrevious(scalaVersion.value)
+)
 
 lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
   .dependsOn(metricsScala)
@@ -71,7 +74,32 @@ lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
       // Override version that hdrhistogram-metrics-reservoir depends on:
       "org.hdrhistogram" % "HdrHistogram" % "2.1.12"
     ),
-    mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-scala-hdr" % "4.0.1")
+    mimaPreviousArtifacts := mimaPrevious(scalaVersion.value)
+  )
+
+lazy val metricsAkka26 = (project in file("metrics-akka-26"))
+  .dependsOn(metricsScala)
+  .settings(
+    commonSettings,
+    crossScalaVersions := Seq("3.1.0", "2.13.6", "2.12.15"),
+    name := "metrics4-akka_a26",
+    description := "metrics-scala for Akka 2.6 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
+    resolvers += Resolver.sonatypeRepo("snapshots"),
+    libraryDependencies ++= {
+      if (scalaVersion.value.startsWith("3.")) {
+        Seq(
+          "com.typesafe.akka" %% "akka-actor" % "2.6.17+25-527571fc-SNAPSHOT",
+          "com.typesafe.akka" %% "akka-testkit" % "2.6.17+3-63aa4eaa-SNAPSHOT" % Test
+        )
+      } else {
+        Seq(
+          "com.typesafe.akka" %% "akka-actor" % "2.6.17",
+          "com.typesafe.akka" %% "akka-testkit" % "2.6.17" % Test
+        )
+      }
+    },
+    sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
+    mimaPreviousArtifacts := Set.empty
   )
 
 lazy val metricsAkka25 = (project in file("metrics-akka-25"))
@@ -80,7 +108,7 @@ lazy val metricsAkka25 = (project in file("metrics-akka-25"))
     commonSettings,
     crossScalaVersions := Seq("2.13.7", "2.12.15"),
     name := "metrics4-akka_a25",
-    description := "metrics-scala for Akka 2.5 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
+    description := "metrics-scala for Akka 2.5 and 2.6 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
       // Stay on Akka 2.5 to guarantee backward compatibility:
       // scala-steward:off
@@ -89,7 +117,7 @@ lazy val metricsAkka25 = (project in file("metrics-akka-25"))
       // scala-steward:on
     ),
     sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
-    mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-akka_a25" % "4.0.1")
+    mimaPreviousArtifacts := mimaPrevious(scalaVersion.value)
   )
 
 lazy val metricsAkka24 = (project in file("metrics-akka-24"))
@@ -107,8 +135,17 @@ lazy val metricsAkka24 = (project in file("metrics-akka-24"))
       // scala-steward:on
     ),
     sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
-    mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-akka_a24" % "4.0.1")
+    mimaPreviousArtifacts := mimaPrevious(scalaVersion.value)
   )
 
 // 2.11.x are the only pre-2.12 scala versions that are used in this build
 def before212(scalaVersion: String): Boolean = scalaVersion.startsWith("2.11.")
+
+def mimaPrevious(scalaVersion: String): Set[ModuleID] = {
+  if (scalaVersion.startsWith("3."))
+    Set.empty
+  else if (scalaVersion.startsWith("2.13."))
+    Set("nl.grons" %% "metrics4-scala" % "4.0.7")
+  else
+    Set("nl.grons" %% "metrics4-scala" % "4.0.1")
+}
