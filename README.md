@@ -77,11 +77,12 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
   <tbody>
     <tr>
       <td valign="top" rowspan="2">Artifact name</td>
-      <td valign="top" rowspan="1" colspan="3">Scala version</td>
+      <td valign="top" rowspan="1" colspan="4">Scala version</td>
       <td valign="top" rowspan="1" colspan="3">Akka version</td>
       <td valign="top" rowspan="2">Build against</td>
     </tr>
     <tr>
+      <td valign="top">3.1</td>
       <td valign="top">2.13</td>
       <td valign="top">2.12</td>
       <td valign="top">2.11</td>
@@ -94,13 +95,26 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">Dropwizard-metrics 4.1.19</td>
     </tr>
     <tr>
+      <td valign="top">metrics4-akka_a26</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">Akka 2.6.18</td>
+    </tr>
+    <tr>
       <td valign="top">metrics4-akka_a25</td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
@@ -111,6 +125,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a24</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -124,6 +139,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -131,6 +147,9 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
     </tr>
   </tbody>
 </table>
+
+Because Akka needs at least Scala 3.1 and Scala 3.1 is not backward compatible with Scala 3.0,
+there is no build for Scala 3.0.
 
 (*) RC versions are only supported until the next version is available.
 
@@ -152,23 +171,23 @@ is not compatible over major Dropwizard versions.
 <a href="CHANGELOG.md#v4119-apr-2021">Release notes for 4.1.19.</a>
 
 WARNING: `nl.grons:metrics-scala:4.0.0` was accidentally released as well. *Do not use it* as it will give
-binary compatibility problems. Instead use `"nl.grons" %% "metrics4-scala" % "4.0.1"` or later as described below.
+binary compatibility problems. Instead, use `"nl.grons" %% "metrics4-scala" % "4.0.1"` or later as described below.
 
 SBT:
 ```
 libraryDependencies ++= Seq(
-  "nl.grons" %% "metrics4-scala" % "4.1.19",
-  "nl.grons" %% "metrics4-akka_a25" % "4.1.19",
-  "nl.grons" %% "metrics4-scala-hdr" % "4.1.19"
+  "nl.grons" %% "metrics4-scala" % "4.1.20",
+  "nl.grons" %% "metrics4-akka_a26" % "4.1.20",
+  "nl.grons" %% "metrics4-scala-hdr" % "4.1.20"
 )
 ```
 
 Maven:
 ```
 <properties>
-    <scala.version>2.13.0</scala.version>
-    <scala.compat.version>2.13</scala.compat.version>
-    <metrics.scala.version>4.1.19</metrics.scala.version>
+    <scala.version>3.1.0</scala.version>
+    <scala.compat.version>3</scala.compat.version>
+    <metrics.scala.version>4.1.20</metrics.scala.version>
 </properties>
 <dependency>
     <groupId>nl.grons</groupId>
@@ -177,7 +196,7 @@ Maven:
 </dependency>
 <dependency>
     <groupId>nl.grons</groupId>
-    <artifactId>metrics4-akka_a25_${scala.compat.version}</artifactId>
+    <artifactId>metrics4-akka_a26_${scala.compat.version}</artifactId>
     <version>${metrics.scala.version}</version>
 </dependency>
 <dependency>

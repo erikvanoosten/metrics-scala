@@ -1,3 +1,9 @@
+v4.1.20: Nov 2021
+=================
+
+* Scala 3 support! Based on some very good work from @xuwei-k, thanks!
+* Introduced a version for Akka 2.6.
+
 v4.1.19: Apr 2021
 =================
 
