@@ -18,8 +18,8 @@ package nl.grons.metrics4.scala
 
 import com.codahale.metrics.MetricRegistry.MetricSupplier
 import com.codahale.metrics.{Metric, MetricFilter}
-import org.mockito.ArgumentMatchers._
-import org.mockito.Mockito._
+import org.mockito.ArgumentMatchersSugar.same
+import org.mockito.MockitoSugar._
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers._
 
@@ -52,10 +52,10 @@ class ImplicitsSpec extends AnyFunSpec {
 
   describe("Implicits.functionToMetricFilter") {
     it("creates a MetricFilter that passes arguments to the function and returns function result unchanged") {
-      val f = mock(classOf[(String, Metric) => Boolean])
+      val f = mock[(String, Metric) => Boolean]
       val dummyName = "dummy"
       val dummyMetric = new Metric {}
-      when(f.apply(same(dummyName), same(dummyMetric))).thenReturn(true).thenReturn(false)
+      when(f.apply(same(dummyName), same(dummyMetric))).thenReturn(true, false)
       val metricFilter: MetricFilter = Implicits.functionToMetricFilter(f)
       metricFilter.matches(dummyName, dummyMetric) shouldBe true
       metricFilter.matches(dummyName, dummyMetric) shouldBe false
@@ -64,7 +64,7 @@ class ImplicitsSpec extends AnyFunSpec {
 
   describe("Implicits.functionToMetricSupplier") {
     it("creates a MetricSupplier that wraps the function unchanged") {
-      val f = mock(classOf[() => Metric])
+      val f = mock[() => Metric]
       val dummyMetric1 = new Metric {}
       val dummyMetric2 = new Metric {}
       when(f.apply()).thenReturn(dummyMetric1, dummyMetric2)

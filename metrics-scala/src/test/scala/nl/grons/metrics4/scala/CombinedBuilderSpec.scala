@@ -18,8 +18,7 @@ package nl.grons.metrics4.scala
 
 import com.codahale.metrics.MetricRegistry
 import com.codahale.metrics.health.{HealthCheck, HealthCheckRegistry}
-import org.mockito.ArgumentMatchers._
-import org.mockito.Mockito._
+import org.mockito.MockitoSugar._
 import org.scalatest.OneInstancePerTest
 import org.scalatest.funspec.AnyFunSpec
 
@@ -50,8 +49,8 @@ class CombinedBuilderSpec extends AnyFunSpec with OneInstancePerTest {
   }
 
   private class CombinedBuilder() extends InstrumentedBuilder with CheckedBuilder {
-    val metricRegistry: MetricRegistry = mock(classOf[MetricRegistry])
-    val registry: HealthCheckRegistry = mock(classOf[HealthCheckRegistry])
+    val metricRegistry: MetricRegistry = mock[MetricRegistry]
+    val registry: HealthCheckRegistry = mock[HealthCheckRegistry]
 
     def createCounter(): Counter = metrics.counter("cnt")
 

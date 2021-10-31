@@ -51,7 +51,7 @@ class Meter(metric: DropwizardMeter) {
    *   }
    * }}}
    */
-  object exceptionMarker {
+  def exceptionMarker = new AnyRef() {
     def apply[A](f: => A): A = {
         try {
           f
@@ -87,7 +87,7 @@ class Meter(metric: DropwizardMeter) {
    *  }
    * }}}
    */
-  object exceptionMarkerPF {
+  def exceptionMarkerPF = new AnyRef() {
     def apply[A, B](pf: PartialFunction[A, B]): PartialFunction[A, B] =
       new PartialFunction[A, B] {
         def apply(a: A): B = {
