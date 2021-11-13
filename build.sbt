@@ -49,7 +49,7 @@ lazy val root = (project in file("."))
 lazy val metricsScala = (project in file("metrics-scala"))
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("2.13.6", "2.12.15", "2.11.12"),
+    crossScalaVersions := Seq("2.13.7", "2.12.15", "2.11.12"),
     name := "metrics4-scala",
     description := "metrics-scala for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -63,7 +63,7 @@ lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("2.13.6", "2.12.15", "2.11.12"),
+    crossScalaVersions := Seq("2.13.7", "2.12.15", "2.11.12"),
     name := "metrics4-scala-hdr",
     description := "metrics-scala-hdr for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -78,7 +78,7 @@ lazy val metricsAkka25 = (project in file("metrics-akka-25"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("2.13.6", "2.12.15"),
+    crossScalaVersions := Seq("2.13.7", "2.12.15"),
     name := "metrics4-akka_a25",
     description := "metrics-scala for Akka 2.5 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
