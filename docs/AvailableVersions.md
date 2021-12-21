@@ -37,7 +37,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
-      <td valign="top">Dropwizard-metrics 4.1.19</td>
+      <td valign="top">Dropwizard-metrics 4.2.7</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a26</td>
@@ -81,7 +81,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
-      <td valign="top">Hdr 1.1.0/2.1.12 (**)</td>
+      <td valign="top">Hdr 1.1.3/2.1.12 (**)</td>
     </tr>
     <tr>
       <td valign="top" rowspan="4"><a href="/CHANGELOG.md#v4119-apr-2021">4.1.19</a></td>
