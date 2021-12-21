@@ -1,8 +1,9 @@
-v4.1.20: Nov 2021
+v4.2.7: Dec 2021
 =================
 
 * Scala 3 support! Based on some very good work from @xuwei-k, thanks!
 * Introduced a version for Akka 2.6.
+* Updates: metrics-core: 4.1.29 -> 4.2.7, hdrhistogram-metrics-reservoir: 1.1.0 -> 1.1.3
 
 v4.1.19: Apr 2021
 =================

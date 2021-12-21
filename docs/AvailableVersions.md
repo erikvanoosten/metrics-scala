@@ -28,7 +28,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">2.6</td>
     </tr>
     <tr>
-      <td valign="top" rowspan="5"><a href="/CHANGELOG.md#v4120-nov-2021">4.1.20</a></td>
+      <td valign="top" rowspan="5"><a href="/CHANGELOG.md#v427-nov-2021">4.2.7</a></td>
       <td valign="top">metrics4-scala</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
