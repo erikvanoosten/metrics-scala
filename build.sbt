@@ -93,8 +93,8 @@ lazy val metricsAkka26 = (project in file("metrics-akka-26"))
         )
       } else {
         Seq(
-          "com.typesafe.akka" %% "akka-actor" % "2.6.17",
-          "com.typesafe.akka" %% "akka-testkit" % "2.6.17" % Test
+          "com.typesafe.akka" %% "akka-actor" % "2.6.18",
+          "com.typesafe.akka" %% "akka-testkit" % "2.6.18" % Test
         )
       }
     },
