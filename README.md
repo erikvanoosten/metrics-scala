@@ -148,9 +148,8 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
   </tbody>
 </table>
 
-(*) Akka needs at least Scala 3.1. Also, Scala 3.1 is not backward compatible with Scala 3.0.
-Therefore, there is no build for Scala 3.0. If you want to use Scala 3.x you will need to use
-at least Scala 3.1.
+(*) There is no build for Scala 3.0. If you want to use Scala 3.x you will need to use
+at least Scala 3.1. Note that Scala 3.1 is not backward compatible with Scala 3.0.
 
 (**) The first number is the version of `"org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir"`,
 the second the version of `"org.hdrhistogram" % "HdrHistogram"`.
