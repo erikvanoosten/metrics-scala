@@ -28,7 +28,7 @@ class ActorMetricsSpec extends AnyFunSpec with OneInstancePerTest {
   import ActorMetricsSpec._
   import akka.testkit.TestActorRef
 
-  implicit val system = ActorSystem()
+  implicit private val system: ActorSystem = ActorSystem()
 
   describe("A counter actor") {
     it("invokes original receive and increments counter on new messages") {

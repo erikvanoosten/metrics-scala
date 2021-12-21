@@ -18,7 +18,7 @@ package nl.grons.metrics4.scala
 
 import java.util.concurrent.TimeUnit
 
-import org.mockito.MockitoSugar._
+import org.mockito.Mockito._
 import org.scalatest.OneInstancePerTest
 import org.scalatest.OptionValues._
 import org.scalatest.TryValues._
@@ -42,9 +42,9 @@ class TimerSpec extends AnyFunSpec with OneInstancePerTest {
   import TimerSpec._
 
   describe("A timer") {
-    val metric = mock[com.codahale.metrics.Timer]
+    val metric = mock(classOf[com.codahale.metrics.Timer])
     val timer = new Timer(metric)
-    val context = mock[com.codahale.metrics.Timer.Context]
+    val context = mock(classOf[com.codahale.metrics.Timer.Context])
     when(metric.time()).thenReturn(context)
 
     it("times the passed closure") {
