@@ -88,8 +88,8 @@ lazy val metricsAkka26 = (project in file("metrics-akka-26"))
     libraryDependencies ++= {
       if (scalaVersion.value.startsWith("3.")) {
         Seq(
-          "com.typesafe.akka" %% "akka-actor" % "2.6.17+25-527571fc-SNAPSHOT",
-          "com.typesafe.akka" %% "akka-testkit" % "2.6.17+3-63aa4eaa-SNAPSHOT" % Test
+          "com.typesafe.akka" %% "akka-actor" % "2.6.18",
+          "com.typesafe.akka" %% "akka-testkit" % "2.6.18" % Test
         )
       } else {
         Seq(
