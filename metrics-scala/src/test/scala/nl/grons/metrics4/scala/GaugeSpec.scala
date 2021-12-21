@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2019 Erik van Oosten
+ * Copyright (c) 2013-2021 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,14 @@
 
 package nl.grons.metrics4.scala
 
-import org.mockito.MockitoSugar._
+import org.mockito.Mockito._
 import org.scalatest.OneInstancePerTest
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers._
 
 class GaugeSpec extends AnyFunSpec with OneInstancePerTest {
   describe("A gauge") {
-    val metric = mock[com.codahale.metrics.Gauge[Int]]
+    val metric = mock(classOf[com.codahale.metrics.Gauge[Int]])
     val gauge = new Gauge(metric)
 
     it("invokes underlying function for sugar factory") {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2019 Erik van Oosten
+ * Copyright (c) 2013-2021 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat
 
 import com.codahale.metrics.health.HealthCheck.Result
 import com.codahale.metrics.health.{HealthCheck, HealthCheckRegistry}
-import org.mockito.MockitoSugar._
+import org.mockito.Mockito._
 import org.scalactic.Equality
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers._
@@ -43,8 +43,8 @@ class HealthCheckSpec extends AnyFunSpec {
     }
 
     it("build health checks that call the provided checker") {
-      val mockChecker = mock[SimpleChecker]
-      when(mockChecker.check()).thenReturn(true, false, true, false)
+      val mockChecker = mock(classOf[SimpleChecker])
+      when(mockChecker.check()).thenReturn(true).thenReturn(false).thenReturn(true).thenReturn(false)
       val check = newCheckOwner.createCheckerHealthCheck(mockChecker)
       check.execute() should equal(Result.healthy())
       check.execute() should equal(Result.unhealthy("FAIL"))
@@ -221,7 +221,7 @@ private trait SimpleChecker {
 }
 
 private class CheckOwner() extends CheckedBuilder {
-  val registry: HealthCheckRegistry = mock[HealthCheckRegistry]
+  val registry: HealthCheckRegistry = mock(classOf[HealthCheckRegistry])
 
   // Unfortunately we need a helper method for each supported type. If we wanted a single helper method,
   // we would need to repeat the magnet pattern right here in a test class :(

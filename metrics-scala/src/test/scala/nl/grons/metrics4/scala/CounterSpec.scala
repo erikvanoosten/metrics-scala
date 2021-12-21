@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2019 Erik van Oosten
+ * Copyright (c) 2013-2021 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 package nl.grons.metrics4.scala
 
-import org.mockito.MockitoSugar._
+import org.mockito.Mockito._
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers._
 
@@ -94,7 +94,7 @@ class CounterSpec extends AnyFunSpec {
   }
 
   private def withMockCounter[A](testCode: (com.codahale.metrics.Counter, Counter) => A): A = {
-    val mockDwCounter = mock[com.codahale.metrics.Counter]
+    val mockDwCounter = mock(classOf[com.codahale.metrics.Counter])
     val counter = new Counter(mockDwCounter)
     testCode(mockDwCounter, counter)
   }

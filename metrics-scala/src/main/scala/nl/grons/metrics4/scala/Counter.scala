@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2018 Erik van Oosten
+ * Copyright (c) 2013-2021 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ class Counter(metric: DropwizardCounter) {
   /**
    * Wraps partial function pf, incrementing this counter for every execution (defined or not).
    */
-   def count[A,B](pf: PartialFunction[A,B]): PartialFunction[A,B] =
+  def count[A,B](pf: PartialFunction[A,B]): PartialFunction[A,B] =
      new PartialFunction[A,B] {
        def apply(a: A): B = {
           metric.inc(1)

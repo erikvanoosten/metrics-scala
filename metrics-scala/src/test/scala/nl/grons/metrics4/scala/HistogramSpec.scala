@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2019 Erik van Oosten
+ * Copyright (c) 2013-2021 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,14 @@
 
 package nl.grons.metrics4.scala
 
-import org.mockito.MockitoSugar._
+import org.mockito.Mockito._
 import org.scalatest.OneInstancePerTest
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers._
 
 class HistogramSpec extends AnyFunSpec with OneInstancePerTest {
   describe("A histogram") {
-    val metric = mock[com.codahale.metrics.Histogram]
+    val metric = mock(classOf[com.codahale.metrics.Histogram])
     val histogram = new Histogram(metric)
 
     it("updates the underlying histogram with an int") {
@@ -39,7 +39,7 @@ class HistogramSpec extends AnyFunSpec with OneInstancePerTest {
     }
 
     it("retrieves a snapshot for statistics") {
-      val snapshot = mock[com.codahale.metrics.Snapshot]
+      val snapshot = mock(classOf[com.codahale.metrics.Snapshot])
       when(snapshot.getMax).thenReturn(1L)
       when(metric.getSnapshot).thenReturn(snapshot)
 

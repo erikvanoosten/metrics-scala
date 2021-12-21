@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2019 Erik van Oosten
+ * Copyright (c) 2014-2021 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 package nl.grons.metrics4.scala
 
 import com.codahale.metrics.MetricRegistry
-import org.mockito.MockitoSugar._
+import org.mockito.Mockito._
 import org.scalatest.OneInstancePerTest
 import org.scalatest.funspec.AnyFunSpec
 
@@ -40,7 +40,7 @@ class InstrumentedBuilderSpec extends AnyFunSpec with OneInstancePerTest {
   }
 
   private class MetricOwner() extends InstrumentedBuilder {
-    val metricRegistry: MetricRegistry = mock[MetricRegistry]
+    val metricRegistry: MetricRegistry = mock(classOf[MetricRegistry])
 
     def createCounter(): Counter = metrics.counter("cnt")
   }

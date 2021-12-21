@@ -2,7 +2,7 @@
 
 1. Double check documentation is up to date.
 2. Validate entry in CHANGELOG.md
-4. Run `sbt ';+clean;+test;+package'`
+4. Run `sbt ';+clean;+test;+package;+mimaFindBinaryIssues;'`
 5. Push changes, e.g.`git commit -m 'Releasing 4.x.x'`
 6. Set tag `git tag v4.x.x`
 6. Optionally test signed publishing with `./crossrelease.sh publishLocalSigned` 
