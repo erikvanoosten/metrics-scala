@@ -40,7 +40,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">Dropwizard-metrics 4.2.7</td>
     </tr>
     <tr>
-      <td valign="top">metrics4-akka_a26</td>
+      <td valign="top" rowspan="2">metrics4-akka_a26</td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -49,6 +49,16 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">Akka 2.6.18</td>
+    </tr>
+    <tr>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">Akka 2.6.17</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a25</td>
