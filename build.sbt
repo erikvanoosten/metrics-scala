@@ -18,7 +18,7 @@ lazy val commonSettings = Seq(
   },
   javacOptions ++= Seq("-target", "1.8", "-J-Xmx512m", "-J-Xms128m", "-J-Xss10m"),
   javaOptions ++= Seq("-Xmx512m", "-Djava.awt.headless=true"),
-  scalacOptions ++= Seq("-target:8", "-deprecation", "-unchecked"),
+  scalacOptions ++= Seq(scalacTarget(scalaVersion.value), "-deprecation", "-unchecked"),
   publishTo := sonatypePublishToBundle.value,
   publishMavenStyle := true,
   Test / publishArtifact := false,
@@ -139,4 +139,10 @@ def mimaPrevious(scalaVersion: String): Set[ModuleID] = {
     Set("nl.grons" %% "metrics4-scala" % "4.0.7")
   else
     Set("nl.grons" %% "metrics4-scala" % "4.0.1")
+}
+
+def scalacTarget(scalaVersion: String): String = {
+  if (scalaVersion.startsWith("2.11.") || scalaVersion.startsWith("2.12.")) "-target:jvm-1.8"
+  else if (scalaVersion.startsWith("2.13.")) "-target:8"
+  else "-Xtarget:8"
 }
