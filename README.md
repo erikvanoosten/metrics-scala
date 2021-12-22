@@ -102,25 +102,15 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">Dropwizard-metrics 4.2.7</td>
     </tr>
     <tr>
-      <td valign="top" rowspan="2">metrics4-akka_a26</td>
+      <td valign="top">metrics4-akka_a26</td>
       <td valign="top">✓</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">Akka 2.6.18</td>
-    </tr>
-    <tr>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top">Akka 2.6.17</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a25</td>
@@ -184,9 +174,9 @@ binary compatibility problems. Instead, use `"nl.grons" %% "metrics4-scala" % "4
 SBT:
 ```
 libraryDependencies ++= Seq(
-  "nl.grons" %% "metrics4-scala" % "4.2.7",
-  "nl.grons" %% "metrics4-akka_a26" % "4.2.7",
-  "nl.grons" %% "metrics4-scala-hdr" % "4.2.7"
+  "nl.grons" %% "metrics4-scala" % "4.2.8",
+  "nl.grons" %% "metrics4-akka_a26" % "4.2.8",
+  "nl.grons" %% "metrics4-scala-hdr" % "4.2.8"
 )
 ```
 
@@ -195,7 +185,7 @@ Maven:
 <properties>
     <scala.version>3.1.0</scala.version>
     <scala.compat.version>3</scala.compat.version>
-    <metrics.scala.version>4.2.7</metrics.scala.version>
+    <metrics.scala.version>4.2.8</metrics.scala.version>
 </properties>
 <dependency>
     <groupId>nl.grons</groupId>

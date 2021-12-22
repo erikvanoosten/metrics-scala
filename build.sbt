@@ -3,7 +3,7 @@ import sbt.librarymanagement.{CrossVersion, ModuleID}
 
 lazy val commonSettings = Seq(
   organization := "nl.grons",
-  scalaVersion := "2.12.8",
+  scalaVersion := "2.12.15",
   crossVersion := CrossVersion.binary,
   libraryDependencies ++= Seq(
     "org.scalatest" %% "scalatest" % "3.2.10" % Test,
@@ -18,7 +18,7 @@ lazy val commonSettings = Seq(
   },
   javacOptions ++= Seq("-target", "1.8", "-J-Xmx512m", "-J-Xms128m", "-J-Xss10m"),
   javaOptions ++= Seq("-Xmx512m", "-Djava.awt.headless=true"),
-  scalacOptions ++= Seq("-target:jvm-1.8", "-deprecation", "-unchecked"),
+  scalacOptions ++= Seq("-target:8", "-deprecation", "-unchecked"),
   publishTo := sonatypePublishToBundle.value,
   publishMavenStyle := true,
   Test / publishArtifact := false,
@@ -52,7 +52,7 @@ lazy val root = (project in file("."))
 lazy val metricsScala = (project in file("metrics-scala"))
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("2.13.7", "2.12.15", "2.11.12"),
+    crossScalaVersions := Seq("3.1.0", "2.13.7", "2.12.15", "2.11.12"),
     name := "metrics4-scala",
     description := "metrics-scala for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -66,7 +66,7 @@ lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("2.13.7", "2.12.15", "2.11.12"),
+    crossScalaVersions := Seq("3.1.0", "2.13.7", "2.12.15", "2.11.12"),
     name := "metrics4-scala-hdr",
     description := "metrics-scala-hdr for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(

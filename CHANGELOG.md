@@ -1,4 +1,4 @@
-v4.2.7: Dec 2021
+v4.2.8: Dec 2021
 =================
 
 * Scala 3 support! Based on some very good work from @xuwei-k, thanks!

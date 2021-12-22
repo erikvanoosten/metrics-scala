@@ -28,7 +28,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">2.6</td>
     </tr>
     <tr>
-      <td valign="top" rowspan="6"><a href="/CHANGELOG.md#v427-nov-2021">4.2.7</a></td>
+      <td valign="top" rowspan="5"><a href="/CHANGELOG.md#v428-dec-2021">4.2.8</a></td>
       <td valign="top">metrics4-scala</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -42,23 +42,13 @@ The table shows the available 4.x artifacts of metrics-scala.
     <tr>
       <td valign="top" rowspan="2">metrics4-akka_a26</td>
       <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">Akka 2.6.18</td>
-    </tr>
-    <tr>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top">Akka 2.6.17</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a25</td>
