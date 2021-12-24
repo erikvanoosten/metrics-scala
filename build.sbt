@@ -134,7 +134,7 @@ def before212(scalaVersion: String): Boolean = scalaVersion.startsWith("2.11.")
 
 def mimaPrevious(scalaVersion: String): Set[ModuleID] = {
   if (scalaVersion.startsWith("3."))
-    Set.empty
+    Set("nl.grons" %% "metrics4-scala" % "4.2.8")
   else if (scalaVersion.startsWith("2.13."))
     Set("nl.grons" %% "metrics4-scala" % "4.0.7")
   else
