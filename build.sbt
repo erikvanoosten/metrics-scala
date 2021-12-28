@@ -146,3 +146,10 @@ def scalacTarget(scalaVersion: String): String = {
   else if (scalaVersion.startsWith("2.13.")) "-target:8"
   else "-Xtarget:8"
 }
+
+ThisBuild / githubWorkflowPublishTargetBranches := Seq()
+ThisBuild / githubWorkflowJavaVersions := Seq(
+  JavaSpec.temurin("8"),
+  JavaSpec.temurin("11")
+)
+
