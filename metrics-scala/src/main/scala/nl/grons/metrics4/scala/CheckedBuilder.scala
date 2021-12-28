@@ -79,10 +79,10 @@ trait CheckedBuilder extends BaseBuilder {
    *   healthCheck("alive")(Future { workerThreadIsActive() })
    * }
    *
-   * NOTE: only one health check can be registered under a name (including the base name which is derived from the
-   * class name by default). Any subsequent health check registrations will be ignored. This happens for example
-   * when a class that defines a health check is instantiated multiple times. This metrics-core behavior might be
-   * changed with https://github.com/dropwizard/metrics/issues/1245.
+   * NOTE: only one health check can be registered under a name (including the base name, which is derived from the
+   * class name by default). A common cause for multiple registrations is when a class that defines a health check is
+   * instantiated multiple times. Since metrics-core 4.1.0 subsequent registrations lead to an exception. Earlier
+   * versions silently ignore subsequent registrations.
    *
    * @param name the name of the health check
    * @param unhealthyMessage the unhealthy message for checkers that return `false`, defaults to `"Health check failed"`
@@ -173,8 +173,7 @@ object HealthCheckMagnet {
    * consequently fail.
    */
   implicit def fromFutureCheck[T](futureChecker: ByName[Future[T]])(implicit timeout: FiniteDuration = 3.seconds): HealthCheckMagnet =
-    //TODO: Remove asInstanceOf when Scala 2.10 support is no longer required.
-    fromTryChecker(ByName(Await.ready(futureChecker(), timeout).asInstanceOf[Future[T]].value.get))
+    fromTryChecker(ByName(Await.ready(futureChecker(), timeout).value.get))
 
   private def healthyWithValue[A](value: A): Result = value match {
     case _: Unit => Result.healthy()
