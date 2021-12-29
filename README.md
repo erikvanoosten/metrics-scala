@@ -166,7 +166,7 @@ is not compatible over major Dropwizard versions.
 
 ## Download 4.x
 
-<a href="CHANGELOG.md#v4119-apr-2021">Release notes for 4.1.19.</a>
+<a href="CHANGELOG.md#v428-dec-2021">Release notes for 4.2.8.</a>
 
 WARNING: `nl.grons:metrics-scala:4.0.0` was accidentally released as well. *Do not use it* as it will give
 binary compatibility problems. Instead, use `"nl.grons" %% "metrics4-scala" % "4.0.1"` or later as described below.
