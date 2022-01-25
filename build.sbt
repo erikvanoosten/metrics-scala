@@ -8,7 +8,7 @@ lazy val commonSettings = Seq(
   libraryDependencies ++= Seq(
     "org.scalatest" %% "scalatest" % "3.2.11" % Test,
     "org.mockito" % "mockito-core" % "4.3.0" % Test,
-    "org.slf4j" % "slf4j-simple" % "1.7.33" % Test
+    "org.slf4j" % "slf4j-simple" % "1.7.34" % Test
   ),
   fork := true,
   Test / testOptions += {
