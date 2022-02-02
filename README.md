@@ -237,6 +237,6 @@ with the help of [@scullxbones](https://github.com/scullxbones) and many other c
 
 Copyright (c) 2010-2012 Coda Hale, Yammer.com (before 3.0.0)
 
-Copyright (c) 2013-2021 Erik van Oosten (3.0.0 and later)
+Copyright (c) 2013-2022 Erik van Oosten (3.0.0 and later)
 
 Published under Apache Software License 2.0, see [LICENSE](LICENSE)
