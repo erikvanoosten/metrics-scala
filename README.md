@@ -52,7 +52,7 @@ See also the [change log](CHANGELOG.md) for improvements and API changes.
 
 ### Features
 
-* Easy creation of all Dropwizard metrics types plus push gauges.
+* Easy creation of almost<sup>(*)</sup> all Dropwizard metrics types plus push gauges.
 * Easy creation of Dropwizard health checks.
 * Almost invisible syntax for using timers (see example above).
 * Scala specific methods on metrics (e.g. `+=` on counters).
@@ -61,6 +61,9 @@ See also the [change log](CHANGELOG.md) for improvements and API changes.
 * Future support.
 * Testing support.
 * [Hdrhistogram](http://hdrhistogram.org/) support.
+
+<sup>(*)</sup> Metrics-scala introduced push gauges in March 2020. Dropwizard metrics introduced settable gauges (which
+do the exact same thing) in May 2021. We have not found a reason yet to support settable gauges.
 
 ## Available artifacts (abbreviated)
 
