@@ -1,7 +1,7 @@
 Metrics-Scala
 =============
 
-*Capturing JVM- and application-level metrics. So you know what's going on.*
+*📈 Capturing JVM- and application-level metrics. So you know what's going on.*
 
 This is the Scala API for [Dropwizard's Metrics](https://github.com/dropwizard/metrics) library.
 
