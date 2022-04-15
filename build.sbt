@@ -18,7 +18,7 @@ lazy val commonSettings = Seq(
   },
   javacOptions ++= Seq("-target", "1.8", "-J-Xmx512m", "-J-Xms128m", "-J-Xss10m"),
   javaOptions ++= Seq("-Xmx512m", "-Djava.awt.headless=true"),
-  scalacOptions ++= Seq(scalacTarget(scalaVersion.value), "-deprecation", "-unchecked"),
+  scalacOptions ++= scalacTargets(scalaVersion.value) ++ Seq("-deprecation", "-unchecked"),
   publishTo := sonatypePublishToBundle.value,
   publishMavenStyle := true,
   Test / publishArtifact := false,
@@ -141,10 +141,13 @@ def mimaPrevious(scalaVersion: String): Set[ModuleID] = {
     Set("nl.grons" %% "metrics4-scala" % "4.0.1")
 }
 
-def scalacTarget(scalaVersion: String): String = {
-  if (scalaVersion.startsWith("2.11.") || scalaVersion.startsWith("2.12.")) "-target:jvm-1.8"
-  else if (scalaVersion.startsWith("2.13.")) "-target:8"
-  else "-Xtarget:8"
+def scalacTargets(scalaVersion: String): Seq[String] = {
+  if (scalaVersion.startsWith("2.11.") || scalaVersion.startsWith("2.12.")) Seq("-target:jvm-1.8")
+  else if (scalaVersion.startsWith("2.13.")) Seq("-target:8")
+  else {
+    // Scala 3.1.2 or later. We cannot use 3.0 as Akka requires 3.1.
+    Seq("-scala-output-version:3.1", "-Xunchecked-java-output-version:8")
+  }
 }
 
 ThisBuild / githubWorkflowPublishTargetBranches := Seq()
