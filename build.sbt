@@ -146,7 +146,7 @@ def scalacTargets(scalaVersion: String): Seq[String] = {
   else if (scalaVersion.startsWith("2.13.")) Seq("-target:8")
   else {
     // Scala 3.1.2 or later. We cannot use 3.0 as Akka requires 3.1.
-    Seq("-scala-output-version:3.1", "-Xunchecked-java-output-version:8")
+    Seq("-scala-output-version:3.1", "-java-output-version:8")
   }
 }
 
