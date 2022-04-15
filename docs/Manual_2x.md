@@ -4,7 +4,7 @@
 
 # 30 seconds introduction
 
-Metrics-scala provides an easy way to create metrics in Scala. It does so by providing the ``Instrumented`` trait. This trait gives you the metrics builder `metrics`.
+Metrics-scala provides a way to create metrics in Scala. It does so by providing the ``Instrumented`` trait. This trait gives you the metrics builder `metrics`.
 
 For example, here is how to create and use a timer:
 
@@ -28,7 +28,7 @@ or read it directly from [Metrics 2.2.0 manual](http://metrics.dropwizard.io/2.2
 
 # Gauges
 
-A gauge is the simplest metric type. It just returns a value. If, for example, your application has a value which is maintained by a third-party library, you can easily expose it by registering a Gauge instance which returns that value:
+A gauge is the simplest metric type. It only returns a value. If, for example, your application has a value which is maintained by a third-party library, you can easily expose it by registering a Gauge instance which returns that value:
 
 ```scala
 import com.yammer.metrics.scala.Instrumented
@@ -44,7 +44,7 @@ This will create a new gauge named `com.example.proj.auth.SessionStore.cache-evi
 
 # Counters
 
-A counter is a simple incrementing and decrementing 64-bit integer:
+A counter is an incrementing and decrementing 64-bit integer:
 
 ```scala
 val evictions: Counter = metrics.counter
@@ -63,7 +63,7 @@ val resultCounts: Histogram = metrics.histogram("result-counts")
 resultCounts += results.size()
 ```
 
-`Histogram` metrics allow you to measure not just easy things like the min, mean, max, and standard deviation of values, but also [quantiles](http://en.wikipedia.org/wiki/Quantile) like the median or 95th percentile.
+`Histogram` metrics allow you to measure not only the basic things like the min, mean, max, and standard deviation of values, but also [quantiles](http://en.wikipedia.org/wiki/Quantile) like the median or 95th percentile.
 
 Traditionally, the way the median (or any other quantile) is calculated is to take the entire data set, sort it, and take the value in the middle (or 1% from the end, for the 99th percentile). This works for small data sets, or batch processing systems, but not for high-throughput, low-latency services.
 
@@ -98,7 +98,7 @@ getRequests.mark(requests.size())
 ```
 
 A meter requires two additional pieces of information besides the name: the *event type* and the *rate unit*.
-The event type simply describes the type of events which the meter is measuring. In the above case, the meter is measuring proxied requests, and so its event type is `"requests"`.
+The event type describes the type of events which the meter is measuring. In the above case, the meter is measuring proxied requests, and so its event type is `"requests"`.
 The rate unit is the unit of time denominating the rate. In the above case, the meter is measuring the number of requests in each second, because the default rate unit is `SECONDS`. When combined, the meter is measuring requests per second.
 
 To change the *rate unit*, specify the `unit` parameter as follows:
@@ -107,7 +107,7 @@ To change the *rate unit*, specify the `unit` parameter as follows:
 val getRequests: Meter = metrics.meter("get-requests", "requests", unit = TimeUnit.MINUTES)
 ```
 
-Meters measure the rate of the events in a few different ways. The *mean* rate is the average rate of events. It’s generally useful for trivia, but as it represents the total rate for your application’s entire lifetime (e.g., the total number of requests handled, divided by the number of seconds the process has been running), it doesn’t offer a sense of recency. Luckily, meters also record three different *exponentially-weighted moving average* rates: the 1-, 5-, and 15-minute moving averages. Just like the Unix load averages visible in uptime or top.
+Meters measure the rate of the events in a few different ways. The *mean* rate is the average rate of events. It’s generally useful for trivia, but as it represents the total rate for your application’s entire lifetime (e.g., the total number of requests handled, divided by the number of seconds the process has been running), it doesn’t offer a sense of recency. Luckily, meters also record three different *exponentially-weighted moving average* rates: the 1-, 5-, and 15-minute moving averages. They are like the Unix load averages visible in uptime or top.
 
 # Timers
 

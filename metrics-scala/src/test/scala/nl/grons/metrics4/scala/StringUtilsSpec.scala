@@ -46,7 +46,7 @@ class StringUtilsSpec extends AnyFunSpec {
       StringUtils.collapseDots("") should equal ("")
     }
 
-    it("works on just dots") {
+    it("works on dots only") {
       StringUtils.collapseDots(".") should equal ("")
       StringUtils.collapseDots("..") should equal ("")
       StringUtils.collapseDots(".....") should equal ("")

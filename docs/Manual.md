@@ -14,10 +14,10 @@ Other manual pages:
 
 ## 1 minute introduction
 
-Metrics-scala provides an easy way to create _metrics_ and _health checks_ in Scala. It builds on Dropwizard's
+Metrics-scala provides a way to create _metrics_ and _health checks_ in Scala. It builds on Dropwizard's
 metrics-core and metrics-healthchecks java libraries.
 
-Simply extend [DefaultInstrumented](/metrics-scala/src/main/scala/nl/grons/metrics4/scala/DefaultInstrumented.scala)
+Extend [DefaultInstrumented](/metrics-scala/src/main/scala/nl/grons/metrics4/scala/DefaultInstrumented.scala)
 and then use the `metrics` and `healthCheck` builders:
 
 ```scala
@@ -58,7 +58,7 @@ import scala.concurrent.duration._
 
 ## Gauges
 
-A gauge is the simplest metric type. It just returns a value. If, for example, your application has a value which is
+A gauge is the simplest metric type. It only returns a value. If, for example, your application has a value which is
 maintained by a third-party library, you can easily expose it by registering a Gauge instance which returns that value:
 
 ```scala
@@ -138,7 +138,7 @@ private val cachedItemsCount = metrics.pushGaugeWithTimeout[Int]("cached.items.c
 
 ## Counters
 
-A counter is a simple incrementing and decrementing 64-bit integer:
+A counter is an incrementing and decrementing 64-bit integer:
 
 ```scala
 val evictions: Counter = metrics.counter("evictions")
@@ -168,7 +168,7 @@ val resultCounts: Histogram = metrics.histogram("result-counts")
 resultCounts += results.size()
 ```
 
-`Histogram` metrics allow you to measure not just easy things like the min, mean, max, and standard deviation of values,
+`Histogram` metrics allow you to measure not only the basic things like the min, mean, max, and standard deviation of values,
 but also [quantiles](http://en.wikipedia.org/wiki/Quantile) like the median or 95th percentile.
 
 Traditionally, the way the median (or any other quantile) is calculated is to take the entire data set, sort it, and
@@ -217,7 +217,7 @@ it records every measurement, it’s also the slowest reservoir type.
 It brings much lower memory overhead. Also it’s allocation/free patterns are different, so GC overhead is 60x-80x
 lower then `SlidingTimeWindowReservoir`. Now `SlidingTimeWindowArrayReservoir` is comparable with
 `ExponentiallyDecayingReservoir` in terms GC overhead and performance. As for required memory,
-`SlidingTimeWindowArrayReservoir` takes ~128 bits per stored measurement and you can simply calculate required amount
+`SlidingTimeWindowArrayReservoir` takes ~128 bits per stored measurement and you can calculate required amount
 of heap. For example: 10K measurements / sec with reservoir storing time of 1 minute will take
 10000 * 60 * 128 / 8 = 9600000 bytes ~ 9 megabytes.
 

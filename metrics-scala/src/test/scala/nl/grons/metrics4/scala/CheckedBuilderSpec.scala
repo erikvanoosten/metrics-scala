@@ -43,7 +43,7 @@ class HealthCheckSpec extends AnyFunSpec {
     }
 
     it("build health checks that call the provided checker") {
-      val mockChecker = mock(classOf[SimpleChecker])
+      val mockChecker = mock(classOf[MockableChecker])
       when(mockChecker.check()).thenReturn(true).thenReturn(false).thenReturn(true).thenReturn(false)
       val check = newCheckOwner.createCheckerHealthCheck(mockChecker)
       check.execute() should equal(Result.healthy())
@@ -216,7 +216,7 @@ private object HealthCheckResultWithApproximateTimestampEquality extends Equalit
   }
 }
 
-private trait SimpleChecker {
+private trait MockableChecker {
   def check(): Boolean
 }
 
@@ -246,7 +246,7 @@ private class CheckOwner() extends CheckedBuilder {
     healthCheck("test", "FAIL")(alwaysFails())
   }
 
-  def createCheckerHealthCheck(checker: => SimpleChecker): HealthCheck =
+  def createCheckerHealthCheck(checker: => MockableChecker): HealthCheck =
     healthCheck("test", "FAIL")(checker.check())
 
   def createUnitHealthCheckWithSideEffect(sideEffect: () => Unit): HealthCheck = {

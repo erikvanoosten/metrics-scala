@@ -49,7 +49,7 @@ trait CheckedBuilder extends BaseBuilder {
    * }}}
    *
    * The code block must have a result of type `Boolean`, `Try`, `Either`, `Future`,
-   * [[com.codahale.metrics.health.HealthCheck.Result]], or simply `Unit`.
+   * [[com.codahale.metrics.health.HealthCheck.Result]], or `Unit`.
    *
    *  - A check result of `true` indicates healthy, `false` indicates unhealthy.
    *  - A check result of type [[Success]] indicates healthy, [[Failure]] indicates

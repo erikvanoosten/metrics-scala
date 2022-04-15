@@ -1,6 +1,6 @@
 ## Hdrhistogram
 
-Metrics-scala makes it easy to use [hdrhistogram](http://hdrhistogram.org/). Hdrhistogram provides
+Metrics-scala supports transparent use of [hdrhistogram](http://hdrhistogram.org/). Hdrhistogram provides
 alternative high quality reservoir implementations which can be used in histograms and timers.
 [Hdrhistogram-metrics-reservoir](https://bitbucket.org/marshallpierce/hdrhistogram-metrics-reservoir)
 is used to bridge the two worlds.

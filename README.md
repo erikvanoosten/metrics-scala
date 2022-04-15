@@ -25,8 +25,8 @@ We strive for long term stability, correctness, an easy-to-use API and full docu
 
 ### Usage
 
-Metrics-scala provides an easy way to create _metrics_ and _health checks_ in Scala. Creating
-metrics and health checks is as easy as extending
+Metrics-scala provides a way to create _metrics_ and _health checks_ in Scala. Creating
+metrics and health checks is done by extending
 [DefaultInstrumented](/metrics-scala/src/main/scala/nl/grons/metrics4/scala/DefaultInstrumented.scala) and using the
 `metrics` and `healthCheck` builders:
 
@@ -52,8 +52,8 @@ See also the [change log](CHANGELOG.md) for improvements and API changes.
 
 ### Features
 
-* Easy creation of almost<sup>(*)</sup> all Dropwizard metrics types plus push gauges.
-* Easy creation of Dropwizard health checks.
+* Creation of almost<sup>(*)</sup> all Dropwizard metrics types plus push gauges.
+* Creation of Dropwizard health checks.
 * Almost invisible syntax for using timers (see example above).
 * Scala specific methods on metrics (e.g. `+=` on counters).
 * Derives proper metrics names for Scala objects and closures.
@@ -160,7 +160,7 @@ See also [hdrhistogram manual page](/docs/Hdrhistogram.md).
 
 ## Migrating from 3.x to 4.x
 
-Migrating from 3.x to 4.x is simply a matter of replacing the package from `nl.grons.metrics` to `nl.grons.metrics4`,
+Migrating from 3.x to 4.x is a matter of replacing the package from `nl.grons.metrics` to `nl.grons.metrics4`,
 and recompiling the code.
 
 Metrics-scala 3.x and metrics-scala 4.x can mostly be used at the same time on top of either

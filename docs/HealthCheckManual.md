@@ -4,7 +4,7 @@ Metrics also has the ability to centralize your service’s health checks with t
 
 ## Health check setup
 
-Simply extend [DefaultInstrumented](/metrics-scala/src/main/scala/nl/grons/metrics4/scala/DefaultInstrumented.scala) to get access
+Extend [DefaultInstrumented](/metrics-scala/src/main/scala/nl/grons/metrics4/scala/DefaultInstrumented.scala) to get access
 to the `healthCheck` builder:
 
 ```scala

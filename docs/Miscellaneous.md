@@ -2,7 +2,7 @@
 
 ### Write `MetricFilter` as regular Scala function (Scala 2.11.4 and before)
 
-Since 2.11.5 Scala support SAM (Single Abstract Method) and these implicit conversions are not automatic. Just in
+Since 2.11.5 Scala support SAM (Single Abstract Method) and these implicit conversions are not automatic. In
 case you are still on an older version:
 
 You can write a `com.codahale.metrics.MetricFilter` as a regular Scala functions. Start with
