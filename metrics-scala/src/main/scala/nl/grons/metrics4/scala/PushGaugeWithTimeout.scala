@@ -27,7 +27,7 @@ import scala.concurrent.duration.{Deadline, FiniteDuration}
  * For more information see [[MetricBuilder.pushGaugeWithTimeout]].
  */
 // PushGaugeWithTimeout is no longer needed but kept for binary compatibility.
-class PushGaugeWithTimeout[A] private[static](metric: DropwizardSettableGauge[A]) extends PushGauge(metric)
+class PushGaugeWithTimeout[A] private[scala](metric: DropwizardSettableGauge[A]) extends PushGauge(metric)
 
 class DropwizardSettableGaugeWithTimeout[A] private[scala](timeout: FiniteDuration, defaultValue: A) extends DropwizardSettableGauge[A] {
 
