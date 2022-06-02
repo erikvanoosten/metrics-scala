@@ -1,3 +1,12 @@
+v4.2.9: Jun 2022
+=================
+
+* Push gauges are now backed by Dropwizard's settable gauges.
+  This also means that creating a push gauge multiple times is now allowed
+  and will return the first created gauge. Solves #405. @benwaffle, thanks
+  for the pull request!
+* Updates: metrics-core: 4.2.7 -> 4.2.9, akka: 2.6.18 -> 2.6.19
+
 v4.2.8: Dec 2021
 =================
 

@@ -105,12 +105,16 @@ This will create a new gauge named `com.example.proj.UserRepository.row-count` w
 database query. Once the value is retrieved, it will be retained for 5 minutes. Only when the gauge's value is
 requested after these 5 minutes, the database query is executed again.
 
-## Push gauges
+## Push / settable gauges
 
     Available since metrics-scala 4.1.5.
 
 Regular gauges pull their values by executing the given code block. Push gauges are gauges to which you can push
 new values as they become available.
+
+Metrics-scala introduced push gauges in March 2020. Dropwizard metrics introduced settable gauges (which
+do the same thing) in May 2021. Since metrics-scala 4.2.9 push gauges wrap Dropwizard's settable gauges. However,
+Metrics-scala continues to use the name 'push gauge'.
 
 Example usage:
 
@@ -127,9 +131,9 @@ class ExternalCacheUpdater extends DefaultInstrumented {
 }
 ```
 
-Push gauges retain their value for ever. This may not always be desirable. For example, if the external cache in
+Push gauges retain their value forever. This may not always be desirable. For example, if the external cache in
 the code example above evicts items after 10 minutes, then the push gauge should not report measurements from more
-then 10 minutes ago. A push gauge with timeout fixes this:
+than 10 minutes ago. A push gauge with timeout fixes this:
 
 ```scala
 // Defines a push gauge with timeout
