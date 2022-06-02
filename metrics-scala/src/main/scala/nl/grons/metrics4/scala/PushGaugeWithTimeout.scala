@@ -16,37 +16,19 @@
 
 package nl.grons.metrics4.scala
 
-import java.util.concurrent.atomic.AtomicReference
+import com.codahale.metrics.SettableGauge
 
+import java.util.concurrent.atomic.AtomicReference
 import scala.concurrent.duration.{Deadline, FiniteDuration}
 
-/**
- * A gauge to which you can push new values. Values are forgotten after some time.
- *
- * Can only be constructed via [[MetricBuilder.pushGaugeWithTimeout]].
- */
-class PushGaugeWithTimeout[A] private[scala](timeout: FiniteDuration, defaultValue: A) {
-
+class DropwizardSettableGaugeWithTimeout[A] private[scala](timeout: FiniteDuration, defaultValue: A) extends SettableGauge[A] {
   private def newDefaultRef(): (Deadline, A) = (Deadline.now, defaultValue)
 
   private val valueRef = new AtomicReference[(Deadline, A)](newDefaultRef())
 
-  /**
-   * Push a new value.
-   *
-   * @param newValue the new value.
-   *                 Pushing a `null` will make reporters ignore this metric immediately
-   *                 (verified for the standard reporters: `GraphiteReporter` and `CollectdReporter`).
-   */
-  def push(newValue: A): Unit = valueRef.set((timeout.fromNow, newValue))
+  override def setValue(newValue: A): Unit = valueRef.set((timeout.fromNow, newValue))
 
-  /** Alias for [[push]]. */
-  def value_=(newValue: A): Unit = push(newValue)
-
-  /**
-   * The current value.
-   */
-  def value: A = {
+  override def getValue: A = {
     val current = valueRef.get()
     val (deadline, value) = current
     if (value != defaultValue && deadline.isOverdue()) {
@@ -56,5 +38,26 @@ class PushGaugeWithTimeout[A] private[scala](timeout: FiniteDuration, defaultVal
       value
     }
   }
+}
 
+/**
+ * A gauge to which you can push new values. Values are forgotten after some time.
+ *
+ * Can only be constructed via [[MetricBuilder.pushGaugeWithTimeout]].
+ */
+class PushGaugeWithTimeout[A](metric: DropwizardSettableGaugeWithTimeout[A]) {
+  /**
+   * Push a new value.
+   *
+   * @param newValue the new value.
+   *                 Pushing a `null` will make reporters ignore this metric immediately
+   *                 (verified for the standard reporters: `GraphiteReporter` and `CollectdReporter`).
+   */
+  def push(newValue: A): Unit = metric.setValue(newValue)
+
+  /** Alias for [[push]]. */
+  def value_=(newValue: A): Unit = push(newValue)
+
+  /** The current value. */
+  def value: A = metric.getValue
 }

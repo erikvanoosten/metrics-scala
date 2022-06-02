@@ -17,8 +17,7 @@
 package nl.grons.metrics4.scala
 
 import java.util.concurrent.atomic.AtomicReference
-
-import com.codahale.metrics.{CachedGauge => DropwizardCachedGauge, Gauge => DropwizardGauge, Metric, MetricFilter, MetricRegistry}
+import com.codahale.metrics.{DefaultSettableGauge, Metric, MetricFilter, MetricRegistry, CachedGauge => DropwizardCachedGauge, Gauge => DropwizardGauge, SettableGauge => DropwizardPushGauge}
 import nl.grons.metrics4.scala.MoreImplicits.RichAtomicReference
 
 import _root_.scala.concurrent.duration.FiniteDuration
@@ -107,10 +106,9 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) exte
    * @param startValue the first value of the gauge, typically this is `0`, `0L` or `null`.
    */
   def pushGauge[A](name: String, startValue: A): PushGauge[A] = {
-    val pushGauge = new PushGauge[A](startValue)
-    val dwGauge = new DropwizardGauge[A] { def getValue: A = pushGauge.value }
-    registerDwGauge(name, dwGauge)
-    pushGauge
+    val dwGauge = registry.gauge(metricNameFor(name), () => new DefaultSettableGauge[A](startValue))
+    addGaugeToList(dwGauge)
+    new PushGauge(dwGauge)
   }
 
   /**
@@ -144,16 +142,18 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) exte
    * @param timeout the timeout
    */
   def pushGaugeWithTimeout[A](name: String, defaultValue: A, timeout: FiniteDuration): PushGaugeWithTimeout[A] = {
-    val pushGauge = new PushGaugeWithTimeout[A](timeout, defaultValue)
-    val dwGauge = new DropwizardGauge[A] { def getValue: A = pushGauge.value }
-    registerDwGauge(name, dwGauge)
-    pushGauge
+    val dwGauge = registry.gauge(metricNameFor(name), () => new DropwizardSettableGaugeWithTimeout[A](timeout, defaultValue))
+    addGaugeToList(dwGauge)
+    new PushGaugeWithTimeout(dwGauge)
   }
 
   private def registerDwGauge[A](name: String, dwGauge: DropwizardGauge[A]): Unit = {
     registry.register(metricNameFor(name), dwGauge)
-    gauges.getAndTransform(_ :+ dwGauge)
+    addGaugeToList(dwGauge)
   }
+
+  private def addGaugeToList[T](dwGauge: DropwizardGauge[T]): Unit =
+    gauges.getAndTransform(_ :+ dwGauge)
 
   /**
    * Creates a new counter metric.
