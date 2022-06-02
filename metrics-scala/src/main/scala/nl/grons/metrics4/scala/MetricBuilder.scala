@@ -18,6 +18,7 @@ package nl.grons.metrics4.scala
 
 import java.util.concurrent.atomic.AtomicReference
 import com.codahale.metrics.{DefaultSettableGauge, Metric, MetricFilter, MetricRegistry, CachedGauge => DropwizardCachedGauge, Gauge => DropwizardGauge, SettableGauge => DropwizardSettableGauge}
+import nl.grons.metrics4.scala.Implicits._
 import nl.grons.metrics4.scala.MoreImplicits.RichAtomicReference
 
 import _root_.scala.concurrent.duration.FiniteDuration
@@ -116,7 +117,7 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) exte
   def pushGauge[A](name: String, startValue: A): PushGauge[A] = {
     val dwGauge = registry.gauge(
       metricNameFor(name),
-      metricSupplier(new DefaultSettableGauge[A](startValue))
+      () => new DefaultSettableGauge[A](startValue)
     )
     trackGauge(dwGauge)
     new PushGauge[A](dwGauge)
@@ -160,19 +161,11 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) exte
   def pushGaugeWithTimeout[A](name: String, defaultValue: A, timeout: FiniteDuration): PushGaugeWithTimeout[A] = {
     val dwGauge = registry.gauge(
       metricNameFor(name),
-      metricSupplier(new DropwizardSettableGaugeWithTimeout[A](timeout, defaultValue))
+      () => new DropwizardSettableGaugeWithTimeout[A](timeout, defaultValue)
     )
     trackGauge(dwGauge)
     new PushGaugeWithTimeout(dwGauge)
   }
-
-  //noinspection ConvertExpressionToSAM
-  // Work around for Scala 2.11.
-  // Once 2.11 support is dropped, `metricSupplier(expr)` can be replaced with `() => expr`.
-  private def metricSupplier[A](dw: => DropwizardSettableGauge[A]): MetricRegistry.MetricSupplier[DropwizardSettableGauge[A]] =
-    new MetricRegistry.MetricSupplier[DropwizardSettableGauge[A]] {
-      override def newMetric(): DropwizardSettableGauge[A] = dw
-    }
 
   private def trackGauge[T](dwGauge: DropwizardGauge[T]): Unit = {
     gauges.getAndTransform(_ :+ dwGauge)
