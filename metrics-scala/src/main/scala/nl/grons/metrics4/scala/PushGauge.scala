@@ -16,16 +16,14 @@
 
 package nl.grons.metrics4.scala
 
-import java.util.concurrent.atomic.AtomicReference
+import com.codahale.metrics.{SettableGauge => DropwizardSettableGauge}
 
 /**
  * A gauge to which you can push new values.
  *
  * Can only be constructed via [[MetricBuilder.pushGauge]].
  */
-class PushGauge[A] private[scala](startValue: A) {
-
-  private val valueRef = new AtomicReference[A](startValue)
+class PushGauge[A](metric: DropwizardSettableGauge[A])  {
 
   /**
    * Push a new value.
@@ -35,7 +33,7 @@ class PushGauge[A] private[scala](startValue: A) {
    *                 ignore this metric (verified for the standard reporters: `GraphiteReporter` and
    *                 `CollectdReporter`).
    */
-  def push(newValue: A): Unit = valueRef.set(newValue)
+  def push(newValue: A): Unit = metric.setValue(newValue)
 
   /** Alias for [[push]]. */
   def value_=(newValue: A): Unit = push(newValue)
@@ -43,6 +41,6 @@ class PushGauge[A] private[scala](startValue: A) {
   /**
    * The current value.
    */
-  def value: A = valueRef.get
+  def value: A = metric.getValue
 
 }

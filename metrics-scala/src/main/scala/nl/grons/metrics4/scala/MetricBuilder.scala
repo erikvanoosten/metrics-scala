@@ -17,8 +17,7 @@
 package nl.grons.metrics4.scala
 
 import java.util.concurrent.atomic.AtomicReference
-
-import com.codahale.metrics.{CachedGauge => DropwizardCachedGauge, Gauge => DropwizardGauge, Metric, MetricFilter, MetricRegistry}
+import com.codahale.metrics.{DefaultSettableGauge, Metric, MetricFilter, MetricRegistry, CachedGauge => DropwizardCachedGauge, Gauge => DropwizardGauge, SettableGauge => DropwizardPushGauge}
 import nl.grons.metrics4.scala.MoreImplicits.RichAtomicReference
 
 import _root_.scala.concurrent.duration.FiniteDuration
@@ -107,9 +106,9 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) exte
    * @param startValue the first value of the gauge, typically this is `0`, `0L` or `null`.
    */
   def pushGauge[A](name: String, startValue: A): PushGauge[A] = {
-    val pushGauge = new PushGauge[A](startValue)
-    val dwGauge = new DropwizardGauge[A] { def getValue: A = pushGauge.value }
-    registerDwGauge(name, dwGauge)
+    val dwGauge = registry.gauge(metricNameFor(name), () => new DefaultSettableGauge[A](startValue))
+    val pushGauge = new PushGauge(dwGauge)
+    gauges.getAndTransform(_ :+ dwGauge)
     pushGauge
   }
 
