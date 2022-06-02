@@ -90,7 +90,7 @@ lazy val metricsAkka26 = (project in file("metrics-akka-26"))
       "com.typesafe.akka" %% "akka-testkit" % "2.6.19" % Test
     ),
     sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
-    mimaPreviousArtifacts := Set.empty
+    mimaPreviousArtifacts := mimaPrevious(scalaVersion.value)
   )
 
 lazy val metricsAkka25 = (project in file("metrics-akka-25"))

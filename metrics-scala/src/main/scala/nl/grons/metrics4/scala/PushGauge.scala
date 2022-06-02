@@ -21,9 +21,9 @@ import com.codahale.metrics.{SettableGauge => DropwizardSettableGauge}
 /**
  * A gauge to which you can push new values.
  *
- * Can only be constructed via [[MetricBuilder.pushGauge]].
+ * For more information see [[MetricBuilder.pushGauge]].
  */
-class PushGauge[A](metric: DropwizardSettableGauge[A])  {
+class PushGauge[A] private[scala](metric: DropwizardSettableGauge[A])  {
 
   /**
    * Push a new value.

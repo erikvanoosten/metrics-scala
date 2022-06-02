@@ -121,10 +121,16 @@ class MetricBuilderSpec extends AnyFunSpec with OneInstancePerTest {
       underTest.meter.count should equal (11)
     }
 
-    it("can re-fetch push gauges") {
+    it("can re-fetch push gauge") {
       val name = "foobar"
       underTest.metrics.pushGauge(name, 0)
       underTest.metrics.pushGauge(name, 0)
+    }
+
+    it("can re-fetch push gauge with timeout") {
+      val name = "foobar"
+      underTest.metrics.pushGaugeWithTimeout(name, 0, 1.hour)
+      underTest.metrics.pushGaugeWithTimeout(name, 0, 1.hour)
     }
   }
 

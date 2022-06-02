@@ -16,12 +16,21 @@
 
 package nl.grons.metrics4.scala
 
-import com.codahale.metrics.SettableGauge
+import com.codahale.metrics.{SettableGauge => DropwizardSettableGauge}
 
 import java.util.concurrent.atomic.AtomicReference
 import scala.concurrent.duration.{Deadline, FiniteDuration}
 
-class DropwizardSettableGaugeWithTimeout[A] private[scala](timeout: FiniteDuration, defaultValue: A) extends SettableGauge[A] {
+/**
+ * A gauge to which you can push new values. Values are forgotten after some time.
+ *
+ * For more information see [[MetricBuilder.pushGaugeWithTimeout]].
+ */
+// PushGaugeWithTimeout is no longer needed but kept for binary compatibility.
+class PushGaugeWithTimeout[A] private[static](metric: DropwizardSettableGauge[A]) extends PushGauge(metric)
+
+class DropwizardSettableGaugeWithTimeout[A] private[scala](timeout: FiniteDuration, defaultValue: A) extends DropwizardSettableGauge[A] {
+
   private def newDefaultRef(): (Deadline, A) = (Deadline.now, defaultValue)
 
   private val valueRef = new AtomicReference[(Deadline, A)](newDefaultRef())
@@ -38,26 +47,5 @@ class DropwizardSettableGaugeWithTimeout[A] private[scala](timeout: FiniteDurati
       value
     }
   }
-}
 
-/**
- * A gauge to which you can push new values. Values are forgotten after some time.
- *
- * Can only be constructed via [[MetricBuilder.pushGaugeWithTimeout]].
- */
-class PushGaugeWithTimeout[A](metric: DropwizardSettableGaugeWithTimeout[A]) {
-  /**
-   * Push a new value.
-   *
-   * @param newValue the new value.
-   *                 Pushing a `null` will make reporters ignore this metric immediately
-   *                 (verified for the standard reporters: `GraphiteReporter` and `CollectdReporter`).
-   */
-  def push(newValue: A): Unit = metric.setValue(newValue)
-
-  /** Alias for [[push]]. */
-  def value_=(newValue: A): Unit = push(newValue)
-
-  /** The current value. */
-  def value: A = metric.getValue
 }

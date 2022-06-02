@@ -17,7 +17,7 @@
 package nl.grons.metrics4.scala
 
 import java.util.concurrent.atomic.AtomicReference
-import com.codahale.metrics.{DefaultSettableGauge, Metric, MetricFilter, MetricRegistry, CachedGauge => DropwizardCachedGauge, Gauge => DropwizardGauge, SettableGauge => DropwizardPushGauge}
+import com.codahale.metrics.{DefaultSettableGauge, Metric, MetricFilter, MetricRegistry, CachedGauge => DropwizardCachedGauge, Gauge => DropwizardGauge, SettableGauge => DropwizardSettableGauge}
 import nl.grons.metrics4.scala.MoreImplicits.RichAtomicReference
 
 import _root_.scala.concurrent.duration.FiniteDuration
@@ -46,6 +46,7 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) exte
    *
    * @param name the name of the gauge
    * @param f a code block that does a measurement
+   * @throws IllegalArgumentException when a metric with the given name already exists
    */
   def gauge[A](name: String)(f: => A): Gauge[A] = {
     registerAndWrapDwGauge(name, new DropwizardGauge[A] { def getValue: A = f })
@@ -70,6 +71,7 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) exte
    * @param name the name of the gauge
    * @param timeout the timeout
    * @param f a code block that does a measurement
+   * @throws IllegalArgumentException when a metric with the given name already exists
    */
   def cachedGauge[A](name: String, timeout: FiniteDuration)(f: => A): Gauge[A] = {
     registerAndWrapDwGauge(
@@ -79,7 +81,8 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) exte
   }
 
   private def registerAndWrapDwGauge[A](name: String, dwGauge: DropwizardGauge[A]): Gauge[A] = {
-    registerDwGauge(name, dwGauge)
+    registry.register(metricNameFor(name), dwGauge)
+    trackGauge(dwGauge)
     new Gauge[A](dwGauge)
   }
 
@@ -96,19 +99,27 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) exte
    *   def updateExternalCache(): Unit = {
    *     val items = fetchItemsFromDatabase()
    *     pushItemsToExternalCache(items)
-   *     // Pushes a new measurement to the gauge.
+   *     // Pushes a new measurement to the gauge
    *     cachedItemsCount.push(items.size)
+   *     // Alternative way to push a new measurement
+   *     cachedItemsCount.value = items.size
    *   }
    * }
    * }}}
+   *
+   * When a gauge already exists with the given name, parameter `startValue` is ignored and the existing gauge
+   * is returned.
    *
    * @param name the name of the gauge
    * @param startValue the first value of the gauge, typically this is `0`, `0L` or `null`.
    */
   def pushGauge[A](name: String, startValue: A): PushGauge[A] = {
-    val dwGauge = registry.gauge(metricNameFor(name), () => new DefaultSettableGauge[A](startValue))
-    addGaugeToList(dwGauge)
-    new PushGauge(dwGauge)
+    val dwGauge = registry.gauge(
+      metricNameFor(name),
+      metricSupplier(new DefaultSettableGauge[A](startValue))
+    )
+    trackGauge(dwGauge)
+    new PushGauge[A](dwGauge)
   }
 
   /**
@@ -127,11 +138,16 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) exte
    *   def updateExternalCache(): Unit = {
    *     val items = fetchItemsFromDatabase()
    *     pushItemsToExternalCache(items)
-   *     // Pushes a new measurement to the gauge.
+   *     // Pushes a new measurement to the gauge
    *     cachedItemsCount.push(items.size)
+   *     // Alternative way to push a new measurement
+   *     cachedItemsCount.value = items.size
    *   }
    * }
    * }}}
+   *
+   * When a gauge already exists with the given name, parameters `defaultValue` and `timeout` are ignored and the
+   * existing gauge is returned.
    *
    * Note: Cleanup of old values happens only on read. In the absence of a metric reporter or other reader, the last
    * pushed value will continue to take space on the heap. As most values are very small (e.g. an `Int`), this should
@@ -142,18 +158,25 @@ class MetricBuilder(val baseName: MetricName, val registry: MetricRegistry) exte
    * @param timeout the timeout
    */
   def pushGaugeWithTimeout[A](name: String, defaultValue: A, timeout: FiniteDuration): PushGaugeWithTimeout[A] = {
-    val dwGauge = registry.gauge(metricNameFor(name), () => new DropwizardSettableGaugeWithTimeout[A](timeout, defaultValue))
-    addGaugeToList(dwGauge)
+    val dwGauge = registry.gauge(
+      metricNameFor(name),
+      metricSupplier(new DropwizardSettableGaugeWithTimeout[A](timeout, defaultValue))
+    )
+    trackGauge(dwGauge)
     new PushGaugeWithTimeout(dwGauge)
   }
 
-  private def registerDwGauge[A](name: String, dwGauge: DropwizardGauge[A]): Unit = {
-    registry.register(metricNameFor(name), dwGauge)
-    addGaugeToList(dwGauge)
-  }
+  //noinspection ConvertExpressionToSAM
+  // Work around for Scala 2.11.
+  // Once 2.11 support is dropped, `metricSupplier(expr)` can be replaced with `() => expr`.
+  private def metricSupplier[A](dw: => DropwizardSettableGauge[A]): MetricRegistry.MetricSupplier[DropwizardSettableGauge[A]] =
+    new MetricRegistry.MetricSupplier[DropwizardSettableGauge[A]] {
+      override def newMetric(): DropwizardSettableGauge[A] = dw
+    }
 
-  private def addGaugeToList[T](dwGauge: DropwizardGauge[T]): Unit =
+  private def trackGauge[T](dwGauge: DropwizardGauge[T]): Unit = {
     gauges.getAndTransform(_ :+ dwGauge)
+  }
 
   /**
    * Creates a new counter metric.
