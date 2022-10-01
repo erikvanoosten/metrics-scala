@@ -81,7 +81,7 @@ lazy val metricsAkka26 = (project in file("metrics-akka-26"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("3.1.3", "2.13.6", "2.12.17"),
+    crossScalaVersions := Seq("3.1.3", "2.13.8", "2.12.17"),
     name := "metrics4-akka_a26",
     description := "metrics-scala for Akka 2.6 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -149,6 +149,8 @@ def scalacTargets(scalaVersion: String): Seq[String] = {
   }
 }
 
+// Config for sbt-github-actions plugin
+ThisBuild / crossScalaVersions := Seq("3.1.3", "2.13.8", "2.12.17", "2.11.12")
 ThisBuild / githubWorkflowPublishTargetBranches := Seq()
 ThisBuild / githubWorkflowJavaVersions := Seq(
   JavaSpec.temurin("8"),
