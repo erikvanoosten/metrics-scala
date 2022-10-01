@@ -152,6 +152,7 @@ def scalacTargets(scalaVersion: String): Seq[String] = {
 ThisBuild / githubWorkflowPublishTargetBranches := Seq()
 ThisBuild / githubWorkflowJavaVersions := Seq(
   JavaSpec.temurin("8"),
-  JavaSpec.temurin("11")
+  JavaSpec.temurin("11"),
+  JavaSpec.temurin("17")
 )
 
