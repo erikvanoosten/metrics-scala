@@ -84,7 +84,6 @@ lazy val metricsAkka26 = (project in file("metrics-akka-26"))
     crossScalaVersions := Seq("3.1.3", "2.13.6", "2.12.17"),
     name := "metrics4-akka_a26",
     description := "metrics-scala for Akka 2.6 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
-    resolvers += Resolver.sonatypeRepo("snapshots"),
     libraryDependencies ++= Seq(
       "com.typesafe.akka" %% "akka-actor" % "2.6.20",
       "com.typesafe.akka" %% "akka-testkit" % "2.6.20" % Test
