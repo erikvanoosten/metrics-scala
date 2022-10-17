@@ -6,9 +6,9 @@ lazy val commonSettings = Seq(
   scalaVersion := "2.12.17",
   crossVersion := CrossVersion.binary,
   libraryDependencies ++= Seq(
-    "org.scalatest" %% "scalatest" % "3.2.13" % Test,
+    "org.scalatest" %% "scalatest" % "3.2.14" % Test,
     "org.mockito" % "mockito-core" % "4.8.0" % Test,
-    "org.slf4j" % "slf4j-simple" % "2.0.1" % Test
+    "org.slf4j" % "slf4j-simple" % "2.0.3" % Test
   ),
   fork := true,
   Test / testOptions += {
@@ -52,7 +52,7 @@ lazy val root = (project in file("."))
 lazy val metricsScala = (project in file("metrics-scala"))
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("3.1.3", "2.13.8", "2.12.17", "2.11.12"),
+    crossScalaVersions := Seq("3.1.3", "2.13.10", "2.12.17", "2.11.12"),
     name := "metrics4-scala",
     description := "metrics-scala for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -66,7 +66,7 @@ lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("3.1.3", "2.13.8", "2.12.17", "2.11.12"),
+    crossScalaVersions := Seq("3.1.3", "2.13.10", "2.12.17", "2.11.12"),
     name := "metrics4-scala-hdr",
     description := "metrics-scala-hdr for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -81,7 +81,7 @@ lazy val metricsAkka26 = (project in file("metrics-akka-26"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("3.1.3", "2.13.8", "2.12.17"),
+    crossScalaVersions := Seq("3.1.3", "2.13.10", "2.12.17"),
     name := "metrics4-akka_a26",
     description := "metrics-scala for Akka 2.6 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -96,7 +96,7 @@ lazy val metricsAkka25 = (project in file("metrics-akka-25"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("2.13.8", "2.12.17"),
+    crossScalaVersions := Seq("2.13.10", "2.12.17"),
     name := "metrics4-akka_a25",
     description := "metrics-scala for Akka 2.5 and 2.6 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
