@@ -8,7 +8,7 @@ lazy val commonSettings = Seq(
   libraryDependencies ++= Seq(
     "org.scalatest" %% "scalatest" % "3.2.15" % Test,
     "org.mockito" % "mockito-core" % "4.11.0" % Test,
-    "org.slf4j" % "slf4j-simple" % "2.0.6" % Test
+    "org.slf4j" % "slf4j-simple" % "2.0.7" % Test
   ),
   fork := true,
   Test / testOptions += {
@@ -56,8 +56,8 @@ lazy val metricsScala = (project in file("metrics-scala"))
     name := "metrics4-scala",
     description := "metrics-scala for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
-      "io.dropwizard.metrics" % "metrics-core" % "4.2.17",
-      "io.dropwizard.metrics" % "metrics-healthchecks" % "4.2.17"
+      "io.dropwizard.metrics" % "metrics-core" % "4.2.18",
+      "io.dropwizard.metrics" % "metrics-healthchecks" % "4.2.18"
     ),
     mimaPreviousArtifacts := mimaPrevious(scalaVersion.value)
 )
