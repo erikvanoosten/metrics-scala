@@ -3,7 +3,7 @@ import sbt.librarymanagement.{CrossVersion, ModuleID}
 
 lazy val commonSettings = Seq(
   organization := "nl.grons",
-  scalaVersion := "2.12.17",
+  scalaVersion := "2.12.18",
   crossVersion := CrossVersion.binary,
   libraryDependencies ++= Seq(
     "org.scalatest" %% "scalatest" % "3.2.16" % Test,
@@ -52,7 +52,7 @@ lazy val root = (project in file("."))
 lazy val metricsScala = (project in file("metrics-scala"))
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("3.1.3", "2.13.10", "2.12.17", "2.11.12"),
+    crossScalaVersions := Seq("3.1.3", "2.13.10", "2.12.18", "2.11.12"),
     name := "metrics4-scala",
     description := "metrics-scala for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -66,7 +66,7 @@ lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("3.1.3", "2.13.10", "2.12.17", "2.11.12"),
+    crossScalaVersions := Seq("3.1.3", "2.13.10", "2.12.18", "2.11.12"),
     name := "metrics4-scala-hdr",
     description := "metrics-scala-hdr for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -81,7 +81,7 @@ lazy val metricsAkka26 = (project in file("metrics-akka-26"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("3.1.3", "2.13.10", "2.12.17"),
+    crossScalaVersions := Seq("3.1.3", "2.13.10", "2.12.18"),
     name := "metrics4-akka_a26",
     description := "metrics-scala for Akka 2.6 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -96,7 +96,7 @@ lazy val metricsAkka25 = (project in file("metrics-akka-25"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("2.13.10", "2.12.17"),
+    crossScalaVersions := Seq("2.13.10", "2.12.18"),
     name := "metrics4-akka_a25",
     description := "metrics-scala for Akka 2.5 and 2.6 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -114,7 +114,7 @@ lazy val metricsAkka24 = (project in file("metrics-akka-24"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("2.12.17", "2.11.12"),
+    crossScalaVersions := Seq("2.12.18", "2.11.12"),
     name := "metrics4-akka_a24",
     description := "metrics-scala for Akka 2.4 and 2.5 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -150,7 +150,7 @@ def scalacTargets(scalaVersion: String): Seq[String] = {
 }
 
 // Config for sbt-github-actions plugin
-ThisBuild / crossScalaVersions := Seq("2.12.17")
+ThisBuild / crossScalaVersions := Seq("2.12.18")
 ThisBuild / githubWorkflowPublishTargetBranches := Seq()
 ThisBuild / githubWorkflowJavaVersions := Seq(
   JavaSpec.temurin("8"),
