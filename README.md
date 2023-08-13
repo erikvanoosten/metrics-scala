@@ -68,7 +68,7 @@ See also the [change log](CHANGELOG.md) for improvements and API changes.
 The following artifacts are available:
 
 * *metrics4-scala*: adds a nice Scala API to Dropwizard Metrics
-* *metrics4-pekko: support for measuring Pekko actors (not released yet)
+* *metrics4-pekko*: support for measuring Pekko actors (not released yet)
 * *metrics4-akka*: support for measuring Akka actors
 * *metrics4-hdr*: adds support for [HdrHistogram](http://www.hdrhistogram.org/) to increase the accuracy of histograms 
 
