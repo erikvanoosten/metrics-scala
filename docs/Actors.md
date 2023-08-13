@@ -1,8 +1,8 @@
 ## Actor support
 
 A number of [Stackable Traits](http://www.artima.com/scalazine/articles/stackable_trait_pattern.html) are available to
-quickly instrument actors.  In all cases, the actual actor implementation must be mixed in *prior* to these stackable
-traits.
+quickly instrument Pekko or Akka actors. In all cases, the actual actor implementation must be mixed in *prior* to
+these stackable traits.
 
 Usage follows a common pattern (the `DefaultInstrumented` trait is described earlier in the documentation):
 
