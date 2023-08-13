@@ -58,7 +58,7 @@ See also the [change log](CHANGELOG.md) for improvements and API changes.
 * Scala specific methods on metrics (e.g. `+=` on counters).
 * Derives proper metrics names for Scala objects and closures.
 * Push gauges with timeout.
-* Actor support.
+* Pekko/Akka actor support.
 * Future support.
 * Testing support.
 * [Hdrhistogram](http://hdrhistogram.org/) support.
@@ -68,6 +68,7 @@ See also the [change log](CHANGELOG.md) for improvements and API changes.
 The following artifacts are available:
 
 * *metrics4-scala*: adds a nice Scala API to Dropwizard Metrics
+* *metrics4-pekko: support for measuring Pekko actors (not released yet)
 * *metrics4-akka*: support for measuring Akka actors
 * *metrics4-hdr*: adds support for [HdrHistogram](http://www.hdrhistogram.org/) to increase the accuracy of histograms 
 
@@ -79,17 +80,16 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
     <tr>
       <td valign="top" rowspan="2">Artifact name</td>
       <td valign="top" rowspan="1" colspan="4">Scala version</td>
-      <td valign="top" rowspan="1" colspan="3">Akka version</td>
+      <td valign="top" rowspan="1" colspan="2">Akka version</td>
       <td valign="top" rowspan="2">Build against</td>
     </tr>
     <tr>
-      <td valign="top">3.1 (*)</td>
+      <td valign="top">3.3</td>
       <td valign="top">2.13</td>
       <td valign="top">2.12</td>
       <td valign="top">2.11</td>
       <td valign="top">2.6</td>
       <td valign="top">2.5</td>
-      <td valign="top">2.4</td>
     </tr>
     <tr>
       <td valign="top">metrics4-scala</td>
@@ -99,8 +99,17 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top">Dropwizard-metrics 4.2.19</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-pekko</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
       <td valign="top"></td>
-      <td valign="top">Dropwizard-metrics 4.2.9</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">Pekko 1.0.1</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a26</td>
@@ -110,8 +119,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top">Akka 2.6.19</td>
+      <td valign="top">Akka 2.6.20</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a25</td>
@@ -121,19 +129,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top"></td>
       <td valign="top">Akka 2.5.31</td>
-    </tr>
-    <tr>
-      <td valign="top">metrics4-akka_a24</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">Akka 2.4.20</td>
     </tr>
     <tr>
       <td valign="top">metrics4-scala-hdr</td>
@@ -143,16 +139,12 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
-      <td valign="top"></td>
       <td valign="top">Hdr 1.1.3/2.1.12 (**)</td>
     </tr>
   </tbody>
 </table>
 
-All artifacts are build for Java 8.
-
-(*) There is no build for Scala 3.0. If you want to use Scala 3.x you will need to use
-at least Scala 3.1. Note that Scala 3.1 is not backward compatible with Scala 3.0.
+Most artifacts are build for Java 11, only builds for scala 2.11 and scala 2.12 still target Java 8.
 
 (**) The first number is the version of `"org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir"`,
 the second the version of `"org.hdrhistogram" % "HdrHistogram"`.
@@ -178,6 +170,7 @@ SBT:
 ```
 libraryDependencies ++= Seq(
   "nl.grons" %% "metrics4-scala" % "4.2.9",
+  "nl.grons" %% "metrics4-pekko" % "4.2.9", // not release yet
   "nl.grons" %% "metrics4-akka_a26" % "4.2.9",
   "nl.grons" %% "metrics4-scala-hdr" % "4.2.9"
 )
@@ -193,6 +186,11 @@ Maven:
 <dependency>
     <groupId>nl.grons</groupId>
     <artifactId>metrics4-scala_${scala.compat.version}</artifactId>
+    <version>${metrics.scala.version}</version>
+</dependency>
+<dependency>
+    <groupId>nl.grons</groupId>
+    <artifactId>metrics4-pekko_${scala.compat.version}</artifactId>
     <version>${metrics.scala.version}</version>
 </dependency>
 <dependency>

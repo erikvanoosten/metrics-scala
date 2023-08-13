@@ -4,8 +4,12 @@ Available Versions 4.x
 The following artifacts are available:
 
 * *nl.grons:metrics4-scala*: adds a nice Scala API to Dropwizard Metrics
-* *nl.grons:metrics4-akka*: support for measuring Akka actors
+* *nl.grons:metrics4-pekko*: support for measuring Pekko actors
+* *nl.grons:metrics4-akka*: support for measuring Akka actors (versions 2.4.x, 2.5.x and 2.6.x, newer Akka versions are not supported)
 * *nl.grons:metrics4-hdr*: adds support for [HdrHistogram](http://www.hdrhistogram.org/) to increase the accuracy of histograms 
+
+Java 11 is required since version 4.3.0 (except builds for scala 2.11 and 2.12 which still target Java 8).
+Versions 4.0.x up to 4.2.x require Java 8.
 
 The table shows the available 4.x artifacts of metrics-scala.
 
@@ -14,7 +18,7 @@ The table shows the available 4.x artifacts of metrics-scala.
     <tr>
       <td valign="top" rowspan="2">Metrics-<br>scala<br>version</td>
       <td valign="top" rowspan="2">Artifact name</td>
-      <td valign="top" rowspan="1" colspan="4">Scala version</td>
+      <td valign="top" rowspan="1" colspan="5">Scala version</td>
       <td valign="top" rowspan="1" colspan="3">Akka version</td>
       <td valign="top" rowspan="2">Build against</td>
     </tr>
@@ -23,9 +27,71 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">2.12</td>
       <td valign="top">2.13</td>
       <td valign="top">3.1</td>
+      <td valign="top">3.3</td>
       <td valign="top">2.4</td>
       <td valign="top">2.5</td>
       <td valign="top">2.6</td>
+    </tr>
+    <tr>
+      <td valign="top" rowspan="5"><a href="/CHANGELOG.md#v430-aug-2023">4.3.0</a></td>
+      <td valign="top">metrics4-scala</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">Dropwizard-metrics 4.2.19</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-pekko</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">Pekko 1.0.1</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-akka_a26</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">Akka 2.6.20</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-akka_a25</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">Akka 2.5.31</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-scala-hdr</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">Hdr 1.1.3/2.1.12 (**)</td>
     </tr>
     <tr>
       <td valign="top" rowspan="5"><a href="/CHANGELOG.md#v429-jun-2022">4.2.9</a></td>
@@ -34,6 +100,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -47,6 +114,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">Akka 2.6.19</td>
     </tr>
@@ -57,6 +125,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">Akka 2.5.31</td>
@@ -65,6 +134,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">metrics4-akka_a24</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
@@ -78,6 +148,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -93,6 +164,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">Dropwizard-metrics 4.2.7</td>
     </tr>
     <tr>
@@ -101,6 +173,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
@@ -113,6 +186,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">Akka 2.5.31</td>
@@ -121,6 +195,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">metrics4-akka_a24</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
@@ -134,6 +209,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -149,6 +225,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">Dropwizard-metrics 4.1.19</td>
     </tr>
     <tr>
@@ -156,6 +233,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
@@ -168,6 +246,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -178,6 +257,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -194,6 +274,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">Dropwizard-metrics 4.1.14</td>
     </tr>
     <tr>
@@ -201,6 +282,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
@@ -213,6 +295,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -223,6 +306,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -239,6 +323,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">Dropwizard-metrics 4.1.9</td>
     </tr>
     <tr>
@@ -246,6 +331,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
@@ -258,6 +344,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -268,6 +355,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -284,6 +372,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">Dropwizard-metrics 4.1.5</td>
     </tr>
     <tr>
@@ -291,6 +380,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
@@ -303,6 +393,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -313,6 +404,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -329,6 +421,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">Dropwizard-metrics 4.1.4</td>
     </tr>
     <tr>
@@ -336,6 +429,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
@@ -348,6 +442,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -358,6 +453,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -374,6 +470,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">Dropwizard-metrics 4.1.1</td>
     </tr>
     <tr>
@@ -381,6 +478,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
@@ -393,6 +491,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -403,6 +502,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -419,6 +519,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">Dropwizard-metrics 4.1.0</td>
     </tr>
     <tr>
@@ -426,6 +527,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
@@ -438,6 +540,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -448,6 +551,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -464,6 +568,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">Dropwizard-metrics 4.1.0</td>
     </tr>
     <tr>
@@ -471,6 +576,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top">✓</td>
@@ -483,6 +589,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -493,6 +600,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -509,12 +617,14 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">Dropwizard-metrics 4.1.0</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a25</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -528,6 +638,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -537,6 +648,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">metrics4-scala-hdr</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -554,12 +666,14 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">Dropwizard-metrics 4.0.5</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a25</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -573,6 +687,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -582,6 +697,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">metrics4-scala-hdr</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -599,12 +715,14 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">Dropwizard-metrics 4.0.5</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a25</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -618,6 +736,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -627,6 +746,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">metrics4-scala-hdr</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -644,12 +764,14 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">Dropwizard-metrics 4.0.3</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a25</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -663,6 +785,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -672,6 +795,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">metrics4-scala-hdr</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -689,12 +813,14 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">Dropwizard-metrics 4.0.3</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a25</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -708,6 +834,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -717,6 +844,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">metrics4-scala-hdr</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -734,12 +862,14 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">Dropwizard-metrics 4.0.1</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a25</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
@@ -753,6 +883,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
+      <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -762,6 +893,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">metrics4-scala-hdr</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
+      <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>

@@ -1,3 +1,11 @@
+v4.3.0: Aug 2023
+=================
+
+* Pekko support! Thanks to a contribution of @normana400.
+* Require at least java 11.
+* For Scala 3: require at least 3.3.0.
+* Updates: metrics-core: 4.2.9 → 4.2.19, akka: 2.6.19 → 2.6.20.
+
 v4.2.9: Jun 2022
 =================
 
@@ -5,14 +13,14 @@ v4.2.9: Jun 2022
   This also means that creating a push gauge multiple times is now allowed
   and will return the first created gauge. Solves #405. @benwaffle, thanks
   for the pull request!
-* Updates: metrics-core: 4.2.7 -> 4.2.9, akka: 2.6.18 -> 2.6.19
+* Updates: metrics-core: 4.2.7 → 4.2.9, akka: 2.6.18 → 2.6.19
 
 v4.2.8: Dec 2021
 =================
 
 * Scala 3 support! Based on some very good work from @xuwei-k, thanks!
 * Introduced a version for Akka 2.6.
-* Updates: metrics-core: 4.1.29 -> 4.2.7, hdrhistogram-metrics-reservoir: 1.1.0 -> 1.1.3
+* Updates: metrics-core: 4.1.29 → 4.2.7, hdrhistogram-metrics-reservoir: 1.1.0 → 1.1.3
 
 v4.2.7: Dec 2021
 =================
@@ -22,24 +30,24 @@ This release misses some components, please use v4.2.8 instead.
 v4.1.19: Apr 2021
 =================
 
-* Updates: metrics-core: 4.1.14 -> 4.1.19.
+* Updates: metrics-core: 4.1.14 → 4.1.19.
 
 v4.1.14: Nov 2020
 =================
 
-* Updates: metrics-core: 4.1.9 -> 4.1.14.
+* Updates: metrics-core: 4.1.9 → 4.1.14.
 
 v4.1.9: Jun 2020
 ================
 
 * Documented how to use metrics-scala with ZIO.
-* Updates: metrics-core: 4.1.5 -> 4.1.9, Akka: 2.5.26 -> 2.5.31.
+* Updates: metrics-core: 4.1.5 → 4.1.9, Akka: 2.5.26 → 2.5.31.
 
 v4.1.5: Mar 2020
 ================
 
 * New feature: push gauges.
-* Updates: metrics-core: 4.1.4 -> 4.1.5
+* Updates: metrics-core: 4.1.4 → 4.1.5
 
 v4.1.4: Feb 2020
 ================
@@ -48,14 +56,14 @@ v4.1.4: Feb 2020
 
 * No code changes.
 * Dropwizard 4.1.4 security upgrade (see https://github.com/dropwizard/metrics/releases/tag/v4.1.4).
-* Updates: metrics-core: 4.1.1 -> 4.1.4, HdrHistogram: 2.1.11 -> 2.1.12.
+* Updates: metrics-core: 4.1.1 → 4.1.4, HdrHistogram: 2.1.11 → 2.1.12.
 
 v4.1.1: Oct 2019
 ================
 
 * Though a lot of plumbing is in flux, there were no code changes.
 * Bumped version number to match Dropwizard's version (this should have happened in June already).
-* Updates: metrics-core: 4.1.0 -> 4.1.1, Akka: 2.5.23 -> 2.5.26.
+* Updates: metrics-core: 4.1.0 → 4.1.1, Akka: 2.5.23 → 2.5.26.
 
 v4.0.8: Jul 2019
 ================
@@ -75,14 +83,14 @@ v4.0.6: Jun 2019
 
 * No code changes.
 * Scaladoc improvements.
-* Updates: metrics-core 4.0.5 -> 4.1.0, Akka: 2.5.22 -> 2.5.23.
+* Updates: metrics-core 4.0.5 → 4.1.0, Akka: 2.5.22 → 2.5.23.
 * Added scala 2.13.0-RC3. Note: 2.13.0-RC3 is no longer supported, please use v4.0.7 for scala 2.13.
 
 v4.0.5: May 2019
 ================
 
 * No code changes (except for tests).
-* Updates: Akka: 2.5.19 -> 2.5.22.
+* Updates: Akka: 2.5.19 → 2.5.22.
 * Tests now use mockito-scala instead of mockito.
 * Added scala 2.13.0-RC1. Note: 2.13.0-RC1 is no longer supported, please use v4.0.7 for scala 2.13.
 
@@ -90,8 +98,8 @@ v4.0.4: Jan 2019
 ================
 
 * No code changes.
-* Updates: scala 2.12.7 -> 2.12.8, dropwizard metrics: 4.0.3 -> 4.0.5, HdrHistogram: 2.1.10 -> 2.1.11,
-  Akka: 2.5.18 -> 2.5.19.
+* Updates: scala 2.12.7 → 2.12.8, dropwizard metrics: 4.0.3 → 4.0.5, HdrHistogram: 2.1.10 → 2.1.11,
+  Akka: 2.5.18 → 2.5.19.
 * Added scala 2.13.0-M5. Note: 2.13.0-M5 is no longer supported, please use v4.0.7 for scala 2.13.
 
 v4.0.3: Nov 2018
@@ -111,8 +119,8 @@ v4.0.2: Nov 2018
 * Drastic performance improvements for metric name generation. This is especially important for dynamically generated
   metric names. This improvement was authored by Filip Ochnik (@filipochnik). Thanks Filip! (#117)
 * Compiles against Scala 2.13 betas, metrics-scala is now part of the Scala community build.
-* Lots of dependency updates (also thanks to Scala Steward): Dropwizard metrics 4.0.1 -> 4.0.3, Akka 2.5.8 -> 2.5.18,
-  HdrHistogram 2.1.9 -> 2.1.10, Scala 2.12.4 -> 2.12.7, Scalatest 3.0.4 -> 3.0.5, Mockito 1.10.19 -> 2.23.0. 
+* Lots of dependency updates (also thanks to Scala Steward): Dropwizard metrics 4.0.1 → 4.0.3, Akka 2.5.8 → 2.5.18,
+  HdrHistogram 2.1.9 → 2.1.10, Scala 2.12.4 → 2.12.7, Scalatest 3.0.4 → 3.0.5, Mockito 1.10.19 → 2.23.0. 
 * Upgraded sbt from 1.0.4 to 1.2.6.
 
 v4.0.1: Jan 2018
@@ -151,12 +159,12 @@ v3.5.7: Jun 2017
 ================
 
 * A performance optimization for dynamically created HDR metrics, a fine contribution by @truemped and @otrosien (#90) 
-* Version bumps: Metrics-core 3.2.0 -> 3.2.2, Scala 2.12.1 -> 2.12.2, Scala 2.11.8 -> 2.11.11, Akka 2.4.17 -> 2.4.18
+* Version bumps: Metrics-core 3.2.0 → 3.2.2, Scala 2.12.1 → 2.12.2, Scala 2.11.8 → 2.11.11, Akka 2.4.17 → 2.4.18
 
 v3.5.6: Feb 2017
 ================
 
-* Version bumps: Metrics-core 3.1.2 -> 3.2.0, Scala 2.12.0 -> 2.12.1, Akka 2.3.15 -> 2.3.16 and 2.4.14 -> 2.4.17.
+* Version bumps: Metrics-core 3.1.2 → 3.2.0, Scala 2.12.0 → 2.12.1, Akka 2.3.15 → 2.3.16 and 2.4.14 → 2.4.17.
 * Dropped Akka 2.2 support.
 
 v3.5.5: Sep 2016

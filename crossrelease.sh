@@ -4,7 +4,7 @@
 DEFAULT_COMMAND="+publishSigned; sonatypeBundleRelease"
 
 # Assumes osx
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+export JAVA_HOME=`/usr/libexec/java_home -v 11`
 
 VERSION="$(git describe --tags)"
 echo "Version: $VERSION"
