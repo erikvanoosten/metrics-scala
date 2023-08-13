@@ -5,7 +5,7 @@
 Metrics-Scala
 =============
 
-*📈 Capturing JVM- and application-level metrics. So you know what's going on.*
+📈 *Capturing JVM- and application-level metrics. So you know what's going on.*
 
 This is the Scala API for [Dropwizard's Metrics](https://github.com/dropwizard/metrics) library.
 
@@ -70,8 +70,8 @@ See also the [change log](CHANGELOG.md) for improvements and API changes.
 The following artifacts are available:
 
 * *metrics4-scala*: adds a nice Scala API to Dropwizard Metrics
-* *metrics4-pekko*: support for measuring Pekko actors (not released yet)
-* *metrics4-akka*: support for measuring Akka actors
+* *metrics4-pekko*: support for measuring Pekko actors
+* *metrics4-akka_a{25,26}*: support for measuring Akka actors
 * *metrics4-hdr*: adds support for [HdrHistogram](http://www.hdrhistogram.org/) to increase the accuracy of histograms 
 
 The table shows the available artifacts of metrics-scala. For the full list, including those targeting older Scala and
@@ -151,6 +151,8 @@ Most artifacts are build for Java 11, only builds for scala 2.11 and scala 2.12 
 (**) The first number is the version of `"org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir"`,
 the second the version of `"org.hdrhistogram" % "HdrHistogram"`.
 See also [hdrhistogram manual page](/docs/Hdrhistogram.md).
+
+Akka versions higher than 2.6 will not be supported. However, given Akka's past of excellent binary compatibility, the version for 2.6 probably just works fine for later versions as well.
 
 ## Migrating from 3.x to 4.x
 
