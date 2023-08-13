@@ -3,7 +3,7 @@ import sbt.librarymanagement.{CrossVersion, ModuleID}
 
 lazy val commonSettings = Seq(
   organization := "nl.grons",
-  scalaVersion := "2.12.17",
+  scalaVersion := "2.13.10",
   crossVersion := CrossVersion.binary,
   libraryDependencies ++= Seq(
     "org.scalatest" %% "scalatest" % "3.2.16" % Test,
@@ -38,7 +38,7 @@ lazy val commonSettings = Seq(
 ThisBuild / publishTo := sonatypePublishTo.value
 
 lazy val root = (project in file("."))
-  .aggregate(metricsScala, metricsScalaHdr, metricsAkka24, metricsAkka25, metricsAkka26)
+  .aggregate(metricsScala, metricsScalaHdr, metricsAkka25, metricsAkka26)
   .settings(
     crossScalaVersions := Nil,
     publishArtifact := false,
@@ -104,24 +104,6 @@ lazy val metricsAkka25 = (project in file("metrics-akka-25"))
       // scala-steward:off
       "com.typesafe.akka" %% "akka-actor" % "2.5.31",
       "com.typesafe.akka" %% "akka-testkit" % "2.5.31" % Test
-      // scala-steward:on
-    ),
-    sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
-    mimaPreviousArtifacts := mimaPrevious(scalaVersion.value)
-  )
-
-lazy val metricsAkka24 = (project in file("metrics-akka-24"))
-  .dependsOn(metricsScala)
-  .settings(
-    commonSettings,
-    crossScalaVersions := Seq("2.12.17", "2.11.12"),
-    name := "metrics4-akka_a24",
-    description := "metrics-scala for Akka 2.4 and 2.5 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
-    libraryDependencies ++= Seq(
-      // Stay on Akka 2.4 to guarantee backward compatibility:
-      // scala-steward:off
-      "com.typesafe.akka" %% "akka-actor" % "2.4.20",
-      "com.typesafe.akka" %% "akka-testkit" % "2.4.20" % Test
       // scala-steward:on
     ),
     sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
