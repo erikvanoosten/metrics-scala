@@ -147,11 +147,11 @@ def scalacTargets(scalaVersion: String): Seq[String] = {
 }
 
 // Config for sbt-github-actions plugin
-ThisBuild / crossScalaVersions := Seq("2.12.18")
+ThisBuild / crossScalaVersions := Seq("2.13.10")
 ThisBuild / githubWorkflowPublishTargetBranches := Seq()
 ThisBuild / githubWorkflowJavaVersions := Seq(
-  JavaSpec.temurin("8"),
   JavaSpec.temurin("11"),
-  JavaSpec.temurin("17")
+  JavaSpec.temurin("17"),
+  JavaSpec.temurin("20")
 )
 
