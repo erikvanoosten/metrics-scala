@@ -38,7 +38,7 @@ lazy val commonSettings = Seq(
 ThisBuild / publishTo := sonatypePublishTo.value
 
 lazy val root = (project in file("."))
-  .aggregate(metricsScala, metricsScalaHdr, metricsAkka25, metricsAkka26)
+  .aggregate(metricsScala, metricsScalaHdr, metricsAkka25, metricsAkka26, metricsPekko)
   .settings(
     crossScalaVersions := Nil,
     publishArtifact := false,
@@ -74,6 +74,21 @@ lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
       // Override version that hdrhistogram-metrics-reservoir depends on:
       "org.hdrhistogram" % "HdrHistogram" % "2.1.12"
     ),
+    mimaPreviousArtifacts := mimaPrevious(scalaVersion.value)
+  )
+
+lazy val metricsPekko = (project in file("metrics-pekko"))
+  .dependsOn(metricsScala)
+  .settings(
+    commonSettings,
+    crossScalaVersions := Seq("3.1.3", "2.13.11", "2.12.18"),
+    name := "metrics4-pekko",
+    description := "metrics-scala for pekko 1.0.1 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
+    libraryDependencies ++= Seq(
+      "org.apache.pekko" %% "pekko-actor" % "1.0.1",
+      "org.apache.pekko" %% "pekko-testkit" % "1.0.1" % Test
+    ),
+    sourceDirectory := baseDirectory.value.getParentFile / "metrics-pekko" / "src",
     mimaPreviousArtifacts := mimaPrevious(scalaVersion.value)
   )
 

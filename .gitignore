@@ -6,3 +6,4 @@ target/
 .settings/
 .cache
 .bsp/
+/bin/
