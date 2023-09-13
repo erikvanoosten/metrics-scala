@@ -52,7 +52,7 @@ lazy val root = (project in file("."))
 lazy val metricsScala = (project in file("metrics-scala"))
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("3.3.0", "2.13.12", "2.12.18", "2.11.12"),
+    crossScalaVersions := Seq("3.3.1", "2.13.12", "2.12.18", "2.11.12"),
     name := "metrics4-scala",
     description := "metrics-scala for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -66,7 +66,7 @@ lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("3.3.0", "2.13.12", "2.12.18", "2.11.12"),
+    crossScalaVersions := Seq("3.3.1", "2.13.12", "2.12.18", "2.11.12"),
     name := "metrics4-scala-hdr",
     description := "metrics-scala-hdr for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -81,7 +81,7 @@ lazy val metricsPekko = (project in file("metrics-pekko"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("3.3.0", "2.13.12", "2.12.18"),
+    crossScalaVersions := Seq("3.3.1", "2.13.12", "2.12.18"),
     name := "metrics4-pekko",
     description := "metrics-scala for pekko 1.0.1 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -96,7 +96,7 @@ lazy val metricsAkka26 = (project in file("metrics-akka-26"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("3.3.0", "2.13.12", "2.12.18"),
+    crossScalaVersions := Seq("3.3.1", "2.13.12", "2.12.18"),
     name := "metrics4-akka_a26",
     description := "metrics-scala for Akka 2.6 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -141,7 +141,7 @@ def scalacTargets(scalaVersion: String): Seq[String] = {
   if (scalaVersion.startsWith("2.11.") || scalaVersion.startsWith("2.12.")) Seq("-target:jvm-1.8")
   else if (scalaVersion.startsWith("2.13.")) Seq("-release:11")
   else {
-    // Scala 3.3.0
+    // Scala 3.3.0+
     Seq("-java-output-version:11")
   }
 }
