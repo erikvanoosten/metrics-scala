@@ -85,8 +85,8 @@ lazy val metricsPekko = (project in file("metrics-pekko"))
     name := "metrics4-pekko",
     description := "metrics-scala for pekko 1.0.1 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
-      "org.apache.pekko" %% "pekko-actor" % "1.0.1",
-      "org.apache.pekko" %% "pekko-testkit" % "1.0.1" % Test
+      "org.apache.pekko" %% "pekko-actor" % "1.0.2",
+      "org.apache.pekko" %% "pekko-testkit" % "1.0.2" % Test
     ),
     sourceDirectory := baseDirectory.value.getParentFile / "metrics-pekko" / "src",
     mimaPreviousArtifacts := mimaPrevious(scalaVersion.value)
