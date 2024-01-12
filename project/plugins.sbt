@@ -4,4 +4,4 @@ addSbtPlugin("com.github.sbt" % "sbt-pgp" % "2.2.1")
 addSbtPlugin("com.typesafe" % "sbt-mima-plugin" % "1.1.3")
 
 // https://github.com/djspiewak/sbt-github-actions
-addSbtPlugin("com.github.sbt" % "sbt-github-actions" % "0.19.0")
+addSbtPlugin("com.github.sbt" % "sbt-github-actions" % "0.22.0")
