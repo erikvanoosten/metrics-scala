@@ -72,7 +72,7 @@ lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
     libraryDependencies ++= Seq(
       "org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir" % "1.1.3",
       // Override version that hdrhistogram-metrics-reservoir depends on:
-      "org.hdrhistogram" % "HdrHistogram" % "2.1.12"
+      "org.hdrhistogram" % "HdrHistogram" % "2.2.1"
     ),
     mimaPreviousArtifacts := mimaPrevious(scalaVersion.value)
   )
