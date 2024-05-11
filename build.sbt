@@ -7,7 +7,7 @@ lazy val commonSettings = Seq(
   crossVersion := CrossVersion.binary,
   libraryDependencies ++= Seq(
     "org.scalatest" %% "scalatest" % "3.2.18" % Test,
-    "org.mockito" % "mockito-core" % "5.11.0" % Test,
+    "org.mockito" % "mockito-core" % "5.12.0" % Test,
     "org.slf4j" % "slf4j-simple" % "2.0.13" % Test
   ),
   fork := true,
