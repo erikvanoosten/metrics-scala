@@ -1,6 +1,6 @@
 # Check list for 4.x
 
-1. Double check documentation is up to date.
+1. Double check documentation is up-to-date.
 2. Validate entry in CHANGELOG.md
 4. Run `sbt ';+clean;+test;+package;+mimaFindBinaryIssues;'`
 5. Push changes, e.g.`git commit -m 'Releasing 4.x.x'`
@@ -17,7 +17,7 @@
 
 # Check list for 2.x and 3.x. 
 
-1. Double check documentation is up to date.
+1. Double check documentation is up-to-date.
 2. Validate version in build.sbt
 3. Validate entry in CHANGELOG.md
 4. Run `./crossrelease.sh clean` and `./crossrelease.sh test`

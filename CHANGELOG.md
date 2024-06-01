@@ -1,3 +1,9 @@
+v4.3.1: Jun 2024
+=================
+
+This is minor maintenance release which only consists of dependency updates:
+metrics-core: 4.2.19 → 4.2.25, HdrHistogram 2.1.12 → 2.2.2, pekko 1.0.1 → 1.0.2.
+
 v4.3.0: Aug 2023
 =================
 
