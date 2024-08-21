@@ -22,10 +22,11 @@ import com.codahale.metrics.{Metric, MetricFilter}
 import scala.language.implicitConversions
 
 /**
-  * Implicit conversions of Scala functions to Metric interfaces.
-  *
-  * NOTE: no longer needed in Scala 2.12 and later.
-  */
+ * Implicit conversions of Scala functions to Metric interfaces.
+ *
+ * NOTE: no longer needed in Scala 2.12 and later due to due to
+ * [[https://www.scala-lang.org/news/2.12.0/#lambda-syntax-for-sam-types SAM]].
+ */
 object Implicits {
   /**
     * Creates a [[MetricFilter]] from a regular Scala function that accepts a name and a metric and

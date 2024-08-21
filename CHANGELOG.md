@@ -1,3 +1,12 @@
+v4.3.2: Aug 2024
+=================
+
+This is minor maintenance release which only consists of dependency updates:
+metrics-core: 4.2.25 → 4.2.27, pekko 1.0.2 → 1.0.3.
+
+In addition, the metrics4-pekko library was missing maven central for a yet unknown reason. That should be fixed with
+this release.
+
 v4.3.1: Jun 2024
 =================
 

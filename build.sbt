@@ -1,5 +1,6 @@
 import sbt.Keys.scalaVersion
 import sbt.librarymanagement.{CrossVersion, ModuleID}
+import xerial.sbt.Sonatype.sonatypeCentralHost
 
 val scala213 = "2.13.14"
 
@@ -22,6 +23,7 @@ lazy val commonSettings = Seq(
   javaOptions ++= Seq("-Xmx512m", "-Djava.awt.headless=true"),
   scalacOptions ++= scalacTargets(scalaVersion.value) ++ Seq("-deprecation", "-unchecked"),
   publishTo := sonatypePublishToBundle.value,
+  sonatypeCredentialHost := sonatypeCentralHost,
   publishMavenStyle := true,
   Test / publishArtifact := false,
   pomIncludeRepository := { _ => false },
@@ -39,7 +41,8 @@ lazy val commonSettings = Seq(
 
 ThisBuild / publishTo := sonatypePublishTo.value
 
-lazy val root = (project in file("."))
+lazy val root = project
+  .in(file("."))
   .aggregate(metricsScala, metricsScalaHdr, metricsAkka25, metricsAkka26, metricsPekko)
   .settings(
     crossScalaVersions := Nil,
@@ -51,7 +54,8 @@ lazy val root = (project in file("."))
     sonatypeProfileName := "nl.grons"
   )
 
-lazy val metricsScala = (project in file("metrics-scala"))
+lazy val metricsScala = project
+  .in(file("metrics-scala"))
   .settings(
     commonSettings,
     crossScalaVersions := Seq("3.3.3", scala213, "2.12.19", "2.11.12"),
@@ -64,7 +68,8 @@ lazy val metricsScala = (project in file("metrics-scala"))
     mimaPreviousArtifacts := mimaPrevious(scalaVersion.value)
 )
 
-lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
+lazy val metricsScalaHdr = project
+  .in(file("metrics-scala-hdr"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
@@ -79,13 +84,14 @@ lazy val metricsScalaHdr = (project in file("metrics-scala-hdr"))
     mimaPreviousArtifacts := mimaPrevious(scalaVersion.value)
   )
 
-lazy val metricsPekko = (project in file("metrics-pekko"))
+lazy val metricsPekko = project
+  .in(file("metrics-pekko"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
     crossScalaVersions := Seq("3.3.3", scala213, "2.12.19"),
     name := "metrics4-pekko",
-    description := "metrics-scala for pekko 1.0.1 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
+    description := "metrics-scala for pekko 1.0 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
       "org.apache.pekko" %% "pekko-actor" % "1.0.3",
       "org.apache.pekko" %% "pekko-testkit" % "1.0.3" % Test
@@ -94,7 +100,8 @@ lazy val metricsPekko = (project in file("metrics-pekko"))
     mimaPreviousArtifacts := mimaPrevious(scalaVersion.value)
   )
 
-lazy val metricsAkka26 = (project in file("metrics-akka-26"))
+lazy val metricsAkka26 = project
+  .in(file("metrics-akka-26"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
@@ -102,14 +109,18 @@ lazy val metricsAkka26 = (project in file("metrics-akka-26"))
     name := "metrics4-akka_a26",
     description := "metrics-scala for Akka 2.6 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
+      // Stay on Akka 2.6, later versions are not open source:
+      // scala-steward:off
       "com.typesafe.akka" %% "akka-actor" % "2.6.20",
       "com.typesafe.akka" %% "akka-testkit" % "2.6.20" % Test
+      // scala-steward:on
     ),
     sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
     mimaPreviousArtifacts := mimaPrevious(scalaVersion.value)
   )
 
-lazy val metricsAkka25 = (project in file("metrics-akka-25"))
+lazy val metricsAkka25 = project
+  .in(file("metrics-akka-25"))
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
@@ -149,7 +160,7 @@ def scalacTargets(scalaVersion: String): Seq[String] = {
 }
 
 // Config for sbt-github-actions plugin
-ThisBuild / crossScalaVersions := Seq("2.13.10")
+ThisBuild / crossScalaVersions := Seq(scala213)
 ThisBuild / githubWorkflowPublishTargetBranches := Seq()
 ThisBuild / githubWorkflowJavaVersions := Seq(
   JavaSpec.temurin("11"),
