@@ -97,7 +97,7 @@ lazy val metricsPekko = project
       "org.apache.pekko" %% "pekko-testkit" % "1.0.3" % Test
     ),
     sourceDirectory := baseDirectory.value.getParentFile / "metrics-pekko" / "src",
-    mimaPreviousArtifacts := mimaPrevious(scalaVersion.value)
+    mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-pekko" % "4.3.2")
   )
 
 lazy val metricsAkka26 = project

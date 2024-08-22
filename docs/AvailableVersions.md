@@ -33,6 +33,67 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">2.6</td>
     </tr>
     <tr>
+      <td valign="top" rowspan="5"><a href="/CHANGELOG.md#v432-aug-2024">4.3.2</a></td>
+      <td valign="top">metrics4-scala</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">Dropwizard-metrics 4.2.27</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-pekko</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">Pekko 1.0.3</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-akka_a26</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">Akka 2.6.20</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-akka_a25</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">Akka 2.5.31</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-scala-hdr</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">Hdr 1.1.3/2.2.2 (**)</td>
+    </tr>
+    <tr>
       <td valign="top" rowspan="5"><a href="/CHANGELOG.md#v431-jun-2024">4.3.1</a></td>
       <td valign="top">metrics4-scala</td>
       <td valign="top">✓</td>
@@ -46,7 +107,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">Dropwizard-metrics 4.2.25</td>
     </tr>
     <tr>
-      <td valign="top">metrics4-pekko</td>
+      <td valign="top">metrics4-pekko (*4)</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -107,7 +168,7 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">Dropwizard-metrics 4.2.19</td>
     </tr>
     <tr>
-      <td valign="top">metrics4-pekko</td>
+      <td valign="top">metrics4-pekko (*4)</td>
       <td valign="top"></td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
@@ -976,6 +1037,10 @@ the second the version of `"org.hdrhistogram" % "HdrHistogram"`.
 
 (***) `nl.grons:metrics-scala:4.0.0` was accidentally released as well. *Do not use it* as it will give
 binary compatibility problems.
+
+(*4)  Due to problems with authentication at maven central, the metrics4-pekko modules 4.3.0 and 4.3.1 got lost and are no
+longer present in maven central.
+
 
 
 Available Versions 2.x and 3.x
