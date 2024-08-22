@@ -51,7 +51,8 @@ lazy val root = project
     publish := {},
     publishLocal := {},
     name := "metrics4-scala-root",
-    sonatypeProfileName := "nl.grons"
+    sonatypeProfileName := "nl.grons",
+    mimaPreviousArtifacts := Set.empty,
   )
 
 lazy val metricsScala = project
@@ -65,7 +66,7 @@ lazy val metricsScala = project
       "io.dropwizard.metrics" % "metrics-core" % "4.2.27",
       "io.dropwizard.metrics" % "metrics-healthchecks" % "4.2.27"
     ),
-    mimaPreviousArtifacts := mimaPrevious(scalaVersion.value)
+    mimaPreviousArtifacts := mimaPrevious(name.value, scalaVersion.value)
 )
 
 lazy val metricsScalaHdr = project
@@ -81,7 +82,7 @@ lazy val metricsScalaHdr = project
       // Override version that hdrhistogram-metrics-reservoir depends on:
       "org.hdrhistogram" % "HdrHistogram" % "2.2.2"
     ),
-    mimaPreviousArtifacts := mimaPrevious(scalaVersion.value)
+    mimaPreviousArtifacts := mimaPrevious(name.value, scalaVersion.value)
   )
 
 lazy val metricsPekko = project
@@ -116,7 +117,7 @@ lazy val metricsAkka26 = project
       // scala-steward:on
     ),
     sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
-    mimaPreviousArtifacts := mimaPrevious(scalaVersion.value)
+    mimaPreviousArtifacts := mimaPrevious(name.value, scalaVersion.value)
   )
 
 lazy val metricsAkka25 = project
@@ -135,20 +136,14 @@ lazy val metricsAkka25 = project
       // scala-steward:on
     ),
     sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
-    mimaPreviousArtifacts := mimaPrevious(scalaVersion.value)
+    mimaPreviousArtifacts := mimaPrevious(name.value, scalaVersion.value)
   )
 
 // 2.11.x are the only pre-2.12 scala versions that are used in this build
 def before212(scalaVersion: String): Boolean = scalaVersion.startsWith("2.11.")
 
-def mimaPrevious(scalaVersion: String): Set[ModuleID] = {
-  if (scalaVersion.startsWith("3."))
-    Set("nl.grons" %% "metrics4-scala" % "4.2.8")
-  else if (scalaVersion.startsWith("2.13."))
-    Set("nl.grons" %% "metrics4-scala" % "4.0.7")
-  else
-    Set("nl.grons" %% "metrics4-scala" % "4.0.1")
-}
+def mimaPrevious(module: String, scalaVersion: String): Set[ModuleID] =
+  Set("nl.grons" %% module % "4.2.8")
 
 def scalacTargets(scalaVersion: String): Seq[String] = {
   if (scalaVersion.startsWith("2.11.") || scalaVersion.startsWith("2.12.")) Seq("-target:jvm-1.8")
