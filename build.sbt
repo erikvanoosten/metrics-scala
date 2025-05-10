@@ -23,7 +23,6 @@ lazy val commonSettings = Seq(
   javaOptions ++= Seq("-Xmx512m", "-Djava.awt.headless=true"),
   scalacOptions ++= scalacTargets(scalaVersion.value) ++ Seq("-deprecation", "-unchecked"),
   publishTo := sonatypePublishToBundle.value,
-  sonatypeCredentialHost := sonatypeCentralHost,
   publishMavenStyle := true,
   Test / publishArtifact := false,
   pomIncludeRepository := { _ => false },
@@ -40,6 +39,7 @@ lazy val commonSettings = Seq(
 )
 
 ThisBuild / publishTo := sonatypePublishTo.value
+ThisBuild / sonatypeCredentialHost := sonatypeCentralHost
 
 lazy val root = project
   .in(file("."))
