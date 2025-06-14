@@ -106,7 +106,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
-      <td valign="top">Dropwizard-metrics 4.2.30</td>
+      <td valign="top">Dropwizard-metrics 4.2.32</td>
     </tr>
     <tr>
       <td valign="top">metrics4-pekko</td>
@@ -116,7 +116,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
-      <td valign="top">Pekko 1.1.3</td>
+      <td valign="top">Pekko 1.1.4</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a26</td>
@@ -170,15 +170,15 @@ is not compatible over major Dropwizard versions.
 
 ## Download 4.x
 
-<a href="CHANGELOG.md">Release notes for 4.3.4.</a>
+<a href="CHANGELOG.md">Release notes for 4.3.5.</a>
 
 SBT:
 ```
 libraryDependencies ++= Seq(
-  "nl.grons" %% "metrics4-scala" % "4.3.4",
-  "nl.grons" %% "metrics4-pekko" % "4.3.4",
-  "nl.grons" %% "metrics4-akka_a26" % "4.3.4",
-  "nl.grons" %% "metrics4-scala-hdr" % "4.3.4"
+  "nl.grons" %% "metrics4-scala" % "4.3.5",
+  "nl.grons" %% "metrics4-pekko" % "4.3.5",
+  "nl.grons" %% "metrics4-akka_a26" % "4.3.5",
+  "nl.grons" %% "metrics4-scala-hdr" % "4.3.5"
 )
 ```
 
@@ -187,7 +187,7 @@ Maven:
 <properties>
     <scala.version>3.1.0</scala.version>
     <scala.compat.version>3</scala.compat.version>
-    <metrics.scala.version>4.3.4</metrics.scala.version>
+    <metrics.scala.version>4.3.5</metrics.scala.version>
 </properties>
 <dependency>
     <groupId>nl.grons</groupId>
