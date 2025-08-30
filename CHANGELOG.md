@@ -1,3 +1,9 @@
+v4.3.6: Sep 2025
+=================
+
+This is minor maintenance release which only consists of dependency updates:
+metrics-core: 4.2.32 → 4.2.35, pekko 1.1.4 → 1.1.5.
+
 v4.3.5: July 2025
 =================
 
