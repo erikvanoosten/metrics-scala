@@ -2,8 +2,8 @@ import sbt.Keys.scalaVersion
 import sbt.librarymanagement.{CrossVersion, ModuleID}
 import xerial.sbt.Sonatype.sonatypeCentralHost
 
-val scala213 = "2.13.18"
 val scala3 = "3.3.7"
+val scala213 = "2.13.18"
 
 lazy val commonSettings = Seq(
   organization := "nl.grons",
@@ -62,7 +62,7 @@ lazy val metricsScala = project
   .in(file("metrics-scala"))
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("3.3.7", scala213, "2.12.20", "2.11.12"),
+    crossScalaVersions := Seq(scala3, scala213, "2.12.20", "2.11.12"),
     name := "metrics4-scala",
     description := "metrics-scala for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -77,7 +77,7 @@ lazy val metricsScalaHdr = project
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("3.3.7", scala213, "2.12.20", "2.11.12"),
+    crossScalaVersions := Seq(scala3, scala213, "2.12.20", "2.11.12"),
     name := "metrics4-scala-hdr",
     description := "metrics-scala-hdr for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -93,7 +93,7 @@ lazy val metricsPekko = project
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("3.3.7", scala213, "2.12.20"),
+    crossScalaVersions := Seq(scala3, scala213, "2.12.20"),
     name := "metrics4-pekko",
     description := "metrics-scala for pekko 1.0 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -109,7 +109,7 @@ lazy val metricsAkka26 = project
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq("3.3.7", scala213, "2.12.20"),
+    crossScalaVersions := Seq(scala3, scala213, "2.12.20"),
     name := "metrics4-akka_a26",
     description := "metrics-scala for Akka 2.6 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -158,10 +158,10 @@ def scalacTargets(scalaVersion: String): Seq[String] = {
 }
 
 // Config for sbt-github-actions plugin
-ThisBuild / crossScalaVersions := Seq(scala213, scala3)
+ThisBuild / crossScalaVersions := Seq(scala213)
 ThisBuild / githubWorkflowPublishTargetBranches := Seq()
 ThisBuild / githubWorkflowJavaVersions := Seq(
   JavaSpec.temurin("11"),
+  JavaSpec.temurin("17"),
   JavaSpec.temurin("25")
 )
-
