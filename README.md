@@ -170,15 +170,15 @@ is not compatible over major Dropwizard versions.
 
 ## Download 4.x
 
-<a href="CHANGELOG.md">Release notes for 4.3.6.</a>
+<a href="CHANGELOG.md">Release notes for 4.3.7.</a>
 
 SBT:
 ```
 libraryDependencies ++= Seq(
-  "nl.grons" %% "metrics4-scala" % "4.3.6",
-  "nl.grons" %% "metrics4-pekko" % "4.3.6",
-  "nl.grons" %% "metrics4-akka_a26" % "4.3.6",
-  "nl.grons" %% "metrics4-scala-hdr" % "4.3.6"
+  "nl.grons" %% "metrics4-scala" % "4.3.7",
+  "nl.grons" %% "metrics4-pekko" % "4.3.7",
+  "nl.grons" %% "metrics4-akka_a26" % "4.3.7",
+  "nl.grons" %% "metrics4-scala-hdr" % "4.3.7"
 )
 ```
 
@@ -187,7 +187,7 @@ Maven:
 <properties>
     <scala.version>3.1.0</scala.version>
     <scala.compat.version>3</scala.compat.version>
-    <metrics.scala.version>4.3.6</metrics.scala.version>
+    <metrics.scala.version>4.3.7</metrics.scala.version>
 </properties>
 <dependency>
     <groupId>nl.grons</groupId>

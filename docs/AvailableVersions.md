@@ -33,6 +33,67 @@ The table shows the available 4.x artifacts of metrics-scala.
       <td valign="top">2.6</td>
     </tr>
     <tr>
+      <td valign="top" rowspan="5"><a href="/CHANGELOG.md#v437-nov-2025">4.3.7</a></td>
+      <td valign="top">metrics4-scala</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">Dropwizard-metrics 4.2.37</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-pekko</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">Pekko 1.3.0</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-akka_a26</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">Akka 2.6.20</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-akka_a25</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">Akka 2.5.31</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-scala-hdr</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top">✓</td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top"></td>
+      <td valign="top">Hdr 1.1.3/2.2.2 (**)</td>
+    </tr>
+    <tr>
       <td valign="top" rowspan="5"><a href="/CHANGELOG.md#v436-sep-2025">4.3.6</a></td>
       <td valign="top">metrics4-scala</td>
       <td valign="top">✓</td>
