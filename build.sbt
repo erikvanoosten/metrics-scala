@@ -3,6 +3,7 @@ import sbt.librarymanagement.{CrossVersion, ModuleID}
 import xerial.sbt.Sonatype.sonatypeCentralHost
 
 val scala213 = "2.13.18"
+val scala3 = "3.3.7"
 
 lazy val commonSettings = Seq(
   organization := "nl.grons",
@@ -38,8 +39,10 @@ lazy val commonSettings = Seq(
   )
 )
 
+// See https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html
 ThisBuild / publishTo := sonatypePublishTo.value
 ThisBuild / sonatypeCredentialHost := sonatypeCentralHost
+ThisBuild / credentials += Credentials(Path.userHome / ".sbt" / "sonatype_central_credentials")
 
 lazy val root = project
   .in(file("."))
@@ -155,11 +158,10 @@ def scalacTargets(scalaVersion: String): Seq[String] = {
 }
 
 // Config for sbt-github-actions plugin
-ThisBuild / crossScalaVersions := Seq(scala213)
+ThisBuild / crossScalaVersions := Seq(scala213, scala3)
 ThisBuild / githubWorkflowPublishTargetBranches := Seq()
 ThisBuild / githubWorkflowJavaVersions := Seq(
   JavaSpec.temurin("11"),
-  JavaSpec.temurin("17"),
-  JavaSpec.temurin("21")
+  JavaSpec.temurin("25")
 )
 

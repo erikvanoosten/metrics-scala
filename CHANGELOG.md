@@ -1,3 +1,9 @@
+v4.3.7: Nov 2025
+=================
+
+This is minor maintenance release which only consists of dependency updates:
+metrics-core: 4.2.35 → 4.2.37, pekko: 1.1.5 → 1.3.0, scala: 2.13.16 → 2.13.18 and 3.3.6 → 3.3.7.
+
 v4.3.6: Sep 2025
 =================
 
