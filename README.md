@@ -106,7 +106,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top">✓</td>
       <td valign="top"></td>
       <td valign="top"></td>
-      <td valign="top">Dropwizard-metrics 4.2.32</td>
+      <td valign="top">Dropwizard-metrics 4.2.37</td>
     </tr>
     <tr>
       <td valign="top">metrics4-pekko</td>
@@ -116,7 +116,7 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
       <td valign="top"></td>
       <td valign="top"></td>
       <td valign="top"></td>
-      <td valign="top">Pekko 1.1.4</td>
+      <td valign="top">Pekko 1.3.0</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a26</td>
