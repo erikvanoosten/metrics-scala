@@ -66,8 +66,8 @@ lazy val metricsScala = project
     name := "metrics4-scala",
     description := "metrics-scala for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
-      "io.dropwizard.metrics" % "metrics-core" % "4.2.37",
-      "io.dropwizard.metrics" % "metrics-healthchecks" % "4.2.37"
+      "io.dropwizard.metrics" % "metrics-core" % "4.2.38",
+      "io.dropwizard.metrics" % "metrics-healthchecks" % "4.2.38"
     ),
     mimaPreviousArtifacts := mimaPrevious(name.value, scalaVersion.value)
 )
