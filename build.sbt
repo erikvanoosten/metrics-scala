@@ -3,7 +3,7 @@ import sbt.librarymanagement.{CrossVersion, ModuleID}
 import xerial.sbt.Sonatype.sonatypeCentralHost
 
 val scala3 = "3.3.7"
-val scala213 = "2.13.18"
+val scala213 = "3.10.0"
 
 lazy val commonSettings = Seq(
   organization := "nl.grons",
