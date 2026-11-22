@@ -136,3 +136,5 @@ ThisBuild / githubWorkflowJavaVersions := Seq(
   JavaSpec.temurin("21"),
   JavaSpec.temurin("25")
 )
+ThisBuild / githubWorkflowBuildMatrixExclusions :=
+  Seq(MatrixExclude(Map("scala" -> "3.9.0", "java" -> "temurin@11")))

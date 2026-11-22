@@ -24,6 +24,9 @@ jobs:
         os: [ubuntu-latest]
         scala: [3.9.0, 2.13.18]
         java: [temurin@11, temurin@21, temurin@25]
+        exclude:
+          - scala: 3.9.0
+            java: temurin@11
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout current branch (full)
