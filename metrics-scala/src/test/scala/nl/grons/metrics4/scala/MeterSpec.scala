@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2023 Erik van Oosten
+ * Copyright (c) 2013-2026 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,39 +16,39 @@
 
 package nl.grons.metrics4.scala
 
-import org.mockito.Mockito._
+import org.scalamock.scalatest.MockFactory
 import org.scalatest.OneInstancePerTest
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers._
 
-class MeterSpec extends AnyFunSpec with OneInstancePerTest {
+class MeterSpec extends AnyFunSpec with OneInstancePerTest with MockFactory {
   describe("A meter") {
-    val metric = mock(classOf[com.codahale.metrics.Meter])
+    val metric = stub[TestMeter]
     val meter = new Meter(metric)
 
     it("marks the underlying metric") {
       meter.mark()
 
-      verify(metric).mark()
+      (() => metric.mark()).verify().once()
     }
 
     it("marks the underlying metric by an arbitrary amount") {
       meter.mark(12)
 
-      verify(metric).mark(12)
+      (metric.mark(_: Long)).verify(12L).once()
     }
 
     it("increments meter on exception when exceptionMeter is used") {
       a [RuntimeException] should be thrownBy { meter.exceptionMarker( throw new RuntimeException() ) }
 
-      verify(metric).mark()
+      (() => metric.mark()).verify().once()
     }
 
     it("should increment time execution of partial function") {
       val pf: PartialFunction[String,String] = { case "test" => throw new RuntimeException() }
       val wrapped = meter.exceptionMarkerPF(pf)
       a [RuntimeException] should be thrownBy { wrapped("test") }
-      verify(metric).mark()
+      (() => metric.mark()).verify().once()
       wrapped.isDefinedAt("x") should be (false)
     }
   }

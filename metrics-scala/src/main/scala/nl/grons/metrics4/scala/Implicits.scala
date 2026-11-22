@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2023 Erik van Oosten
+ * Copyright (c) 2013-2026 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,38 +16,10 @@
 
 package nl.grons.metrics4.scala
 
-import com.codahale.metrics.MetricRegistry.MetricSupplier
-import com.codahale.metrics.{Metric, MetricFilter}
-
-import scala.language.implicitConversions
-
 /**
- * Implicit conversions of Scala functions to Metric interfaces.
- *
- * NOTE: no longer needed in Scala 2.12 and later due to due to
- * [[https://www.scala-lang.org/news/2.12.0/#lambda-syntax-for-sam-types SAM]].
+ * This object held implicit conversions of Scala functions to Metric interfaces in earlier
+ * versions of metrics-scala. These conversions are no longer needed as Scala 2.12 and later
+ * have [[https://www.scala-lang.org/news/2.12.0/#lambda-syntax-for-sam-types SAM]].
  */
-object Implicits {
-  /**
-    * Creates a [[MetricFilter]] from a regular Scala function that accepts a name and a metric and
-    * returns a boolean: `(String, Metric) => Boolean`.
-    *
-    * @param f the function to convert
-    * @return a [[MetricFilter]]
-    */
-  implicit def functionToMetricFilter(f: (String, Metric) => Boolean): MetricFilter = new MetricFilter {
-    override def matches(name: String, metric: Metric): Boolean = f(name, metric)
-  }
-
-  /**
-    * Creates a [[MetricSupplier]] from a regular Scala function that returns a [[Metric]]: `() => Metric`.
-    *
-    * @param f the function to convert
-    * @tparam M the metric type
-    * @return a [[MetricSupplier]]
-    */
-  implicit def functionToMetricSupplier[M <: Metric](f: () => M): MetricSupplier[M] = new MetricSupplier[M] {
-    override def newMetric(): M = f()
-  }
-
-}
+@deprecated("No longer needed, remove the import", "4.4.0")
+object Implicits

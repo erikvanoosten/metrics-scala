@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2023 Erik van Oosten
+ * Copyright (c) 2013-2026 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,7 @@
 
 package nl.grons.metrics4
 
-import org.scalatest.Tag
-
 package object scala {
-
-  object GE_Scala212 extends Tag(">=scala2.12")
-  object LT_Scala212 extends Tag("<scala2.12")
 
   /**
    * Used in [[nl.grons.metrics4.scala.MetricNameSpec]].

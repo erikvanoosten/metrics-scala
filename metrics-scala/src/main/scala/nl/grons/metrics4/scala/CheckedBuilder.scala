@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2023 Erik van Oosten
+ * Copyright (c) 2013-2026 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,6 +78,7 @@ trait CheckedBuilder extends BaseBuilder {
    *   implicit private val timeout = 10.seconds
    *   healthCheck("alive")(Future { workerThreadIsActive() })
    * }
+   * }}}
    *
    * NOTE: only one health check can be registered under a name (including the base name, which is derived from the
    * class name by default). A common cause for multiple registrations is when a class that defines a health check is
@@ -121,9 +122,9 @@ object HealthCheckMagnet {
    * Magnet for checkers returning a [[scala.Boolean]] (or convertible to Boolean).
    */
   implicit def fromBooleanCheck[T](checker: ByName[T])(implicit convert: T => Boolean): HealthCheckMagnet = {
-    val booleanChecker = checker map convert
+    val booleanChecker = checker.map(convert)
     new HealthCheckMagnet {
-      def apply(unhealthyMessage: String) = new HealthCheck() {
+      def apply(unhealthyMessage: String): HealthCheck = new HealthCheck() {
         protected def check: Result =
           if (booleanChecker()) Result.healthy()
           else Result.unhealthy(unhealthyMessage)
@@ -135,7 +136,7 @@ object HealthCheckMagnet {
    * Magnet for checkers returning an [[scala.util.Try]].
    */
   implicit def fromTryChecker[T](checker: ByName[Try[T]]): HealthCheckMagnet = new HealthCheckMagnet {
-    def apply(unhealthyMessage: String) = new HealthCheck() {
+    def apply(unhealthyMessage: String): HealthCheck = new HealthCheck() {
       protected def check: Result = checker() match {
         case Success(m) => healthyWithValue[T](m)
         case Failure(t) => Result.unhealthy(t)
@@ -147,7 +148,7 @@ object HealthCheckMagnet {
    * Magnet for checkers returning an [[scala.util.Either]].
    */
   implicit def fromEitherChecker[T, U](checker: ByName[Either[T, U]]): HealthCheckMagnet = new HealthCheckMagnet {
-    def apply(unhealthyMessage: String) = new HealthCheck() {
+    def apply(unhealthyMessage: String): HealthCheck = new HealthCheck() {
       protected def check: Result = checker() match {
         case Right(m) => healthyWithValue[U](m)
         case Left(t: Throwable) => Result.unhealthy(t)
@@ -160,7 +161,7 @@ object HealthCheckMagnet {
    * Magnet for checkers returning a [[com.codahale.metrics.health.HealthCheck.Result]].
    */
   implicit def fromMetricsResultCheck(checker: ByName[Result]): HealthCheckMagnet = new HealthCheckMagnet {
-    def apply(unhealthyMessage: String) = new HealthCheck() {
+    def apply(unhealthyMessage: String): HealthCheck = new HealthCheck() {
       protected def check: Result = checker()
     }
   }

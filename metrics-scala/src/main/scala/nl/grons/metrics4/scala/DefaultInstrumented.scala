@@ -33,7 +33,7 @@ import com.codahale.metrics.health.{HealthCheckRegistry, SharedHealthCheckRegist
   *   healthCheck("alive") { workerThreadIsActive() }
   *
   *   // Define a timer metric:
-  *   private[this] val loading = metrics.timer("loading")
+  *   private val loading = metrics.timer("loading")
   *
   *   // Use the timer metric:
   *   def loadStuff(): Seq[Row] = loading.time {

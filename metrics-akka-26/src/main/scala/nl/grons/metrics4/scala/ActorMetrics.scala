@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2023 Erik van Oosten
+ * Copyright (c) 2013-2026 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,7 +59,7 @@ import akka.actor.Actor
  */
 trait ActorInstrumentedLifeCycle extends Actor { self: InstrumentedBuilder =>
 
-  abstract override def preRestart(reason: Throwable, message: Option[Any]) = {
+  abstract override def preRestart(reason: Throwable, message: Option[Any]): Unit = {
     metrics.unregisterGauges()
     super.preRestart(reason, message)
   }
@@ -97,9 +97,9 @@ trait ReceiveCounterActor extends Actor { self: InstrumentedBuilder =>
   def receiveCounterName: String = "receiveCounter"
   lazy val counter: Counter = metrics.counter(receiveCounterName)
 
-  private[this] lazy val wrapped = counter.count(super.receive)
+  private lazy val wrapped: Actor.Receive = counter.count(super.receive)
 
-  abstract override def receive = wrapped
+  abstract override def receive: Actor.Receive = wrapped
 
 }
 
@@ -134,9 +134,9 @@ trait ReceiveTimerActor extends Actor { self: InstrumentedBuilder =>
   def receiveTimerName: String = "receiveTimer"
   lazy val timer: Timer = metrics.timer(receiveTimerName)
 
-  private[this] lazy val wrapped = timer.timePF(super.receive)
+  private lazy val wrapped: Actor.Receive = timer.timePF(super.receive)
 
-  abstract override def receive = wrapped
+  abstract override def receive: Actor.Receive = wrapped
 }
 
 /**
@@ -170,8 +170,8 @@ trait ReceiveExceptionMeterActor extends Actor { self: InstrumentedBuilder =>
   def receiveExceptionMeterName: String = "receiveExceptionMeter"
   lazy val meter: Meter = metrics.meter(receiveExceptionMeterName)
 
-  private[this] lazy val wrapped = meter.exceptionMarkerPF(super.receive)
+  private lazy val wrapped: Actor.Receive = meter.exceptionMarkerPF(super.receive)
 
-  abstract override def receive = wrapped
+  abstract override def receive: Actor.Receive = wrapped
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2023 Erik van Oosten
+ * Copyright (c) 2013-2026 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,8 +39,7 @@ class MetricBuilderSpec extends AnyFunSpec with OneInstancePerTest {
     val pushGaugeWithTimeout: PushGaugeWithTimeout[Int] = metrics.pushGaugeWithTimeout("pushT", 0, 300.millisecond)
     val counter: Counter = metrics.counter("1..2..3..4")
     val histogram: Histogram = metrics.histogram("histo")
-    //noinspection ScalaDeprecation
-    val meter: Meter = metrics.meter("meter", "testscope")
+    val meter: Meter = metrics.meter("meter")
 
     def waitFor100Ms(): Unit = {
       timer.time {

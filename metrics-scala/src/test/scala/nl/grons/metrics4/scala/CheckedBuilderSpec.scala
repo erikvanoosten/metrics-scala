@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2023 Erik van Oosten
+ * Copyright (c) 2013-2026 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,8 @@ import java.text.SimpleDateFormat
 
 import com.codahale.metrics.health.HealthCheck.Result
 import com.codahale.metrics.health.{HealthCheck, HealthCheckRegistry}
-import org.mockito.Mockito._
 import org.scalactic.Equality
+import org.scalamock.scalatest.MockFactory
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers._
 
@@ -31,7 +31,7 @@ import scala.concurrent.{Future, Promise, TimeoutException}
 import scala.language.implicitConversions
 import scala.util.Try
 
-class HealthCheckSpec extends AnyFunSpec {
+class HealthCheckSpec extends AnyFunSpec with MockFactory {
   implicit private val resultWithApproximateTimestampEquality: Equality[Result] =
     HealthCheckResultWithApproximateTimestampEquality
 
@@ -39,12 +39,17 @@ class HealthCheckSpec extends AnyFunSpec {
     it ("registers the created checker") {
       val checkOwner = newCheckOwner
       val check = checkOwner.createBooleanHealthCheck { true }
-      verify(checkOwner.registry).register("nl.grons.metrics4.scala.CheckOwner.test", check)
+      (checkOwner.registry.register _).verify("nl.grons.metrics4.scala.CheckOwner.test", check).once()
     }
 
     it("build health checks that call the provided checker") {
-      val mockChecker = mock(classOf[MockableChecker])
-      when(mockChecker.check()).thenReturn(true).thenReturn(false).thenReturn(true).thenReturn(false)
+      val mockChecker = mock[MockableChecker]
+      inSequence {
+        (() => mockChecker.check()).expects().returning(true)
+        (() => mockChecker.check()).expects().returning(false)
+        (() => mockChecker.check()).expects().returning(true)
+        (() => mockChecker.check()).expects().returning(false)
+      }
       val check = newCheckOwner.createCheckerHealthCheck(mockChecker)
       check.execute() should equal(Result.healthy())
       check.execute() should equal(Result.unhealthy("FAIL"))
@@ -132,11 +137,11 @@ class HealthCheckSpec extends AnyFunSpec {
     }
 
     it("supports override of metric base name") {
-      val checkOwner = new CheckOwner() {
+      val checkOwner = new CheckOwner(stubRegistry()) {
         override lazy val metricBaseName: MetricName = MetricName("OverriddenMetricBaseName")
       }
       val check = checkOwner.createBooleanHealthCheck { true }
-      verify(checkOwner.registry).register("OverriddenMetricBaseName.test", check)
+      (checkOwner.registry.register _).verify("OverriddenMetricBaseName.test", check).once()
     }
 
     it("supports Unit checker with side-effects (healthy)") {
@@ -193,7 +198,8 @@ class HealthCheckSpec extends AnyFunSpec {
     }
   }
 
-  private val newCheckOwner = new CheckOwner()
+  private def newCheckOwner = new CheckOwner(stubRegistry())
+  private def stubRegistry(): HealthCheckRegistry = stub[TestHealthCheckRegistry]
 
 }
 
@@ -220,8 +226,7 @@ private trait MockableChecker {
   def check(): Boolean
 }
 
-private class CheckOwner() extends CheckedBuilder {
-  val registry: HealthCheckRegistry = mock(classOf[HealthCheckRegistry])
+private class CheckOwner(val registry: HealthCheckRegistry) extends CheckedBuilder {
 
   // Unfortunately we need a helper method for each supported type. If we wanted a single helper method,
   // we would need to repeat the magnet pattern right here in a test class :(
@@ -262,7 +267,7 @@ private class CheckOwner() extends CheckedBuilder {
   }
 
   def createFutureHealthCheck(timeout: FiniteDuration)(checker: => Future[_]): HealthCheck = {
-    implicit val checkTimeout = timeout
+    implicit val checkTimeout: FiniteDuration = timeout
     healthCheck("test", "FAIL")(checker)
   }
 }

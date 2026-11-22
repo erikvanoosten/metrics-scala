@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2023 Erik van Oosten
+ * Copyright (c) 2013-2026 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,21 +18,21 @@ package nl.grons.metrics4.scala
 
 import com.codahale.metrics.MetricRegistry
 import com.codahale.metrics.health.{HealthCheck, HealthCheckRegistry}
-import org.mockito.Mockito._
+import org.scalamock.scalatest.MockFactory
 import org.scalatest.OneInstancePerTest
 import org.scalatest.funspec.AnyFunSpec
 
-class CombinedBuilderSpec extends AnyFunSpec with OneInstancePerTest {
+class CombinedBuilderSpec extends AnyFunSpec with OneInstancePerTest with MockFactory {
 
   describe("InstrumentedBuilder combined with CheckedBuilder") {
     it("uses owner class as metric base name") {
       val combinedBuilder = new CombinedBuilder
 
       combinedBuilder.createCounter()
-      verify(combinedBuilder.metricRegistry).counter("nl.grons.metrics4.scala.CombinedBuilderSpec.CombinedBuilder.cnt")
-
       val check = combinedBuilder.createBooleanHealthCheck { true }
-      verify(combinedBuilder.registry).register("nl.grons.metrics4.scala.CombinedBuilderSpec.CombinedBuilder.test", check)
+
+      (combinedBuilder.metricRegistry.counter(_: String)).verify("nl.grons.metrics4.scala.CombinedBuilderSpec.CombinedBuilder.cnt").once()
+      (combinedBuilder.registry.register _).verify("nl.grons.metrics4.scala.CombinedBuilderSpec.CombinedBuilder.test", check).once()
     }
 
     it("supports overriding the metric base name") {
@@ -41,16 +41,16 @@ class CombinedBuilderSpec extends AnyFunSpec with OneInstancePerTest {
       }
 
       combinedBuilder.createCounter()
-      verify(combinedBuilder.metricRegistry).counter("OverriddenBaseName.cnt")
-
       val check = combinedBuilder.createBooleanHealthCheck { true }
-      verify(combinedBuilder.registry).register("OverriddenBaseName.test", check)
+
+      (combinedBuilder.metricRegistry.counter(_: String)).verify("OverriddenBaseName.cnt").once()
+      (combinedBuilder.registry.register _).verify("OverriddenBaseName.test", check).once()
     }
   }
 
   private class CombinedBuilder() extends InstrumentedBuilder with CheckedBuilder {
-    val metricRegistry: MetricRegistry = mock(classOf[MetricRegistry])
-    val registry: HealthCheckRegistry = mock(classOf[HealthCheckRegistry])
+    val metricRegistry: MetricRegistry = stub[TestMetricRegistry]
+    val registry: HealthCheckRegistry = stub[TestHealthCheckRegistry]
 
     def createCounter(): Counter = metrics.counter("cnt")
 
