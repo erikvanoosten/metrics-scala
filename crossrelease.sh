@@ -4,7 +4,7 @@
 DEFAULT_COMMAND="; +clean; +test; +package; +mimaFindBinaryIssues; +publishSigned; sonatypeBundleRelease"
 
 # Assumes osx
-export JAVA_HOME=`/usr/libexec/java_home -v 11`
+export JAVA_HOME=`/usr/libexec/java_home -v 21`
 
 VERSION="$(git describe --tags)"
 echo "Version: $VERSION"

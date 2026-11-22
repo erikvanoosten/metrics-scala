@@ -14,7 +14,6 @@ Object `nl.grons.metrics4.scala.Implicits` (necessary in scala 2.11 only) is now
 Building metrics with a `scope` parameter has been deprecated for 6 years and is now removed.
 For example, instead of `gauge("name", "scope")` use `gauge("name.scope")`.
 
-
 v4.3.7: Nov 2025
 =================
 
