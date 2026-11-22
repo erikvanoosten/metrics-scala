@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2023 Erik van Oosten
+ * Copyright (c) 2013-2026 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ import com.codahale.metrics.MetricRegistry
  * }
  *
  * class Example(db: Database) extends Instrumented {
- *   private[this] val loading = metrics.timer("loading")
+ *   private val loading = metrics.timer("loading")
  *
  *   def loadStuff(): Seq[Row] = loading.time {
  *     db.fetchRows()
@@ -47,7 +47,7 @@ import com.codahale.metrics.MetricRegistry
  * {{{
  * class Example(db: Database) extends Instrumented {
  *   override lazy val metricBaseName = MetricName("Overridden.Base.Name")
- *   private[this] val loading = metrics.timer("loading")
+ *   private val loading = metrics.timer("loading")
  *
  *   def loadStuff(): Seq[Row] = loading.time {
  *     db.fetchRows()

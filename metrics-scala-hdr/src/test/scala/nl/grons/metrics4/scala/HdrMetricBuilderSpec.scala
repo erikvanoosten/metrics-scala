@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2023 Erik van Oosten
+ * Copyright (c) 2013-2026 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,12 @@
 package nl.grons.metrics4.scala
 
 import java.util.concurrent.{CountDownLatch, Executors}
-
 import com.codahale.metrics.MetricRegistry
 import org.scalatest.funspec.AsyncFunSpec
 import org.scalatest.matchers.should.Matchers._
 import org.scalatest.{Inspectors, OneInstancePerTest}
 
-import scala.concurrent.{Await, ExecutionContext, Future}
+import scala.concurrent.{Await, ExecutionContext, ExecutionContextExecutor, Future}
 import scala.concurrent.duration._
 
 class HdrMetricBuilderSpec extends AsyncFunSpec with OneInstancePerTest with Inspectors {
@@ -41,8 +40,6 @@ class HdrMetricBuilderSpec extends AsyncFunSpec with OneInstancePerTest with Ins
 
   private class UnderTest extends Instrumented {
     val timer: Timer = metrics.timer("10ms")
-    //noinspection ScalaDeprecation
-    val timerWithScope: Timer = metrics.timer("10ms", "scope")
     val histogram: Histogram = metrics.histogram("histo")
 
     def createTimer(name: String): Timer = metrics.timer(name)
@@ -68,11 +65,6 @@ class HdrMetricBuilderSpec extends AsyncFunSpec with OneInstancePerTest with Ins
       underTest.timer.max should be >= 80000000L
     }
 
-    it("defines a timer with scope") {
-      waitFor100Ms(underTest.timerWithScope)
-      underTest.timerWithScope.max should be >= 80000000L
-    }
-
     it("defines a histogram") {
       underTest.histogram += 1
       underTest.histogram.count should equal (1)
@@ -95,7 +87,7 @@ class HdrMetricBuilderSpec extends AsyncFunSpec with OneInstancePerTest with Ins
       assume(Runtime.getRuntime.availableProcessors() > 1, "Can not test concurrency on a single CPU system")
       val threadCount = Math.min(Runtime.getRuntime.availableProcessors() * 100, 400)
       val executorService = Executors.newFixedThreadPool(threadCount)
-      implicit val ec = ExecutionContext.fromExecutor(executorService)
+      implicit val ec: ExecutionContextExecutor = ExecutionContext.fromExecutor(executorService)
       try {
         val latch = new CountDownLatch(1)
         val histogramsF = List.fill(threadCount) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2023 Erik van Oosten
+ * Copyright (c) 2013-2026 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import scala.util.control.ControlThrowable
  * Example usage:
  * {{{
  *   class Example(val db: Db) extends Instrumented {
- *     private[this] val rowsLoadedMeter = metrics.meter("rowsLoaded")
+ *     private val rowsLoadedMeter = metrics.meter("rowsLoaded")
  *
  *     def load(id: Long): Seq[Row] = {
  *       val rows = db.load(id)
@@ -43,7 +43,7 @@ class Meter(metric: DropwizardMeter) {
    * Example usage:
    * {{{
    *   class Example(val db: Db) extends Instrumented {
-   *     private[this] val loadExceptionMeter = metrics.meter("load").exceptionMarker
+   *     private val loadExceptionMeter = metrics.meter("load").exceptionMarker
    *
    *     def load(id: Long) = loadExceptionMeter {
    *       db.load(id)

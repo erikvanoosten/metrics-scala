@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2023 Erik van Oosten
+ * Copyright (c) 2013-2026 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,46 +16,46 @@
 
 package nl.grons.metrics4.scala
 
-import org.mockito.Mockito._
+import org.scalamock.scalatest.MockFactory
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers._
 
-class CounterSpec extends AnyFunSpec {
+class CounterSpec extends AnyFunSpec with MockFactory {
   describe("A counter") {
 
     it("+= should increment the underlying metric by an arbitrary amount") {
       withMockCounter { case (mockDwCounter, counter) =>
         counter += 10
-        verify(mockDwCounter).inc(10)
+        (mockDwCounter.inc(_: Long)).verify(10L).once()
       }
     }
 
     it("-= should decrement the underlying metric by an arbitrary amount") {
       withMockCounter { case (mockDwCounter, counter) =>
         counter -= 12
-        verify(mockDwCounter).dec(12)
+        (mockDwCounter.dec(_: Long)).verify(12L).once()
       }
     }
 
     it("inc should increment the underlying metric by an arbitrary amount") {
       withMockCounter { case (mockDwCounter, counter) =>
         counter.inc(14)
-        verify(mockDwCounter).inc(14)
+        (mockDwCounter.inc(_: Long)).verify(14L).once()
       }
     }
 
     it("dec should decrement the underlying metric by an arbitrary amount") {
       withMockCounter { case (mockDwCounter, counter) =>
         counter.dec(16)
-        verify(mockDwCounter).dec(16)
+        (mockDwCounter.dec(_: Long)).verify(16L).once()
       }
     }
 
     it("getCount should consult the underlying counter for current count") {
       withMockCounter { case (mockDwCounter, counter) =>
-        when(mockDwCounter.getCount).thenReturn(1L)
+        (() => mockDwCounter.getCount).when().returns(1L)
         counter.count should equal (1)
-        verify(mockDwCounter).getCount
+        (() => mockDwCounter.getCount).verify().once()
       }
     }
 
@@ -70,14 +70,14 @@ class CounterSpec extends AnyFunSpec {
       it("should increment counter upon execution of partial function") {
         withWrappedPf { case (mockDwCounter, wrappedPf) =>
           wrappedPf("test") should equal("test")
-          verify(mockDwCounter).inc(1)
+          (mockDwCounter.inc(_: Long)).verify(1L).once()
         }
       }
 
       it("should increment counter upon execution of undefined partial function") {
         withWrappedPf { case (mockDwCounter, wrappedPf) =>
           a[MatchError] should be thrownBy wrappedPf("x")
-          verify(mockDwCounter).inc(1)
+          (mockDwCounter.inc(_: Long)).verify(1L).once()
         }
       }
     }
@@ -86,20 +86,20 @@ class CounterSpec extends AnyFunSpec {
       withMockCounter { case (mockDwCounter, counter) =>
         def dummyWork = 123
         val result = counter.countConcurrency(dummyWork)
-        verify(mockDwCounter).inc(1)
-        verify(mockDwCounter).dec(1)
+        (mockDwCounter.inc(_: Long)).verify(1L).once()
+        (mockDwCounter.dec(_: Long)).verify(1L).once()
         result should be (123)
       }
     }
   }
 
-  private def withMockCounter[A](testCode: (com.codahale.metrics.Counter, Counter) => A): A = {
-    val mockDwCounter = mock(classOf[com.codahale.metrics.Counter])
+  private def withMockCounter[A](testCode: (TestCounter, Counter) => A): A = {
+    val mockDwCounter = stub[TestCounter]
     val counter = new Counter(mockDwCounter)
     testCode(mockDwCounter, counter)
   }
 
-  private def withWrappedPf[A](testCode: (com.codahale.metrics.Counter, PartialFunction[String, String]) => A): A = {
+  private def withWrappedPf[A](testCode: (TestCounter, PartialFunction[String, String]) => A): A = {
     withMockCounter { case (mockDwCounter, counter) =>
       val pf: PartialFunction[String, String] = { case "test" => "test" }
       val wrapped: PartialFunction[String, String] = counter.count(pf)

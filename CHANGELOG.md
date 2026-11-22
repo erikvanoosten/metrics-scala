@@ -1,8 +1,28 @@
+v4.4.0: Nov 2026
+=================
+
+This release cleans up deprecations and updates dependencies:
+metrics-core: 4.2.37 → 4.2.40, pekko: 1.3.0 → 1.7.1, scala: 3.3.7 → 3.9.0 and 2.12.20 → 2.12.21.
+
+The scala 3 build now requires scala 3.9 (was 3.3) and java 21 (was java 11).
+The scala 2.13 build still requires java 11.
+
+Akka 2.5, scala 2.11 and 2.12 are no longer supported.
+
+Object `nl.grons.metrics4.scala.Implicits` (necessary in scala 2.11 only) is now empty so `_` imports won't break. Please remove the import as the object will be removed in a future release.
+
+Building metrics with a `scope` parameter has been deprecated for 6 years and is now removed.
+For example, instead of `gauge("name", "scope")` use `gauge("name.scope")`.
+
+
 v4.3.7: Nov 2025
 =================
 
 This is minor maintenance release which only consists of dependency updates:
 metrics-core: 4.2.35 → 4.2.37, pekko: 1.1.5 → 1.3.0, scala: 2.13.16 → 2.13.18 and 3.3.6 → 3.3.7.
+
+This is the last release to support Akka 2.5.
+This is the last release to support scala 2.11 and 2.12.
 
 v4.3.6: Sep 2025
 =================

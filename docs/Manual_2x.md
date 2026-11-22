@@ -12,7 +12,7 @@ For example, here is how to create and use a timer:
 import com.yammer.metrics.scala.Instrumented
 
 class Example(db: Database) extends Instrumented {
-  private[this] val loading = metrics.timer("loading")
+  private val loading = metrics.timer("loading")
 
   def loadStuff(): Seq[Row] = loading.time {
     db.fetchRows()

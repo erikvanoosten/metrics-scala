@@ -2,7 +2,7 @@ import sbt.Keys.scalaVersion
 import sbt.librarymanagement.{CrossVersion, ModuleID}
 import xerial.sbt.Sonatype.sonatypeCentralHost
 
-val scala3 = "3.3.7"
+val scala3 = "3.9.0"
 val scala213 = "2.13.18"
 
 lazy val commonSettings = Seq(
@@ -11,15 +11,10 @@ lazy val commonSettings = Seq(
   crossVersion := CrossVersion.binary,
   libraryDependencies ++= Seq(
     "org.scalatest" %% "scalatest" % "3.2.20" % Test,
-    "org.mockito" % "mockito-core" % "5.24.0" % Test,
+    "org.scalamock" %% "scalamock-scalatest" % "7.6.3" % Test,
     "org.slf4j" % "slf4j-simple" % "2.0.20" % Test
   ),
   fork := true,
-  Test / testOptions += {
-    // Exclude tests based on scala version:
-    if (before212(scalaVersion.value)) Tests.Argument("-l", ">=scala2.12")
-    else Tests.Argument("-l", "<scala2.12")
-  },
   javacOptions ++= Seq("--release", "11", "-J-Xmx512m", "-J-Xms128m", "-J-Xss10m"),
   javaOptions ++= Seq("-Xmx512m", "-Djava.awt.headless=true"),
   scalacOptions ++= scalacTargets(scalaVersion.value) ++ Seq("-deprecation", "-unchecked"),
@@ -46,7 +41,7 @@ ThisBuild / credentials += Credentials(Path.userHome / ".sbt" / "sonatype_centra
 
 lazy val root = project
   .in(file("."))
-  .aggregate(metricsScala, metricsScalaHdr, metricsAkka25, metricsAkka26, metricsPekko)
+  .aggregate(metricsScala, metricsScalaHdr, metricsAkka26, metricsPekko)
   .settings(
     crossScalaVersions := Nil,
     publishArtifact := false,
@@ -62,7 +57,7 @@ lazy val metricsScala = project
   .in(file("metrics-scala"))
   .settings(
     commonSettings,
-    crossScalaVersions := Seq(scala3, scala213, "2.12.21", "2.11.12"),
+    crossScalaVersions := Seq(scala3, scala213),
     name := "metrics4-scala",
     description := "metrics-scala for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -77,7 +72,7 @@ lazy val metricsScalaHdr = project
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq(scala3, scala213, "2.12.21", "2.11.12"),
+    crossScalaVersions := Seq(scala3, scala213),
     name := "metrics4-scala-hdr",
     description := "metrics-scala-hdr for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -93,7 +88,7 @@ lazy val metricsPekko = project
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq(scala3, scala213, "2.12.21"),
+    crossScalaVersions := Seq(scala3, scala213),
     name := "metrics4-pekko",
     description := "metrics-scala for pekko 1.0 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -109,7 +104,7 @@ lazy val metricsAkka26 = project
   .dependsOn(metricsScala)
   .settings(
     commonSettings,
-    crossScalaVersions := Seq(scala3, scala213, "2.12.21"),
+    crossScalaVersions := Seq(scala3, scala213),
     name := "metrics4-akka_a26",
     description := "metrics-scala for Akka 2.6 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -119,49 +114,25 @@ lazy val metricsAkka26 = project
       "com.typesafe.akka" %% "akka-testkit" % "2.6.20" % Test
       // scala-steward:on
     ),
-    sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
     mimaPreviousArtifacts := mimaPrevious(name.value, scalaVersion.value)
   )
-
-lazy val metricsAkka25 = project
-  .in(file("metrics-akka-25"))
-  .dependsOn(metricsScala)
-  .settings(
-    commonSettings,
-    crossScalaVersions := Seq(scala213, "2.12.21"),
-    name := "metrics4-akka_a25",
-    description := "metrics-scala for Akka 2.5 and 2.6 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
-    libraryDependencies ++= Seq(
-      // Stay on Akka 2.5 to guarantee backward compatibility:
-      // scala-steward:off
-      "com.typesafe.akka" %% "akka-actor" % "2.5.31",
-      "com.typesafe.akka" %% "akka-testkit" % "2.5.31" % Test
-      // scala-steward:on
-    ),
-    sourceDirectory := baseDirectory.value.getParentFile / "metrics-akka" / "src",
-    mimaPreviousArtifacts := mimaPrevious(name.value, scalaVersion.value)
-  )
-
-// 2.11.x are the only pre-2.12 scala versions that are used in this build
-def before212(scalaVersion: String): Boolean = scalaVersion.startsWith("2.11.")
 
 def mimaPrevious(module: String, scalaVersion: String): Set[ModuleID] =
   Set("nl.grons" %% module % "4.2.8")
 
 def scalacTargets(scalaVersion: String): Seq[String] = {
-  if (scalaVersion.startsWith("2.11.") || scalaVersion.startsWith("2.12.")) Seq("-target:jvm-1.8")
-  else if (scalaVersion.startsWith("2.13.")) Seq("-release:11")
+  if (scalaVersion.startsWith("2.13.")) Seq("-release:11")
   else {
-    // Scala 3.3.0+
-    Seq("-java-output-version:11")
+    // Scala 3.9.0+
+    Seq("-java-output-version:21")
   }
 }
 
 // Config for sbt-github-actions plugin
-ThisBuild / crossScalaVersions := Seq(scala213)
+ThisBuild / crossScalaVersions := Seq(scala3, scala213)
 ThisBuild / githubWorkflowPublishTargetBranches := Seq()
 ThisBuild / githubWorkflowJavaVersions := Seq(
   JavaSpec.temurin("11"),
-  JavaSpec.temurin("17"),
+  JavaSpec.temurin("21"),
   JavaSpec.temurin("25")
 )

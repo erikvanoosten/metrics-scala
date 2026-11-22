@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2023 Erik van Oosten
+ * Copyright (c) 2013-2026 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ import scala.util.control.NonFatal
   * Example usage:
   * {{{
   *   class Example(val db: Db) extends Instrumented {
-  *     private[this] val loadTimer = metrics.timer("load")
+  *     private val loadTimer = metrics.timer("load")
   *
   *     def load(id: Long) = loadTimer.time {
   *       db.load(id)
@@ -78,7 +78,7 @@ class Timer(private[scala] val metric: DropwizardTimer) {
     * Example usage:
     * {{{
     * class Example extends Instrumented {
-    *   private[this] loadTimer = metrics.timer("loading")
+    *   private loadTimer = metrics.timer("loading")
     *
     *   private def asyncFetchRows(): Future[Seq[Row]] = ...
     *

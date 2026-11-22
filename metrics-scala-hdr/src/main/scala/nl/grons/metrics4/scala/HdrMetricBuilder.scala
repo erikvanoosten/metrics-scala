@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2023 Erik van Oosten
+ * Copyright (c) 2013-2026 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 package nl.grons.metrics4.scala
 
 import com.codahale.metrics.{MetricRegistry, Reservoir, Histogram => DropwizardHistogram, Timer => DropwizardTimer}
-import nl.grons.metrics4.scala.Implicits._
 import org.mpierce.metrics.reservoir.hdrhistogram.{HdrHistogramReservoir, HdrHistogramResetOnSnapshotReservoir}
 
 /**

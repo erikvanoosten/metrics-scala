@@ -22,7 +22,7 @@ import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers._
 import org.scalatest.OneInstancePerTest
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 class ActorMetricsSpec extends AnyFunSpec with OneInstancePerTest {
   import ActorMetricsSpec._

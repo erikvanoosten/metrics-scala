@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2023 Erik van Oosten
+ * Copyright (c) 2014-2026 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +17,17 @@
 package nl.grons.metrics4.scala
 
 import com.codahale.metrics.MetricRegistry
-import org.mockito.Mockito._
+import org.scalamock.scalatest.MockFactory
 import org.scalatest.OneInstancePerTest
 import org.scalatest.funspec.AnyFunSpec
 
-class InstrumentedBuilderSpec extends AnyFunSpec with OneInstancePerTest {
+class InstrumentedBuilderSpec extends AnyFunSpec with OneInstancePerTest with MockFactory {
 
   describe("InstrumentedBuilder") {
     it("uses owner class as metric base name") {
       val metricOwner = new MetricOwner
       metricOwner.createCounter()
-      verify(metricOwner.metricRegistry).counter("nl.grons.metrics4.scala.InstrumentedBuilderSpec.MetricOwner.cnt")
+      (metricOwner.metricRegistry.counter(_: String)).verify("nl.grons.metrics4.scala.InstrumentedBuilderSpec.MetricOwner.cnt").once()
     }
 
     it("supports overriding the metric base name") {
@@ -35,12 +35,12 @@ class InstrumentedBuilderSpec extends AnyFunSpec with OneInstancePerTest {
         override lazy val metricBaseName: MetricName = MetricName("OverriddenBaseName")
       }
       metricOwner.createCounter()
-      verify(metricOwner.metricRegistry).counter("OverriddenBaseName.cnt")
+      (metricOwner.metricRegistry.counter(_: String)).verify("OverriddenBaseName.cnt").once()
     }
   }
 
   private class MetricOwner() extends InstrumentedBuilder {
-    val metricRegistry: MetricRegistry = mock(classOf[MetricRegistry])
+    val metricRegistry: MetricRegistry = stub[TestMetricRegistry]
 
     def createCounter(): Counter = metrics.counter("cnt")
   }

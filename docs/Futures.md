@@ -4,7 +4,7 @@ A future can be timed as follows:
 
 ```scala
 class Example extends DefaultInstrumented {
-  private[this] val loading = metrics.timer("loading")
+  private val loading = metrics.timer("loading")
 
   def asyncFetchRows(): Future[Seq[Row]] = ???
 
@@ -25,7 +25,7 @@ If you only need to measure the execution time, then use a timer inside the futu
 
 ```scala
 class Example extends DefaultInstrumented {
-  private[this] val loading = metrics.timer("loading")
+  private val loading = metrics.timer("loading")
 
   def fetchRows(): Seq[Row] = ???
 

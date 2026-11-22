@@ -43,7 +43,7 @@ class Example(db: Database) extends nl.grons.metrics4.scala.DefaultInstrumented 
   healthCheck("alive") { workerThreadIsActive() }
 
   // Define a timer metric
-  private[this] val loading = metrics.timer("loading")
+  private val loading = metrics.timer("loading")
 
   // Use timer metric
   def loadStuff(): Seq[Row] = loading.time {

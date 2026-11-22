@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2023 Erik van Oosten
+ * Copyright (c) 2013-2026 Erik van Oosten
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,32 +16,32 @@
 
 package nl.grons.metrics4.scala
 
-import org.mockito.Mockito._
+import org.scalamock.scalatest.MockFactory
 import org.scalatest.OneInstancePerTest
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.should.Matchers._
 
-class HistogramSpec extends AnyFunSpec with OneInstancePerTest {
+class HistogramSpec extends AnyFunSpec with OneInstancePerTest with MockFactory {
   describe("A histogram") {
-    val metric = mock(classOf[com.codahale.metrics.Histogram])
+    val metric = stub[TestHistogram]
     val histogram = new Histogram(metric)
 
     it("updates the underlying histogram with an int") {
       histogram += 12
 
-      verify(metric).update(12)
+      (metric.update(_: Int)).verify(12).once()
     }
 
     it("updates the underlying histogram with a long") {
       histogram += 12L
 
-      verify(metric).update(12L)
+      (metric.update(_: Long)).verify(12L).once()
     }
 
     it("retrieves a snapshot for statistics") {
-      val snapshot = mock(classOf[com.codahale.metrics.Snapshot])
-      when(snapshot.getMax).thenReturn(1L)
-      when(metric.getSnapshot).thenReturn(snapshot)
+      val snapshot = stub[TestSnapshot]
+      (() => snapshot.getMax).when().returns(1L)
+      (() => metric.getSnapshot).when().returns(snapshot)
 
       histogram.max should equal (1L)
     }
