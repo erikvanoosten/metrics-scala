@@ -76,7 +76,7 @@ The following artifacts are available:
 
 * *metrics4-scala*: adds a nice Scala API to Dropwizard Metrics
 * *metrics4-pekko*: support for measuring Pekko actors
-* *metrics4-akka_a{25,26}*: support for measuring Akka actors
+* *metrics4-akka_a26*: support for measuring Akka actors
 * *metrics4-hdr*: adds support for [HdrHistogram](http://www.hdrhistogram.org/) to increase the accuracy of histograms 
 
 The table shows the available artifacts of metrics-scala. For the full list, including those targeting older Scala and
@@ -86,72 +86,41 @@ Akka versions see [all available versions](/docs/AvailableVersions.md).
   <tbody>
     <tr>
       <td valign="top" rowspan="2">Artifact name</td>
-      <td valign="top" rowspan="1" colspan="4">Scala version</td>
-      <td valign="top" rowspan="1" colspan="2">Akka version</td>
+      <td valign="top" rowspan="1" colspan="2">Scala version</td>
       <td valign="top" rowspan="2">Build against</td>
     </tr>
     <tr>
-      <td valign="top">3.3</td>
+      <td valign="top">3.9</td>
       <td valign="top">2.13</td>
-      <td valign="top">2.12</td>
-      <td valign="top">2.11</td>
-      <td valign="top">2.6</td>
-      <td valign="top">2.5</td>
     </tr>
     <tr>
       <td valign="top">metrics4-scala</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top">Dropwizard-metrics 4.2.37</td>
+      <td valign="top">Dropwizard-metrics 4.2.40</td>
     </tr>
     <tr>
       <td valign="top">metrics4-pekko</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top"></td>
-      <td valign="top">Pekko 1.3.0</td>
+      <td valign="top">Pekko 1.7.1</td>
     </tr>
     <tr>
       <td valign="top">metrics4-akka_a26</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
       <td valign="top">Akka 2.6.20</td>
-    </tr>
-    <tr>
-      <td valign="top">metrics4-akka_a25</td>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">Akka 2.5.31</td>
     </tr>
     <tr>
       <td valign="top">metrics4-scala-hdr</td>
       <td valign="top">✓</td>
       <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top">✓</td>
-      <td valign="top"></td>
-      <td valign="top"></td>
       <td valign="top">Hdr 1.1.3/2.2.2 (**)</td>
     </tr>
   </tbody>
 </table>
 
-Most artifacts are build for Java 11, only builds for scala 2.11 and scala 2.12 still target Java 8.
+The scala 3.9 artifacts need java 21, the scala 2.13 artifacts need java 11.
 
 (**) The first number is the version of `"org.mpierce.metrics.reservoir" % "hdrhistogram-metrics-reservoir"`,
 the second the version of `"org.hdrhistogram" % "HdrHistogram"`.
@@ -170,15 +139,15 @@ is not compatible over major Dropwizard versions.
 
 ## Download 4.x
 
-<a href="CHANGELOG.md">Release notes for 4.3.7.</a>
+<a href="CHANGELOG.md">Release notes for 4.4.0.</a>
 
 SBT:
 ```
 libraryDependencies ++= Seq(
-  "nl.grons" %% "metrics4-scala" % "4.3.7",
-  "nl.grons" %% "metrics4-pekko" % "4.3.7",
-  "nl.grons" %% "metrics4-akka_a26" % "4.3.7",
-  "nl.grons" %% "metrics4-scala-hdr" % "4.3.7"
+  "nl.grons" %% "metrics4-scala" % "4.4.0",
+  "nl.grons" %% "metrics4-pekko" % "4.4.0",
+  "nl.grons" %% "metrics4-akka_a26" % "4.4.0",
+  "nl.grons" %% "metrics4-scala-hdr" % "4.4.0"
 )
 ```
 
@@ -187,7 +156,7 @@ Maven:
 <properties>
     <scala.version>3.1.0</scala.version>
     <scala.compat.version>3</scala.compat.version>
-    <metrics.scala.version>4.3.7</metrics.scala.version>
+    <metrics.scala.version>4.4.0</metrics.scala.version>
 </properties>
 <dependency>
     <groupId>nl.grons</groupId>
