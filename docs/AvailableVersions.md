@@ -26,6 +26,31 @@ The table shows the available 4.4.x and later artifacts of metrics-scala.
       <td valign="top">3.9</td>
     </tr>
     <tr>
+      <td valign="top" rowspan="4"><a href="/CHANGELOG.md#v450-nov-2026">4.5.0</a></td>
+      <td valign="top">metrics4-scala</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">Dropwizard-metrics 4.2.40</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-pekko</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">Pekko 2.0.0</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-akka_a26</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">Akka 2.6.20</td>
+    </tr>
+    <tr>
+      <td valign="top">metrics4-scala-hdr</td>
+      <td valign="top">✓</td>
+      <td valign="top">✓</td>
+      <td valign="top">Hdr 1.1.3/2.2.2 (**)</td>
+    </tr>
+    <tr>
       <td valign="top" rowspan="4"><a href="/CHANGELOG.md#v440-nov-2026">4.4.0</a></td>
       <td valign="top">metrics4-scala</td>
       <td valign="top">✓</td>
@@ -58,7 +83,8 @@ the second the version of `"org.hdrhistogram" % "HdrHistogram"`.
 
 #### Java requirements
 
-The scala 3.9 artifacts need java 21, the scala 2.13 artifacts need java 11.
+The scala 3.9 artifacts need java 21, the scala 2.13 artifacts need java 11 (except the Pekko 2.x builds which require
+java 17).
 
 ## Available versions 4.0.x - 4.3.x
 

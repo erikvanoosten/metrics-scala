@@ -14,9 +14,9 @@ lazy val commonSettings = Seq(
     "org.slf4j" % "slf4j-simple" % "2.0.20" % Test
   ),
   fork := true,
-  javacOptions ++= Seq("--release", "11", "-J-Xmx512m", "-J-Xms128m", "-J-Xss10m"),
+  javacOptions ++= Seq("-J-Xmx512m", "-J-Xms128m", "-J-Xss10m"),
   javaOptions ++= Seq("-Xmx512m", "-Djava.awt.headless=true"),
-  scalacOptions ++= scalacTargets(scalaVersion.value) ++ Seq("-deprecation", "-unchecked"),
+  scalacOptions ++= Seq("-deprecation", "-unchecked"),
   publishTo := {
     val centralSnapshots = "https://central.sonatype.com/repository/maven-snapshots/"
     if (version.value.endsWith("-SNAPSHOT")) Some("central-snapshots" at centralSnapshots)
@@ -58,6 +58,7 @@ lazy val metricsScala = project
   .settings(
     commonSettings,
     crossScalaVersions := Seq(scala3, scala213),
+    scalacOptions ++= scalacTargets(scalaVersion.value),
     name := "metrics4-scala",
     description := "metrics-scala for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -73,6 +74,7 @@ lazy val metricsScalaHdr = project
   .settings(
     commonSettings,
     crossScalaVersions := Seq(scala3, scala213),
+    scalacOptions ++= scalacTargets(scalaVersion.value),
     name := "metrics4-scala-hdr",
     description := "metrics-scala-hdr for Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -89,14 +91,15 @@ lazy val metricsPekko = project
   .settings(
     commonSettings,
     crossScalaVersions := Seq(scala3, scala213),
+    scalacOptions ++= scalacTargets(scalaVersion.value, minimumVersion = "17"),
     name := "metrics4-pekko",
-    description := "metrics-scala for pekko 1.0 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
+    description := "metrics-scala for pekko 2 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
-      "org.apache.pekko" %% "pekko-actor" % "1.7.1",
-      "org.apache.pekko" %% "pekko-testkit" % "1.7.1" % Test
+      "org.apache.pekko" %% "pekko-actor" % "2.0.0",
+      "org.apache.pekko" %% "pekko-testkit" % "2.0.0" % Test
     ),
     sourceDirectory := baseDirectory.value.getParentFile / "metrics-pekko" / "src",
-    mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-pekko" % "4.3.2")
+    mimaPreviousArtifacts := Set("nl.grons" %% "metrics4-pekko" % "2.0.0")
   )
 
 lazy val metricsAkka26 = project
@@ -105,6 +108,7 @@ lazy val metricsAkka26 = project
   .settings(
     commonSettings,
     crossScalaVersions := Seq(scala3, scala213),
+    scalacOptions ++= scalacTargets(scalaVersion.value),
     name := "metrics4-akka_a26",
     description := "metrics-scala for Akka 2.6 and Scala " + CrossVersion.binaryScalaVersion(scalaVersion.value),
     libraryDependencies ++= Seq(
@@ -120,8 +124,8 @@ lazy val metricsAkka26 = project
 def mimaPrevious(module: String, scalaVersion: String): Set[ModuleID] =
   Set("nl.grons" %% module % "4.2.8")
 
-def scalacTargets(scalaVersion: String): Seq[String] = {
-  if (scalaVersion.startsWith("2.13.")) Seq("-release:11")
+def scalacTargets(scalaVersion: String, minimumVersion: String = "11"): Seq[String] = {
+  if (scalaVersion.startsWith("2.13.")) Seq(s"-release:$minimumVersion")
   else {
     // Scala 3.9.0+
     Seq("-java-output-version:21")
