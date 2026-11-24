@@ -27,8 +27,6 @@ jobs:
         exclude:
           - scala: 3.9.0
             java: temurin@17
-          - scala: 3.9.0
-            java: temurin@25
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout current branch (full)
