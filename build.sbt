@@ -1,6 +1,5 @@
 import sbt.Keys.scalaVersion
 import sbt.librarymanagement.{CrossVersion, ModuleID}
-import xerial.sbt.Sonatype.sonatypeCentralHost
 
 val scala3 = "3.9.0"
 val scala213 = "2.13.18"
@@ -18,26 +17,28 @@ lazy val commonSettings = Seq(
   javacOptions ++= Seq("--release", "11", "-J-Xmx512m", "-J-Xms128m", "-J-Xss10m"),
   javaOptions ++= Seq("-Xmx512m", "-Djava.awt.headless=true"),
   scalacOptions ++= scalacTargets(scalaVersion.value) ++ Seq("-deprecation", "-unchecked"),
-  publishTo := sonatypePublishToBundle.value,
+  publishTo := {
+    val centralSnapshots = "https://central.sonatype.com/repository/maven-snapshots/"
+    if (version.value.endsWith("-SNAPSHOT")) Some("central-snapshots" at centralSnapshots)
+    else localStaging.value
+  },
   publishMavenStyle := true,
   Test / publishArtifact := false,
   pomIncludeRepository := { _ => false },
-  licenses := Seq("Apache 2" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
-  homepage := Some(url("https://github.com/erikvanoosten/metrics-scala")),
+  licenses := Seq("Apache 2" -> uri("http://www.apache.org/licenses/LICENSE-2.0.txt")),
+  homepage := Some(uri("https://github.com/erikvanoosten/metrics-scala")),
   scmInfo := Some(ScmInfo(
-    url("https://github.com/erikvanoosten/metrics-scala"),
+    uri("https://github.com/erikvanoosten/metrics-scala"),
     "scm:git:git@github.com:erikvanoosten/metrics-scala.git"
   )),
   developers := List(
-    Developer(id="erikvanoosten", name="Erik van Oosten", email="", url=url("https://github.com/erikvanoosten")),
-    Developer(id="scullxbones", name="Brian Scully", email="", url=url("https://github.com/scullxbones"))
+    Developer(id="erikvanoosten", name="Erik van Oosten", email="", url=uri("https://github.com/erikvanoosten")),
+    Developer(id="scullxbones", name="Brian Scully", email="", url=uri("https://github.com/scullxbones"))
   )
 )
 
-// See https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html
-ThisBuild / publishTo := sonatypePublishTo.value
-ThisBuild / sonatypeCredentialHost := sonatypeCentralHost
-ThisBuild / credentials += Credentials(Path.userHome / ".sbt" / "sonatype_central_credentials")
+// See https://www.scala-sbt.org/2.x/docs/en/recipes/central.html
+credentials += Credentials(Path.userHome / ".sbt" / "sonatype_central_credentials")
 
 lazy val root = project
   .in(file("."))
@@ -49,7 +50,6 @@ lazy val root = project
     publish := {},
     publishLocal := {},
     name := "metrics4-scala-root",
-    sonatypeProfileName := "nl.grons",
     mimaPreviousArtifacts := Set.empty,
   )
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 # Does a full cross build of all scala/akka versions.
 
-DEFAULT_COMMAND="; +clean; +test; +package; +mimaFindBinaryIssues; +publishSigned; sonatypeBundleRelease"
+DEFAULT_COMMAND="; +clean; +test; +package; +mimaFindBinaryIssues; +publishSigned; sonaRelease"
 
 # Assumes osx
 export JAVA_HOME=`/usr/libexec/java_home -v 21`
@@ -22,4 +22,4 @@ else
   CMD="+$CMD"
 fi
 
-sbt $CMD
+sbt "$CMD"
