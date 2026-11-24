@@ -132,9 +132,7 @@ def scalacTargets(scalaVersion: String): Seq[String] = {
 ThisBuild / crossScalaVersions := Seq(scala3, scala213)
 ThisBuild / githubWorkflowPublishTargetBranches := Seq()
 ThisBuild / githubWorkflowJavaVersions := Seq(
-  JavaSpec.temurin("11"),
-  JavaSpec.temurin("21"),
-  JavaSpec.temurin("25")
+  JavaSpec.temurin("17"),
+  JavaSpec.temurin("25"),
+  JavaSpec.temurin("27")
 )
-ThisBuild / githubWorkflowBuildMatrixExclusions :=
-  Seq(MatrixExclude(Map("scala" -> "3.9.0", "java" -> "temurin@11")))

@@ -23,10 +23,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         scala: [3.9.0, 2.13.18]
-        java: [temurin@11, temurin@21, temurin@25]
-        exclude:
-          - scala: 3.9.0
-            java: temurin@11
+        java: [temurin@17, temurin@25, temurin@27]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout current branch (full)
@@ -34,20 +31,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Java (temurin@11)
-        if: matrix.java == 'temurin@11'
+      - name: Setup Java (temurin@17)
+        if: matrix.java == 'temurin@17'
         uses: actions/setup-java@v6
         with:
           distribution: temurin
-          java-version: 11
-          cache: sbt
-
-      - name: Setup Java (temurin@21)
-        if: matrix.java == 'temurin@21'
-        uses: actions/setup-java@v6
-        with:
-          distribution: temurin
-          java-version: 21
+          java-version: 17
           cache: sbt
 
       - name: Setup Java (temurin@25)
@@ -56,6 +45,14 @@ jobs:
         with:
           distribution: temurin
           java-version: 25
+          cache: sbt
+
+      - name: Setup Java (temurin@27)
+        if: matrix.java == 'temurin@27'
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 27
           cache: sbt
 
       - name: Setup sbt
